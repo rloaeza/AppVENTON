@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navegador"
+    app:startDestination="@id/inicioSesion">
+
+    <fragment
+        android:id="@+id/inicioSesion"
+        android:name="com.mas_aplicaciones.appventon.InicioSesion"
+        android:label="fragment_inicio_sesion"
+        tools:layout="@layout/fragment_inicio_sesion" >
+        <action
+            android:id="@+id/action_inicioSesion_to_tipoUsuario"
+            app:destination="@id/tipoUsuario" />
+        <action
+            android:id="@+id/action_inicioSesion_to_principalChofer"
+            app:destination="@id/principalChofer" />
+        <action
+            android:id="@+id/action_inicioSesion_to_principalUsuario"
+            app:destination="@id/principalUsuario" />
+    </fragment>
+    <fragment
+        android:id="@+id/registroUsuario"
+        android:name="com.mas_aplicaciones.appventon.RegistroUsuario"
+        android:label="fragment_registro_usuario"
+        tools:layout="@layout/fragment_registro_usuario" >
+        <action
+            android:id="@+id/action_registroUsuario_to_principalUsuario"
+            app:destination="@id/principalUsuario" />
+    </fragment>
+    <fragment
+        android:id="@+id/tipoUsuario"
+        android:name="com.mas_aplicaciones.appventon.TipoUsuario"
+        android:label="fragment_tipo_usuario"
+        tools:layout="@layout/fragment_tipo_usuario" >
+        <action
+            android:id="@+id/action_tipoUsuario_to_registroUsuario"
+            app:destination="@id/registroUsuario" />
+        <action
+            android:id="@+id/action_tipoUsuario_to_registroChofer"
+            app:destination="@id/registroChofer" />
+    </fragment>
+    <fragment
+        android:id="@+id/registroChofer"
+        android:name="com.mas_aplicaciones.appventon.RegistroChofer"
+        android:label="fragment_registro_chofer"
+        tools:layout="@layout/fragment_registro_chofer" >
+        <action
+            android:id="@+id/action_registroChofer_to_principalChofer"
+            app:destination="@id/principalChofer" />
+    </fragment>
+    <fragment
+        android:id="@+id/principalUsuario"
+        android:name="com.mas_aplicaciones.appventon.PrincipalUsuario"
+        android:label="fragment_principal_usuario"
+        tools:layout="@layout/fragment_principal_usuario" />
+    <fragment
+        android:id="@+id/principalChofer"
+        android:name="com.mas_aplicaciones.appventon.PrincipalChofer"
+        android:label="fragment_principal_chofer"
+        tools:layout="@layout/fragment_principal_chofer" />
+</navigation>
