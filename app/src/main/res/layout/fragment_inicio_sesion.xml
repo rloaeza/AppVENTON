@@ -1,23 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:background="@drawable/natureBackground"
     tools:context=".InicioSesion">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/LoguearseBoton"
+        android:layout_width="119dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="146dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="146dp"
+        android:background="@color/colorBackBotones"
+        android:text="@string/txtBotonHola"
+        android:textColor="@color/colorBotones"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TextContrasena" />
+
+
+    <EditText
+        android:id="@+id/TextUsuario"
+        android:layout_width="250dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="70dp"
+
+        android:backgroundTint="@color/colorBotones"
+        android:ems="10"
+        android:hint="@string/txtUsuario"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorBotones"
+        android:textColorHint="@color/colorBotones"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iconoUsuario"
+        tools:targetApi="o" /> <!--Para que funciona??-->
+
+    <EditText
+        android:id="@+id/TextContrasena"
+        android:layout_width="250dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="41dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="75dp"
+        android:backgroundTint="@color/colorBotones"
+        android:ems="10"
+        android:hint="@string/txtContra"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:textColor="@color/colorBotones"
+        android:textColorHint="@color/colorBotones"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/LoguearseBoton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TextUsuario"
+        tools:targetApi="o" /><!--Para que funciona??-->
+
+    <ImageView
+        android:id="@+id/iconoUsuario"
+        android:layout_width="136dp"
+        android:layout_height="136dp"
+        android:layout_marginStart="137dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="138dp"
+        android:layout_marginBottom="76dp"
+        android:contentDescription="@string/txtDescripcion"
+        android:src="@drawable/iconWhite"
+        app:layout_constraintBottom_toTopOf="@+id/TextUsuario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
+
+    <TextView
+        android:id="@+id/olvidarContra"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginStart="107dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="107dp"
+        android:contentDescription="@string/txtDescripcion"
+        android:textColor="@color/colorBotones"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LoguearseBoton"
+        tools:text="@string/txtOlvidasteContrasena" />
+
+    <TextView
+        android:id="@+id/registro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="162dp"
-        android:layout_marginTop="288dp"
+        android:layout_marginTop="29dp"
         android:layout_marginEnd="162dp"
-        android:layout_marginBottom="395dp"
-        android:text="@string/txtBotonHola"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/colorBotones"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/olvidarContra"
+        tools:text="@string/txtCrearCuenta" />
+
+
 </android.support.constraint.ConstraintLayout>

@@ -3,6 +3,16 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="txtBotonHola">Hola</string>
+    <string name="txtBotonHola">Iniciar Sesión</string>
+    <string name="txtUsuario">Usuario</string>
+    <string name="txtContra">Contraseña</string>
+    <!-- Esta descripción me la pidió el ImageView  en su propiedad contentDescription "La puse con la finalidad de que no marcara Warnings" -->
+    <string name="txtDescripcion">Inicio</string>
+    <!--texto para el boton olvidaste tu contraseña-->
+    <string name="txtOlvidasteContrasena">¿Olvidaste tu contraseña?</string>
+    <!--texto para el boton crear cuenta-->
+    <string name="txtCrearCuenta">Registrarse</string>
+
+
 
 </resources>
