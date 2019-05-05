@@ -64,7 +64,9 @@ public class Principal extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_principal, container, false);
+
+        //modifique el fragment a fragment_inicio_sesion de fragment principal
+        return inflater.inflate(R.layout.fragment_inicio_sesion, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
