@@ -5,14 +5,15 @@
     <color name="colorAccent">#D81B60</color>
     <!--Colores Letras-->
         <!--Para las letras de las de los prompt text de Login-->
-        <color name="colorLetras">#c9ced4</color>
-        <color name="colorBotones">#fff</color>
-        <color name="colorBotones2">#000</color>
+        <color name="colorLetras">#C9CED4</color>
+        <color name="colorBotones">#FFFFFF</color>
+        <color name="colorBotones2">#000000</color>
 
 
     <!--Colores Background-->
         <!--Para los botones de la App-->
         <color name="colorBackBotones">#009688</color>
+        <color name="colorFondo1">#C5BFBF</color>
 
 
 

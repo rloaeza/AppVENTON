@@ -2,121 +2,192 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout2"
+    android:id="@+id/genero"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/japanbackground"
     tools:context=".RegistroUsuario">
 
-    <EditText
-        android:id="@+id/nombre"
-        android:layout_width="162dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="105dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="18dp"
-        android:backgroundTint="@color/colorBotones"
-        android:ems="10"
-        android:hint="@string/txtNombre"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:textColor="@color/colorBotones"
-        android:textColorHint="@color/colorBotones"
-        app:layout_constraintBottom_toTopOf="@+id/apellidoM"
-        app:layout_constraintEnd_toStartOf="@+id/apellidoP"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:targetApi="o" />
-
-    <EditText
-        android:id="@+id/apellidoP"
-        android:layout_width="151dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="104dp"
-        android:layout_marginEnd="46dp"
-        android:layout_marginBottom="100dp"
-        android:backgroundTint="@color/colorBotones"
-        android:ems="10"
-        android:hint="@string/txtApellidoP"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:textColor="@color/colorBotones"
-        android:textColorHint="@color/colorBotones"
-        app:layout_constraintBottom_toTopOf="@+id/email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:targetApi="o" />
-
-    <EditText
-        android:id="@+id/apellidoM"
-        android:layout_width="170dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginEnd="227dp"
-        android:layout_marginBottom="36dp"
-        android:backgroundTint="@color/colorBotones"
-        android:ems="10"
-        android:hint="@string/txtApellidoM"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:textColor="@color/colorBotones"
-        android:textColorHint="@color/colorBotones"
-        app:layout_constraintBottom_toTopOf="@+id/email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:targetApi="o" />
-
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginEnd="184dp"
-        android:layout_marginBottom="22dp"
-        android:backgroundTint="@color/colorBotones"
-        android:ems="10"
-        android:hint="@string/txtUsuario"
-        android:importantForAutofill="no"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/colorBotones"
-        android:textColorHint="@color/colorBotones"
-        app:layout_constraintBottom_toTopOf="@+id/contrasena"
+        android:layout_gravity="center"
+        android:layout_marginTop="150dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:targetApi="o" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/contrasena"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="182dp"
-        android:layout_marginBottom="197dp"
-        android:backgroundTint="@color/colorBotones"
-        android:ems="10"
-        android:hint="@string/txtContra"
-        android:importantForAutofill="no"
-        android:inputType="textPassword"
-        android:textColor="@color/colorBotones"
-        android:textColorHint="@color/colorBotones"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:targetApi="o" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="109dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="136dp"
-        android:layout_marginEnd="166dp"
-        android:layout_marginBottom="126dp"
-        android:background="@color/colorBackBotones"
-        android:text="@string/txtCrearCuenta"
-        android:textColor="@color/colorBotones"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            <EditText
+                android:id="@+id/nombre"
+                android:layout_width="170dp"
+                android:layout_height="40dp"
+                android:layout_gravity="start"
+                android:backgroundTint="@color/colorBotones"
+                android:ems="10"
+                android:hint="@string/txtNombre"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorBotones"
+                android:textColorHint="@color/colorBotones"
+                tools:layout_editor_absoluteX="14dp"
+                tools:layout_editor_absoluteY="120dp"
+                tools:targetApi="o" />
 
+            <EditText
+                android:id="@+id/apellidoP"
+                android:layout_width="151dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:backgroundTint="@color/colorBotones"
+                android:ems="10"
+                android:hint="@string/txtApellidoP"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorBotones"
+                android:textColorHint="@color/colorBotones"
+                tools:targetApi="o" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp">
+
+            <EditText
+                android:id="@+id/apellidoM"
+                android:layout_width="170dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/colorBotones"
+                android:ems="10"
+                android:hint="@string/txtApellidoM"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorBotones"
+                android:textColorHint="@color/colorBotones"
+                tools:layout_editor_absoluteX="14dp"
+                tools:layout_editor_absoluteY="177dp"
+                tools:targetApi="o" />
+
+            <EditText
+                android:id="@+id/edad"
+                android:layout_width="151dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/colorBotones"
+                android:ems="10"
+                android:hint="@string/txtEdad"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorBotones"
+                android:textColorHint="@color/colorBotones"
+                tools:layout_editor_absoluteX="216dp"
+                tools:layout_editor_absoluteY="179dp"
+                tools:targetApi="o" />
+        </TableRow>
+
+        <EditText
+            android:id="@+id/telefono"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="@color/colorBotones"
+            android:drawableEnd="@drawable/phone"
+            android:ems="10"
+            android:hint="@string/txtTelCel"
+            android:inputType="phone"
+            android:textColor="@color/colorBotones"
+            android:textColorHint="@color/colorBotones"
+            tools:layout_editor_absoluteX="99dp"
+            tools:layout_editor_absoluteY="414dp" />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="@color/colorBotones"
+            android:drawableEnd="@drawable/email"
+            android:ems="10"
+            android:hint="@string/txtUsuario"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/colorBotones"
+            android:textColorHint="@color/colorBotones"
+            tools:layout_editor_absoluteX="99dp"
+            tools:layout_editor_absoluteY="261dp"
+            tools:targetApi="o" />
+
+        <EditText
+            android:id="@+id/contrasena"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="@color/colorBotones"
+            android:drawableEnd="@drawable/lock"
+            android:ems="10"
+            android:hint="@string/txtContra"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:textColor="@color/colorBotones"
+            android:textColorHint="@color/colorBotones"
+            tools:layout_editor_absoluteX="99dp"
+            tools:layout_editor_absoluteY="339dp"
+            tools:targetApi="o" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <Spinner
+                android:id="@+id/selecCarrera"
+                style="@android:style/Widget.Spinner"
+                android:layout_width="208dp"
+                android:layout_height="38dp"
+                android:layout_gravity="center"
+                android:entries="@array/carrera"
+                tools:layout_editor_absoluteX="184dp"
+                tools:layout_editor_absoluteY="493dp" />
+
+            <Spinner
+                android:id="@+id/selecGen"
+                style="@android:style/Widget.Spinner"
+                android:layout_width="160dp"
+                android:layout_height="38dp"
+                android:layout_gravity="center"
+                android:backgroundTintMode="screen"
+                android:entries="@array/genero"
+                android:focusable="auto"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="493dp" />
+        </TableRow>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="106dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:background="@color/colorBackBotones"
+            android:text="@string/txtCrearCuenta"
+            android:textColor="@color/colorBotones"
+            tools:layout_editor_absoluteX="139dp"
+            tools:layout_editor_absoluteY="591dp" />
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

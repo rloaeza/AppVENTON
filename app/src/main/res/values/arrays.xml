@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="genero">
+        <item >Masculino</item>
+        <item>Femenino</item>
+    </string-array>
+    <string-array name="carrera">
+        <item >Ing. Sistemas</item>
+        <item>Ing. Administración</item>
+        <item>Ing. Industrial</item>
+        <item>Ing. Alimientarias</item>
+        <item>Ing. Electrónica</item>
+        <item>Ing. Mecatrónica</item>
+        <item>Ing. Mécanica</item>
+        <item>Ing. Civil</item>
+    </string-array>
+</resources>
