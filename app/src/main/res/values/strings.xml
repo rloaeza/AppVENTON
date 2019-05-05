@@ -4,7 +4,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="txtBotonHola">Iniciar Sesión</string>
-    <string name="txtUsuario">Usuario</string>
+    <string name="txtUsuario">Email</string>
     <string name="txtContra">Contraseña</string>
     <!-- Esta descripción me la pidió el ImageView  en su propiedad contentDescription "La puse con la finalidad de que no marcara Warnings" -->
     <string name="txtDescripcion">Inicio</string>
@@ -12,6 +12,17 @@
     <string name="txtOlvidasteContrasena">¿Olvidaste tu contraseña?</string>
     <!--texto para el boton crear cuenta-->
     <string name="txtCrearCuenta">Registrarse</string>
+
+
+    <!-- etiquetas para el registro de usuario-->
+    <string name="txtNombre">Nombre</string>
+    <string name="txtApellidoP">Apellido paterno</string>
+    <string name="txtApellidoM">Apellido materno</string>
+    <string name="txtEdad">Edad</string>
+    <string name="txtMasculino">Masculino</string>
+    <string name="txtFemenino">Femenino</string>
+    <string name="txtTelCel">Celular</string>
+
 
 
 
