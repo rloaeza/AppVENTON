@@ -24,6 +24,11 @@
     <string name="txtTelCel">Celular</string>
     <string name="txtGen">Género</string>
 
+    <!-- textos de los botones de tipo de uruario-->
+
+    <string name="txtConductor">Conductor</string>
+    <string name="txtPasajero">Pasajero</string>
+
 
 
 
