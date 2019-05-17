@@ -29,6 +29,9 @@
     <string name="txtConductor">Conductor</string>
     <string name="txtPasajero">Pasajero</string>
 
+    <string name="txtPlacas">Placas</string>
+    <string name="txtVigencia">Vigencia de licencia</string>
+    <string name="txtNPasajeros">Cantidad de pasajeros</string>
 
 
 
