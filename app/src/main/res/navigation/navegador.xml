@@ -62,8 +62,8 @@
         android:label="fragment_principal_usuario"
         tools:layout="@layout/fragment_principal_usuario" >
         <action
-            android:id="@+id/action_principalUsuario_to_menu"
-            app:destination="@id/menu" />
+            android:id="@+id/action_principalUsuario_to_menu2"
+            app:destination="@id/menu2" />
     </fragment>
     <fragment
         android:id="@+id/principalChofer"
@@ -71,8 +71,8 @@
         android:label="fragment_principal_chofer"
         tools:layout="@layout/fragment_principal_chofer" >
         <action
-            android:id="@+id/action_principalChofer_to_menu"
-            app:destination="@id/menu" />
+            android:id="@+id/action_principalChofer_to_menu2"
+            app:destination="@id/menu2" />
     </fragment>
     <fragment
         android:id="@+id/listaSeleccion"
@@ -80,17 +80,33 @@
         android:label="fragment_lista_seleccion"
         tools:layout="@layout/fragment_lista_seleccion" />
     <fragment
-        android:id="@+id/menu"
-        android:name="com.mas_aplicaciones.appventon.Menu"
+        android:id="@+id/menu2"
+        android:name="com.mas_aplicaciones.appventon.menu"
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu" >
         <action
-            android:id="@+id/action_menu_to_edicion"
-            app:destination="@id/edicion" />
+            android:id="@+id/action_menu2_to_quejas"
+            app:destination="@id/quejas" />
+        <action
+            android:id="@+id/action_menu2_to_configurar"
+            app:destination="@id/configurar" />
+        <action
+            android:id="@+id/action_menu2_to_ayuda3"
+            app:destination="@id/ayuda3" />
     </fragment>
     <fragment
-        android:id="@+id/edicion"
-        android:name="com.mas_aplicaciones.appventon.edicion"
-        android:label="fragment_edicion"
-        tools:layout="@layout/fragment_edicion" />
+        android:id="@+id/quejas"
+        android:name="com.mas_aplicaciones.appventon.quejas"
+        android:label="fragment_quejas"
+        tools:layout="@layout/fragment_quejas" />
+    <fragment
+        android:id="@+id/configurar"
+        android:name="com.mas_aplicaciones.appventon.configurar"
+        android:label="fragment_configurar"
+        tools:layout="@layout/fragment_configurar" />
+    <fragment
+        android:id="@+id/ayuda3"
+        android:name="com.mas_aplicaciones.appventon.ayuda"
+        android:label="fragment_ayuda"
+        tools:layout="@layout/fragment_ayuda" />
 </navigation>

@@ -33,5 +33,11 @@
     <string name="txtVigencia">Vigencia de licencia</string>
     <string name="txtNPasajeros">Cantidad de pasajeros</string>
 
+    <string name="txtConfigurar">Configuración datos personales</string>
+    <string name="txtAyuda">Ayuda</string>
+    <string name="txtQuejasugerencia">Quejas y sugerencias</string>
+
+    <string name="txtEnviar">Enviar</string>
+    <string name="txtQueja">Queja o sugerencia a enviar</string>
 
 </resources>
