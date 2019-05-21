@@ -60,15 +60,37 @@
         android:id="@+id/principalUsuario"
         android:name="com.mas_aplicaciones.appventon.PrincipalUsuario"
         android:label="fragment_principal_usuario"
-        tools:layout="@layout/fragment_principal_usuario" />
+        tools:layout="@layout/fragment_principal_usuario" >
+        <action
+            android:id="@+id/action_principalUsuario_to_menu"
+            app:destination="@id/menu" />
+    </fragment>
     <fragment
         android:id="@+id/principalChofer"
         android:name="com.mas_aplicaciones.appventon.PrincipalChofer"
         android:label="fragment_principal_chofer"
-        tools:layout="@layout/fragment_principal_chofer" />
+        tools:layout="@layout/fragment_principal_chofer" >
+        <action
+            android:id="@+id/action_principalChofer_to_menu"
+            app:destination="@id/menu" />
+    </fragment>
     <fragment
         android:id="@+id/listaSeleccion"
         android:name="com.mas_aplicaciones.appventon.listaSeleccion"
         android:label="fragment_lista_seleccion"
         tools:layout="@layout/fragment_lista_seleccion" />
+    <fragment
+        android:id="@+id/menu"
+        android:name="com.mas_aplicaciones.appventon.Menu"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menu_to_edicion"
+            app:destination="@id/edicion" />
+    </fragment>
+    <fragment
+        android:id="@+id/edicion"
+        android:name="com.mas_aplicaciones.appventon.edicion"
+        android:label="fragment_edicion"
+        tools:layout="@layout/fragment_edicion" />
 </navigation>
