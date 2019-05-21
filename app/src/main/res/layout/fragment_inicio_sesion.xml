@@ -16,8 +16,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/olvidarContra"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +27,7 @@
 
         <ImageView
             android:id="@+id/iconoUsuario"
-            android:layout_width="114dp"
+            android:layout_width="wrap_content"
             android:layout_height="94dp"
             android:layout_gravity="center|top"
             android:layout_marginTop="50dp"
@@ -85,16 +87,17 @@
         android:layout_height="32dp"
         android:layout_gravity="center"
         android:layout_marginStart="89dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="89dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="20dp"
         android:contentDescription="@string/txtDescripcion"
+        android:text="@string/txtOlvidasteContrasena"
         android:textColor="@color/colorBotones"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/registro"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:text="@string/txtOlvidasteContrasena" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <TextView
         android:id="@+id/registro"
@@ -104,12 +107,14 @@
         android:layout_marginStart="154dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="155dp"
+        android:layout_marginBottom="120dp"
+        android:text="@string/txtCrearCuenta"
         android:textColor="@color/colorBotones"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/olvidarContra"
-        tools:text="@string/txtCrearCuenta" />
+        app:layout_constraintTop_toBottomOf="@+id/olvidarContra" />
 
 
 </android.support.constraint.ConstraintLayout>

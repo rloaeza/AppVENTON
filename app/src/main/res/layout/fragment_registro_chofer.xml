@@ -88,6 +88,28 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="40dp"
+            >
+
+            <EditText
+                android:id="@+id/contrasena"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorBotones"
+                android:drawableEnd="@drawable/lock"
+                android:ems="10"
+                android:hint="@string/txtContra"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                android:textColor="@color/colorBotones"
+                android:textColorHint="@color/colorBotones"
+                tools:targetApi="o" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:weightSum="2"
             android:layout_marginBottom="40dp"
@@ -142,14 +164,19 @@
                 android:textColor="@color/colorBotones"
                 android:textColorHint="@color/colorBotones"
                 android:importantForAutofill="no" tools:targetApi="o" />
+
             <Spinner
                 android:id="@+id/spinner"
-                style="@android:style/Widget.Spinner"
+                style="@android:style/Widget.Material.Spinner.Underlined"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:entries="@array/organizaciones" />
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorBotones"
+                android:entries="@array/organizaciones"
+                android:spinnerMode="dialog"
+                />
+
         </TableRow>
         <Button
             android:id="@+id/button2"

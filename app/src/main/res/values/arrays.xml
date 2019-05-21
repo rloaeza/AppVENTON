@@ -15,6 +15,6 @@
         <item>Ing. Civil</item>
     </string-array>
     <string-array name="organizaciones">
-    <item >ITSU</item>
+        <item >ITSU</item>
     </string-array>
 </resources>

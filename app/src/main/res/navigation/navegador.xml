@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_registroUsuario_to_principalUsuario"
             app:destination="@id/principalUsuario" />
+        <action
+            android:id="@+id/action_registroUsuario_to_listaSeleccion"
+            app:destination="@id/listaSeleccion" />
     </fragment>
     <fragment
         android:id="@+id/tipoUsuario"
@@ -49,6 +52,9 @@
         <action
             android:id="@+id/action_registroChofer_to_principalChofer"
             app:destination="@id/principalChofer" />
+        <action
+            android:id="@+id/action_registroChofer_to_listaSeleccion"
+            app:destination="@id/listaSeleccion" />
     </fragment>
     <fragment
         android:id="@+id/principalUsuario"
@@ -60,4 +66,9 @@
         android:name="com.mas_aplicaciones.appventon.PrincipalChofer"
         android:label="fragment_principal_chofer"
         tools:layout="@layout/fragment_principal_chofer" />
+    <fragment
+        android:id="@+id/listaSeleccion"
+        android:name="com.mas_aplicaciones.appventon.listaSeleccion"
+        android:label="fragment_lista_seleccion"
+        tools:layout="@layout/fragment_lista_seleccion" />
 </navigation>
