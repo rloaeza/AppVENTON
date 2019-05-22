@@ -16,7 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -68,7 +67,7 @@
             tools:targetApi="o" />
 
         <Button
-            android:id="@+id/LoguearseBoton"
+            android:id="@+id/botonIniciar"
             android:layout_width="119dp"
             android:layout_height="33dp"
             android:layout_gravity="center"
@@ -80,7 +79,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/olvidarContra"
+        android:id="@+id/botonOlvidarContraseña"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -94,7 +93,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/botonRegistrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="152dp"
@@ -108,7 +107,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/olvidarContra"
+        app:layout_constraintTop_toBottomOf="@+id/botonOlvidarContraseña"
         app:layout_constraintVertical_bias="0.0" />
 
 
