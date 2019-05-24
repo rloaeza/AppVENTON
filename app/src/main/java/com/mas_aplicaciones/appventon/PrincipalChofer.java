@@ -22,7 +22,7 @@ public class PrincipalChofer extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // Inflate the layout for this fragments
         View view = inflater.inflate(R.layout.fragment_principal_chofer, container, false);
         ImageButton btnMenu = view.findViewById(R.id.image_button_menu);
         btnMenu.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_principalChofer_to_menu2));
