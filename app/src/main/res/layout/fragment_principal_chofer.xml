@@ -4,4 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PrincipalChofer"/>
+    tools:context=".PrincipalChofer">
+
+    <ImageButton
+        android:id="@+id/image_button_menu"
+        android:layout_width="55dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="50dp"
+        android:contentDescription="@string/txtMenuDescription"
+        android:src="@drawable/ic_stat_menu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

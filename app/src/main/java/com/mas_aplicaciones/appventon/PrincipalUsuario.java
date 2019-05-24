@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import androidx.navigation.Navigation;
 
 
 /**
@@ -14,16 +17,17 @@ import android.view.ViewGroup;
 public class PrincipalUsuario extends Fragment {
 
 
-    public PrincipalUsuario() {
-        // Required empty public constructor
-    }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_principal_usuario, container, false);
+        View view = inflater.inflate(R.layout.fragment_principal_usuario, container, false);
+        Button btnMenu = view.findViewById(R.id.image_button_menu);
+        btnMenu.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_principalUsuario_to_menu2));
+
+        return view;
     }
 
 }

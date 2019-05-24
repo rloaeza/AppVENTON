@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/iconoUsuario"
+            android:id="@+id/image_view_usuario"
             android:layout_width="wrap_content"
             android:layout_height="94dp"
             android:layout_gravity="center|top"
@@ -33,7 +33,7 @@
             android:src="@drawable/iconwhite" />
 
         <EditText
-            android:id="@+id/TextUsuario"
+            android:id="@+id/edit_text_usuario"
             android:layout_width="250dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
@@ -50,7 +50,7 @@
             tools:targetApi="o" />
 
         <EditText
-            android:id="@+id/TextContrasena"
+            android:id="@+id/edit_text_contrasena"
             android:layout_width="250dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
@@ -67,7 +67,7 @@
             tools:targetApi="o" />
 
         <Button
-            android:id="@+id/botonIniciar"
+            android:id="@+id/button_iniciar"
             android:layout_width="119dp"
             android:layout_height="33dp"
             android:layout_gravity="center"
@@ -79,7 +79,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/botonOlvidarContraseña"
+        android:id="@+id/button_olvidar_contraseña"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -93,7 +93,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <Button
-        android:id="@+id/botonRegistrar"
+        android:id="@+id/button_registrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="152dp"
@@ -107,7 +107,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botonOlvidarContraseña"
+        app:layout_constraintTop_toBottomOf="@+id/button_olvidar_contraseña"
         app:layout_constraintVertical_bias="0.0" />
 
 

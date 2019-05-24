@@ -40,4 +40,6 @@
     <string name="txtEnviar">Enviar</string>
     <string name="txtQueja">Queja o sugerencia a enviar</string>
 
+    <string name="txtMenuDescription">menu</string>
+
 </resources>

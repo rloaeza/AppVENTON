@@ -19,7 +19,7 @@
             android:weightSum="3"
             android:layout_marginBottom="40dp">
         <EditText
-            android:id="@+id/nombre"
+            android:id="@+id/edit_text_nombre"
             android:layout_width="0dp"
             android:layout_weight="1.5"
             android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             android:importantForAutofill="no" tools:targetApi="o" />
 
         <EditText
-            android:id="@+id/apellidoP"
+            android:id="@+id/edit_text_apellidop"
             android:layout_width="0dp"
             android:layout_weight="1.5"
             android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
             >
 
             <EditText
-                android:id="@+id/apellidoM"
+                android:id="@+id/edit_text_apellidom"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
@@ -69,7 +69,7 @@
                 android:importantForAutofill="no" tools:targetApi="o" />
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/edit_text_email"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
             >
 
             <EditText
-                android:id="@+id/contrasena"
+                android:id="@+id/edit_text_contrasena"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorBotones"
@@ -116,7 +116,7 @@
             >
 
             <EditText
-            android:id="@+id/cantidadPasajeros"
+            android:id="@+id/edit_text_cantidad_pasajeros"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
                 android:importantForAutofill="no" tools:targetApi="o" />
 
             <EditText
-                android:id="@+id/vigencia"
+                android:id="@+id/edit_text_vigencia"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -152,7 +152,7 @@
 
 
             <EditText
-                android:id="@+id/placas"
+                android:id="@+id/edit_text_placas"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -179,7 +179,7 @@
 
         </TableRow>
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/button_registrar"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:background="@color/colorBackBotones"

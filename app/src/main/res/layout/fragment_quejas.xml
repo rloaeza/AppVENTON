@@ -14,7 +14,7 @@
         android:weightSum="4">
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/edit_text_mensaje"
             android:layout_width="match_parent"
             android:hint="@string/txtQueja"
             android:layout_height="0dp"
@@ -24,7 +24,7 @@
             android:inputType="textMultiLine"
             android:importantForAutofill="no" tools:targetApi="o"/>
         <Button
-            android:id="@+id/enviarqueja"
+            android:id="@+id/button_enviar_queja"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

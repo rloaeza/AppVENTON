@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import androidx.navigation.Navigation;
 
 
 /**
@@ -23,7 +26,14 @@ public class TipoUsuario extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tipo_usuario, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_tipo_usuario, container, false);
+        Button btnConductor = view.findViewById(R.id.button_conductor);
+        Button btnUsuario =view.findViewById(R.id.button_pasajero);
+        btnConductor.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_tipoUsuario_to_registroChofer));
+        btnUsuario.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_tipoUsuario_to_registroUsuario));
+
+        return view;
     }
 
 }
