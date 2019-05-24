@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.navigation.Navigation;
 
@@ -23,7 +24,7 @@ public class PrincipalChofer extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_principal_chofer, container, false);
-        Button btnMenu = view.findViewById(R.id.image_button_menu);
+        ImageButton btnMenu = view.findViewById(R.id.image_button_menu);
         btnMenu.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_principalChofer_to_menu2));
 
         return view;
