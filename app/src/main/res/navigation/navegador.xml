@@ -109,4 +109,9 @@
         android:name="com.mas_aplicaciones.appventon.ayuda"
         android:label="fragment_ayuda"
         tools:layout="@layout/fragment_ayuda" />
+    <fragment
+        android:id="@+id/datos_personales_usuario"
+        android:name="com.mas_aplicaciones.appventon.datos_personales_usuario"
+        android:label="fragment_datos_personales_usuario"
+        tools:layout="@layout/fragment_datos_personales_usuario" />
 </navigation>
