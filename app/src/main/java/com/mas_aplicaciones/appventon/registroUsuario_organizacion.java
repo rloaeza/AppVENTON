@@ -38,7 +38,7 @@ public class registroUsuario_organizacion extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_item_values, opciones);
         spinner_genero.setAdapter(adapter);
         //
-        //sipnner carrera
+        //spinner carrera
         Spinner spinner_carreras = view.findViewById(R.id.spinner_selecCarrera);
         String [] opciones_carreras =  {"Ing. Sistemas","Ing. Administración","Ing. Industrial","Ing. Alimientarias","Ing. Electrónica","Ing. Mecatrónica","Ing. Mécanica","Ing. Civil"};
         ArrayAdapter <String> adapter2 = new ArrayAdapter<>(getActivity(), R.layout.spinner_item_values, opciones_carreras);
