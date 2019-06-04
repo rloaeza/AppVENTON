@@ -22,7 +22,7 @@ public class menu extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
         Button btnAyuda = view.findViewById(R.id.button_ayuda);
-        Button btnQuejas = view.findViewById(R.id.button_enviar_queja);
+        Button btnQuejas = view.findViewById(R.id.button_quejas_sugerencias);
         Button btnConfiguracion = view.findViewById(R.id.button_configurar_datos);
         btnAyuda.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_ayuda3));
         btnQuejas.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_quejas));

@@ -28,7 +28,7 @@ public class RegistroChofer extends Fragment {
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                findNavController(v).navigate(R.id.action_registroChofer_to_principalChofer);
+                findNavController(v).navigate(R.id.action_registroChofer_to_registroChofer_organizacion_auto);
 
             }
         });

@@ -26,11 +26,8 @@
         android:label="fragment_registro_usuario"
         tools:layout="@layout/fragment_registro_usuario" >
         <action
-            android:id="@+id/action_registroUsuario_to_principalUsuario"
-            app:destination="@id/principalUsuario" />
-        <action
-            android:id="@+id/action_registroUsuario_to_listaSeleccion"
-            app:destination="@id/listaSeleccion" />
+            android:id="@+id/action_registroUsuario_to_registroUsuario_organizacion"
+            app:destination="@id/registroUsuario_organizacion" />
     </fragment>
     <fragment
         android:id="@+id/tipoUsuario"
@@ -50,11 +47,8 @@
         android:label="fragment_registro_chofer"
         tools:layout="@layout/fragment_registro_chofer" >
         <action
-            android:id="@+id/action_registroChofer_to_principalChofer"
-            app:destination="@id/principalChofer" />
-        <action
-            android:id="@+id/action_registroChofer_to_listaSeleccion"
-            app:destination="@id/listaSeleccion" />
+            android:id="@+id/action_registroChofer_to_registroChofer_organizacion_auto"
+            app:destination="@id/registroChofer_organizacion_auto" />
     </fragment>
     <fragment
         android:id="@+id/principalUsuario"
@@ -74,11 +68,6 @@
             android:id="@+id/action_principalChofer_to_menu2"
             app:destination="@id/menu2" />
     </fragment>
-    <fragment
-        android:id="@+id/listaSeleccion"
-        android:name="com.mas_aplicaciones.appventon.listaSeleccion"
-        android:label="fragment_lista_seleccion"
-        tools:layout="@layout/fragment_lista_seleccion" />
     <fragment
         android:id="@+id/menu2"
         android:name="com.mas_aplicaciones.appventon.menu"
@@ -110,8 +99,21 @@
         android:label="fragment_ayuda"
         tools:layout="@layout/fragment_ayuda" />
     <fragment
-        android:id="@+id/datos_personales_usuario"
-        android:name="com.mas_aplicaciones.appventon.datos_personales_usuario"
-        android:label="fragment_datos_personales_usuario"
-        tools:layout="@layout/fragment_datos_personales_usuario" />
+        android:id="@+id/registroUsuario_organizacion"
+        android:name="com.mas_aplicaciones.appventon.registroUsuario_organizacion"
+        android:label="registro_usuario_organizacion"
+        tools:layout="@layout/registro_usuario_organizacion" >
+        <action
+            android:id="@+id/action_registroUsuario_organizacion_to_inicioSesion2"
+            app:destination="@id/inicioSesion" />
+    </fragment>
+    <fragment
+        android:id="@+id/registroChofer_organizacion_auto"
+        android:name="com.mas_aplicaciones.appventon.registroChofer_organizacion_auto"
+        android:label="fragment_registro_chofer_organizacion_auto"
+        tools:layout="@layout/fragment_registro_chofer_organizacion_auto" >
+        <action
+            android:id="@+id/action_registroChofer_organizacion_auto_to_inicioSesion"
+            app:destination="@id/inicioSesion" />
+    </fragment>
 </navigation>

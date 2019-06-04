@@ -1,29 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TipoUsuario"
-    android:background="@drawable/gradientes">
+    android:background="@drawable/gradientes"
+    >
 
-    <Button
-        android:id="@+id/button_conductor"
-        android:layout_width="152dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="228dp"
-        android:background="@color/colorBackBotones2"
-        android:text="@string/txtConductor"
-        android:textColor="@color/colorBotones" />
+        <Button
+            android:id="@+id/button_conductor"
+            android:layout_width="120dp"
+            android:layout_height="33dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="206dp"
+            android:layout_marginBottom="201dp"
+            android:background="@color/colorBackBotones2"
+            android:text="@string/txtConductor"
+            android:textColor="@color/colorBotones"
+            app:layout_constraintBottom_toTopOf="@+id/button_pasajero"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button_pasajero"
-        android:layout_width="152dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="456dp"
-        android:background="@color/colorBackBotones2"
-        android:text="@string/txtPasajero"
-        android:textColor="@color/colorBotones" />
 
-</FrameLayout>
+        <Button
+            android:id="@+id/button_pasajero"
+            android:layout_width="120dp"
+            android:layout_height="33dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="228dp"
+            android:background="@color/colorBackBotones2"
+            android:text="@string/txtPasajero"
+            android:textColor="@color/colorBotones"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

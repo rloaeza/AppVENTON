@@ -45,7 +45,10 @@
             android:importantForAutofill="no"
             android:inputType="textPersonName"
             android:textColor="@color/colorBotones"
+            android:textColorHighlight="@android:color/background_light"
             android:textColorHint="@color/colorBotones"
+            android:textColorLink="@android:color/background_light"
+            android:textCursorDrawable="@android:color/background_light"
             android:textSize="20sp"
             tools:targetApi="o" />
 
@@ -62,19 +65,33 @@
             android:importantForAutofill="no"
             android:inputType="textPassword"
             android:textColor="@color/colorBotones"
+            android:textColorHighlight="@android:color/background_light"
             android:textColorHint="@color/colorBotones"
+            android:textColorLink="@android:color/background_light"
+            android:textCursorDrawable="@android:color/background_light"
             android:textSize="20sp"
             tools:targetApi="o" />
 
-        <Button
-            android:id="@+id/button_iniciar"
-            android:layout_width="119dp"
-            android:layout_height="33dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="50dp"
-            android:background="@color/colorBackBotones"
-            android:text="@string/txtBotonHola"
-            android:textColor="@color/colorBotones" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="1"
+            android:layout_marginBottom="30dp"
+            >
+
+            <Button
+                android:id="@+id/button_iniciar"
+                android:layout_width="0dp"
+                android:layout_weight="0.3"
+                android:layout_height="33dp"
+                android:layout_gravity="center"
+
+                android:background="@color/colorBackBotones"
+                android:text="@string/txtBotonHola"
+                android:textColor="@color/colorBotones" />
+        </TableRow>
+
 
     </LinearLayout>
 

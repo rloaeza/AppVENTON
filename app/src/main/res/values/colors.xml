@@ -17,4 +17,5 @@
         <color name="colorFondo1">#C5BFBF</color>
 
         <color name="trasparente">#00FFFFFF</color>
+        <color name="my_spinner_text_color">#FFFFFF</color>
 </resources>

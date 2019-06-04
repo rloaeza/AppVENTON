@@ -12,12 +12,12 @@
     <string name="txtOlvidasteContrasena">¿Olvidaste tu contraseña?</string>
     <!--texto para el boton crear cuenta-->
     <string name="txtCrearCuenta">Registrarse</string>
+    <string name="txtSiguiente">Siguiente</string>
 
 
     <!-- etiquetas para el registro de usuario-->
     <string name="txtNombre">Nombre</string>
-    <string name="txtApellidoP">Apellido paterno</string>
-    <string name="txtApellidoM">Apellido materno</string>
+    <string name="txtApellidoP">Apellidos</string>
     <string name="txtEdad">Edad</string>
     <string name="txtMasculino">Masculino</string>
     <string name="txtFemenino">Femenino</string>

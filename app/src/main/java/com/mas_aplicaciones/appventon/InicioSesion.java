@@ -38,8 +38,8 @@ public class InicioSesion extends Fragment {
             public void onClick(View v) {
 
 
-                findNavController(v).navigate(R.id.action_inicioSesion_to_principalUsuario);
-               // findNavController(v).navigate(R.id.action_inicioSesion_to_principalChofer);
+                //findNavController(v).navigate(R.id.action_inicioSesion_to_principalUsuario);
+               findNavController(v).navigate(R.id.action_inicioSesion_to_principalChofer);
             }
         });
         //listener para ingresar a tipo de usuario

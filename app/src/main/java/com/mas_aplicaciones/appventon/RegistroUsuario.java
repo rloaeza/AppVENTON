@@ -7,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import static androidx.navigation.Navigation.findNavController;
 
@@ -28,12 +30,12 @@ public class RegistroUsuario extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_registro_usuario, container, false);
-        Button btnRegistrar = view.findViewById(R.id.button_registrar);
+        Button btnRegistrar = view.findViewById(R.id.button_siguiente);
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                findNavController(v).navigate(R.id.action_registroUsuario_to_principalUsuario);
+                findNavController(v).navigate(R.id.action_registroUsuario_to_registroUsuario_organizacion);
             }
         });
         return view;

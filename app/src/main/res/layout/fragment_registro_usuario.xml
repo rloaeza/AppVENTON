@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="30dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -24,43 +24,46 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="30dp"
-            android:weightSum="3"
             android:gravity="center"
-
-            >
+            android:weightSum="3">
 
             <EditText
                 android:id="@+id/edit_text_nombre"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_weight="1.2"
                 android:layout_gravity="start"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1.2"
                 android:backgroundTint="@color/colorBotones"
                 android:ems="10"
                 android:hint="@string/txtNombre"
                 android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 android:textColor="@color/colorBotones"
+                android:textColorHighlight="@android:color/background_light"
                 android:textColorHint="@color/colorBotones"
+                android:textColorLink="@android:color/background_light"
+                android:textCursorDrawable="@android:color/background_light"
                 tools:layout_editor_absoluteX="14dp"
                 tools:layout_editor_absoluteY="120dp"
-                tools:targetApi="o"
-                android:layout_marginEnd="10dp"
-                />
+                tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/edit_text_apellidop"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_weight="1.2"
                 android:layout_gravity="end"
+                android:layout_weight="1.2"
                 android:backgroundTint="@color/colorBotones"
                 android:ems="10"
                 android:hint="@string/txtApellidoP"
                 android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 android:textColor="@color/colorBotones"
+                android:textColorHighlight="@android:color/background_light"
                 android:textColorHint="@color/colorBotones"
+                android:textColorLink="@android:color/background_light"
+                android:textCursorDrawable="@android:color/background_light"
                 tools:targetApi="o" />
         </TableRow>
 
@@ -68,40 +71,25 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="30dp"
-            android:weightSum="4"
-            android:gravity="center">
-
-            <EditText
-                android:id="@+id/edit_text_apellidom"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/colorBotones"
-                android:ems="10"
-                android:hint="@string/txtApellidoM"
-                android:importantForAutofill="no"
-                android:inputType="textPersonName"
-                android:textColor="@color/colorBotones"
-                android:textColorHint="@color/colorBotones"
-                tools:layout_editor_absoluteX="14dp"
-                tools:layout_editor_absoluteY="177dp"
-                tools:targetApi="o"
-                android:layout_marginEnd="10dp"/>
+            android:gravity="center"
+            android:weightSum="1">
 
             <EditText
                 android:id="@+id/edit_text_edad"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="0.5"
                 android:backgroundTint="@color/colorBotones"
                 android:ems="10"
                 android:hint="@string/txtEdad"
                 android:importantForAutofill="no"
-                android:inputType="textPersonName"
+                android:inputType="number"
                 android:textColor="@color/colorBotones"
+                android:textColorHighlight="@android:color/background_light"
                 android:textColorHint="@color/colorBotones"
+                android:textColorLink="@android:color/background_light"
+                android:textCursorDrawable="@android:color/background_light"
                 tools:layout_editor_absoluteX="216dp"
                 tools:layout_editor_absoluteY="179dp"
                 tools:targetApi="o" />
@@ -120,10 +108,14 @@
             android:importantForAutofill="no"
             android:inputType="phone"
             android:textColor="@color/colorBotones"
+            android:textColorHighlight="@android:color/background_light"
             android:textColorHint="@color/colorBotones"
+            android:textColorLink="@android:color/background_light"
+            android:textCursorDrawable="@android:color/background_light"
             tools:layout_editor_absoluteX="99dp"
             tools:layout_editor_absoluteY="414dp"
             tools:targetApi="o" />
+
 
         <EditText
             android:id="@+id/edit_text_email"
@@ -138,84 +130,63 @@
             android:importantForAutofill="no"
             android:inputType="textEmailAddress"
             android:textColor="@color/colorBotones"
+            android:textColorHighlight="@android:color/background_light"
             android:textColorHint="@color/colorBotones"
+            android:textColorLink="@android:color/background_light"
+            android:textCursorDrawable="@android:color/background_light"
             tools:layout_editor_absoluteX="99dp"
             tools:layout_editor_absoluteY="261dp"
             tools:targetApi="o" />
 
-        <EditText
-            android:id="@+id/edit_text_contrasena"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginBottom="30dp"
-            android:backgroundTint="@color/colorBotones"
-            android:drawableEnd="@drawable/lock"
-            android:ems="10"
-            android:hint="@string/txtContra"
-            android:importantForAutofill="no"
-            android:inputType="textPassword"
-            android:textColor="@color/colorBotones"
-            android:textColorHint="@color/colorBotones"
-            tools:layout_editor_absoluteX="99dp"
-            tools:layout_editor_absoluteY="339dp"
-            tools:targetApi="o" />
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:gravity="center"
-            android:weightSum="1"
-            android:layout_marginBottom="20dp">
+            android:weightSum="1">
 
-            <Spinner
-                android:id="@+id/selecCarrera"
-                style="@android:style/Widget.Spinner"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/edit_text_contrasena"
                 android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="38dp"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                android:entries="@array/carrera"
-                tools:layout_editor_absoluteX="184dp"
-                tools:layout_editor_absoluteY="493dp" />
-
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:weightSum="1"
-            android:gravity="center"
-            android:layout_marginBottom="20dp">
-
-
-            <Spinner
-                android:id="@+id/selecGen"
-                style="@android:style/Widget.Spinner"
-                android:layout_width="0dp"
-                android:layout_height="38dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="0.5"
-                android:backgroundTintMode="screen"
-                android:entries="@array/genero"
-                android:focusable="auto"
-                android:textAlignment="center"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="493dp" />
+                app:passwordToggleDrawable="@drawable/icon_selector"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/colorBotones"
+                app:hintEnabled="false"
+                android:backgroundTint="@color/colorBotones"
+                android:textColorHint="@color/colorBotones"
+                >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorBotones"
+                    android:hint="@string/txtContra"
+                    android:importantForAutofill="no"
+                    android:inputType="textPassword"
+                    android:textColor="@color/colorBotones"
+                    android:textColorHighlight="@android:color/background_light"
+                    android:textColorHint="@color/colorBotones"
+                    android:textColorLink="@android:color/background_light"
+                    android:textCursorDrawable="@android:color/background_light"
+                    tools:targetApi="o" />
+            </android.support.design.widget.TextInputLayout>
+
         </TableRow>
 
         <Button
-            android:id="@+id/button_registrar"
+            android:id="@+id/button_siguiente"
             android:layout_width="106dp"
-            android:layout_height="36dp"
+            android:layout_height="33dp"
             android:layout_gravity="center"
             android:background="@color/colorBackBotones"
-            android:text="@string/txtCrearCuenta"
+            android:text="@string/txtSiguiente"
             android:textColor="@color/colorBotones"
             tools:layout_editor_absoluteX="139dp"
             tools:layout_editor_absoluteY="591dp" />
+
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

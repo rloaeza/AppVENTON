@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".registroChofer_organizacion_auto"
+    android:background="@drawable/backgroundregistrochofer2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/backgroundregistrochofer2">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="1"
+            android:layout_marginBottom="40dp">
+
+            <EditText
+                android:id="@+id/edit_text_cantidad_pasajeros"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.55"
+                android:backgroundTint="@color/colorBotones"
+                android:ems="10"
+                android:hint="@string/txtNPasajeros"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:textColor="@color/colorBotones"
+                android:textColorHighlight="@android:color/background_light"
+                android:textColorHint="@color/colorBotones"
+                android:textColorLink="@android:color/background_light"
+                android:textCursorDrawable="@android:color/background_light"
+                tools:targetApi="o" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="2"
+            android:layout_marginBottom="40dp">
+
+            <EditText
+                android:id="@+id/edit_text_vigencia"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorBotones"
+                android:ems="10"
+                android:hint="@string/txtVigencia"
+                android:importantForAutofill="no"
+                android:inputType="date"
+                android:textColor="@color/colorBotones"
+                android:textColorHighlight="@android:color/background_light"
+                android:textColorHint="@color/colorBotones"
+                android:textColorLink="@android:color/background_light"
+                android:textCursorDrawable="@android:color/background_light"
+                tools:targetApi="o" />
+        </TableRow>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:weightSum="2"
+                android:layout_marginBottom="40dp">
+
+            <EditText
+                android:id="@+id/edit_text_placas"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorBotones"
+                android:ems="10"
+                android:hint="@string/txtPlacas"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorBotones"
+                android:textColorHighlight="@android:color/background_light"
+                android:textColorHint="@color/colorBotones"
+                android:textColorLink="@android:color/background_light"
+                android:textCursorDrawable="@android:color/background_light"
+                tools:targetApi="o" />
+        </TableRow>
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:weightSum="2"
+                android:layout_marginBottom="40dp">
+
+            <Spinner
+                android:id="@+id/spinner_organizacion"
+                style="@android:style/Widget.Material.Light.Spinner.Underlined"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorBotones"
+                android:popupBackground="@color/colorBackBotones2"
+                android:spinnerMode="dropdown" />
+
+        </TableRow>
+
+        <Button
+            android:id="@+id/button_siguiente"
+            android:layout_width="100dp"
+            android:layout_height="33dp"
+            android:background="@color/colorBackBotones"
+            android:text="@string/txtCrearCuenta"
+            android:textColor="@color/colorBotones" />
+    </LinearLayout>
+
+</FrameLayout>
