@@ -2,6 +2,7 @@ package com.mas_aplicaciones.appventon;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +27,7 @@ public class registroUsuario_organizacion extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
@@ -34,13 +35,13 @@ public class registroUsuario_organizacion extends Fragment {
         //sipnner genero
         Spinner spinner_genero = view.findViewById(R.id.spinner_selecGen);
         String [] opciones =  {"Masculino","Femenino"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.spinner_item_values,opciones);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_item_values, opciones);
         spinner_genero.setAdapter(adapter);
         //
         //sipnner carrera
         Spinner spinner_carreras = view.findViewById(R.id.spinner_selecCarrera);
         String [] opciones_carreras =  {"Ing. Sistemas","Ing. Administración","Ing. Industrial","Ing. Alimientarias","Ing. Electrónica","Ing. Mecatrónica","Ing. Mécanica","Ing. Civil"};
-        ArrayAdapter <String> adapter2 = new ArrayAdapter<String>(getActivity(),R.layout.spinner_item_values,opciones_carreras);
+        ArrayAdapter <String> adapter2 = new ArrayAdapter<>(getActivity(), R.layout.spinner_item_values, opciones_carreras);
         spinner_carreras.setAdapter(adapter2);
         //
         Button btnRegistrar = view.findViewById(R.id.button_registrar);
@@ -48,8 +49,6 @@ public class registroUsuario_organizacion extends Fragment {
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity activity = new MainActivity();
-
                 Toast.makeText(getActivity(),"Checar correo electrónico para validar su correo",Toast.LENGTH_SHORT).show();
                 findNavController(v).navigate(R.id.action_registroUsuario_organizacion_to_inicioSesion2);
 

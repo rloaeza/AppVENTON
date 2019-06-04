@@ -177,7 +177,9 @@
                     android:textColorHighlight="@android:color/background_light"
                     android:textColorHint="@color/colorBotones"
                     android:textColorLink="@android:color/background_light"
-                    android:textCursorDrawable="@android:color/background_light" />
+                    android:textCursorDrawable="@android:color/background_light"
+                    android:importantForAutofill="no"
+                    tools:targetApi="o" />
             </android.support.design.widget.TextInputLayout>
         </TableRow>
 
