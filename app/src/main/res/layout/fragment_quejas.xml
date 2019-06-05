@@ -19,12 +19,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBackBotones"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/txtQuejasugerencia"
+            android:textColor="@color/colorBotones"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
             android:id="@+id/edit_text_mensaje"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
-            android:backgroundTint="@android:color/background_light"
+            android:backgroundTint="@color/colorAccent"
             android:ems="10"
             android:gravity="start|top"
             android:hint="@string/txtQueja"
