@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "992553090122",
+    "firebase_url": "https://lunchapp-38720.firebaseio.com",
+    "project_id": "lunchapp-38720",
+    "storage_bucket": "lunchapp-38720.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:992553090122:android:f5d10f00ba1e9a04",
+        "android_client_info": {
+          "package_name": "com.mas_aplicaciones.appventon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "992553090122-9kh5c461k5up4g7pf7rnnfj1a0egt3c4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mas_aplicaciones.appventon",
+            "certificate_hash": "727a60bc55d41dc8bc64aa3608b1fe14c959821f"
+          }
+        },
+        {
+          "client_id": "992553090122-tfvrqinnfv5oga5dtheq037okdbmecrg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDi9ZAK2oQbhnZHWiYPrszQPJ-wOGefkCA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "992553090122-tfvrqinnfv5oga5dtheq037okdbmecrg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
