@@ -24,9 +24,18 @@ public class menu extends Fragment {
         Button btnAyuda = view.findViewById(R.id.button_ayuda);
         Button btnQuejas = view.findViewById(R.id.button_quejas_sugerencias);
         Button btnConfiguracion = view.findViewById(R.id.button_configurar_datos);
+        Button btnCerrarSesion = view.findViewById(R.id.button_cerrar_sesion);
         btnAyuda.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_ayuda3));
         btnQuejas.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_quejas));
         btnConfiguracion.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_configurar));
+
+
+        btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InicioSesion.mAuth.signOut();//cerrar sesion
+            }
+        });
         return view;
     }
 

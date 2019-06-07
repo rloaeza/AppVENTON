@@ -34,7 +34,7 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="0.5"
+                android:layout_weight="0.55"
                 android:backgroundTint="@color/colorBotones"
                 android:gravity="center"
                 android:popupBackground="@color/colorBackBotones2"

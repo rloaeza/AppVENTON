@@ -69,26 +69,29 @@ public class RegistroUsuario extends Fragment {
                         {
                             if(!telefono.equals(""))
                             {
-                                if(!email.equals(""))
+                                if(!email.equals("") && objeto_evaluacion_de_views.emailValidado(email))
                                 {
                                     if(!contrasena.equals("") && objeto_evaluacion_de_views.contrasena_correcta(contrasena))
                                     {
-                                        registroUsuario_organizacion.setValueMap("Nombre",nombre);
-                                        registroUsuario_organizacion.setValueMap("Apellidos",apellidos);
-                                        registroUsuario_organizacion.setValueMap("Edad",Integer.parseInt(edad));
-                                        registroUsuario_organizacion.setValueMap("Teléfono",telefono);
-                                        registroUsuario_organizacion.setValueMap("Email",email);
-                                        registroUsuario_organizacion.setValueMap("Contraseña",contrasena);
-                                        findNavController(v).navigate(R.id.action_registroUsuario_to_registroUsuario_organizacion);
+                                            registroUsuario_organizacion.setValueMap("Nombre",nombre);
+                                            registroUsuario_organizacion.setValueMap("Apellidos",apellidos);
+                                            registroUsuario_organizacion.setValueMap("Edad",Integer.parseInt(edad));
+                                            registroUsuario_organizacion.setValueMap("Teléfono",telefono);
+                                            registroUsuario_organizacion.setValueMap("Email",email);
+                                            registroUsuario_organizacion.setValueMap("Contraseña",contrasena);
+                                            findNavController(v).navigate(R.id.action_registroUsuario_to_registroUsuario_organizacion);
+
                                     }
                                     else
                                     {
                                         editText_contrasena.setError("required");
+                                        Toast.makeText(getActivity(),"Debe tener mínimo una letra mayuscula, un número y 8 caracteres",Toast.LENGTH_SHORT).show();
                                     }
                                 }
                                 else
                                 {
-                                    editText_edad.setError("required");
+                                    editText_email.setError("required");
+                                    Toast.makeText(getActivity(),"Email incorrecto",Toast.LENGTH_SHORT).show();
                                 }
                             }
                             else

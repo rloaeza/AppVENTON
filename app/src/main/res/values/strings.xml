@@ -42,6 +42,6 @@
     <string name="txtQueja">Queja o sugerencia a enviar</string>
 
     <string name="txtMenuDescription">menu</string>
-
+    <string name="txtCerrarSesion">Cerrar Sesión</string>
 
 </resources>

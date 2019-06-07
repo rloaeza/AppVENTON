@@ -86,12 +86,23 @@
             tools:layout_editor_absoluteX="31dp"
             tools:layout_editor_absoluteY="129dp"
             android:textAlignment="textStart"/>
-
-
+        <Button
+            android:id="@+id/button_cerrar_sesion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txtCerrarSesion"
+            android:textAlignment="textStart"
+            android:background="@color/colorBotones"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="263dp" />
 
 
 
     </TableLayout>
+
+
 
 
 </android.support.constraint.ConstraintLayout>

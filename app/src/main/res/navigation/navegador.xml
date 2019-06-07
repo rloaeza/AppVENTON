@@ -82,6 +82,9 @@
         <action
             android:id="@+id/action_menu2_to_ayuda3"
             app:destination="@id/ayuda3" />
+        <action
+            android:id="@+id/action_menu2_to_inicioSesion"
+            app:destination="@id/inicioSesion" />
     </fragment>
     <fragment
         android:id="@+id/quejas"
