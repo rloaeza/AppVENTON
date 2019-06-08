@@ -2,6 +2,7 @@ package com.mas_aplicaciones.appventon;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.XmlRes;
@@ -35,7 +36,8 @@ import static androidx.navigation.Navigation.findNavController;
 public class InicioSesion extends Fragment {
 
     // Initialize Firebase Auth
-    public static FirebaseAuth mAuth = FirebaseAuth.getInstance() ;
+    public static FirebaseAuth mAuth ;
+    private FirebaseUser currentUser;
     private View view;
     private EditText editText_email,editText_contrasena;
     private String email,contrasena;
@@ -55,7 +57,7 @@ public class InicioSesion extends Fragment {
                              Bundle savedInstanceState) {
 
 
-
+        mAuth = FirebaseAuth.getInstance() ;
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_inicio_sesion, container, false);
         editText_email = view.findViewById(R.id.edit_text_email);
@@ -78,7 +80,7 @@ public class InicioSesion extends Fragment {
                                         // Sign in success, update UI with the signed-in user's information
                                         //Log.d(TAG, "signInWithEmail:success");
 
-                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        currentUser = mAuth.getCurrentUser();
                                         Toast.makeText(getActivity(),"Iniciando...",Toast.LENGTH_SHORT).show();
                                         findNavController(view).navigate(R.id.action_inicioSesion_to_principalUsuario);
                                         //updateUI(user);
@@ -114,24 +116,41 @@ public class InicioSesion extends Fragment {
 
         return view;
     }
-
+    @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        /*FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser.isEmailVerified())
+
+            currentUser= mAuth.getCurrentUser();
+            if(currentUser!=null)
+            {
+                Toast.makeText(getActivity(),"Iniciando...",Toast.LENGTH_SHORT).show();
+                findNavController(view).navigate(R.id.action_inicioSesion_to_principalUsuario);
+            }
+            else
+
+            {
+                Toast.makeText(getActivity(),"No activo...",Toast.LENGTH_SHORT).show();
+            }
+
+
+
+
+
+       /* if(!currentUser.isEmailVerified())
         {
             Toast.makeText(getActivity(),"Iniciando...",Toast.LENGTH_SHORT).show();
+
         }
         else
             {}*/
 
 
     }
-    private void iniciar()
-    {
 
-    }
+
+
+
 
 
 

@@ -43,7 +43,7 @@
             android:ems="10"
             android:hint="@string/txtUsuario"
             android:importantForAutofill="no"
-            android:inputType="textPersonName"
+            android:inputType="textEmailAddress"
             android:textColor="@color/colorBotones"
             android:textColorHighlight="@android:color/background_light"
             android:textColorHint="@color/colorBotones"
