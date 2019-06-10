@@ -1,7 +1,5 @@
 package com.mas_aplicaciones.appventon;
 
-import android.widget.EditText;
-
 import java.util.StringTokenizer;
 
 public class evaluacion_de_views
@@ -58,11 +56,7 @@ public class evaluacion_de_views
     {
         if(email.endsWith("@hotmail.com") || email.endsWith("@hotmail.es") || email.endsWith("@outlook.com") || email.endsWith("@outlook.es") || email.endsWith("@gmail.com") || email.endsWith("@yahoo.com") || email.endsWith("@yahoo.es"))
         {
-            if(email_con_un_arroba(email))
-            {
-                return true;
-            }
-            return false;
+            return email_con_un_arroba(email);
         }
         return false;
     }
