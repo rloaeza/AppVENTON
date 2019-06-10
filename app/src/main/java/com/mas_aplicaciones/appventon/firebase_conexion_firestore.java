@@ -46,7 +46,7 @@ public class firebase_conexion_firestore
 
 
     }
-    /*public void getNombre(String id)
+    public void getNombre(String id)
     {
         DocumentReference docRef = db.collection("Usuarios").document(id);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -57,6 +57,8 @@ public class firebase_conexion_firestore
                     if (document.exists()) {
                         //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         datos=document.getData();
+                        System.out.println("Nombreeeee: "+document.getData().get("Nombre")+"\n"+datos.get("Nombre"));
+
                     } else {
                         //Log.d(TAG, "No such document");
                     }
@@ -67,8 +69,8 @@ public class firebase_conexion_firestore
         });
 
     }
-    public Object getValue(String Key)
+    public static Object getValue(String Key)
     {
         return datos.get(Key);
-    }*/
+    }
 }

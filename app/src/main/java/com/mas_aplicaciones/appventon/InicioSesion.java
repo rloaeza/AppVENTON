@@ -93,7 +93,7 @@ public class InicioSesion extends Fragment {
                                         }
                                         else
                                         {
-                                            Toast.makeText(getActivity(), "Contraseña Incorrecta", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getActivity(), "Email o contraseña incorrectos", Toast.LENGTH_SHORT).show();
                                         }
 
 
@@ -130,7 +130,7 @@ public class InicioSesion extends Fragment {
             else
 
             {
-                Toast.makeText(getActivity(),"No activo...",Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(),"Nos vemos ...",Toast.LENGTH_SHORT).show();
             }
 
 
