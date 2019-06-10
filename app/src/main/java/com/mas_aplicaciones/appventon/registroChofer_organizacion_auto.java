@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 import static androidx.navigation.Navigation.findNavController;
 
 
@@ -34,7 +36,7 @@ public class registroChofer_organizacion_auto extends Fragment {
 
         Spinner spinner_organizacion = view.findViewById(R.id.spinner_organizacion);
         String [] opciones = {"ITSU"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_item_values, opciones);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_item_values, opciones);
         spinner_organizacion.setAdapter(adapter);
         Button btnSiguiente = view.findViewById(R.id.button_siguiente);
         btnSiguiente.setOnClickListener(new View.OnClickListener() {
