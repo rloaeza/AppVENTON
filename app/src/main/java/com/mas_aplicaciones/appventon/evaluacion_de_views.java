@@ -15,14 +15,7 @@ public class evaluacion_de_views
     {
         try {
 
-            if(Integer.parseInt(editText)>edadminima && Integer.parseInt(editText)<100)
-            {
-                return  true;
-            }
-            else
-            {
-                return false;
-            }
+            return Integer.parseInt(editText) > edadminima && Integer.parseInt(editText) < 100;
         }
         catch (NumberFormatException nfe)
         {
