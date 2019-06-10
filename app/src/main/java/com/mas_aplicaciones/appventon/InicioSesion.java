@@ -1,11 +1,9 @@
 package com.mas_aplicaciones.appventon;
 
 
-import android.content.Context;
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.XmlRes;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +20,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthEmailException;
 import com.google.firebase.auth.FirebaseUser;
+import java.util.Objects;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.Executor;
 
 import static androidx.navigation.Navigation.findNavController;
 
@@ -73,7 +69,7 @@ public class InicioSesion extends Fragment {
                 if(objeto_evaluacion_de_views.emailValidado(email))
                 {
                     mAuth.signInWithEmailAndPassword(email, contrasena)
-                            .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                            .addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
@@ -127,17 +123,17 @@ public class InicioSesion extends Fragment {
                 Toast.makeText(getActivity(),"Iniciando...",Toast.LENGTH_SHORT).show();
                 findNavController(view).navigate(R.id.action_inicioSesion_to_principalUsuario);
             }
-            else
+            /*else
 
             {
-               // Toast.makeText(getActivity(),"Nos vemos ...",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"Nos vemos ...",Toast.LENGTH_SHORT).show();
             }
 
 
 
 
 
-       /* if(!currentUser.isEmailVerified())
+        if(!currentUser.isEmailVerified())
         {
             Toast.makeText(getActivity(),"Iniciando...",Toast.LENGTH_SHORT).show();
 

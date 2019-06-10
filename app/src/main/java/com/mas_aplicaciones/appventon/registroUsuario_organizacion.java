@@ -11,18 +11,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import androidx.navigation.Navigation;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuthEmailException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static androidx.navigation.Navigation.findNavController;
 import static com.mas_aplicaciones.appventon.InicioSesion.mAuth;
@@ -40,7 +37,7 @@ public class registroUsuario_organizacion extends Fragment {
     private final String [] OPCIONES_CARRERAS =  {"Carrera","Ing. Administración","Ing. Sistemas","Ing. Industrial","Ing. Alimientarias","Ing. Electrónica","Ing. Mecatrónica","Ing. Mécanica","Ing. Civil"};
 
     firebase_conexion_firestore connection=new firebase_conexion_firestore();
-    InicioSesion inicioSesion = new InicioSesion();
+
     public registroUsuario_organizacion()
     {
 
@@ -63,7 +60,7 @@ public class registroUsuario_organizacion extends Fragment {
         spinner_genero = view.findViewById(R.id.spinner_selecGen);
         //spinner carrera
         spinner_carreras = view.findViewById(R.id.spinner_selecCarrera);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_item_values, OPCIONES_GENERO);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_item_values, OPCIONES_GENERO);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(getActivity(), R.layout.spinner_item_values, OPCIONES_CARRERAS);
         spinner_genero.setAdapter(adapter);
         spinner_carreras.setAdapter(adapter2);
@@ -82,15 +79,15 @@ public class registroUsuario_organizacion extends Fragment {
                         data.put("Carrera",spinner_carreras.getSelectedItem().toString());
                         data.put("Género",spinner_genero.getSelectedItem().toString());
 
-                        mAuth.createUserWithEmailAndPassword(data.get("Email").toString(), data.get("Contraseña").toString())
-                                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>()
+                        mAuth.createUserWithEmailAndPassword(Objects.requireNonNull(data.get("Email")).toString(), data.get("Contraseña").toString())
+                                .addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>()
                                 {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
                                             FirebaseUser user = mAuth.getCurrentUser();
                                             System.out.println(user.isEmailVerified());
-                                            //System.out.println(user.getProviderId());
+
                                             //agrega los datos a usuarios y le asigna el mismo UID de la autentificación a los datos de este.
                                             connection.agregar_usuario(data,user.getUid());
                                             Toast.makeText(getActivity(),"Checar correo electrónico para validar su correo",Toast.LENGTH_SHORT).show();

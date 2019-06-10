@@ -1,8 +1,6 @@
 package com.mas_aplicaciones.appventon;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -10,10 +8,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
+
 
 
 public class firebase_conexion_firestore
@@ -57,14 +54,17 @@ public class firebase_conexion_firestore
                     if (document.exists()) {
                         //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         datos=document.getData();
-                        System.out.println("Nombreeeee: "+document.getData().get("Nombre")+"\n"+datos.get("Nombre"));
 
-                    } else {
-                        //Log.d(TAG, "No such document");
+
                     }
-                } else {
-                   // Log.d(TAG, "get failed with ", task.getException());
+                   /* else
+                    {
+                        //Log.d(TAG, "No such document");
+                    }*/
                 }
+                /*else {
+                   // Log.d(TAG, "get failed with ", task.getException());
+                }*/
             }
         });
 
