@@ -13,24 +13,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import androidx.navigation.Navigation;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthEmailException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.Objects;
 
-
 import static androidx.navigation.Navigation.findNavController;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -152,7 +143,7 @@ public class InicioSesion extends Fragment {
                         if(isOnlineNet() && isNetDisponible())
                         {
 
-                            Navigation.createNavigateOnClickListener(R.id.action_inicioSesion_to_tipoUsuario);// metodo para pasar al siguiente fragment  sin validar
+                            findNavController(v).navigate(R.id.action_inicioSesion_to_tipoUsuario);// metodo para pasar al siguiente fragment  sin validar
                         }
                         else
                         {
@@ -184,11 +175,6 @@ public class InicioSesion extends Fragment {
             }
     }
 
-    public void vaciar()
-    {
-        editText_contrasena.setText("");
-        editText_email.setText("");
-    }
 
 
 
