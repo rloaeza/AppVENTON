@@ -20,23 +20,27 @@ import static androidx.navigation.Navigation.findNavController;
 public class RegistroUsuario extends Fragment {
 
     evaluacion_de_views objeto_evaluacion_de_views = new evaluacion_de_views();
-    Button btnSiguiente ;
-    EditText editText_nombre;
-    EditText editText_apellidos;
-    EditText editText_edad ;
-    EditText editText_telefono;
-    EditText editText_email;
-    EditText editText_contrasena;
-    String nombre;
-    String apellidos;
-    String edad;
-    String telefono;
-    String email;
-    String contrasena;
+    private Button btnSiguiente ;
+    private EditText editText_nombre;
+    private EditText editText_apellidos;
+    private EditText editText_edad ;
+    private EditText editText_telefono;
+    private EditText editText_email;
+    private EditText editText_contrasena;
+    private String nombre;
+    private String apellidos;
+    private String edad;
+    private String telefono;
+    private String email;
+    private String contrasena;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if(getActivity() instanceof MainActivity)
+        {
+            ((MainActivity) getActivity()).activado(3);
+        }
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_registro_usuario, container, false);
         btnSiguiente = view.findViewById(R.id.button_registrar);

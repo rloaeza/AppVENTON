@@ -23,7 +23,12 @@ public class quejas extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if(getActivity() instanceof MainActivity)
+        {
+            ((MainActivity) getActivity()).activado(3);
+        }
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_quejas, container, false);
     }
 

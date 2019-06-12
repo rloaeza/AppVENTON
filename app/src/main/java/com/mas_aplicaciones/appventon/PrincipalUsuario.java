@@ -28,6 +28,10 @@ public class PrincipalUsuario extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if(getActivity() instanceof MainActivity)
+        {
+            ((MainActivity) getActivity()).activado(1);
+        }
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_principal_usuario, container, false);
 
@@ -39,24 +43,4 @@ public class PrincipalUsuario extends Fragment {
         return view;
     }
 
-   /* @Override
-    public void onResume() {
-        super.onResume();*/
-    /*@Override
-    public void onDetach() {
-       super.onDetach();
-
-        getView().setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(event.getKeyCode() == KeyEvent.KEYCODE_BACK )
-                {
-                    Toast.makeText(getActivity(),"Necesita cerrar Sesión",Toast.LENGTH_SHORT);
-                    getActivity().finish();
-                    return true;
-                }
-                return false;
-            }
-        });
-    }*/
 }

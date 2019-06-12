@@ -50,6 +50,10 @@ public class registroChofer_organizacion_auto extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if(getActivity() instanceof MainActivity)
+        {
+            ((MainActivity) getActivity()).activado(3);
+        }
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_registro_chofer_organizacion_auto, container, false);
 
@@ -93,7 +97,7 @@ public class registroChofer_organizacion_auto extends Fragment {
                                             //agrega los datos a usuarios y le asigna el mismo UID de la autentificación a los datos de este.
                                             conexion.agregar_chofer(data,user.getUid());
 
-                                            findNavController(v).popBackStack(R.id.inicioSesion,true);
+                                            findNavController(v).navigate(R.id.action_registroChofer_organizacion_auto_to_inicioSesion);
 
                                         }
                                         else {
@@ -107,8 +111,8 @@ public class registroChofer_organizacion_auto extends Fragment {
                                             {
                                                 Toast.makeText(getActivity(), "Error de registro, sin acceso a Internet",Toast.LENGTH_SHORT).show();
                                                 data.clear();
-                                                //findNavController(view).navigate(R.id.action_registroChofer_organizacion_auto_to_inicioSesion);
-                                                findNavController(v).popBackStack(R.id.inicioSesion,true);
+                                                findNavController(view).navigate(R.id.action_registroChofer_organizacion_auto_to_inicioSesion);
+
                                             }
                                         }
                                     }

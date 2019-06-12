@@ -52,7 +52,10 @@ public class registroUsuario_organizacion extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        if(getActivity() instanceof MainActivity)
+        {
+            ((MainActivity) getActivity()).activado(3);
+        }
 
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.registro_usuario_organizacion, container, false);
@@ -118,9 +121,6 @@ public class registroUsuario_organizacion extends Fragment {
                                                 data.clear();
                                                 findNavController(v).popBackStack(R.id.inicioSesion,true);
                                             }
-
-
-
                                         }
                                     }
                                 });
@@ -134,9 +134,6 @@ public class registroUsuario_organizacion extends Fragment {
                 {
                     Toast.makeText(getActivity(),"Carrera no seleccionada",Toast.LENGTH_SHORT).show();
                 }
-
-
-
             }
         });
         return  view;

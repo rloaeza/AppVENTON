@@ -13,6 +13,7 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
 
+    private int activar = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,23 +23,25 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    /*@Override
+    public  void activado(int activar)
+    {
+        this.activar=activar;
+    }
+    @Override
     public void onBackPressed() {
 
+        //utilizado para definir cuando si puedo regresar y cuando no
 
-       Fragment f =  MainActivity.this.getSupportFragmentManager().findFragmentById(R.id.inicioSesion);
 
-
-        if ( f instanceof )
+        if ( activar==1 )//se asigna 1 en el fragment principal chofer y usuario
         {//the fragment on which you want to handle your back press
-            Toast.makeText(this,f.getFragmentManager().getBackStackEntryCount(), Toast.LENGTH_SHORT).show();
+            finish();
         }
-        else{
-          //  Toast.makeText(this,String.valueOf(getSupportFragmentManager().getBackStackEntryCount()), Toast.LENGTH_SHORT).show();
-            super.onBackPressed();
+        else{// si es diferente a inicio, principal usuario o principa chofer
+           super.onBackPressed();
 
         }
-    }*/
+    }
 
 
 }

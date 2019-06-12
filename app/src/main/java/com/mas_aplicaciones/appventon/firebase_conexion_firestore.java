@@ -1,8 +1,9 @@
 package com.mas_aplicaciones.appventon;
 
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.view.View;
+
+import androidx.navigation.Navigation;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -18,7 +19,7 @@ import static androidx.navigation.Navigation.findNavController;
 
 
 public class firebase_conexion_firestore {
-    public static FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static Map<String, Object> datos = new HashMap<>();
 
     public void agregar_usuario(Map<String, Object> datos, String UUID) {
@@ -58,6 +59,45 @@ public class firebase_conexion_firestore {
                 });
 
 
+    }
+    public void buscarUsuario(String UIDD, final View view) {
+        DocumentReference docRef = FirebaseFirestore.getInstance().collection("Usuarios").document(UIDD);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        firebase_conexion_firestore.setMap(document.getData());
+
+                        findNavController(view).navigate(R.id.action_inicioSesion_to_principalUsuario);
+
+
+                    }
+                }
+            }
+        });
+    }
+    public void buscarChofer(String UIDD, final View view) {
+        DocumentReference docRef = FirebaseFirestore.getInstance().collection("Choferes").document(UIDD);
+
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>()
+        {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        firebase_conexion_firestore.setMap(document.getData());
+                        findNavController(view).navigate(R.id.action_inicioSesion_to_principalChofer);
+
+                        //vaciar();
+
+                    }
+
+                }
+            }
+        });
     }
     public static Object getValue(String Key) {
 

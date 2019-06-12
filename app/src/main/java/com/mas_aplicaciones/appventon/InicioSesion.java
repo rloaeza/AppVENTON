@@ -6,7 +6,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,8 +43,8 @@ public class InicioSesion extends Fragment {
     private View view;
     private EditText editText_email,editText_contrasena;
     private String email,contrasena;
-    private evaluacion_de_views objeto_evaluacion_de_views = new evaluacion_de_views();
-    private firebase_conexion_firestore objeto_firebase_conexion_firestore = new firebase_conexion_firestore();
+    evaluacion_de_views objeto_evaluacion_de_views = new evaluacion_de_views();
+    firebase_conexion_firestore objeto_firebase_conexion_firestore = new firebase_conexion_firestore();
 
 
 
@@ -57,7 +56,7 @@ public class InicioSesion extends Fragment {
 
     private boolean isNetDisponible() {
 
-        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(getActivity().CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) Objects.requireNonNull(getActivity()).getSystemService(getActivity().CONNECTIVITY_SERVICE);
 
         NetworkInfo actNetInfo = connectivityManager.getActiveNetworkInfo();
 
@@ -70,8 +69,7 @@ public class InicioSesion extends Fragment {
             Process p = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.es");
 
             int val = p.waitFor();
-            boolean reachable = (val == 0);
-            return reachable;
+            return (val == 0);
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -87,7 +85,10 @@ public class InicioSesion extends Fragment {
                              Bundle savedInstanceState) {
 
 
-
+            if(getActivity() instanceof MainActivity)
+            {
+                ((MainActivity) getActivity()).activado(1);
+            }
             mAuth = FirebaseAuth.getInstance() ;
 
             // Inflate the layout for this fragment
@@ -100,10 +101,12 @@ public class InicioSesion extends Fragment {
             btnIniciarSesion.setOnClickListener(new View.OnClickListener() {//acomoda y luego muestra y realiza todo lo necesario validad
                 @Override
                 public void onClick( final View v) {
-                    if(isNetDisponible() && isOnlineNet()) {
+                    if(isNetDisponible() && isOnlineNet())
+                    {
                         email = editText_email.getText().toString();
                         contrasena = editText_contrasena.getText().toString();
-                        if (objeto_evaluacion_de_views.emailValidado(email)) {
+                        if (objeto_evaluacion_de_views.emailValidado(email))
+                        {
                             mAuth.signInWithEmailAndPassword(email, contrasena)
                                     .addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>() {
                                         @Override
@@ -113,54 +116,12 @@ public class InicioSesion extends Fragment {
                                                 // Sign in success, update UI with the signed-in user's information
                                                 currentUser = mAuth.getCurrentUser();
                                                 Toast.makeText(getActivity(), "Iniciando...", Toast.LENGTH_SHORT).show();
-                                                /*******************************************************/
-
-
-
-                                                DocumentReference docRef = FirebaseFirestore.getInstance().collection("Usuarios").document(currentUser.getUid());
-                                                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                        if (task.isSuccessful()) {
-                                                            DocumentSnapshot document = task.getResult();
-                                                            if (document.exists()) {
-                                                                firebase_conexion_firestore.setMap(document.getData());
-                                                                findNavController(view).navigate(R.id.action_inicioSesion_to_principalUsuario);
-                                                                //findNavController(getActivity().getCurrentFocus()).popBackStack(R.id.principalUsuario,true);
-                                                                vaciar();
-                                                            }
-                                                        }
-                                                    }
-                                                });
-                                                docRef = FirebaseFirestore.getInstance().collection("Choferes").document(currentUser.getUid());
-
-                                                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>()
-                                                {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                        if (task.isSuccessful()) {
-                                                            DocumentSnapshot document = task.getResult();
-                                                            if (document.exists()) {
-                                                                //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                                                                findNavController(view).navigate(R.id.action_inicioSesion_to_principalChofer);
-                                                                firebase_conexion_firestore.setMap(document.getData());
-                                                                vaciar();
-
-                                                            }
-
-                                                        }
-                                                    }
-                                                });
-
-
-                                                /*******************************************************/
-
-                                                //updateUI(user);
+                                                objeto_firebase_conexion_firestore.buscarUsuario(currentUser.getUid(),view);
+                                                objeto_firebase_conexion_firestore.buscarChofer(currentUser.getUid(),view);
                                             }
                                             else
                                             {
                                                 // If sign in fails, display a message to the user.
-                                                //Log.w(TAG, "signInWithEmail:failure", task.getException());
                                                 if (task.getException() instanceof FirebaseAuthEmailException) {
                                                     Toast.makeText(getActivity(), "Usuario no registrado", Toast.LENGTH_SHORT).show();
                                                 } else {
@@ -191,7 +152,7 @@ public class InicioSesion extends Fragment {
                         if(isOnlineNet() && isNetDisponible())
                         {
 
-                            findNavController(view).navigate(R.id.action_inicioSesion_to_tipoUsuario);// metodo para pasar al siguiente fragment  sin validar
+                            Navigation.createNavigateOnClickListener(R.id.action_inicioSesion_to_tipoUsuario);// metodo para pasar al siguiente fragment  sin validar
                         }
                         else
                         {
@@ -213,42 +174,8 @@ public class InicioSesion extends Fragment {
 
                 if(currentUser!=null && currentUser.isEmailVerified())
                 {
-                    Toast.makeText(getActivity(),"Iniciando...",Toast.LENGTH_SHORT).show();
-                    DocumentReference docRef = FirebaseFirestore.getInstance().collection("Usuarios").document(currentUser.getUid());
-                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                DocumentSnapshot document = task.getResult();
-                                if (document.exists()) {
-                                    firebase_conexion_firestore.setMap(document.getData());
-                                    findNavController(view).navigate(R.id.action_inicioSesion_to_principalUsuario);
-                                    // Navigation.findNavController(view).popBackStack();
-                                    vaciar();
-                                }
-                            }
-                        }
-                    });
-                    docRef = FirebaseFirestore.getInstance().collection("Choferes").document(currentUser.getUid());
-
-                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>()
-                    {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                DocumentSnapshot document = task.getResult();
-                                if (document.exists()) {
-                                    //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                                    firebase_conexion_firestore.setMap(document.getData());
-                                    findNavController(view).navigate(R.id.action_inicioSesion_to_principalChofer);
-
-                                    vaciar();
-                                }
-
-                            }
-                        }
-                    });
-
+                    objeto_firebase_conexion_firestore.buscarUsuario(currentUser.getUid(),view);
+                    objeto_firebase_conexion_firestore.buscarChofer(currentUser.getUid(),view);
                 }
             }
             else

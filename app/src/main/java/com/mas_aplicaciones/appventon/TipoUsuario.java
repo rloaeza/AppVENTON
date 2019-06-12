@@ -27,7 +27,10 @@ public class TipoUsuario extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
+        if(getActivity() instanceof MainActivity)
+        {
+            ((MainActivity) getActivity()).activado(3);
+        }
         View view = inflater.inflate(R.layout.fragment_tipo_usuario, container, false);
         Button btnConductor = view.findViewById(R.id.button_conductor);
         Button btnUsuario =view.findViewById(R.id.button_pasajero);

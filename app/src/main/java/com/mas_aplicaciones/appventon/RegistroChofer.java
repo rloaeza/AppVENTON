@@ -38,6 +38,10 @@ public class RegistroChofer extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if(getActivity() instanceof MainActivity)
+        {
+            ((MainActivity) getActivity()).activado(3);
+        }
         // Inflate the layout for this fragment
         view=inflater.inflate(R.layout.fragment_registro_chofer, container, false);
         editText_nombre = view.findViewById(R.id.edit_text_nombre);

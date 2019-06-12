@@ -24,6 +24,10 @@ public class datos_personales_usuario extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        if(getActivity() instanceof MainActivity)
+        {
+            ((MainActivity) getActivity()).activado(3);
+        }
         return inflater.inflate(R.layout.fragment_datos_personales_usuario, container, false);
     }
 

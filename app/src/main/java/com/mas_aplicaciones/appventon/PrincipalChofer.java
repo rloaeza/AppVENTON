@@ -20,6 +20,10 @@ public class PrincipalChofer extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragments
+        if(getActivity() instanceof MainActivity)
+        {
+            ((MainActivity) getActivity()).activado(1);
+        }
         View view = inflater.inflate(R.layout.fragment_principal_chofer, container, false);
         ImageButton btnMenu = view.findViewById(R.id.image_button_menu);
         btnMenu.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_principalChofer_to_menu2));
