@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navegador"
-    app:startDestination="@id/inicioSesion">
+    app:startDestination="@+id/inicioSesion">
 
     <fragment
         android:id="@+id/inicioSesion"
         android:name="com.mas_aplicaciones.appventon.InicioSesion"
         android:label="fragment_inicio_sesion"
-        tools:layout="@layout/fragment_inicio_sesion" >
+        tools:layout="@layout/fragment_inicio_sesion">
         <action
             android:id="@+id/action_inicioSesion_to_tipoUsuario"
             app:destination="@id/tipoUsuario" />
@@ -24,7 +24,7 @@
         android:id="@+id/registroUsuario"
         android:name="com.mas_aplicaciones.appventon.RegistroUsuario"
         android:label="fragment_registro_usuario"
-        tools:layout="@layout/fragment_registro_usuario" >
+        tools:layout="@layout/fragment_registro_usuario">
         <action
             android:id="@+id/action_registroUsuario_to_registroUsuario_organizacion"
             app:destination="@id/registroUsuario_organizacion" />
@@ -33,7 +33,7 @@
         android:id="@+id/tipoUsuario"
         android:name="com.mas_aplicaciones.appventon.TipoUsuario"
         android:label="fragment_tipo_usuario"
-        tools:layout="@layout/fragment_tipo_usuario" >
+        tools:layout="@layout/fragment_tipo_usuario">
         <action
             android:id="@+id/action_tipoUsuario_to_registroUsuario"
             app:destination="@id/registroUsuario" />
@@ -45,7 +45,7 @@
         android:id="@+id/registroChofer"
         android:name="com.mas_aplicaciones.appventon.RegistroChofer"
         android:label="fragment_registro_chofer"
-        tools:layout="@layout/fragment_registro_chofer" >
+        tools:layout="@layout/fragment_registro_chofer">
         <action
             android:id="@+id/action_registroChofer_to_registroChofer_organizacion_auto"
             app:destination="@id/registroChofer_organizacion_auto" />
@@ -54,7 +54,7 @@
         android:id="@+id/principalUsuario"
         android:name="com.mas_aplicaciones.appventon.PrincipalUsuario"
         android:label="fragment_principal_usuario"
-        tools:layout="@layout/fragment_principal_usuario" >
+        tools:layout="@layout/fragment_principal_usuario">
         <action
             android:id="@+id/action_principalUsuario_to_menu2"
             app:destination="@id/menu2" />
@@ -63,16 +63,16 @@
         android:id="@+id/principalChofer"
         android:name="com.mas_aplicaciones.appventon.PrincipalChofer"
         android:label="fragment_principal_chofer"
-        tools:layout="@layout/fragment_principal_chofer" >
+        tools:layout="@layout/fragment_principal_chofer">
         <action
             android:id="@+id/action_principalChofer_to_menu2"
-            app:destination="@id/menu2" />
+            app:destination="@+id/menu2" />
     </fragment>
     <fragment
         android:id="@+id/menu2"
         android:name="com.mas_aplicaciones.appventon.menu"
         android:label="fragment_menu"
-        tools:layout="@layout/fragment_menu" >
+        tools:layout="@layout/fragment_menu">
         <action
             android:id="@+id/action_menu2_to_quejas"
             app:destination="@id/quejas" />
@@ -105,7 +105,7 @@
         android:id="@+id/registroUsuario_organizacion"
         android:name="com.mas_aplicaciones.appventon.registroUsuario_organizacion"
         android:label="registro_usuario_organizacion"
-        tools:layout="@layout/registro_usuario_organizacion" >
+        tools:layout="@layout/registro_usuario_organizacion">
         <action
             android:id="@+id/action_registroUsuario_organizacion_to_inicioSesion2"
             app:destination="@id/inicioSesion" />
@@ -114,7 +114,7 @@
         android:id="@+id/registroChofer_organizacion_auto"
         android:name="com.mas_aplicaciones.appventon.registroChofer_organizacion_auto"
         android:label="fragment_registro_chofer_organizacion_auto"
-        tools:layout="@layout/fragment_registro_chofer_organizacion_auto" >
+        tools:layout="@layout/fragment_registro_chofer_organizacion_auto">
         <action
             android:id="@+id/action_registroChofer_organizacion_auto_to_inicioSesion"
             app:destination="@id/inicioSesion" />

@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 
 import java.util.Objects;
@@ -31,8 +35,9 @@ public class menu extends Fragment {
     View view;
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onViewCreated(@NonNull View views, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(views, savedInstanceState);
+
     }
 
     @Override
@@ -54,9 +59,12 @@ public class menu extends Fragment {
         btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                firebase_conexion_firestore.ClearMap();
                 InicioSesion.mAuth.signOut();
-                findNavController(v).navigate(R.id.action_menu2_to_inicioSesion);
+                firebase_conexion_firestore.ClearMap();
+                //findNavController(v).popBackStack(R.id.inicioSesion,true);
+                findNavController(v).navigate(R.id.inicioSesion);
+
             }
         });
         return view;
@@ -66,8 +74,7 @@ public class menu extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        String Uid = Objects.requireNonNull(InicioSesion.mAuth.getCurrentUser()).getUid();
-        objeto_firebase_conexion_firestore.getNombre(Uid);
+
         Object ob_nombre = firebase_conexion_firestore.getValue("Nombre");
         Object ob_apellidos = firebase_conexion_firestore.getValue("Apellidos");
         textUser.setText(ob_nombre +" "+ ob_apellidos);

@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 
 import androidx.navigation.Navigation;
 
+import static androidx.navigation.Navigation.findNavController;
+
 
 /**
  * A simple {@link Fragment} subclass.

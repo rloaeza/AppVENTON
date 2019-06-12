@@ -39,7 +39,7 @@ public class RegistroUsuario extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_registro_usuario, container, false);
-        btnSiguiente = view.findViewById(R.id.button_siguiente);
+        btnSiguiente = view.findViewById(R.id.button_registrar);
         editText_nombre = view.findViewById(R.id.edit_text_nombre);
         editText_apellidos = view.findViewById(R.id.edit_text_apellidos);
         editText_edad = view.findViewById(R.id.edit_text_edad);

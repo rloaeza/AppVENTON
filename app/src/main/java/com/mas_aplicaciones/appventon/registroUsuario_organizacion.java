@@ -32,11 +32,10 @@ public class registroUsuario_organizacion extends Fragment {
 
     private static Map<String, Object> data = new HashMap<>();
     private Spinner spinner_genero,spinner_carreras;
-
     private final String [] OPCIONES_GENERO =  {"Género","Masculino","Femenino"};
     private final String [] OPCIONES_CARRERAS =  {"Carrera","Ing. Administración","Ing. Sistemas","Ing. Industrial","Ing. Alimientarias","Ing. Electrónica","Ing. Mecatrónica","Ing. Mécanica","Ing. Civil"};
-
-    firebase_conexion_firestore connection=new firebase_conexion_firestore();
+    private View view;
+    firebase_conexion_firestore conexion=new firebase_conexion_firestore();
 
     public registroUsuario_organizacion()
     {
@@ -45,6 +44,7 @@ public class registroUsuario_organizacion extends Fragment {
     }
     public static void setValueMap(String key, Object value)
     {
+
         data.put(key,value);
     }
 
@@ -55,15 +55,15 @@ public class registroUsuario_organizacion extends Fragment {
 
 
         // Inflate the layout for this fragment
-        final View view =  inflater.inflate(R.layout.registro_usuario_organizacion, container, false);
+        view =  inflater.inflate(R.layout.registro_usuario_organizacion, container, false);
         //sipnner genero
         spinner_genero = view.findViewById(R.id.spinner_selecGen);
         //spinner carrera
         spinner_carreras = view.findViewById(R.id.spinner_selecCarrera);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_item_values, OPCIONES_GENERO);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(getActivity(), R.layout.spinner_item_values, OPCIONES_CARRERAS);
-        spinner_genero.setAdapter(adapter);
-        spinner_carreras.setAdapter(adapter2);
+        ArrayAdapter<String> adapter_genero = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_item_values, OPCIONES_GENERO);
+        ArrayAdapter<String> adapter_carreras = new ArrayAdapter<>(getActivity(), R.layout.spinner_item_values, OPCIONES_CARRERAS);
+        spinner_genero.setAdapter(adapter_genero);
+        spinner_carreras.setAdapter(adapter_carreras);
 
         Button btnRegistrar = view.findViewById(R.id.button_registrar);
 
@@ -71,7 +71,7 @@ public class registroUsuario_organizacion extends Fragment {
         btnRegistrar.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void onClick(View v) {
+            public void onClick( final View v) {
                 if(spinner_carreras.getSelectedItemPosition()>=1)
                 {
                     if(spinner_genero.getSelectedItemPosition()>=1)
@@ -86,14 +86,24 @@ public class registroUsuario_organizacion extends Fragment {
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
                                             FirebaseUser user = mAuth.getCurrentUser();
-                                            System.out.println(user.isEmailVerified());
+                                            //mensaje de verificación
+                                            user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful())
+                                                    {
+
+                                                    }
+                                                }
+                                            });
+
 
                                             //agrega los datos a usuarios y le asigna el mismo UID de la autentificación a los datos de este.
-                                            connection.agregar_usuario(data,user.getUid());
+                                            conexion.agregar_usuario(data,user.getUid());
                                             Toast.makeText(getActivity(),"Checar correo electrónico para validar su correo",Toast.LENGTH_SHORT).show();
 
-                                            findNavController(view).navigate(R.id.action_registroUsuario_organizacion_to_inicioSesion2);
 
+                                            findNavController(v).popBackStack(R.id.inicioSesion,true);
                                         }
                                         else {
                                             // If sign in fails, display a message to the user.
@@ -106,7 +116,7 @@ public class registroUsuario_organizacion extends Fragment {
                                             {
                                                 Toast.makeText(getActivity(), "Error de registro, sin acceso a Internet",Toast.LENGTH_SHORT).show();
                                                 data.clear();
-                                                findNavController(view).navigate(R.id.action_registroUsuario_organizacion_to_inicioSesion2);
+                                                findNavController(v).popBackStack(R.id.inicioSesion,true);
                                             }
 
 

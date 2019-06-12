@@ -1,6 +1,9 @@
 package com.mas_aplicaciones.appventon;
 
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.view.View;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -11,21 +14,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+import static androidx.navigation.Navigation.findNavController;
 
 
-public class firebase_conexion_firestore
-{
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private static Map<String,Object> datos = new HashMap<>();
+public class firebase_conexion_firestore {
+    public static FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private static Map<String, Object> datos = new HashMap<>();
 
-    public void agregar_usuario(Map<String,Object> datos,String UUID)
-    {
-        Object valores[] =  datos.values().toArray();
-        System.out.println();
-        for( int i=0;i<valores.length;i++)
-        {
-            System.out.println("valores: "+valores[i].toString());
-        }
+    public void agregar_usuario(Map<String, Object> datos, String UUID) {
+
         db.collection("Usuarios").document(UUID)
                 .set(datos)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -37,40 +34,44 @@ public class firebase_conexion_firestore
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                       // Log.w(TAG, "Error writing document", e);
+                        // Log.w(TAG, "Error writing document", e);
                     }
                 });
 
 
     }
-    public void getNombre(String id)
-    {
-        DocumentReference docRef = db.collection("Usuarios").document(id);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        datos=document.getData();
+    public void agregar_chofer(Map<String, Object> datos, String UUID) {
 
-
+        db.collection("Choferes").document(UUID)
+                .set(datos)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        //Log.d(TAG, "DocumentSnapshot successfully written!");
                     }
-                   /* else
-                    {
-                        //Log.d(TAG, "No such document");
-                    }*/
-                }
-                /*else {
-                   // Log.d(TAG, "get failed with ", task.getException());
-                }*/
-            }
-        });
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Log.w(TAG, "Error writing document", e);
+                    }
+                });
+
 
     }
-    public static Object getValue(String Key)
-    {
+    public static Object getValue(String Key) {
+
         return datos.get(Key);
     }
+    public static void ClearMap() {
+
+        datos.clear();
+    }
+    public static void setMap(Map<String,Object> setData)
+    {
+        datos=setData;
+    }
+
+
+
 }

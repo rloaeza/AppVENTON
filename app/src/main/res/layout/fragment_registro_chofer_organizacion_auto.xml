@@ -91,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:weightSum="2"
+                android:weightSum="1"
                 android:layout_marginBottom="40dp">
 
             <Spinner
@@ -100,15 +100,37 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:backgroundTint="@color/colorBotones"
                 android:popupBackground="@color/colorBackBotones2"
                 android:spinnerMode="dropdown" />
 
         </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="1"
+            android:layout_marginBottom="40dp">
 
+        <Spinner
+            android:id="@+id/spinner_selecGen"
+            style="@android:style/Widget.Material.Light.Spinner.Underlined"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:backgroundTint="@color/colorBotones"
+            android:focusable="auto"
+            android:foregroundTint="@color/colorBotones"
+            android:popupBackground="@color/colorBackBotones2"
+            android:spinnerMode="dropdown"
+            android:textAlignment="center"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="493dp" />
+        </TableRow>
         <Button
-            android:id="@+id/button_siguiente"
+            android:id="@+id/button_registrar"
             android:layout_width="100dp"
             android:layout_height="33dp"
             android:background="@color/colorBackBotones"

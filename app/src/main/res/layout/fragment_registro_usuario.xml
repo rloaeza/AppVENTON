@@ -150,7 +150,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="0.5"
+                android:layout_weight="0.60"
                 app:passwordToggleDrawable="@drawable/icon_selector"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="@color/colorBotones"
@@ -178,7 +178,7 @@
         </TableRow>
 
         <Button
-            android:id="@+id/button_siguiente"
+            android:id="@+id/button_registrar"
             android:layout_width="106dp"
             android:layout_height="33dp"
             android:layout_gravity="center"

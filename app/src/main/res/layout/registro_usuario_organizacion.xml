@@ -58,7 +58,6 @@
                 android:layout_gravity="center"
                 android:layout_weight="0.5"
                 android:backgroundTint="@color/colorBotones"
-
                 android:focusable="auto"
                 android:foregroundTint="@color/colorBotones"
                 android:popupBackground="@color/colorBackBotones2"

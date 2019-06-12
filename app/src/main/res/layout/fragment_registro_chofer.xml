@@ -131,7 +131,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="0.5"
+                android:layout_weight="0.75"
                 android:backgroundTint="@color/colorBotones"
                 android:drawableEnd="@drawable/email"
                 android:ems="10"
@@ -159,7 +159,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="0.5"
+                android:layout_weight="0.75"
                 android:backgroundTint="@color/colorBotones"
                 android:textColorHint="@color/colorBotones"
                 app:hintEnabled="false"
@@ -168,17 +168,18 @@
                 app:passwordToggleTint="@color/colorBotones">
 
                 <EditText
+                    android:id="@+id/edit_text_contrasena2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorBotones"
                     android:hint="@string/txtContra"
+                    android:importantForAutofill="no"
                     android:inputType="textPassword"
                     android:textColor="@color/colorBotones"
                     android:textColorHighlight="@android:color/background_light"
                     android:textColorHint="@color/colorBotones"
                     android:textColorLink="@android:color/background_light"
                     android:textCursorDrawable="@android:color/background_light"
-                    android:importantForAutofill="no"
                     tools:targetApi="o" />
             </android.support.design.widget.TextInputLayout>
         </TableRow>

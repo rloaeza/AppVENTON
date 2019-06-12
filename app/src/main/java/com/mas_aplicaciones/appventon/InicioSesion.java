@@ -2,8 +2,11 @@ package com.mas_aplicaciones.appventon;
 
 
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthEmailException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.Objects;
 
 
@@ -38,6 +45,7 @@ public class InicioSesion extends Fragment {
     private EditText editText_email,editText_contrasena;
     private String email,contrasena;
     private evaluacion_de_views objeto_evaluacion_de_views = new evaluacion_de_views();
+    private firebase_conexion_firestore objeto_firebase_conexion_firestore = new firebase_conexion_firestore();
 
 
 
@@ -47,102 +55,214 @@ public class InicioSesion extends Fragment {
     }
 
 
+    private boolean isNetDisponible() {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(getActivity().CONNECTIVITY_SERVICE);
+
+        NetworkInfo actNetInfo = connectivityManager.getActiveNetworkInfo();
+
+        return (actNetInfo != null && actNetInfo.isConnected());
+    }
+    public Boolean isOnlineNet()
+    {
+
+        try {
+            Process p = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.es");
+
+            int val = p.waitFor();
+            boolean reachable = (val == 0);
+            return reachable;
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
 
-        mAuth = FirebaseAuth.getInstance() ;
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_inicio_sesion, container, false);
-        editText_email = view.findViewById(R.id.edit_text_email);
-        editText_contrasena = view.findViewById(R.id.edit_text_contrasena);
-        Button btnRegistrar = view.findViewById(R.id.button_registrar);
-        Button btnIniciarSesion = view.findViewById(R.id.button_iniciar);
-        //listener para entrar al tipo usuario
-        btnIniciarSesion.setOnClickListener(new View.OnClickListener() {//acomoda y luego muestra y realiza todo lo necesario validad
-            @Override
-            public void onClick(View v) {
-                email=editText_email.getText().toString();
-                contrasena=editText_contrasena.getText().toString();
-                if(objeto_evaluacion_de_views.emailValidado(email))
-                {
-                    mAuth.signInWithEmailAndPassword(email, contrasena)
-                            .addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        //Log.d(TAG, "signInWithEmail:success");
 
-                                        currentUser = mAuth.getCurrentUser();
-                                        Toast.makeText(getActivity(),"Iniciando...",Toast.LENGTH_SHORT).show();
-                                        findNavController(view).navigate(R.id.action_inicioSesion_to_principalUsuario);
-                                        //updateUI(user);
-                                    } else {
-                                        // If sign in fails, display a message to the user.
-                                        //Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                        if(task.getException() instanceof FirebaseAuthEmailException)
-                                        {
-                                            Toast.makeText(getActivity(), "Usuario no registrado", Toast.LENGTH_SHORT).show();
+            mAuth = FirebaseAuth.getInstance() ;
+
+            // Inflate the layout for this fragment
+            view = inflater.inflate(R.layout.fragment_inicio_sesion, container, false);
+            editText_email = view.findViewById(R.id.edit_text_email);
+            editText_contrasena = view.findViewById(R.id.edit_text_contrasena);
+            Button btnRegistrar = view.findViewById(R.id.button_registrar);
+            final Button btnIniciarSesion = view.findViewById(R.id.button_iniciar);
+            //listener para entrar al tipo usuario
+            btnIniciarSesion.setOnClickListener(new View.OnClickListener() {//acomoda y luego muestra y realiza todo lo necesario validad
+                @Override
+                public void onClick( final View v) {
+                    if(isNetDisponible() && isOnlineNet()) {
+                        email = editText_email.getText().toString();
+                        contrasena = editText_contrasena.getText().toString();
+                        if (objeto_evaluacion_de_views.emailValidado(email)) {
+                            mAuth.signInWithEmailAndPassword(email, contrasena)
+                                    .addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if (task.isSuccessful())
+                                            {
+                                                // Sign in success, update UI with the signed-in user's information
+                                                currentUser = mAuth.getCurrentUser();
+                                                Toast.makeText(getActivity(), "Iniciando...", Toast.LENGTH_SHORT).show();
+                                                /*******************************************************/
+
+
+
+                                                DocumentReference docRef = FirebaseFirestore.getInstance().collection("Usuarios").document(currentUser.getUid());
+                                                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            DocumentSnapshot document = task.getResult();
+                                                            if (document.exists()) {
+                                                                firebase_conexion_firestore.setMap(document.getData());
+                                                                findNavController(view).navigate(R.id.action_inicioSesion_to_principalUsuario);
+                                                                //findNavController(getActivity().getCurrentFocus()).popBackStack(R.id.principalUsuario,true);
+                                                                vaciar();
+                                                            }
+                                                        }
+                                                    }
+                                                });
+                                                docRef = FirebaseFirestore.getInstance().collection("Choferes").document(currentUser.getUid());
+
+                                                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>()
+                                                {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            DocumentSnapshot document = task.getResult();
+                                                            if (document.exists()) {
+                                                                //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                                                findNavController(view).navigate(R.id.action_inicioSesion_to_principalChofer);
+                                                                firebase_conexion_firestore.setMap(document.getData());
+                                                                vaciar();
+
+                                                            }
+
+                                                        }
+                                                    }
+                                                });
+
+
+                                                /*******************************************************/
+
+                                                //updateUI(user);
+                                            }
+                                            else
+                                            {
+                                                // If sign in fails, display a message to the user.
+                                                //Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                                if (task.getException() instanceof FirebaseAuthEmailException) {
+                                                    Toast.makeText(getActivity(), "Usuario no registrado", Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    Toast.makeText(getActivity(), "Email o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                                                }
+
+
+                                            }
                                         }
-                                        else
-                                        {
-                                            Toast.makeText(getActivity(), "Email o contraseña incorrectos", Toast.LENGTH_SHORT).show();
-                                        }
-
-
-                                    }
-                                }
-                            });
+                                    });
+                        }
+                        else {
+                            Toast.makeText(getActivity(), "Email invalido", Toast.LENGTH_SHORT).show();
+                            editText_email.setError("required");
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(getActivity(),"Compruebe su conexión de Internet",Toast.LENGTH_SHORT).show();
+                    }
                 }
-                else
-                {
-                    Toast.makeText(getActivity(), "Email invalido", Toast.LENGTH_SHORT).show();
-                    editText_email.setError("required");
-                }
+            });
+            //listener para ingresar a tipo de usuario
 
-                //findNavController(v).navigate(R.id.action_inicioSesion_to_principalUsuario);
-               //findNavController(v).navigate(R.id.action_inicioSesion_to_principalChofer);
-            }
-        });
-        //listener para ingresar a tipo de usuario
-        btnRegistrar.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_inicioSesion_to_tipoUsuario));// metodo para pasar al siguiente fragment  sin validar
+                btnRegistrar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick( View v) {
+                        if(isOnlineNet() && isNetDisponible())
+                        {
 
-        return view;
+                            findNavController(view).navigate(R.id.action_inicioSesion_to_tipoUsuario);// metodo para pasar al siguiente fragment  sin validar
+                        }
+                        else
+                        {
+                            Toast.makeText(getActivity(),"Compruebe su conexión de Internet",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            return view;
     }
-    @Override
+   @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
 
-            currentUser= mAuth.getCurrentUser();
-            if(currentUser!=null)
+            if(isNetDisponible() && isOnlineNet())
             {
-                Toast.makeText(getActivity(),"Iniciando...",Toast.LENGTH_SHORT).show();
-                findNavController(view).navigate(R.id.action_inicioSesion_to_principalUsuario);
-            }
-            /*else
 
+                currentUser= mAuth.getCurrentUser();
+
+                if(currentUser!=null && currentUser.isEmailVerified())
+                {
+                    Toast.makeText(getActivity(),"Iniciando...",Toast.LENGTH_SHORT).show();
+                    DocumentReference docRef = FirebaseFirestore.getInstance().collection("Usuarios").document(currentUser.getUid());
+                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    firebase_conexion_firestore.setMap(document.getData());
+                                    findNavController(view).navigate(R.id.action_inicioSesion_to_principalUsuario);
+                                    // Navigation.findNavController(view).popBackStack();
+                                    vaciar();
+                                }
+                            }
+                        }
+                    });
+                    docRef = FirebaseFirestore.getInstance().collection("Choferes").document(currentUser.getUid());
+
+                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>()
+                    {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                    firebase_conexion_firestore.setMap(document.getData());
+                                    findNavController(view).navigate(R.id.action_inicioSesion_to_principalChofer);
+
+                                    vaciar();
+                                }
+
+                            }
+                        }
+                    });
+
+                }
+            }
+            else
             {
-                Toast.makeText(getActivity(),"Nos vemos ...",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"Compruebe su conexión de Internet",Toast.LENGTH_SHORT).show();
             }
-
-
-
-
-
-        if(!currentUser.isEmailVerified())
-        {
-            Toast.makeText(getActivity(),"Iniciando...",Toast.LENGTH_SHORT).show();
-
-        }
-        else
-            {}*/
-
-
     }
+
+    public void vaciar()
+    {
+        editText_contrasena.setText("");
+        editText_email.setText("");
+    }
+
 
 
 
