@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import static androidx.navigation.Navigation.findNavController;
 
 
@@ -25,14 +24,12 @@ public class RegistroChofer extends Fragment {
     private EditText editText_telefono;
     private EditText editText_email;
     private EditText editText_contrasena;
-    private Button btnSiguiente;
     private String nombre;
     private String apellidos;
     private String edad;
     private String telefono;
     private String email;
     private String contrasena;
-    private View view;
     evaluacion_de_views objeto_evaluacion_de_views = new evaluacion_de_views();
 
     @Override
@@ -43,14 +40,14 @@ public class RegistroChofer extends Fragment {
             ((MainActivity) getActivity()).activado(3);
         }
         // Inflate the layout for this fragment
-        view=inflater.inflate(R.layout.fragment_registro_chofer, container, false);
+        View view = inflater.inflate(R.layout.fragment_registro_chofer, container, false);
         editText_nombre = view.findViewById(R.id.edit_text_nombre);
         editText_apellidos = view.findViewById(R.id.edit_text_apellidos);
         editText_edad = view.findViewById(R.id.edit_text_edad);
         editText_telefono = view.findViewById(R.id.edit_text_telefono);
         editText_email = view.findViewById(R.id.edit_text_email);
         editText_contrasena = view.findViewById(R.id.edit_text_contrasena2);
-        btnSiguiente = view.findViewById(R.id.button_registrar);
+        Button btnSiguiente = view.findViewById(R.id.button_registrar);
 
         btnSiguiente.setOnClickListener(new View.OnClickListener()
         {

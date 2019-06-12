@@ -2,9 +2,6 @@ package com.mas_aplicaciones.appventon;
 
 import android.support.annotation.NonNull;
 import android.view.View;
-
-import androidx.navigation.Navigation;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -14,7 +11,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
-
 import static androidx.navigation.Navigation.findNavController;
 
 
@@ -67,6 +63,7 @@ public class firebase_conexion_firestore {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
+                    assert document != null;
                     if (document.exists()) {
                         firebase_conexion_firestore.setMap(document.getData());
 
@@ -87,6 +84,7 @@ public class firebase_conexion_firestore {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
+                    assert document != null;
                     if (document.exists()) {
                         firebase_conexion_firestore.setMap(document.getData());
                         findNavController(view).navigate(R.id.action_inicioSesion_to_principalChofer);

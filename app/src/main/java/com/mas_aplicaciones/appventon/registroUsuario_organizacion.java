@@ -34,7 +34,6 @@ public class registroUsuario_organizacion extends Fragment {
     private Spinner spinner_genero,spinner_carreras;
     private final String [] OPCIONES_GENERO =  {"Género","Masculino","Femenino"};
     private final String [] OPCIONES_CARRERAS =  {"Carrera","Ing. Administración","Ing. Sistemas","Ing. Industrial","Ing. Alimientarias","Ing. Electrónica","Ing. Mecatrónica","Ing. Mécanica","Ing. Civil"};
-    private View view;
     firebase_conexion_firestore conexion=new firebase_conexion_firestore();
 
     public registroUsuario_organizacion()
@@ -58,7 +57,7 @@ public class registroUsuario_organizacion extends Fragment {
         }
 
         // Inflate the layout for this fragment
-        view =  inflater.inflate(R.layout.registro_usuario_organizacion, container, false);
+        View view = inflater.inflate(R.layout.registro_usuario_organizacion, container, false);
         //sipnner genero
         spinner_genero = view.findViewById(R.id.spinner_selecGen);
         //spinner carrera
@@ -82,7 +81,7 @@ public class registroUsuario_organizacion extends Fragment {
                         data.put("Carrera",spinner_carreras.getSelectedItem().toString());
                         data.put("Género",spinner_genero.getSelectedItem().toString());
 
-                        mAuth.createUserWithEmailAndPassword(Objects.requireNonNull(data.get("Email")).toString(), data.get("Contraseña").toString())
+                        mAuth.createUserWithEmailAndPassword(Objects.requireNonNull(data.get("Email")).toString(), Objects.requireNonNull(data.get("Contraseña")).toString())
                                 .addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>()
                                 {
                                     @Override
@@ -90,15 +89,15 @@ public class registroUsuario_organizacion extends Fragment {
                                         if (task.isSuccessful()) {
                                             FirebaseUser user = mAuth.getCurrentUser();
                                             //mensaje de verificación
-                                            user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isSuccessful())
-                                                    {
 
-                                                    }
-                                                }
-                                            });
+                                            try {
+                                                assert user != null;
+                                                user.sendEmailVerification();
+                                            }
+                                            catch (NullPointerException e)
+                                            {
+                                                e.printStackTrace();
+                                            }
 
 
                                             //agrega los datos a usuarios y le asigna el mismo UID de la autentificación a los datos de este.
@@ -136,7 +135,7 @@ public class registroUsuario_organizacion extends Fragment {
                 }
             }
         });
-        return  view;
+        return view;
     }
 
 

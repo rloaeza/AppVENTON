@@ -20,7 +20,6 @@ import static androidx.navigation.Navigation.findNavController;
 public class RegistroUsuario extends Fragment {
 
     evaluacion_de_views objeto_evaluacion_de_views = new evaluacion_de_views();
-    private Button btnSiguiente ;
     private EditText editText_nombre;
     private EditText editText_apellidos;
     private EditText editText_edad ;
@@ -43,7 +42,7 @@ public class RegistroUsuario extends Fragment {
         }
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_registro_usuario, container, false);
-        btnSiguiente = view.findViewById(R.id.button_registrar);
+        Button btnSiguiente = view.findViewById(R.id.button_registrar);
         editText_nombre = view.findViewById(R.id.edit_text_nombre);
         editText_apellidos = view.findViewById(R.id.edit_text_apellidos);
         editText_edad = view.findViewById(R.id.edit_text_edad);

@@ -20,8 +20,7 @@ public class PrincipalChofer extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragments
-        if(getActivity() instanceof MainActivity)
-        {
+        if(getActivity() instanceof MainActivity) {
             ((MainActivity) getActivity()).activado(1);
         }
         View view = inflater.inflate(R.layout.fragment_principal_chofer, container, false);

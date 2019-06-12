@@ -28,13 +28,11 @@ public class evaluacion_de_views
             if(contrasena.contains("0")||contrasena.contains("1")||contrasena.contains("2")||contrasena.contains("3")||contrasena.contains("4")||
                contrasena.contains("5")||contrasena.contains("6")||contrasena.contains("7")||contrasena.contains("8")||contrasena.contains("9"))
             {
-                if(contrasena_contiene_mayuscula(contrasena))
-                {
 
-                    return true;
+                    return contrasena_contiene_mayuscula(contrasena);
 
-                }
-                return false;
+
+
             }
             return false;
         }
@@ -63,11 +61,7 @@ public class evaluacion_de_views
     private  boolean email_con_un_arroba(String email)
     {
         StringTokenizer  st = new StringTokenizer(email,"@");
-        if( st.countTokens()==2)
-        {
-            return true;
-        }
-        return false;
+        return st.countTokens() == 2;
 
 
     }

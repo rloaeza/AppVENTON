@@ -11,17 +11,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
 import static androidx.navigation.Navigation.findNavController;
 import static com.mas_aplicaciones.appventon.InicioSesion.mAuth;
 
@@ -32,10 +29,9 @@ import static com.mas_aplicaciones.appventon.InicioSesion.mAuth;
 public class registroChofer_organizacion_auto extends Fragment {
 
     private View view;
-    private Spinner spinner_organizacion,spinner_genero,spinner_carrera;
+    private Spinner spinner_organizacion,spinner_genero;
     private String [] OPCIONES_ORGANIZACION = {"Organización","ITSU"};
     private final String [] OPCIONES_GENERO =  {"Género","Masculino","Femenino"};
-    private Button btnSiguiente;
     private static Map<String,Object> data = new HashMap<>();
     firebase_conexion_firestore conexion=new firebase_conexion_firestore();
 
@@ -63,7 +59,7 @@ public class registroChofer_organizacion_auto extends Fragment {
         ArrayAdapter<String> adapter_genero = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),R.layout.spinner_item_values,OPCIONES_GENERO);
         spinner_organizacion.setAdapter(adapter_organizacion);
         spinner_genero.setAdapter(adapter_genero);
-        btnSiguiente = view.findViewById(R.id.button_registrar);
+        Button btnSiguiente = view.findViewById(R.id.button_registrar);
         btnSiguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick( final View v)
@@ -75,22 +71,22 @@ public class registroChofer_organizacion_auto extends Fragment {
                         data.put("Organización",spinner_organizacion.getSelectedItem().toString());
                         data.put("Género",spinner_genero.getSelectedItem().toString());
 
-                        mAuth.createUserWithEmailAndPassword(Objects.requireNonNull(data.get("Email")).toString(), data.get("Contraseña").toString())
+                        mAuth.createUserWithEmailAndPassword(Objects.requireNonNull(data.get("Email")).toString(), Objects.requireNonNull(data.get("Contraseña")).toString())
                                 .addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>()
                                 {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
                                             FirebaseUser user = mAuth.getCurrentUser();
-                                            System.out.println(user.isEmailVerified());
-                                            user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isSuccessful()) {
 
-                                                    }
-                                                }
-                                            });
+                                            try {
+                                                assert user != null;
+                                                user.sendEmailVerification();
+                                            }
+                                            catch(NullPointerException e)
+                                            {
+                                                e.printStackTrace();
+                                            }
 
                                             Toast.makeText(getActivity(),"Checar correo electrónico para validar su correo",Toast.LENGTH_SHORT).show();
 
