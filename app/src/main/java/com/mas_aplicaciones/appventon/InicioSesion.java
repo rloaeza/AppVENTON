@@ -89,6 +89,7 @@ public class InicioSesion extends Fragment {
             Button btnRegistrar = view.findViewById(R.id.button_registrar);
             final Button btnIniciarSesion = view.findViewById(R.id.button_iniciar);
             //listener para entrar al tipo usuario
+
             btnIniciarSesion.setOnClickListener(new View.OnClickListener() {//acomoda y luego muestra y realiza todo lo necesario validad
                 @Override
                 public void onClick( final View v) {
@@ -160,13 +161,10 @@ public class InicioSesion extends Fragment {
 
             if(isNetDisponible() && isOnlineNet())
             {
-
-                currentUser= mAuth.getCurrentUser();
-
-                if(currentUser!=null && currentUser.isEmailVerified())
+                if(currentUser!= null && currentUser.isEmailVerified())
                 {
-                    objeto_firebase_conexion_firestore.buscarUsuario(currentUser.getUid(),view);
-                    objeto_firebase_conexion_firestore.buscarChofer(currentUser.getUid(),view);
+                    objeto_firebase_conexion_firestore.buscarUsuario(currentUser.getUid(), view);
+                    objeto_firebase_conexion_firestore.buscarChofer(currentUser.getUid(), view);
                 }
             }
             else
