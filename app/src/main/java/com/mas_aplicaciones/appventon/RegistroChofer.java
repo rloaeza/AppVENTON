@@ -66,7 +66,7 @@ public class RegistroChofer extends Fragment {
                     {
                         if(!edad.equals("") && objeto_evaluacion_de_views.es_numero(edad,17))
                         {
-                            if(!telefono.equals(""))
+                            if(!telefono.equals("") && objeto_evaluacion_de_views.telefonoValido(telefono))
                             {
                                 if(!email.equals("") && objeto_evaluacion_de_views.emailValidado(email))
                                 {
@@ -95,6 +95,7 @@ public class RegistroChofer extends Fragment {
                             else
                             {
                                 editText_telefono.setError("required");
+                                Toast.makeText(getActivity(),"Teléfono nulo o incorrecto",Toast.LENGTH_SHORT).show();
                             }
                         }
                         else
