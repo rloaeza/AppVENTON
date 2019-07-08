@@ -57,7 +57,7 @@ public class InicioSesion extends Fragment {
     {
 
         try {
-            Process p = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.es");
+            Process p = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.com");
 
             int val = p.waitFor();
             return (val == 0);
