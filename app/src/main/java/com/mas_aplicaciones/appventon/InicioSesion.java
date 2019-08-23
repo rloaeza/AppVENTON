@@ -5,14 +5,16 @@ package com.mas_aplicaciones.appventon;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -85,7 +87,7 @@ public class InicioSesion extends Fragment {
             // Inflate the layout for this fragment
             view = inflater.inflate(R.layout.fragment_inicio_sesion, container, false);
             editText_email = view.findViewById(R.id.edit_text_email);
-            editText_contrasena = view.findViewById(R.id.edit_text_contrasena);
+            editText_contrasena = view.findViewById(R.id.edit_text_contrasena2);
             Button btnRegistrar = view.findViewById(R.id.button_registrar);
             final Button btnIniciarSesion = view.findViewById(R.id.button_iniciar);
             //listener para entrar al tipo usuario

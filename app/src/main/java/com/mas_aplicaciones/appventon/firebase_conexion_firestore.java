@@ -1,7 +1,10 @@
 package com.mas_aplicaciones.appventon;
 
-import android.support.annotation.NonNull;
+
 import android.view.View;
+
+import androidx.annotation.NonNull;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -76,7 +79,7 @@ public class firebase_conexion_firestore {
         });
     }
     public void buscarChofer(String UIDD, final View view) {
-        DocumentReference docRef = FirebaseFirestore.getInstance().collection("Choferes").document(UIDD);
+        final DocumentReference docRef = FirebaseFirestore.getInstance().collection("Choferes").document(UIDD);
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>()
         {
@@ -85,9 +88,19 @@ public class firebase_conexion_firestore {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     assert document != null;
-                    if (document.exists()) {
+                    if (document.exists())
+                    {
+
                         firebase_conexion_firestore.setMap(document.getData());
-                        findNavController(view).navigate(R.id.action_inicioSesion_to_principalChofer);
+                        if((boolean)document.getData().get("validacion"))
+                        {
+                            findNavController(view).navigate(R.id.action_inicioSesion_to_principalChofer);
+                        }
+                        else
+                        {
+
+                        }
+
 
                         //vaciar();
 
