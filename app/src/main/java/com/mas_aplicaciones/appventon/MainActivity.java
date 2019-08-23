@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
 
 
+
     }
     public  void activado(int activar)
     {

@@ -63,7 +63,7 @@ public class evaluacion_de_views
             boolean ban;
             try
             {
-                Integer.parseInt(tel);
+
                 if(tel.length()==10)
                 {
                     ban =  true;
@@ -75,7 +75,7 @@ public class evaluacion_de_views
 
 
             }
-            catch (NullPointerException ex)
+            catch (NumberFormatException ex)
             {
                   ban = false;
             }
