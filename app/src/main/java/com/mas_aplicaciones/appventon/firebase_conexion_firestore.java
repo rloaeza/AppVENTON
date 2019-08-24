@@ -2,6 +2,7 @@ package com.mas_aplicaciones.appventon;
 
 
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -94,11 +95,12 @@ public class firebase_conexion_firestore {
                         firebase_conexion_firestore.setMap(document.getData());
                         if((boolean)document.getData().get("validacion"))
                         {
+                            Toast.makeText(view.getContext(), "Iniciando...", Toast.LENGTH_SHORT).show();
                             findNavController(view).navigate(R.id.action_inicioSesion_to_principalChofer);
                         }
                         else
                         {
-
+                            Toast.makeText(view.getContext(),"Tus datos estan siendo validados en la organización "+document.getData().get("Organización"),Toast.LENGTH_LONG).show();
                         }
 
 

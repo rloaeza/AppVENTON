@@ -2,6 +2,8 @@ package com.mas_aplicaciones.appventon;
 
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -11,10 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -42,9 +42,7 @@ public class InicioSesion extends Fragment {
 
 
 
-    public InicioSesion() {
-        // Required empty public constructor
-    }
+
 
 
     private boolean isNetDisponible() {
@@ -78,11 +76,13 @@ public class InicioSesion extends Fragment {
                              Bundle savedInstanceState) {
 
 
+
             if(getActivity() instanceof MainActivity)
             {
                 ((MainActivity) getActivity()).activado(1);
             }
             mAuth = FirebaseAuth.getInstance() ;
+
 
             // Inflate the layout for this fragment
             view = inflater.inflate(R.layout.fragment_inicio_sesion, container, false);
@@ -109,10 +109,22 @@ public class InicioSesion extends Fragment {
                                             {
                                                 // Sign in success, update UI with the signed-in user's information
                                                 currentUser = mAuth.getCurrentUser();
-                                                Toast.makeText(getActivity(), "Iniciando...", Toast.LENGTH_SHORT).show();
-                                                objeto_firebase_conexion_firestore.buscarUsuario(currentUser.getUid(),view);
-                                                objeto_firebase_conexion_firestore.buscarChofer(currentUser.getUid(),view);
+                                                guardarPreferencias();
+                                                if(currentUser!= null && currentUser.isEmailVerified())
+                                                {
+
+                                                    objeto_firebase_conexion_firestore.buscarUsuario(currentUser.getUid(),view);
+                                                    objeto_firebase_conexion_firestore.buscarChofer(currentUser.getUid(),view);
+                                                    editText_contrasena.setText("");
+                                                    editText_email.setText("");
+                                                }
+                                                else
+                                                {
+                                                    Toast.makeText(getActivity(), "Email no validado, revisa el email registrado",Toast.LENGTH_LONG).show();
+                                                }
+
                                             }
+
                                             else
                                             {
                                                 // If sign in fails, display a message to the user.
@@ -156,18 +168,16 @@ public class InicioSesion extends Fragment {
                 });
             return view;
     }
-   @Override
+
+
+
+    @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-
             if(isNetDisponible() && isOnlineNet())
             {
-                if(currentUser!= null && currentUser.isEmailVerified())
-                {
-                    objeto_firebase_conexion_firestore.buscarUsuario(currentUser.getUid(), view);
-                    objeto_firebase_conexion_firestore.buscarChofer(currentUser.getUid(), view);
-                }
+                leerPreferencias();
             }
             else
             {
@@ -177,8 +187,50 @@ public class InicioSesion extends Fragment {
 
 
 
+    private void guardarPreferencias() {
 
 
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("credenciales" , Context.MODE_PRIVATE); //nombre de mi file y el modo de visualizacion
+        //asignarle los datos al archivo credenciales
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("usuario",editText_email.getText().toString());
+        editor.putString("password",editText_contrasena.getText().toString());
+        editor.commit();
+
+    }
+    private void leerPreferencias()
+    {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("credenciales" , Context.MODE_PRIVATE); //nombre de mi file y el modo de visualizacion
+        if(!sharedPreferences.getString("usuario","null").equals("null") && !sharedPreferences.getString("password","null").equals("null")) {
+            String usuario = sharedPreferences.getString("usuario", "null");
+            String password = sharedPreferences.getString("password", "null");
+            mAuth.signInWithEmailAndPassword(usuario, password)
+                    .addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                currentUser = mAuth.getCurrentUser();
+
+
+                                if (currentUser != null && currentUser.isEmailVerified()) {
+
+                                    objeto_firebase_conexion_firestore.buscarUsuario(currentUser.getUid(), view);
+                                    objeto_firebase_conexion_firestore.buscarChofer(currentUser.getUid(), view);
+                                    editText_contrasena.setText("");
+                                    editText_email.setText("");
+                                }
+                            }
+                            else
+                            {
+                                Toast.makeText(getActivity(), "Email no validado, revisa el email registrado",Toast.LENGTH_LONG).show();
+                            }
+
+                        }
+                    });
+        }
+
+    }
 
 
 
