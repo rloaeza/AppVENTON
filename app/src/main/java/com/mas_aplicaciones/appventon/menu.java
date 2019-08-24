@@ -10,31 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+
+import java.util.Objects;
+
 import static androidx.navigation.Navigation.findNavController;
 
 
 public class menu extends Fragment {
 
 
-
-    Button btnAyuda;
-    Button btnQuejas;
-    Button btnConfiguracion;
-    Button btnCerrarSesion;
-    TextView textUser;
-    View view;
-
-    @Override
-    public void onViewCreated(@NonNull View views, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(views, savedInstanceState);
-
-    }
+    private TextView textUser;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -43,12 +31,12 @@ public class menu extends Fragment {
         {
             ((MainActivity) getActivity()).activado(3);
         }
-        view = inflater.inflate(R.layout.fragment_menu, container, false);
-        btnAyuda = view.findViewById(R.id.button_ayuda);
-        btnQuejas = view.findViewById(R.id.button_quejas_sugerencias);
-        btnConfiguracion = view.findViewById(R.id.button_configurar_datos);
-        btnCerrarSesion = view.findViewById(R.id.button_cerrar_sesion);
-        textUser =view.findViewById(R.id.text_view_nombre);
+        View view = inflater.inflate(R.layout.fragment_menu, container, false);
+        Button btnAyuda = view.findViewById(R.id.button_ayuda);
+        Button btnQuejas = view.findViewById(R.id.button_quejas_sugerencias);
+        Button btnConfiguracion = view.findViewById(R.id.button_configurar_datos);
+        Button btnCerrarSesion = view.findViewById(R.id.button_cerrar_sesion);
+        textUser = view.findViewById(R.id.text_view_nombre);
 
         btnAyuda.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_ayuda3));
         btnQuejas.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_quejas));
@@ -81,11 +69,11 @@ public class menu extends Fragment {
     private void clearPreferencias() {
 
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("credenciales" , Context.MODE_PRIVATE); //nombre de mi file y el modo de visualizacion
+        SharedPreferences sharedPreferences = Objects.requireNonNull(getActivity()).getSharedPreferences("credenciales" , Context.MODE_PRIVATE); //nombre de mi file y el modo de visualizacion
         //Eliminar credeciales
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
-        editor.commit();
+        editor.apply();
 
 
     }

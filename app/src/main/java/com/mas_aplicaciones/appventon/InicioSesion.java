@@ -36,8 +36,8 @@ public class InicioSesion extends Fragment {
     private View view;
     private EditText editText_email,editText_contrasena;
     private String email,contrasena;
-    evaluacion_de_views objeto_evaluacion_de_views = new evaluacion_de_views();
-    firebase_conexion_firestore objeto_firebase_conexion_firestore = new firebase_conexion_firestore();
+    private evaluacion_de_views objeto_evaluacion_de_views = new evaluacion_de_views();
+    private firebase_conexion_firestore objeto_firebase_conexion_firestore = new firebase_conexion_firestore();
 
 
 
@@ -47,13 +47,14 @@ public class InicioSesion extends Fragment {
 
     private boolean isNetDisponible() {
 
-        ConnectivityManager connectivityManager = (ConnectivityManager) Objects.requireNonNull(getActivity()).getSystemService(getActivity().CONNECTIVITY_SERVICE);
+        getActivity();
+        ConnectivityManager connectivityManager = (ConnectivityManager) Objects.requireNonNull(getActivity()).getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo actNetInfo = connectivityManager.getActiveNetworkInfo();
 
         return (actNetInfo != null && actNetInfo.isConnected());
     }
-    public Boolean isOnlineNet()
+    private Boolean isOnlineNet()
     {
 
         try {
@@ -190,20 +191,22 @@ public class InicioSesion extends Fragment {
     private void guardarPreferencias() {
 
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("credenciales" , Context.MODE_PRIVATE); //nombre de mi file y el modo de visualizacion
+        SharedPreferences sharedPreferences = Objects.requireNonNull(getActivity()).getSharedPreferences("credenciales" , Context.MODE_PRIVATE); //nombre de mi file y el modo de visualizacion
         //asignarle los datos al archivo credenciales
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("usuario",editText_email.getText().toString());
         editor.putString("password",editText_contrasena.getText().toString());
-        editor.commit();
+        editor.apply();
 
     }
     private void leerPreferencias()
     {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("credenciales" , Context.MODE_PRIVATE); //nombre de mi file y el modo de visualizacion
-        if(!sharedPreferences.getString("usuario","null").equals("null") && !sharedPreferences.getString("password","null").equals("null")) {
+        SharedPreferences sharedPreferences = Objects.requireNonNull(getActivity()).getSharedPreferences("credenciales" , Context.MODE_PRIVATE); //nombre de mi file y el modo de visualizacion
+        if(!Objects.equals(sharedPreferences.getString("usuario", "null"), "null") && !Objects.equals(sharedPreferences.getString("password", "null"), "null")) {
             String usuario = sharedPreferences.getString("usuario", "null");
             String password = sharedPreferences.getString("password", "null");
+            assert usuario != null;
+            assert password != null;
             mAuth.signInWithEmailAndPassword(usuario, password)
                     .addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>() {
                         @Override
