@@ -2,12 +2,16 @@ package com.mas_aplicaciones.appventon;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -56,6 +60,7 @@ public class menu extends Fragment {
             public void onClick(View v) {
                 firebase_conexion_firestore.ClearMap();
                 InicioSesion.mAuth.signOut();
+                clearPreferencias();
                 firebase_conexion_firestore.ClearMap();
                 findNavController(v).navigate(R.id.inicioSesion);
 
@@ -72,5 +77,16 @@ public class menu extends Fragment {
         Object ob_nombre = firebase_conexion_firestore.getValue("Nombre");
         Object ob_apellidos = firebase_conexion_firestore.getValue("Apellidos");
         textUser.setText(ob_nombre +" "+ ob_apellidos);
+    }
+    private void clearPreferencias() {
+
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("credenciales" , Context.MODE_PRIVATE); //nombre de mi file y el modo de visualizacion
+        //Eliminar credeciales
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.commit();
+
+
     }
 }
