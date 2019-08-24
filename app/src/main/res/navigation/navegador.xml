@@ -19,9 +19,6 @@
         <action
             android:id="@+id/action_inicioSesion_to_principalUsuario"
             app:destination="@id/principalUsuario" />
-        <action
-            android:id="@+id/action_inicioSesion_to_proceso_de_validacion"
-            app:destination="@id/proceso_de_validacion" />
     </fragment>
     <fragment
         android:id="@+id/registroUsuario"
@@ -122,9 +119,4 @@
             android:id="@+id/action_registroChofer_organizacion_auto_to_inicioSesion"
             app:destination="@id/inicioSesion" />
     </fragment>
-    <fragment
-        android:id="@+id/proceso_de_validacion"
-        android:name="com.mas_aplicaciones.appventon.proceso_de_validacion"
-        android:label="fragment_proceso_de_validacion"
-        tools:layout="@layout/fragment_proceso_de_validacion" />
 </navigation>
