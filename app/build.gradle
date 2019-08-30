@@ -39,6 +39,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:21.0.0'
     //implementacion de autentificacion en firebase;
     implementation 'com.google.firebase:firebase-auth:19.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
 }
 //fggjhk
 apply plugin: 'com.google.gms.google-services'
