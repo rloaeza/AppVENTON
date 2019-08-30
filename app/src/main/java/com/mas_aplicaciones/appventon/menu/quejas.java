@@ -1,4 +1,4 @@
-package com.mas_aplicaciones.appventon;
+package com.mas_aplicaciones.appventon.menu;
 
 
 import android.os.Bundle;
@@ -8,14 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mas_aplicaciones.appventon.MainActivity;
+import com.mas_aplicaciones.appventon.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class configurar extends Fragment {
+public class quejas extends Fragment {
 
 
-    public configurar() {
+    public quejas() {
         // Required empty public constructor
     }
 
@@ -28,7 +31,8 @@ public class configurar extends Fragment {
             ((MainActivity) getActivity()).activado(3);
         }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_configurar, container, false);
+
+        return inflater.inflate(R.layout.fragment_quejas, container, false);
     }
 
 }

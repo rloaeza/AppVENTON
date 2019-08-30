@@ -1,4 +1,4 @@
-package com.mas_aplicaciones.appventon;
+package com.mas_aplicaciones.appventon.usuarios;
 
 
 import android.os.Bundle;
@@ -8,28 +8,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
-public class quejas extends Fragment {
+import com.mas_aplicaciones.appventon.MainActivity;
+import com.mas_aplicaciones.appventon.R;
 
 
-    public quejas() {
+public class datos_personales_usuario extends Fragment {
+
+    public datos_personales_usuario() {
         // Required empty public constructor
     }
+
+
+
 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         if(getActivity() instanceof MainActivity)
         {
             ((MainActivity) getActivity()).activado(3);
         }
-        // Inflate the layout for this fragment
-
-        return inflater.inflate(R.layout.fragment_quejas, container, false);
+        return inflater.inflate(R.layout.fragment_datos_personales_usuario, container, false);
     }
+
 
 }

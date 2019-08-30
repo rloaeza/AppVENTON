@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".registroChofer_organizacion_auto"
+    tools:context=".chofer.registroChofer_organizacion_auto"
     android:background="@drawable/backgroundregistrochofer2">
 
     <LinearLayout

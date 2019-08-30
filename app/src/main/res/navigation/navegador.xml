@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/inicioSesion"
-        android:name="com.mas_aplicaciones.appventon.InicioSesion"
+        android:name="com.mas_aplicaciones.appventon.principal.InicioSesion"
         android:label="fragment_inicio_sesion"
         tools:layout="@layout/fragment_inicio_sesion">
         <action
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/registroUsuario"
-        android:name="com.mas_aplicaciones.appventon.RegistroUsuario"
+        android:name="com.mas_aplicaciones.appventon.usuarios.RegistroUsuario"
         android:label="fragment_registro_usuario"
         tools:layout="@layout/fragment_registro_usuario">
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/tipoUsuario"
-        android:name="com.mas_aplicaciones.appventon.TipoUsuario"
+        android:name="com.mas_aplicaciones.appventon.principal.TipoUsuario"
         android:label="fragment_tipo_usuario"
         tools:layout="@layout/fragment_tipo_usuario">
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/registroChofer"
-        android:name="com.mas_aplicaciones.appventon.RegistroChofer"
+        android:name="com.mas_aplicaciones.appventon.chofer.RegistroChofer"
         android:label="fragment_registro_chofer"
         tools:layout="@layout/fragment_registro_chofer">
         <action
@@ -52,7 +52,7 @@
     </fragment>
     <fragment
         android:id="@+id/principalUsuario"
-        android:name="com.mas_aplicaciones.appventon.PrincipalUsuario"
+        android:name="com.mas_aplicaciones.appventon.usuarios.PrincipalUsuario"
         android:label="fragment_principal_usuario"
         tools:layout="@layout/fragment_principal_usuario">
         <action
@@ -61,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/principalChofer"
-        android:name="com.mas_aplicaciones.appventon.PrincipalChofer"
+        android:name="com.mas_aplicaciones.appventon.chofer.PrincipalChofer"
         android:label="fragment_principal_chofer"
         tools:layout="@layout/fragment_principal_chofer">
         <action
@@ -70,7 +70,7 @@
     </fragment>
     <fragment
         android:id="@+id/menu2"
-        android:name="com.mas_aplicaciones.appventon.menu"
+        android:name="com.mas_aplicaciones.appventon.menu.menu"
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu">
         <action
@@ -88,22 +88,22 @@
     </fragment>
     <fragment
         android:id="@+id/quejas"
-        android:name="com.mas_aplicaciones.appventon.quejas"
+        android:name="com.mas_aplicaciones.appventon.menu.quejas"
         android:label="fragment_quejas"
         tools:layout="@layout/fragment_quejas" />
     <fragment
         android:id="@+id/configurar"
-        android:name="com.mas_aplicaciones.appventon.configurar"
+        android:name="com.mas_aplicaciones.appventon.menu.configurar"
         android:label="fragment_configurar"
         tools:layout="@layout/fragment_configurar" />
     <fragment
         android:id="@+id/ayuda3"
-        android:name="com.mas_aplicaciones.appventon.ayuda"
+        android:name="com.mas_aplicaciones.appventon.menu.ayuda"
         android:label="fragment_ayuda"
         tools:layout="@layout/fragment_ayuda" />
     <fragment
         android:id="@+id/registroUsuario_organizacion"
-        android:name="com.mas_aplicaciones.appventon.registroUsuario_organizacion"
+        android:name="com.mas_aplicaciones.appventon.usuarios.registroUsuario_organizacion"
         android:label="registro_usuario_organizacion"
         tools:layout="@layout/registro_usuario_organizacion">
         <action
@@ -112,7 +112,7 @@
     </fragment>
     <fragment
         android:id="@+id/registroChofer_organizacion_auto"
-        android:name="com.mas_aplicaciones.appventon.registroChofer_organizacion_auto"
+        android:name="com.mas_aplicaciones.appventon.chofer.registroChofer_organizacion_auto"
         android:label="fragment_registro_chofer_organizacion_auto"
         tools:layout="@layout/fragment_registro_chofer_organizacion_auto">
         <action

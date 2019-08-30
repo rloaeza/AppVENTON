@@ -1,4 +1,4 @@
-package com.mas_aplicaciones.appventon;
+package com.mas_aplicaciones.appventon.principal;
 
 
 
@@ -19,6 +19,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthEmailException;
 import com.google.firebase.auth.FirebaseUser;
+import com.mas_aplicaciones.appventon.MainActivity;
+import com.mas_aplicaciones.appventon.R;
+import com.mas_aplicaciones.appventon.firebase.evaluacion_de_views;
+import com.mas_aplicaciones.appventon.firebase.firebase_conexion_firestore;
+
 import java.util.Objects;
 
 import static androidx.navigation.Navigation.findNavController;

@@ -1,4 +1,4 @@
-package com.mas_aplicaciones.appventon;
+package com.mas_aplicaciones.appventon.menu;
 
 
 import android.annotation.SuppressLint;
@@ -12,6 +12,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.navigation.Navigation;
+
+import com.mas_aplicaciones.appventon.principal.InicioSesion;
+import com.mas_aplicaciones.appventon.MainActivity;
+import com.mas_aplicaciones.appventon.R;
+import com.mas_aplicaciones.appventon.firebase.firebase_conexion_firestore;
+
 import static androidx.navigation.Navigation.findNavController;
 
 

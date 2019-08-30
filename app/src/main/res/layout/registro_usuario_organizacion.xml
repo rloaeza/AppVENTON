@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/japanbackground"
-    tools:context=".registroUsuario_organizacion">
+    tools:context=".usuarios.registroUsuario_organizacion">
 
     <LinearLayout
         android:id="@+id/linearLayout"

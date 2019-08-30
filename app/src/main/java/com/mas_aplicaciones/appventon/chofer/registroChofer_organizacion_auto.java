@@ -1,4 +1,4 @@
-package com.mas_aplicaciones.appventon;
+package com.mas_aplicaciones.appventon.chofer;
 
 
 import android.os.Bundle;
@@ -16,11 +16,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.mas_aplicaciones.appventon.MainActivity;
+import com.mas_aplicaciones.appventon.R;
+import com.mas_aplicaciones.appventon.firebase.firebase_conexion_firestore;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import static androidx.navigation.Navigation.findNavController;
-import static com.mas_aplicaciones.appventon.InicioSesion.mAuth;
+import static com.mas_aplicaciones.appventon.principal.InicioSesion.mAuth;
 
 
 /**

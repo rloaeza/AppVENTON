@@ -1,4 +1,4 @@
-package com.mas_aplicaciones.appventon;
+package com.mas_aplicaciones.appventon.firebase;
 
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -9,6 +9,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.mas_aplicaciones.appventon.R;
+
 import java.util.HashMap;
 import java.util.Map;
 import static androidx.navigation.Navigation.findNavController;
