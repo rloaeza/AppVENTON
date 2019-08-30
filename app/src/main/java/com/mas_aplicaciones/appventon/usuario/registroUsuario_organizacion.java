@@ -1,4 +1,4 @@
-package com.mas_aplicaciones.appventon.usuarios;
+package com.mas_aplicaciones.appventon.usuario;
 
 
 import android.os.Bundle;
@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,7 +27,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import static androidx.navigation.Navigation.findNavController;
-import static com.mas_aplicaciones.appventon.principal.InicioSesion.mAuth;
+import static com.mas_aplicaciones.appventon.InicioSesion.mAuth;
 
 
 /**

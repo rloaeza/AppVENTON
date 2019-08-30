@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/inicioSesion"
-        android:name="com.mas_aplicaciones.appventon.principal.InicioSesion"
+        android:name="com.mas_aplicaciones.appventon.InicioSesion"
         android:label="fragment_inicio_sesion"
         tools:layout="@layout/fragment_inicio_sesion">
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/tipoUsuario"
-        android:name="com.mas_aplicaciones.appventon.principal.TipoUsuario"
+        android:name="com.mas_aplicaciones.appventon.TipoUsuario"
         android:label="fragment_tipo_usuario"
         tools:layout="@layout/fragment_tipo_usuario">
         <action
@@ -52,7 +52,7 @@
     </fragment>
     <fragment
         android:id="@+id/principalUsuario"
-        android:name="com.mas_aplicaciones.appventon.usuarios.PrincipalUsuario"
+        android:name="com.mas_aplicaciones.appventon.usuario.PrincipalUsuario"
         android:label="fragment_principal_usuario"
         tools:layout="@layout/fragment_principal_usuario">
         <action
@@ -103,7 +103,7 @@
         tools:layout="@layout/fragment_ayuda" />
     <fragment
         android:id="@+id/registroUsuario_organizacion"
-        android:name="com.mas_aplicaciones.appventon.usuarios.registroUsuario_organizacion"
+        android:name="com.mas_aplicaciones.appventon.usuario.registroUsuario_organizacion"
         android:label="registro_usuario_organizacion"
         tools:layout="@layout/registro_usuario_organizacion">
         <action

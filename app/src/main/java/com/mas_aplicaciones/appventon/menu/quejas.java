@@ -1,4 +1,4 @@
-package com.mas_aplicaciones.appventon;
+package com.mas_aplicaciones.appventon.menu;
 
 
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import com.mas_aplicaciones.appventon.MainActivity;
+import com.mas_aplicaciones.appventon.R;
 
 
 /**

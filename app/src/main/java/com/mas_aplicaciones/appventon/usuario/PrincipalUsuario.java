@@ -1,4 +1,4 @@
-package com.mas_aplicaciones.appventon.usuarios;
+package com.mas_aplicaciones.appventon.usuario;
 
 
 import android.os.Build;

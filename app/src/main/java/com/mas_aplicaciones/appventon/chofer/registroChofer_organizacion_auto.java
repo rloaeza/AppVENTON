@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import static androidx.navigation.Navigation.findNavController;
-import static com.mas_aplicaciones.appventon.principal.InicioSesion.mAuth;
+import static com.mas_aplicaciones.appventon.InicioSesion.mAuth;
 
 
 /**

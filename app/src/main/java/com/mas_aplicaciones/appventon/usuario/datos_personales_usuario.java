@@ -1,4 +1,4 @@
-package com.mas_aplicaciones.appventon;
+package com.mas_aplicaciones.appventon.usuario;
 
 
 import android.os.Bundle;
@@ -9,27 +9,30 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
-public class configurar extends Fragment {
+import com.mas_aplicaciones.appventon.MainActivity;
+import com.mas_aplicaciones.appventon.R;
 
 
-    public configurar() {
+public class datos_personales_usuario extends Fragment {
+
+    public datos_personales_usuario() {
         // Required empty public constructor
     }
+
+
+
 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         if(getActivity() instanceof MainActivity)
         {
             ((MainActivity) getActivity()).activado(3);
         }
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_configurar, container, false);
+        return inflater.inflate(R.layout.fragment_datos_personales_usuario, container, false);
     }
+
 
 }

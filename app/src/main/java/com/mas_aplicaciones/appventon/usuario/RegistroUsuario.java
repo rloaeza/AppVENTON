@@ -1,4 +1,4 @@
-package com.mas_aplicaciones.appventon;
+package com.mas_aplicaciones.appventon.usuario;
 
 
 import android.os.Bundle;
@@ -11,6 +11,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import com.mas_aplicaciones.appventon.MainActivity;
+import com.mas_aplicaciones.appventon.R;
+import com.mas_aplicaciones.appventon.firebase.evaluacion_de_views;
 
 import static androidx.navigation.Navigation.findNavController;
 

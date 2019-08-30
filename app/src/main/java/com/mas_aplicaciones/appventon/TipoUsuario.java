@@ -1,4 +1,4 @@
-package com.mas_aplicaciones.appventon.principal;
+package com.mas_aplicaciones.appventon;
 
 
 import android.os.Bundle;
