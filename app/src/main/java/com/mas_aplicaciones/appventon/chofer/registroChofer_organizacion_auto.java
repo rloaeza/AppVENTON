@@ -2,8 +2,6 @@ package com.mas_aplicaciones.appventon.chofer;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -95,6 +97,7 @@ public class registroChofer_organizacion_auto extends Fragment {
                                             Toast.makeText(getActivity(),"Checar correo electrónico para validar su correo",Toast.LENGTH_SHORT).show();
 
                                             //agrega los datos a usuarios y le asigna el mismo UID de la autentificación a los datos de este.
+                                            data.put("validacion",false);
                                             conexion.agregar_chofer(data,user.getUid());
 
                                             findNavController(v).navigate(R.id.action_registroChofer_organizacion_auto_to_inicioSesion);

@@ -1,22 +1,20 @@
-package com.mas_aplicaciones.appventon.menu;
+package com.mas_aplicaciones.appventon;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.mas_aplicaciones.appventon.principal.InicioSesion;
-import com.mas_aplicaciones.appventon.MainActivity;
-import com.mas_aplicaciones.appventon.R;
-import com.mas_aplicaciones.appventon.firebase.firebase_conexion_firestore;
+import java.util.Objects;
 
 import static androidx.navigation.Navigation.findNavController;
 
@@ -24,19 +22,7 @@ import static androidx.navigation.Navigation.findNavController;
 public class menu extends Fragment {
 
 
-
-    Button btnAyuda;
-    Button btnQuejas;
-    Button btnConfiguracion;
-    Button btnCerrarSesion;
-    TextView textUser;
-    View view;
-
-    @Override
-    public void onViewCreated(@NonNull View views, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(views, savedInstanceState);
-
-    }
+    private TextView textUser;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -45,12 +31,12 @@ public class menu extends Fragment {
         {
             ((MainActivity) getActivity()).activado(3);
         }
-        view = inflater.inflate(R.layout.fragment_menu, container, false);
-        btnAyuda = view.findViewById(R.id.button_ayuda);
-        btnQuejas = view.findViewById(R.id.button_quejas_sugerencias);
-        btnConfiguracion = view.findViewById(R.id.button_configurar_datos);
-        btnCerrarSesion = view.findViewById(R.id.button_cerrar_sesion);
-        textUser =view.findViewById(R.id.text_view_nombre);
+        View view = inflater.inflate(R.layout.fragment_menu, container, false);
+        Button btnAyuda = view.findViewById(R.id.button_ayuda);
+        Button btnQuejas = view.findViewById(R.id.button_quejas_sugerencias);
+        Button btnConfiguracion = view.findViewById(R.id.button_configurar_datos);
+        Button btnCerrarSesion = view.findViewById(R.id.button_cerrar_sesion);
+        textUser = view.findViewById(R.id.text_view_nombre);
 
         btnAyuda.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_ayuda3));
         btnQuejas.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_quejas));
@@ -62,6 +48,7 @@ public class menu extends Fragment {
             public void onClick(View v) {
                 firebase_conexion_firestore.ClearMap();
                 InicioSesion.mAuth.signOut();
+                clearPreferencias();
                 firebase_conexion_firestore.ClearMap();
                 findNavController(v).navigate(R.id.inicioSesion);
 
@@ -78,5 +65,16 @@ public class menu extends Fragment {
         Object ob_nombre = firebase_conexion_firestore.getValue("Nombre");
         Object ob_apellidos = firebase_conexion_firestore.getValue("Apellidos");
         textUser.setText(ob_nombre +" "+ ob_apellidos);
+    }
+    private void clearPreferencias() {
+
+
+        SharedPreferences sharedPreferences = Objects.requireNonNull(getActivity()).getSharedPreferences("credenciales" , Context.MODE_PRIVATE); //nombre de mi file y el modo de visualizacion
+        //Eliminar credeciales
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+
+
     }
 }

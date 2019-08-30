@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -31,46 +31,71 @@
             android:layout_marginBottom="50dp"
             android:contentDescription="@string/txtDescripcion"
             android:src="@drawable/iconwhite" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="1"
+            android:layout_marginBottom="30dp">
+            <EditText
+                android:id="@+id/edit_text_email"
+                android:layout_width="0dp"
+                android:layout_weight="0.60"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/colorBotones"
+                android:drawableEnd="@drawable/email"
+                android:ems="10"
+                android:hint="@string/txtUsuario"
+                android:importantForAutofill="no"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/colorBotones"
+                android:textColorHighlight="@android:color/background_light"
+                android:textColorHint="@color/colorBotones"
+                android:textColorLink="@android:color/background_light"
+                android:textCursorDrawable="@android:color/background_light"
+                android:textSize="20sp"
+                tools:targetApi="o" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="1"
+            android:layout_marginBottom="30dp"
+            >
 
-        <EditText
-            android:id="@+id/edit_text_email"
-            android:layout_width="250dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="50dp"
-            android:backgroundTint="@color/colorBotones"
-            android:drawableEnd="@drawable/email"
-            android:ems="10"
-            android:hint="@string/txtUsuario"
-            android:importantForAutofill="no"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/colorBotones"
-            android:textColorHighlight="@android:color/background_light"
-            android:textColorHint="@color/colorBotones"
-            android:textColorLink="@android:color/background_light"
-            android:textCursorDrawable="@android:color/background_light"
-            android:textSize="20sp"
-            tools:targetApi="o" />
-
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edit_text_contrasena"
-            android:layout_width="250dp"
-            android:layout_height="45dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="50dp"
+            android:layout_weight="0.60"
             android:backgroundTint="@color/colorBotones"
-            android:drawableEnd="@drawable/lock"
-            android:ems="10"
-            android:hint="@string/txtContra"
-            android:importantForAutofill="no"
-            android:inputType="textPassword"
-            android:textColor="@color/colorBotones"
-            android:textColorHighlight="@android:color/background_light"
             android:textColorHint="@color/colorBotones"
-            android:textColorLink="@android:color/background_light"
-            android:textCursorDrawable="@android:color/background_light"
-            android:textSize="20sp"
-            tools:targetApi="o" />
+            app:hintEnabled="false"
+            app:passwordToggleDrawable="@drawable/icon_selector"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorBotones">
+
+            <EditText
+                android:id="@+id/edit_text_contrasena2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorBotones"
+                android:hint="@string/txtContra"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                android:textColor="@color/colorBotones"
+                android:textColorHighlight="@android:color/background_light"
+                android:textColorHint="@color/colorBotones"
+                android:textColorLink="@android:color/background_light"
+                android:textCursorDrawable="@android:color/background_light"
+                tools:targetApi="o" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        </TableRow>
+
 
         <TableRow
             android:layout_width="match_parent"
@@ -128,4 +153,4 @@
         app:layout_constraintVertical_bias="0.0" />
 
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,11 @@
 package com.mas_aplicaciones.appventon.firebase;
 
-import android.support.annotation.NonNull;
+
 import android.view.View;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -78,7 +82,7 @@ public class firebase_conexion_firestore {
         });
     }
     public void buscarChofer(String UIDD, final View view) {
-        DocumentReference docRef = FirebaseFirestore.getInstance().collection("Choferes").document(UIDD);
+        final DocumentReference docRef = FirebaseFirestore.getInstance().collection("Choferes").document(UIDD);
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>()
         {
@@ -87,9 +91,20 @@ public class firebase_conexion_firestore {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     assert document != null;
-                    if (document.exists()) {
+                    if (document.exists())
+                    {
+
                         firebase_conexion_firestore.setMap(document.getData());
-                        findNavController(view).navigate(R.id.action_inicioSesion_to_principalChofer);
+                        if((boolean)document.getData().get("validacion"))
+                        {
+                            Toast.makeText(view.getContext(), "Iniciando...", Toast.LENGTH_SHORT).show();
+                            findNavController(view).navigate(R.id.action_inicioSesion_to_principalChofer);
+                        }
+                        else
+                        {
+                            Toast.makeText(view.getContext(),"Tus datos estan siendo validados en la organización "+document.getData().get("Organización"),Toast.LENGTH_LONG).show();
+                        }
+
 
                         //vaciar();
 

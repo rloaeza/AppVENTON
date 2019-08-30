@@ -58,6 +58,30 @@ public class evaluacion_de_views
         }
         return false;
     }
+    public boolean telefonoValido(String tel)
+    {
+            boolean ban;
+            try
+            {
+
+                if(tel.length()==10)
+                {
+                    ban =  true;
+                }
+                else
+                {
+                    ban = false;
+                }
+
+
+            }
+            catch (NumberFormatException ex)
+            {
+                  ban = false;
+            }
+
+        return ban;
+    }
     private  boolean email_con_un_arroba(String email)
     {
         StringTokenizer  st = new StringTokenizer(email,"@");

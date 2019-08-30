@@ -1,9 +1,7 @@
-package com.mas_aplicaciones.appventon.usuarios;
+package com.mas_aplicaciones.appventon;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.mas_aplicaciones.appventon.MainActivity;
-import com.mas_aplicaciones.appventon.R;
-import com.mas_aplicaciones.appventon.firebase.evaluacion_de_views;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import static androidx.navigation.Navigation.findNavController;
 
@@ -74,7 +71,7 @@ public class RegistroUsuario extends Fragment {
                     {
                         if(!edad.equals("") && objeto_evaluacion_de_views.es_numero(edad,17))
                         {
-                            if(!telefono.equals(""))
+                            if(!telefono.equals("") && objeto_evaluacion_de_views.telefonoValido(telefono))
                             {
                                 if(!email.equals("") && objeto_evaluacion_de_views.emailValidado(email))
                                 {
@@ -104,6 +101,7 @@ public class RegistroUsuario extends Fragment {
                             else
                             {
                                 editText_telefono.setError("required");
+                                Toast.makeText(getActivity(),"Teléfono nulo o incorrecto",Toast.LENGTH_SHORT).show();
                             }
                         }
                         else

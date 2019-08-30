@@ -2,8 +2,6 @@ package com.mas_aplicaciones.appventon.usuarios;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -108,7 +111,7 @@ public class registroUsuario_organizacion extends Fragment {
                                             Toast.makeText(getActivity(),"Checar correo electrónico para validar su correo",Toast.LENGTH_SHORT).show();
 
 
-                                            findNavController(v).popBackStack(R.id.inicioSesion,true);
+                                            findNavController(v).navigate((R.id.action_registroUsuario_organizacion_to_inicioSesion2));
                                         }
                                         else {
                                             // If sign in fails, display a message to the user.
@@ -121,7 +124,7 @@ public class registroUsuario_organizacion extends Fragment {
                                             {
                                                 Toast.makeText(getActivity(), "Error de registro, sin acceso a Internet",Toast.LENGTH_SHORT).show();
                                                 data.clear();
-                                                findNavController(v).popBackStack(R.id.inicioSesion,true);
+                                                findNavController(v).navigate((R.id.action_registroUsuario_organizacion_to_inicioSesion2));
                                             }
                                         }
                                     }

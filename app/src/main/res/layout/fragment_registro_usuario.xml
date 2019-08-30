@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/genero"
@@ -145,7 +146,7 @@
             android:gravity="center"
             android:weightSum="1">
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_text_contrasena"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -173,7 +174,7 @@
                     android:textColorLink="@android:color/background_light"
                     android:textCursorDrawable="@android:color/background_light"
                     tools:targetApi="o" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
         </TableRow>
 
@@ -190,4 +191,4 @@
 
 
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
