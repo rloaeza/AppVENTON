@@ -37,15 +37,15 @@ public class menu extends Fragment {
             ((MainActivity) getActivity()).activado(3);
         }
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
-        Button btnAyuda = view.findViewById(R.id.button_ayuda);
+        //Button btnAyuda = view.findViewById(R.id.button_ayuda);
         Button btnQuejas = view.findViewById(R.id.button_quejas_sugerencias);
-        Button btnConfiguracion = view.findViewById(R.id.button_configurar_datos);
+        //Button btnConfiguracion = view.findViewById(R.id.button_configurar_datos);
         Button btnCerrarSesion = view.findViewById(R.id.button_cerrar_sesion);
         textUser = view.findViewById(R.id.text_view_nombre);
 
-        btnAyuda.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_ayuda3));
+        //btnAyuda.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_ayuda3));
         btnQuejas.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_quejas));
-        btnConfiguracion.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_configurar));
+        //sbtnConfiguracion.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_configurar));
 
 
         btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
