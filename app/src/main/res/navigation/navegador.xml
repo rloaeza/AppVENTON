@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/registroUsuario"
-        android:name="com.mas_aplicaciones.appventon.usuarios.RegistroUsuario"
+        android:name="com.mas_aplicaciones.appventon.usuario.RegistroUsuario"
         android:label="fragment_registro_usuario"
         tools:layout="@layout/fragment_registro_usuario">
         <action

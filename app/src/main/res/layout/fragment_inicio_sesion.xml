@@ -53,7 +53,7 @@
                 android:textColorHighlight="@android:color/background_light"
                 android:textColorHint="@color/colorBotones"
                 android:textColorLink="@android:color/background_light"
-                android:textCursorDrawable="@android:color/background_light"
+
                 android:textSize="20sp"
                 tools:targetApi="o" />
         </TableRow>
@@ -90,7 +90,7 @@
                 android:textColorHighlight="@android:color/background_light"
                 android:textColorHint="@color/colorBotones"
                 android:textColorLink="@android:color/background_light"
-                android:textCursorDrawable="@android:color/background_light"
+
                 tools:targetApi="o" />
         </com.google.android.material.textfield.TextInputLayout>
 

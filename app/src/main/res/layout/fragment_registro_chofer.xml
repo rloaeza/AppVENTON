@@ -36,12 +36,11 @@
                 android:ems="10"
                 android:hint="@string/txtNombre"
                 android:importantForAutofill="no"
-                android:inputType="textPersonName"
+                android:inputType="textCapWords"
                 android:textColor="@color/colorBotones"
                 android:textColorHighlight="@android:color/background_light"
                 android:textColorHint="@color/colorBotones"
                 android:textColorLink="@android:color/background_light"
-                android:textCursorDrawable="@android:color/background_light"
                 tools:targetApi="o" />
 
             <EditText
@@ -54,12 +53,12 @@
                 android:ems="10"
                 android:hint="@string/txtApellidoP"
                 android:importantForAutofill="no"
-                android:inputType="textPersonName"
+                android:inputType="textCapWords"
                 android:textColor="@color/colorBotones"
                 android:textColorHighlight="@android:color/background_light"
                 android:textColorHint="@color/colorBotones"
                 android:textColorLink="@android:color/background_light"
-                android:textCursorDrawable="@android:color/background_light"
+
                 tools:targetApi="o" />
         </TableRow>
 
@@ -85,7 +84,7 @@
                 android:textColorHighlight="@android:color/background_light"
                 android:textColorHint="@color/colorBotones"
                 android:textColorLink="@android:color/background_light"
-                android:textCursorDrawable="@android:color/background_light"
+
                 tools:layout_editor_absoluteX="216dp"
                 tools:layout_editor_absoluteY="179dp"
                 tools:targetApi="o" />
@@ -114,7 +113,7 @@
                 android:textColorHighlight="@android:color/background_light"
                 android:textColorHint="@color/colorBotones"
                 android:textColorLink="@android:color/background_light"
-                android:textCursorDrawable="@android:color/background_light"
+
                 tools:layout_editor_absoluteX="99dp"
                 tools:layout_editor_absoluteY="414dp"
                 tools:targetApi="o" />
@@ -143,7 +142,7 @@
                 android:textColorHighlight="@android:color/background_light"
                 android:textColorHint="@color/colorBotones"
                 android:textColorLink="@android:color/background_light"
-                android:textCursorDrawable="@android:color/background_light"
+
                 tools:targetApi="o" />
         </TableRow>
 
@@ -180,7 +179,7 @@
                     android:textColorHighlight="@android:color/background_light"
                     android:textColorHint="@color/colorBotones"
                     android:textColorLink="@android:color/background_light"
-                    android:textCursorDrawable="@android:color/background_light"
+
                     tools:targetApi="o" />
             </com.google.android.material.textfield.TextInputLayout>
         </TableRow>

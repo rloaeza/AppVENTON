@@ -35,7 +35,7 @@
                 android:textColorHighlight="@android:color/background_light"
                 android:textColorHint="@color/colorBotones"
                 android:textColorLink="@android:color/background_light"
-                android:textCursorDrawable="@android:color/background_light"
+
                 tools:targetApi="o" />
         </TableRow>
         <TableRow
@@ -60,7 +60,7 @@
                 android:textColorHighlight="@android:color/background_light"
                 android:textColorHint="@color/colorBotones"
                 android:textColorLink="@android:color/background_light"
-                android:textCursorDrawable="@android:color/background_light"
+
                 tools:targetApi="o" />
         </TableRow>
         <TableRow
@@ -80,12 +80,12 @@
                 android:ems="10"
                 android:hint="@string/txtPlacas"
                 android:importantForAutofill="no"
-                android:inputType="textPersonName"
+                android:inputType="textCapCharacters"
                 android:textColor="@color/colorBotones"
                 android:textColorHighlight="@android:color/background_light"
                 android:textColorHint="@color/colorBotones"
                 android:textColorLink="@android:color/background_light"
-                android:textCursorDrawable="@android:color/background_light"
+
                 tools:targetApi="o" />
         </TableRow>
         <TableRow
