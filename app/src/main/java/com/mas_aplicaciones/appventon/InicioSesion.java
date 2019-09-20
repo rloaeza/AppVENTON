@@ -21,6 +21,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthEmailException;
 import com.google.firebase.auth.FirebaseUser;
+import com.mas_aplicaciones.appventon.dialog.CustomDialog;
 import com.mas_aplicaciones.appventon.firebase.evaluacion_de_views;
 import com.mas_aplicaciones.appventon.firebase.firebase_conexion_firestore;
 
@@ -93,6 +94,7 @@ public class InicioSesion extends Fragment {
             editText_email = view.findViewById(R.id.edit_text_email);
             editText_contrasena = view.findViewById(R.id.edit_text_contrasena2);
             Button btnRegistrar = view.findViewById(R.id.button_registrar);
+            Button btnOlvidaContrasena = view.findViewById(R.id.button_olvidar_contraseña);
             final Button btnIniciarSesion = view.findViewById(R.id.button_iniciar);
             //listener para entrar al tipo usuario
 
@@ -168,6 +170,12 @@ public class InicioSesion extends Fragment {
                         {
                             Toast.makeText(getActivity(),"Compruebe su conexión de Internet",Toast.LENGTH_SHORT).show();
                         }
+                    }
+                });
+                btnOlvidaContrasena.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        CustomDialog dialog = new CustomDialog(getContext(),R.string.txtOlvidaContrasenaTittle,R.string.txtOlvidaContrasena);
                     }
                 });
             return view;

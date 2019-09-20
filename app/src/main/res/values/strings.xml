@@ -13,6 +13,9 @@
     <!--texto para el boton crear cuenta-->
     <string name="txtCrearCuenta">Registrarse</string>
     <string name="txtSiguiente">Siguiente</string>
+    <!-- Texto dialogos -->
+    <string name="txtOlvidaContrasenaTittle">Olvidé contraseña</string>
+    <string name="txtOlvidaContrasena">Contacta al encargado para hacer tu registro.</string>
 
 
     <!-- etiquetas para el registro de usuario-->
@@ -43,5 +46,9 @@
 
     <string name="txtMenuDescription">menu</string>
     <string name="txtCerrarSesion">Cerrar Sesión</string>
+
+    <string name="txtAceptar">Aceptar</string>
+    <string name="txtTituloEjemplo">Titulo Ejemplo</string>
+    <string name="txtTextoEjemplo">Texto Ejemplo, Lorem ipsu dolor.</string>
 
 </resources>
