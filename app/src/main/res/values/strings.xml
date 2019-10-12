@@ -16,7 +16,7 @@
     <!-- Texto dialogos -->
     <string name="txtOlvidaContrasenaTittle">Olvidé contraseña</string>
     <string name="txtOlvidaContrasena">Contacta al encargado para hacer tu registro.</string>
-
+    <string name="txtFotoPerfilUsuario">Foto de perfil</string>
 
     <!-- etiquetas para el registro de usuario-->
     <string name="txtNombre">Nombre</string>
