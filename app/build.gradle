@@ -42,6 +42,9 @@ dependencies {
     //implementacion de  storage en firebase;
     implementation 'com.google.firebase:firebase-storage:19.1.0'
     implementation 'androidx.appcompat:appcompat:1.0.2'
+    //dialgos
+    implementation 'com.github.d-max:spots-dialog:1.1@aar'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }
-//fggjhk
+
 apply plugin: 'com.google.gms.google-services'

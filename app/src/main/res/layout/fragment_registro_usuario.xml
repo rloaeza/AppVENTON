@@ -177,6 +177,26 @@
             </com.google.android.material.textfield.TextInputLayout>
 
         </TableRow>
+        <EditText
+            android:id="@+id/edit_text_num_control"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="@color/colorBotones"
+            android:drawableEnd="@drawable/number_control_icon"
+            android:ems="10"
+            android:hint="@string/txtNumeroControl"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:textColor="@color/colorBotones"
+            android:textColorHighlight="@android:color/background_light"
+            android:textColorHint="@color/colorBotones"
+            android:textColorLink="@android:color/background_light"
+
+            tools:layout_editor_absoluteX="99dp"
+            tools:layout_editor_absoluteY="261dp"
+            tools:targetApi="o" />
 
         <Button
             android:id="@+id/button_registrar"

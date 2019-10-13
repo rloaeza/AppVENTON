@@ -26,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
     {
         this.activar=activar;
     }
+    public  void activado(int activar, String ImagenDeletePeople)
+    {
+        this.activar=activar;
+    }
     @Override
     public void onBackPressed() {
 

@@ -10,11 +10,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.firebase.evaluacion_de_views;
+import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 
 import static androidx.navigation.Navigation.findNavController;
 
@@ -25,18 +27,22 @@ import static androidx.navigation.Navigation.findNavController;
 public class RegistroUsuario extends Fragment {
 
     evaluacion_de_views objeto_evaluacion_de_views = new evaluacion_de_views();
+    StorageFirebase storageFirebase = new StorageFirebase();
     private EditText editText_nombre;
     private EditText editText_apellidos;
     private EditText editText_edad ;
     private EditText editText_telefono;
     private EditText editText_email;
     private EditText editText_contrasena;
+    private EditText editText_numero_control;
     private String nombre;
     private String apellidos;
     private String edad;
     private String telefono;
     private String email;
     private String contrasena;
+    private String numero_control;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -45,6 +51,7 @@ public class RegistroUsuario extends Fragment {
         {
             ((MainActivity) getActivity()).activado(3);
         }
+
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_registro_usuario, container, false);
         Button btnSiguiente = view.findViewById(R.id.button_registrar);
@@ -54,7 +61,7 @@ public class RegistroUsuario extends Fragment {
         editText_telefono = view.findViewById(R.id.edit_text_telefono);
         editText_email = view.findViewById(R.id.edit_text_email);
         editText_contrasena = view.findViewById(R.id.edit_text_contrasena2);
-
+        editText_numero_control = view.findViewById(R.id.edit_text_num_control);
 
 
         btnSiguiente.setOnClickListener(new View.OnClickListener()
@@ -68,7 +75,7 @@ public class RegistroUsuario extends Fragment {
                 telefono = editText_telefono.getText().toString();
                 email = editText_email.getText().toString();
                 contrasena = editText_contrasena.getText().toString();
-
+                numero_control = editText_numero_control.getText().toString();
                 if(!nombre.equals(""))
                 {
                     if(!apellidos.equals(""))
@@ -87,6 +94,7 @@ public class RegistroUsuario extends Fragment {
                                             registroUsuario_organizacion.setValueMap("Teléfono",telefono);
                                             registroUsuario_organizacion.setValueMap("Email",email);
                                             registroUsuario_organizacion.setValueMap("Contraseña",contrasena);
+                                            registroUsuario_organizacion.setValueMap("NumeroControl",numero_control);
                                             findNavController(v).navigate(R.id.action_registroUsuario_to_registroUsuario_organizacion);
 
                                     }
@@ -127,6 +135,28 @@ public class RegistroUsuario extends Fragment {
             }
         });
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        delete_photo();//metodo local
+
+        //Toast.makeText(getActivity(), registroUsuario_organizacion.getValueMap("NumeroControl").toString(),Toast.LENGTH_SHORT).show();
+    }
+
+    private void delete_photo()
+    {
+        if(registroUsuario_organizacion.getValueMap("NumeroControl")!=null)
+        {
+            storageFirebase.EliminarFoto(registroUsuario_organizacion.getValueMap("NumeroControl").toString(),getView());
+            Toast.makeText(getContext(),registroUsuario_organizacion.getValueMap("NumeroControl").toString(),Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(getActivity(),"No entro" ,Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 
