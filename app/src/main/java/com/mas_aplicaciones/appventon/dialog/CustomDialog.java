@@ -43,14 +43,15 @@ public class CustomDialog {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
 
-                        botonAyuda.setTextColor(context.getResources().getColor(R.color.colorBotones));
+                        botonAyuda.setTextColor(context.getResources().getColor(R.color.colorBackBotones));
 //                        botonAyuda.setBackgroundColor(Color.parseColor("#FF6634"));
-                        botonAyuda.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
-
+                        //botonAyuda.setBackgroundColor(context.getResources().getColor(R.color.colorBotones));
+                        botonAyuda.setBackground(context.getResources().getDrawable(R.drawable.transparent_button_inactive));
                         return false;
                     case MotionEvent.ACTION_UP:
-                        botonAyuda.setTextColor(context.getResources().getColor(R.color.colorPrimary));
-                        botonAyuda.setBackground(context.getResources().getDrawable(R.drawable.transparent_button_inactive));
+                        botonAyuda.setTextColor(context.getResources().getColor(R.color.colorBotones));
+                       // botonAyuda.setBackground(context.getResources().getDrawable(R.drawable.transparent_button_inactive));
+                        botonAyuda.setBackgroundColor(context.getResources().getColor(R.color.colorBackBotones));
 
                         return false;
                 }
