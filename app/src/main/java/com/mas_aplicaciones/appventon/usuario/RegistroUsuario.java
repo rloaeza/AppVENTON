@@ -2,6 +2,9 @@ package com.mas_aplicaciones.appventon.usuario;
 
 
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,6 +79,26 @@ public class RegistroUsuario extends Fragment {
                 email = editText_email.getText().toString();
                 contrasena = editText_contrasena.getText().toString();
                 numero_control = editText_numero_control.getText().toString();
+               // editText_numero_control.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+               /* editText_numero_control.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        s.
+    TODO -- usar los setError el propio objeto control, con este TextWatcher, para simplificar las validaciones By VicEspino
+
+                    }
+                });
+*/
                 if(!nombre.equals(""))
                 {
                     if(!apellidos.equals(""))

@@ -9,6 +9,8 @@ public class evaluacion_de_views
 
     }
 
+    // Max length = 3 XML
+
     public boolean es_numero(String editText, int edadminima)
     {
         try {
@@ -60,23 +62,26 @@ public class evaluacion_de_views
     }
     public boolean telefonoValido(String tel)
     {
-            boolean ban;
+            boolean ban = true;
             try
             {
-
-                if(tel.length()==10)
+                //si falla la conversion, tirará exception.
+                Long.parseLong(tel);
+                //max lengt = 10 en XML
+                if(tel.length()!=10)
                 {
-                    ban =  true;
+                    ban =  false;
                 }
-                else
+            /*    else
                 {
                     ban = false;
                 }
-
+            */
 
             }
             catch (NumberFormatException ex)
             {
+
                   ban = false;
             }
 

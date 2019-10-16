@@ -5,15 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/japanbackground"
-    tools:context=".usuario.registroUsuario_organizacion">
+    android:background="@drawable/background_passenger"
+    tools:context=".usuario.registroUsuario_organizacion"
+    >
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="320dp"
         android:layout_marginBottom="578dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,7 +25,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:gravity="center"
             android:weightSum="1">
@@ -35,33 +36,38 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="0.55"
+                android:layout_weight="0.6"
                 android:backgroundTint="@color/colorBotones"
-                android:gravity="center"
-                android:popupBackground="@color/colorBackBotones2"
+
+                tools:listitem="@layout/spinner_item_values"
+                android:padding="0dp"
+                android:popupBackground="@drawable/shape_background_spiner"
                 android:spinnerMode="dropdown"
-                tools:layout_editor_absoluteX="184dp"
-                tools:layout_editor_absoluteY="493dp" />
+               />
         </TableRow>
 
         <TableRow
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:gravity="center"
         android:weightSum="1">
 
         <Spinner
             android:id="@+id/spinner_selecGen"
+
             style="@android:style/Widget.Material.Light.Spinner.Underlined"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:layout_weight="0.5"
+            android:layout_weight="0.6"
             android:backgroundTint="@color/colorBotones"
+            android:padding="0dp"
+            tools:listitem="@layout/spinner_item_values"
             android:focusable="auto"
             android:foregroundTint="@color/colorBotones"
-            android:popupBackground="@color/colorBackBotones2"
+            android:popupBackground="@drawable/shape_background_spiner"
+
             android:spinnerMode="dropdown"
             android:textAlignment="center"
             tools:layout_editor_absoluteX="16dp"
@@ -82,7 +88,8 @@
         android:text="@string/txtFotoPerfilUsuario"
         android:textColor="@color/colorBotones"
         tools:layout_editor_absoluteX="139dp"
-        tools:layout_editor_absoluteY="591dp" />
+        tools:layout_editor_absoluteY="591dp"
+            />
         </TableRow>
         <Button
             android:id="@+id/button_registrar"
@@ -93,6 +100,7 @@
             android:text="@string/txtCrearCuenta"
             android:textColor="@color/colorBotones"
             tools:layout_editor_absoluteX="139dp"
-            tools:layout_editor_absoluteY="591dp" />
+            tools:layout_editor_absoluteY="591dp"
+            />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
