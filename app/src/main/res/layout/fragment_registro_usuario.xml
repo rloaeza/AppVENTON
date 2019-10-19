@@ -187,7 +187,7 @@
 
     <Button
         android:id="@+id/button_registrar"
-        android:layout_width="106dp"
+        android:layout_width="@dimen/spot_size"
         android:layout_height="33dp"
         android:layout_gravity="center"
         android:background="@color/colorBackBotones"
