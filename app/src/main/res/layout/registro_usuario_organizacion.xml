@@ -13,7 +13,8 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="30dp"
             android:gravity="center"
             android:weightSum="1">
 
@@ -23,7 +24,7 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="0.6"
+                android:layout_weight="0.5"
                 android:backgroundTint="@color/colorBotones"
 
                 tools:listitem="@layout/spinner_item_values"
@@ -36,7 +37,7 @@
         <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         android:gravity="center"
         android:weightSum="1">
 
@@ -47,7 +48,7 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:layout_weight="0.6"
+            android:layout_weight="0.5"
             android:backgroundTint="@color/colorBotones"
             android:padding="0dp"
             tools:listitem="@layout/spinner_item_values"
@@ -59,36 +60,40 @@
             android:textAlignment="center"
         />
     </TableRow>
+
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         android:gravity="center"
         android:weightSum="1">
         <Button
-        android:id="@+id/button_subir_foto_usuario"
-        android:layout_width="126dp"
-        android:layout_height="33dp"
-        android:layout_gravity="center"
-        android:background="@color/colorBackBotones"
-        android:text="@string/txtFotoPerfilUsuario"
-        android:textColor="@color/colorBotones"
+            android:id="@+id/button_subir_foto_usuario"
+            android:layout_width="0dp"
+            android:layout_height="33dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.4"
+            android:background="@color/colorBackBotones"
+            android:text="@string/txtFotoPerfilUsuario"
+            android:textColor="@color/colorBotones"
 
             />
     </TableRow>
+
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         android:weightSum="1"
         android:gravity="center"
         >
 
         <Button
             android:id="@+id/button_registrar"
-            android:layout_width="126dp"
+            android:layout_width="0dp"
             android:layout_height="33dp"
             android:layout_gravity="center"
+            android:layout_weight="0.4"
             android:background="@color/colorBackBotones"
             android:text="@string/txtCrearCuenta"
             android:textColor="@color/colorBotones"

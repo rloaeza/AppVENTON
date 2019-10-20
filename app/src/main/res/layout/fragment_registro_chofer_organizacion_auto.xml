@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.appcompat.widget.LinearLayoutCompat
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".chofer.registroChofer_organizacion_auto"
-    android:background="@drawable/backgroundregistrochofer2">
+    android:background="@drawable/background_chofer"
+    android:padding="8dp"
+    >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:background="@drawable/backgroundregistrochofer2">
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:weightSum="1"
-            android:layout_marginBottom="40dp">
+            android:layout_marginBottom="30dp">
 
             <EditText
                 android:id="@+id/edit_text_cantidad_pasajeros"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="0.55"
+                android:layout_weight="0.5"
                 android:backgroundTint="@color/colorBotones"
+                android:maxLength="1"
                 android:ems="10"
+                android:textAlignment="center"
                 android:hint="@string/txtNPasajeros"
                 android:importantForAutofill="no"
                 android:inputType="number"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:weightSum="2"
-            android:layout_marginBottom="40dp">
+            android:layout_marginBottom="30dp">
 
             <EditText
                 android:id="@+id/edit_text_vigencia"
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:weightSum="2"
-                android:layout_marginBottom="40dp">
+                android:layout_marginBottom="30dp">
 
             <EditText
                 android:id="@+id/edit_text_placas"
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:weightSum="1"
-                android:layout_marginBottom="40dp">
+                android:layout_marginBottom="30dp">
 
             <Spinner
                 android:id="@+id/spinner_organizacion"
@@ -103,8 +103,10 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="0.5"
                 android:backgroundTint="@color/colorBotones"
-                android:popupBackground="@color/colorBackBotones2"
-                android:spinnerMode="dropdown" />
+                android:popupBackground="@drawable/shape_background_spiner"
+                android:spinnerMode="dropdown"
+
+                />
 
         </TableRow>
         <TableRow
@@ -112,7 +114,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:weightSum="1"
-            android:layout_marginBottom="40dp">
+            android:layout_marginBottom="30dp">
 
         <Spinner
             android:id="@+id/spinner_selecGen"
@@ -124,19 +126,31 @@
             android:backgroundTint="@color/colorBotones"
             android:focusable="auto"
             android:foregroundTint="@color/colorBotones"
-            android:popupBackground="@color/colorBackBotones2"
+            android:popupBackground="@drawable/shape_background_spiner"
             android:spinnerMode="dropdown"
             android:textAlignment="center"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="493dp" />
+            />
         </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:weightSum="1"
+        android:gravity="center"
+        >
         <Button
             android:id="@+id/button_registrar"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="33dp"
+            android:layout_weight="0.4"
             android:background="@color/colorBackBotones"
             android:text="@string/txtCrearCuenta"
-            android:textColor="@color/colorBotones" />
-    </LinearLayout>
+            android:textColor="@color/colorBotones"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            />
+    </TableRow>
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
