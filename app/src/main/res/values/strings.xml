@@ -8,8 +8,6 @@
     <string name="txtContra">Contraseña</string>
     <!-- Esta descripción me la pidió el ImageView  en su propiedad contentDescription "La puse con la finalidad de que no marcara Warnings" -->
     <string name="txtDescripcion">Inicio</string>
-    <string name="icono_chofer_descripcion">Aquí colocar icono chofer.</string>
-    <string name="icono_pasajero_descripcion">Aquí colocar icono pasajero.</string>
     <!--texto para el boton olvidaste tu contraseña-->
     <string name="txtOlvidasteContrasena">¿Olvidaste tu contraseña?</string>
     <!--texto para el boton crear cuenta-->
@@ -19,7 +17,7 @@
     <string name="txtOlvidaContrasenaTittle">Olvidé contraseña</string>
     <string name="txtOlvidaContrasena">Contacta al encargado para hacer tu registro.</string>
     <string name="txtFotoPerfilUsuario">Foto de perfil</string>
-    <string name="txtNumeroControl1">Numero de control</string>
+    <string name="txtNumeroControl">Numero de control</string>
     <!-- etiquetas para el registro de usuario-->
     <string name="txtNombre">Nombre</string>
     <string name="txtApellidoP">Apellidos</string>
