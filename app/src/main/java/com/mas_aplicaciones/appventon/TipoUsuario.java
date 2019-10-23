@@ -11,9 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.mas_aplicaciones.appventon.MainActivity;
-import com.mas_aplicaciones.appventon.R;
-
 
 /**
  * A simple {@link Fragment} subclass.

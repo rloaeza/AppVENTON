@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.mas_aplicaciones.appventon.R;
+
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {

@@ -19,10 +19,11 @@ public class StorageFirebase
     //iniciación de la instancia storage
     // dialogo
     private AlertDialog alertDialog;
-    public void EliminarFoto(String id, final View view)
+    final static boolean[] sucessful = {false};
+    public void EliminarFoto(String id,String child, final View view)
     {
 
-        StorageReference desertRef = mStorage.child("Usuarios").child(id);
+        StorageReference desertRef = mStorage.child(child).child(id);
 
         // Delete the file
         desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -38,12 +39,12 @@ public class StorageFirebase
             }
         });
     }
-    public boolean agregarFoto(final String id, Uri uri, final View view)
+    public void agregarFoto(final String id, Uri uri,String child, final View view)
     {
         alertDialog = new SpotsDialog.Builder().setContext(view.getContext()).setMessage("Cargando").build();
         alertDialog.show();
-        final boolean[] sucessful = {false};
-        StorageReference storageReference = mStorage.child("Usuarios").child(id);
+
+        StorageReference storageReference = mStorage.child(child).child(id);
         storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -57,8 +58,14 @@ public class StorageFirebase
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(view.getContext(), "Error de subida \n verifique si conexión \n contacte al administrador", Toast.LENGTH_SHORT).show();
                 alertDialog.cancel();
+                sucessful[0] = false;
+                e.printStackTrace();
             }
         });
+
+    }
+    public static boolean getImagenSubida()
+    {
         return sucessful[0];
     }
 }

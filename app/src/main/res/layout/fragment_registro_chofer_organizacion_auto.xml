@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     tools:context=".chofer.registroChofer_organizacion_auto"
-    android:background="@drawable/background_chofer"
+    android:background="@drawable/backgroundregistrochofer2"
     android:padding="8dp"
     >
 
@@ -30,7 +30,7 @@
                 android:textAlignment="center"
                 android:hint="@string/txtNPasajeros"
                 android:importantForAutofill="no"
-                android:inputType="number"
+                android:inputType="date"
                 android:textColor="@color/colorBotones"
                 android:textColorHighlight="@android:color/background_light"
                 android:textColorHint="@color/colorBotones"
@@ -56,11 +56,12 @@
                 android:hint="@string/txtVigencia"
                 android:importantForAutofill="no"
                 android:inputType="date"
+                android:maxLength="4"
                 android:textColor="@color/colorBotones"
                 android:textColorHighlight="@android:color/background_light"
                 android:textColorHint="@color/colorBotones"
-                android:textColorLink="@android:color/background_light"
 
+                android:textColorLink="@android:color/background_light"
                 tools:targetApi="o" />
         </TableRow>
         <TableRow
@@ -101,7 +102,7 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="0.5"
+                android:layout_weight="0.75"
                 android:backgroundTint="@color/colorBotones"
                 android:popupBackground="@drawable/shape_background_spiner"
                 android:spinnerMode="dropdown"
@@ -116,22 +117,38 @@
             android:weightSum="1"
             android:layout_marginBottom="30dp">
 
-        <Spinner
-            android:id="@+id/spinner_selecGen"
-            style="@android:style/Widget.Material.Light.Spinner.Underlined"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_weight="0.5"
-            android:backgroundTint="@color/colorBotones"
-            android:focusable="auto"
-            android:foregroundTint="@color/colorBotones"
-            android:popupBackground="@drawable/shape_background_spiner"
-            android:spinnerMode="dropdown"
-            android:textAlignment="center"
-            />
+            <Spinner
+                android:id="@+id/spinner_selecGen"
+                style="@android:style/Widget.Material.Light.Spinner.Underlined"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.75"
+                android:backgroundTint="@color/colorBotones"
+                android:focusable="auto"
+                android:foregroundTint="@color/colorBotones"
+                android:popupBackground="@drawable/shape_background_spiner"
+                android:spinnerMode="dropdown"
+                android:textAlignment="center" />
         </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:gravity="center"
+        android:weightSum="1">
+        <Button
+            android:id="@+id/button_subir_foto_chofer"
+            android:layout_width="0dp"
+            android:layout_height="33dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.4"
+            android:background="@color/colorBackBotones"
+            android:text="@string/txtFotoPerfilUsuario"
+            android:textColor="@color/colorBotones"
 
+            />
+    </TableRow>
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

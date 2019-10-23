@@ -80,11 +80,12 @@
                 android:hint="@string/txtEdad"
                 android:importantForAutofill="no"
                 android:inputType="number"
+                android:maxLength="2"
                 android:textColor="@color/colorBotones"
                 android:textColorHighlight="@android:color/background_light"
                 android:textColorHint="@color/colorBotones"
-                android:textColorLink="@android:color/background_light"
 
+                android:textColorLink="@android:color/background_light"
                 tools:layout_editor_absoluteX="216dp"
                 tools:layout_editor_absoluteY="179dp"
                 tools:targetApi="o" />
@@ -109,11 +110,12 @@
                 android:hint="@string/txtTelCel"
                 android:importantForAutofill="no"
                 android:inputType="phone"
+                android:maxLength="10"
                 android:textColor="@color/colorBotones"
                 android:textColorHighlight="@android:color/background_light"
                 android:textColorHint="@color/colorBotones"
-                android:textColorLink="@android:color/background_light"
 
+                android:textColorLink="@android:color/background_light"
                 tools:layout_editor_absoluteX="99dp"
                 tools:layout_editor_absoluteY="414dp"
                 tools:targetApi="o" />
@@ -183,6 +185,27 @@
                     tools:targetApi="o" />
             </com.google.android.material.textfield.TextInputLayout>
         </TableRow>
+        <EditText
+            android:id="@+id/edit_text_num_control"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="@color/colorBotones"
+            android:drawableEnd="@drawable/number_control_icon"
+            android:ems="10"
+            android:hint="@string/txtNumeroControl"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:maxLength="8"
+            android:textColor="@color/colorBotones"
+            android:textColorHighlight="@android:color/background_light"
+            android:textColorHint="@color/colorBotones"
+
+            android:textColorLink="@android:color/background_light"
+            tools:layout_editor_absoluteX="99dp"
+            tools:layout_editor_absoluteY="261dp"
+            tools:targetApi="o" />
 
         <TableRow
             android:layout_width="match_parent"

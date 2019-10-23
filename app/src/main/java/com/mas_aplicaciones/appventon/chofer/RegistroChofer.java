@@ -10,11 +10,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.mas_aplicaciones.appventon.MainActivity;
-import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.firebase.evaluacion_de_views;
+import com.mas_aplicaciones.appventon.R;
+import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
+import com.mas_aplicaciones.appventon.usuario.registroUsuario_organizacion;
 
 import static androidx.navigation.Navigation.findNavController;
 
@@ -30,13 +32,16 @@ public class RegistroChofer extends Fragment {
     private EditText editText_telefono;
     private EditText editText_email;
     private EditText editText_contrasena;
+    private EditText editText_numero_control;
     private String nombre;
     private String apellidos;
     private String edad;
     private String telefono;
     private String email;
     private String contrasena;
+    private String numero_control;
     evaluacion_de_views objeto_evaluacion_de_views = new evaluacion_de_views();
+    StorageFirebase storageFirebase = new StorageFirebase();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -53,6 +58,7 @@ public class RegistroChofer extends Fragment {
         editText_telefono = view.findViewById(R.id.edit_text_telefono);
         editText_email = view.findViewById(R.id.edit_text_email);
         editText_contrasena = view.findViewById(R.id.edit_text_contrasena2);
+        editText_numero_control = view.findViewById(R.id.edit_text_num_control);
         Button btnSiguiente = view.findViewById(R.id.button_registrar);
 
         btnSiguiente.setOnClickListener(new View.OnClickListener()
@@ -66,6 +72,7 @@ public class RegistroChofer extends Fragment {
                 telefono = editText_telefono.getText().toString();
                 email = editText_email.getText().toString();
                 contrasena = editText_contrasena.getText().toString();
+                numero_control = editText_numero_control.getText().toString();
                 if(!nombre.equals(""))
                 {
                     if(!apellidos.equals(""))
@@ -78,13 +85,22 @@ public class RegistroChofer extends Fragment {
                                 {
                                     if(!contrasena.equals("") && objeto_evaluacion_de_views.contrasena_correcta(contrasena))
                                     {
-                                        registroChofer_organizacion_auto.setValueMap("Nombre",nombre);
-                                        registroChofer_organizacion_auto.setValueMap("Apellidos",apellidos);
-                                        registroChofer_organizacion_auto.setValueMap("Edad",Integer.parseInt(edad));
-                                        registroChofer_organizacion_auto.setValueMap("Teléfono",telefono);
-                                        registroChofer_organizacion_auto.setValueMap("Email",email);
-                                        registroChofer_organizacion_auto.setValueMap("Contraseña",contrasena);
-                                        findNavController(v).navigate(R.id.action_registroChofer_to_registroChofer_organizacion_auto);
+                                        if(!numero_control.equals(""))
+                                        {
+                                            registroChofer_organizacion_auto.setValueMap("Nombre", nombre);
+                                            registroChofer_organizacion_auto.setValueMap("Apellidos", apellidos);
+                                            registroChofer_organizacion_auto.setValueMap("Edad", Integer.parseInt(edad));
+                                            registroChofer_organizacion_auto.setValueMap("Teléfono", telefono);
+                                            registroChofer_organizacion_auto.setValueMap("Email", email);
+                                            registroChofer_organizacion_auto.setValueMap("Contraseña", contrasena);
+                                            registroChofer_organizacion_auto.setValueMap("NumeroControl", numero_control);
+                                            findNavController(v).navigate(R.id.action_registroChofer_to_registroChofer_organizacion_auto);
+                                        }
+                                        else
+                                        {
+                                            editText_contrasena.setError("required");
+                                            Toast.makeText(getActivity(),"Comienza con 1X04XXXX 8 caracteres",Toast.LENGTH_SHORT).show();
+                                        }
                                     }
                                     else
                                     {
@@ -123,6 +139,27 @@ public class RegistroChofer extends Fragment {
             }
         });
         return view;
+
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        delete_photo();//metodo local
+
+
+    }
+
+    private void delete_photo()
+    {
+        if(registroUsuario_organizacion.getValueMap("NumeroControl")!=null)
+        {
+            storageFirebase.EliminarFoto(registroUsuario_organizacion.getValueMap("NumeroControl").toString(),"Choferes",getView());
+            Toast.makeText(getContext(),registroUsuario_organizacion.getValueMap("NumeroControl").toString(),Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+           // Toast.makeText(getActivity(),"No entro" ,Toast.LENGTH_SHORT).show();
+        }
 
     }
 

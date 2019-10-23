@@ -1,7 +1,6 @@
 package com.mas_aplicaciones.appventon.usuario;
 
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,7 +26,7 @@ import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import dmax.dialog.SpotsDialog;
+
 import static androidx.navigation.Navigation.findNavController;
 import static com.mas_aplicaciones.appventon.InicioSesion.mAuth;
 
@@ -45,7 +44,7 @@ public class registroUsuario_organizacion extends Fragment {
     firebase_conexion_firestore conexion=new firebase_conexion_firestore();
     StorageFirebase storageFirebase = new StorageFirebase();
     private final static int GALLERY_INTENT = 1;
-    private static boolean enStorageImagen = false;
+
 
     public static void setValueMap(String key, Object value)
     {
@@ -104,7 +103,7 @@ public class registroUsuario_organizacion extends Fragment {
                         data.put("Carrera",spinner_carreras.getSelectedItem().toString());
                         data.put("Género",spinner_genero.getSelectedItem().toString());
                         //si la imagen fue agregada
-                        if(enStorageImagen)
+                        if(StorageFirebase.getImagenSubida())
                         {
                             mAuth.createUserWithEmailAndPassword(Objects.requireNonNull(data.get("Email")).toString(), Objects.requireNonNull(data.get("Contraseña")).toString())
                                     .addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>() {
@@ -165,20 +164,13 @@ public class registroUsuario_organizacion extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        storageFirebase.EliminarFoto(getValueMap("NumeroControl").toString(),getView());
+        storageFirebase.EliminarFoto(getValueMap("NumeroControl").toString(),"Usuarios",getView());
         if(requestCode==GALLERY_INTENT)
         {
 
             Uri uri = data.getData();
-            if(storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,getView()))
-            {
-                enStorageImagen=true;
+            storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Usuarios",getView());
 
-            }
-            else
-            {
-                enStorageImagen=false;
-            }
 
 
         }

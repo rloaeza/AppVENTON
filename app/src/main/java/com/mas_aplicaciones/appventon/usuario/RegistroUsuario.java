@@ -2,9 +2,6 @@ package com.mas_aplicaciones.appventon.usuario;
 
 
 import android.os.Bundle;
-import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,14 +108,22 @@ public class RegistroUsuario extends Fragment {
                                 {
                                     if(!contrasena.equals("") && objeto_evaluacion_de_views.contrasena_correcta(contrasena))
                                     {
-                                            registroUsuario_organizacion.setValueMap("Nombre",nombre);
-                                            registroUsuario_organizacion.setValueMap("Apellidos",apellidos);
-                                            registroUsuario_organizacion.setValueMap("Edad",Integer.parseInt(edad));
-                                            registroUsuario_organizacion.setValueMap("Teléfono",telefono);
-                                            registroUsuario_organizacion.setValueMap("Email",email);
-                                            registroUsuario_organizacion.setValueMap("Contraseña",contrasena);
-                                            registroUsuario_organizacion.setValueMap("NumeroControl",numero_control);
+                                        if(!numero_control.equals(""))
+                                        {
+                                            registroUsuario_organizacion.setValueMap("Nombre", nombre);
+                                            registroUsuario_organizacion.setValueMap("Apellidos", apellidos);
+                                            registroUsuario_organizacion.setValueMap("Edad", Integer.parseInt(edad));
+                                            registroUsuario_organizacion.setValueMap("Teléfono", telefono);
+                                            registroUsuario_organizacion.setValueMap("Email", email);
+                                            registroUsuario_organizacion.setValueMap("Contraseña", contrasena);
+                                            registroUsuario_organizacion.setValueMap("NumeroControl", numero_control);
                                             findNavController(v).navigate(R.id.action_registroUsuario_to_registroUsuario_organizacion);
+                                        }
+                                        else
+                                        {
+                                            editText_contrasena.setError("required");
+                                            Toast.makeText(getActivity(),"Comienza con 1X04XXXX y tiene 8 caracteres",Toast.LENGTH_SHORT).show();
+                                        }
 
                                     }
                                     else
@@ -165,19 +170,19 @@ public class RegistroUsuario extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         delete_photo();//metodo local
 
-        //Toast.makeText(getActivity(), registroUsuario_organizacion.getValueMap("NumeroControl").toString(),Toast.LENGTH_SHORT).show();
+
     }
 
     private void delete_photo()
     {
         if(registroUsuario_organizacion.getValueMap("NumeroControl")!=null)
         {
-            storageFirebase.EliminarFoto(registroUsuario_organizacion.getValueMap("NumeroControl").toString(),getView());
+            storageFirebase.EliminarFoto(registroUsuario_organizacion.getValueMap("NumeroControl").toString(),"Usuarios",getView());
             Toast.makeText(getContext(),registroUsuario_organizacion.getValueMap("NumeroControl").toString(),Toast.LENGTH_SHORT).show();
         }
         else
         {
-            Toast.makeText(getActivity(),"No entro" ,Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getActivity(),"No entro" ,Toast.LENGTH_SHORT).show();
         }
 
     }

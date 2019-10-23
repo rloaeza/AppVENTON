@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background_passenger"
+    android:background="@drawable/japanbackground"
     tools:context=".usuario.registroUsuario_organizacion"
     android:padding="8dp"
     >
@@ -24,7 +24,7 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="0.5"
+                android:layout_weight="0.75"
                 android:backgroundTint="@color/colorBotones"
 
                 tools:listitem="@layout/spinner_item_values"
@@ -48,7 +48,7 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:layout_weight="0.5"
+            android:layout_weight="0.75"
             android:backgroundTint="@color/colorBotones"
             android:padding="0dp"
             tools:listitem="@layout/spinner_item_values"
