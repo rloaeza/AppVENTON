@@ -2,6 +2,7 @@ package com.mas_aplicaciones.appventon;
 
 
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -27,6 +28,8 @@ import com.mas_aplicaciones.appventon.firebase.firebase_conexion_firestore;
 
 import java.util.Objects;
 
+import dmax.dialog.SpotsDialog;
+
 import static androidx.navigation.Navigation.findNavController;
 
 /**
@@ -39,11 +42,11 @@ public class InicioSesion extends Fragment {
     public static FirebaseAuth mAuth ;
     private FirebaseUser currentUser;
     private View view;
+    private AlertDialog alertDialog;
     private EditText editText_email,editText_contrasena;
     private String email,contrasena;
     private evaluacion_de_views objeto_evaluacion_de_views = new evaluacion_de_views();
     private firebase_conexion_firestore objeto_firebase_conexion_firestore = new firebase_conexion_firestore();
-
 
 
 
@@ -102,6 +105,7 @@ public class InicioSesion extends Fragment {
             btnIniciarSesion.setOnClickListener(new View.OnClickListener() {//acomoda y luego muestra y realiza todo lo necesario validad
                 @Override
                 public void onClick( final View v) {
+
                     if(isNetDisponible() && isOnlineNet())
                     {
                         email = editText_email.getText().toString();
@@ -114,6 +118,8 @@ public class InicioSesion extends Fragment {
                                         public void onComplete(@NonNull Task<AuthResult> task) {
                                             if (task.isSuccessful())
                                             {
+                                                alertDialog = new SpotsDialog.Builder().setContext(view.getContext()).setMessage("Iniciando").build();
+                                                alertDialog.show();
                                                 // Sign in success, update UI with the signed-in user's information
                                                 currentUser = mAuth.getCurrentUser();
                                                 guardarPreferencias();
@@ -225,10 +231,14 @@ public class InicioSesion extends Fragment {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
+                                alertDialog = new SpotsDialog.Builder().setContext(view.getContext()).setMessage("Iniciando").build();
+                                alertDialog.show();
                                 currentUser = mAuth.getCurrentUser();
 
 
                                 if (currentUser != null && currentUser.isEmailVerified()) {
+
+
 
                                     objeto_firebase_conexion_firestore.buscarUsuario(currentUser.getUid(), view);
                                     objeto_firebase_conexion_firestore.buscarChofer(currentUser.getUid(), view);
@@ -247,10 +257,15 @@ public class InicioSesion extends Fragment {
 
     }
 
-
-
-
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(alertDialog!=null)
+        {
+            alertDialog.cancel();
+        }
+//
+    }
     /*@Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {//pesado spinner hace todo despues de que carga el layout facebook muestra el layout pero carga poco a poquito
         super.onViewCreated(view, savedInstanceState);

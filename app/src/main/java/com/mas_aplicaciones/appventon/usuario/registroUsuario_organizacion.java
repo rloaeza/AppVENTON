@@ -165,6 +165,7 @@ public class registroUsuario_organizacion extends Fragment {
     {
         super.onActivityResult(requestCode, resultCode, data);
         storageFirebase.EliminarFoto(getValueMap("NumeroControl").toString(),"Usuarios",getView());
+
         if(requestCode==GALLERY_INTENT)
         {
 

@@ -1,6 +1,7 @@
 package com.mas_aplicaciones.appventon.firebase;
 
 
+import android.app.AlertDialog;
 import android.view.View;
 import android.widget.Toast;
 
@@ -13,15 +14,20 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.mas_aplicaciones.appventon.InicioSesion;
 import com.mas_aplicaciones.appventon.R;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import dmax.dialog.SpotsDialog;
+
 import static androidx.navigation.Navigation.findNavController;
 
 
 public class firebase_conexion_firestore {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     private static Map<String, Object> datos = new HashMap<>();
 
     public void agregar_usuario(Map<String, Object> datos, String UUID) {
@@ -91,6 +97,7 @@ public class firebase_conexion_firestore {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     assert document != null;
+
                     if (document.exists())
                     {
 
@@ -99,10 +106,13 @@ public class firebase_conexion_firestore {
                         {
                             Toast.makeText(view.getContext(), "Iniciando...", Toast.LENGTH_SHORT).show();
                             findNavController(view).navigate(R.id.action_inicioSesion_to_principalChofer);
+
                         }
                         else
                         {
+
                             Toast.makeText(view.getContext(),"Tus datos estan siendo validados en la organización "+document.getData().get("Organización"),Toast.LENGTH_LONG).show();
+
                         }
 
 
@@ -125,6 +135,17 @@ public class firebase_conexion_firestore {
     public static void setMap(Map<String,Object> setData)
     {
         datos=setData;
+    }
+    public static boolean existKeyInMap(String key)
+    {
+        boolean b = false;
+        if(datos.containsKey(key))
+        {
+            b=true;
+
+        }
+        return b ;
+
     }
 
 

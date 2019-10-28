@@ -4,21 +4,42 @@ package com.mas_aplicaciones.appventon.menu;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.net.UrlQuerySanitizer;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.mas_aplicaciones.appventon.InicioSesion;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.firebase.firebase_conexion_firestore;
+import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 
+import java.net.URL;
 import java.util.Objects;
 
 import static androidx.navigation.Navigation.findNavController;
@@ -26,9 +47,9 @@ import static androidx.navigation.Navigation.findNavController;
 
 public class menu extends Fragment {
 
-
+    private StorageFirebase storageFirebase = new StorageFirebase();
     private TextView textUser;
-
+    private ImageView imageView_user;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,7 +63,7 @@ public class menu extends Fragment {
         //Button btnConfiguracion = view.findViewById(R.id.button_configurar_datos);
         Button btnCerrarSesion = view.findViewById(R.id.button_cerrar_sesion);
         textUser = view.findViewById(R.id.text_view_nombre);
-
+        imageView_user = view.findViewById(R.id.image_view_2);
         //btnAyuda.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_ayuda3));
         btnQuejas.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_quejas));
         //sbtnConfiguracion.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_configurar));
@@ -59,6 +80,7 @@ public class menu extends Fragment {
 
             }
         });
+
         return view;
     }
 
@@ -66,11 +88,65 @@ public class menu extends Fragment {
     @SuppressLint("SetTextI18n")
     @Override
     public void onStart() {
+
+
         super.onStart();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+
         Object ob_nombre = firebase_conexion_firestore.getValue("Nombre");
         Object ob_apellidos = firebase_conexion_firestore.getValue("Apellidos");
-        textUser.setText(ob_nombre +" "+ ob_apellidos);
+        Object ob_num_Control = firebase_conexion_firestore.getValue("NumeroControl");
+        Object ob_uri = firebase_conexion_firestore.getValue("URI");
+        textUser.setText(ob_nombre + " " + ob_apellidos);
+        StorageReference mStorage = FirebaseStorage.getInstance().getReference();
+        if (firebase_conexion_firestore.existKeyInMap("CantidadPasajeros")) {
+            //estoy en chofer
+
+                    Glide.with(getView().getContext())
+                            .load(ob_uri.toString())
+                            .fitCenter()
+                            .centerCrop()
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(imageView_user);
+
+
+
+        } else {
+            Glide.with(getView().getContext())
+                    .load(ob_uri.toString())
+                    .apply(new RequestOptions().circleCrop())
+                    .into(imageView_user);
+            // estoy en usuarios
+            /*StorageReference storageReference = mStorage.child("Usuarios").child(ob_num_Control.toString());
+            storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    // Got the download URL for 'users/me/profile.png'
+                    /*Glide.with(getView().getContext())
+                            .load(uri)
+                            .fitCenter().
+                            apply(RequestOptions.circleCropTransform())
+                            .centerCrop()
+                            .into(imageView_user);*/
+
+
+           /*     }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+
+                }
+            });*/
+        }
+
+        super.onActivityCreated(savedInstanceState);
+
     }
+
     private void clearPreferencias() {
 
 
