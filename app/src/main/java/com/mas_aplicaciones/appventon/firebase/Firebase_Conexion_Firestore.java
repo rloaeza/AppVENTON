@@ -3,9 +3,7 @@ package com.mas_aplicaciones.appventon.firebase;
 
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -17,10 +15,10 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static androidx.navigation.Navigation.findNavController;
 
@@ -104,7 +102,7 @@ public class Firebase_Conexion_Firestore {
                     {
 
                         Firebase_Conexion_Firestore.setMap(document.getData());
-                        if((boolean)document.getData().get("validacion"))
+                        if((boolean) Objects.requireNonNull(document.getData()).get("validacion"))
                         {
                             Toast.makeText(view.getContext(), "Iniciando...", Toast.LENGTH_SHORT).show();
                             findNavController(view).navigate(R.id.action_inicioSesion_to_principalChofer);
@@ -137,16 +135,13 @@ public class Firebase_Conexion_Firestore {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful())
                         {
-                            for (QueryDocumentSnapshot document : task.getResult())
-                            {
-                                numeroControlUsuarios.add(document.getData().get("NumeroControl").toString());
+                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult()))
+                                numeroControlUsuarios.add(Objects.requireNonNull(document.getData().get("NumeroControl")).toString());
 
-                            }
+                            
+                        
                         }
-                        else {
-
-
-                        }
+                        
                     }
                 });
 
@@ -163,15 +158,11 @@ public class Firebase_Conexion_Firestore {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful())
                         {
-                            for (QueryDocumentSnapshot document : task.getResult())
-                            {
-                                numeroControlUsuarios.add(document.getData().get("NumeroControl").toString());
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                numeroControlChoferes.add(document.getData().get("NumeroControl").toString());
                             }
                         }
-                        else {
-
-
-                        }
+                        
                     }
                 });
 
