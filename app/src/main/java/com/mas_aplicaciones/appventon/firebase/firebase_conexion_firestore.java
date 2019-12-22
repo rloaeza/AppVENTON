@@ -2,6 +2,7 @@ package com.mas_aplicaciones.appventon.firebase;
 
 
 import android.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,6 +15,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.mas_aplicaciones.appventon.InicioSesion;
 import com.mas_aplicaciones.appventon.R;
 
@@ -123,6 +126,37 @@ public class firebase_conexion_firestore {
                 }
             }
         });
+    }
+    //verifica si el numero de control existe en el sistema
+    public boolean numerocontrol(String collections, final String numControl)
+    {
+        final boolean[] val = new boolean[1];
+        val[0]=false;
+        db.collection(collections)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful())
+                        {
+                            for (QueryDocumentSnapshot document : task.getResult())
+                            {
+                                if(document.getData().get("NumeroControl").toString().equals(numControl))
+                                {
+                                    Log.d("VAL",document.getData().get("NumeroControl").toString() );
+                                    val[0] = true;
+                                    break;
+                                }
+
+                            }
+                        }
+                        else {
+
+
+                        }
+                    }
+                });
+        return val[0];
     }
     public static Object getValue(String Key) {
 

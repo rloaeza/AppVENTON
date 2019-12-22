@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.firebase.evaluacion_de_views;
 import com.mas_aplicaciones.appventon.R;
+import com.mas_aplicaciones.appventon.firebase.firebase_conexion_firestore;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 import com.mas_aplicaciones.appventon.usuario.registroUsuario_organizacion;
 
@@ -42,7 +43,7 @@ public class RegistroChofer extends Fragment {
     private String numero_control;
     evaluacion_de_views objeto_evaluacion_de_views = new evaluacion_de_views();
     StorageFirebase storageFirebase = new StorageFirebase();
-
+    firebase_conexion_firestore objeto_firebase_conexion_firestore= new firebase_conexion_firestore();
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,68 +74,55 @@ public class RegistroChofer extends Fragment {
                 email = editText_email.getText().toString();
                 contrasena = editText_contrasena.getText().toString();
                 numero_control = editText_numero_control.getText().toString();
-                if(!nombre.equals(""))
-                {
-                    if(!apellidos.equals(""))
-                    {
-                        if(!edad.equals("") && objeto_evaluacion_de_views.es_numero(edad,17))
-                        {
-                            if(!telefono.equals("") && objeto_evaluacion_de_views.telefonoValido(telefono))
-                            {
-                                if(!email.equals("") && objeto_evaluacion_de_views.emailValidado(email))
-                                {
-                                    if(!contrasena.equals("") && objeto_evaluacion_de_views.contrasena_correcta(contrasena))
-                                    {
-                                        if(!numero_control.equals(""))
-                                        {
-                                            registroChofer_organizacion_auto.setValueMap("Nombre", nombre);
-                                            registroChofer_organizacion_auto.setValueMap("Apellidos", apellidos);
-                                            registroChofer_organizacion_auto.setValueMap("Edad", Integer.parseInt(edad));
-                                            registroChofer_organizacion_auto.setValueMap("Teléfono", telefono);
-                                            registroChofer_organizacion_auto.setValueMap("Email", email);
-                                            registroChofer_organizacion_auto.setValueMap("Contraseña", contrasena);
-                                            registroChofer_organizacion_auto.setValueMap("NumeroControl", numero_control);
-                                            findNavController(v).navigate(R.id.action_registroChofer_to_registroChofer_organizacion_auto);
-                                        }
-                                        else
-                                        {
-                                            editText_contrasena.setError("required");
-                                            Toast.makeText(getActivity(),"Comienza con 1X04XXXX 8 caracteres",Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                    else
-                                    {
-                                        editText_contrasena.setError("required");
-                                        Toast.makeText(getActivity(),"Debe tener mínimo una letra mayuscula, un número y 8 caracteres",Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                                else
-                                {
-                                    editText_email.setError("required");
-                                    Toast.makeText(getActivity(),"Email incorrecto",Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                            else
-                            {
-                                editText_telefono.setError("required");
-                                Toast.makeText(getActivity(),"Teléfono nulo o incorrecto",Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        else
-                        {
-                            editText_edad.setError("required");
-                            Toast.makeText(getActivity(),"La edad es incorrecta, o no está en el rango (17-100) años ",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    else
-                    {
-                        editText_apellidos.setError("required");
-                    }
 
+                if(!objeto_firebase_conexion_firestore.numerocontrol("Choferes",numero_control)) {
+                    if (!nombre.equals("")) {
+                        if (!apellidos.equals("")) {
+                            if (!edad.equals("") && objeto_evaluacion_de_views.es_numero(edad, 17)) {
+                                if (!telefono.equals("") && objeto_evaluacion_de_views.telefonoValido(telefono)) {
+                                    if (!email.equals("") && objeto_evaluacion_de_views.emailValidado(email)) {
+                                        if (!contrasena.equals("") && objeto_evaluacion_de_views.contrasena_correcta(contrasena)) {
+                                            if (!numero_control.equals("")) {
+                                                registroChofer_organizacion_auto.setValueMap("Nombre", nombre);
+                                                registroChofer_organizacion_auto.setValueMap("Apellidos", apellidos);
+                                                registroChofer_organizacion_auto.setValueMap("Edad", Integer.parseInt(edad));
+                                                registroChofer_organizacion_auto.setValueMap("Teléfono", telefono);
+                                                registroChofer_organizacion_auto.setValueMap("Email", email);
+                                                registroChofer_organizacion_auto.setValueMap("Contraseña", contrasena);
+                                                registroChofer_organizacion_auto.setValueMap("NumeroControl", numero_control);
+                                                findNavController(v).navigate(R.id.action_registroChofer_to_registroChofer_organizacion_auto);
+                                            } else {
+                                                editText_contrasena.setError("required");
+                                                Toast.makeText(getActivity(), "Comienza con 1X04XXXX 8 caracteres", Toast.LENGTH_SHORT).show();
+                                            }
+                                        } else {
+                                            editText_contrasena.setError("required");
+                                            Toast.makeText(getActivity(), "Debe tener mínimo una letra mayuscula, un número y 8 caracteres", Toast.LENGTH_SHORT).show();
+                                        }
+                                    } else {
+                                        editText_email.setError("required");
+                                        Toast.makeText(getActivity(), "Email incorrecto", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    editText_telefono.setError("required");
+                                    Toast.makeText(getActivity(), "Teléfono nulo o incorrecto", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                editText_edad.setError("required");
+                                Toast.makeText(getActivity(), "La edad es incorrecta, o no está en el rango (17-100) años ", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            editText_apellidos.setError("required");
+                        }
+
+                    } else {
+                        editText_nombre.setError("required");
+                    }
                 }
                 else
                 {
-                    editText_nombre.setError("required");
+                    editText_nombre.setError("Número de control registrado");
+                    Toast.makeText(getActivity(), "Debe de utilizar el suyo, si el alguien más está usando el suyo, repórtelo", Toast.LENGTH_SHORT).show();
                 }
             }
         });

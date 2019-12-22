@@ -88,6 +88,7 @@ public class registroChofer_organizacion_auto extends Fragment {
             @Override
             public void onClick( final View v)
             {
+
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
                 startActivityForResult(intent.createChooser(intent,"Selecciona una imagen"),GALLERY_INTENT);
