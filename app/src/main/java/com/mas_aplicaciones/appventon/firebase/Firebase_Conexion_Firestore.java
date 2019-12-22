@@ -1,8 +1,6 @@
 package com.mas_aplicaciones.appventon.firebase;
 
 
-import android.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,21 +15,22 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.mas_aplicaciones.appventon.InicioSesion;
+import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import dmax.dialog.SpotsDialog;
 
 import static androidx.navigation.Navigation.findNavController;
 
 
-public class firebase_conexion_firestore {
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+public class Firebase_Conexion_Firestore {
+    private static FirebaseFirestore db = MainActivity.db;
 
     private static Map<String, Object> datos = new HashMap<>();
+    private static ArrayList<String> numeroControlUsuarios = new ArrayList<>();
+    private static ArrayList<String> numeroControlChoferes = new ArrayList<>();
 
     public void agregar_usuario(Map<String, Object> datos, String UUID) {
 
@@ -80,7 +79,7 @@ public class firebase_conexion_firestore {
                     DocumentSnapshot document = task.getResult();
                     assert document != null;
                     if (document.exists()) {
-                        firebase_conexion_firestore.setMap(document.getData());
+                        Firebase_Conexion_Firestore.setMap(document.getData());
 
                         findNavController(view).navigate(R.id.action_inicioSesion_to_principalUsuario);
 
@@ -104,7 +103,7 @@ public class firebase_conexion_firestore {
                     if (document.exists())
                     {
 
-                        firebase_conexion_firestore.setMap(document.getData());
+                        Firebase_Conexion_Firestore.setMap(document.getData());
                         if((boolean)document.getData().get("validacion"))
                         {
                             Toast.makeText(view.getContext(), "Iniciando...", Toast.LENGTH_SHORT).show();
@@ -127,12 +126,11 @@ public class firebase_conexion_firestore {
             }
         });
     }
-    //verifica si el numero de control existe en el sistema
-    public boolean numerocontrol(String collections, final String numControl)
+    //verifica si el numero de control existe en el sistema en Usuarios
+    public static void getNumeroControlUsuarios()
     {
-        final boolean[] val = new boolean[1];
-        val[0]=false;
-        db.collection(collections)
+
+        db.collection("Usuarios")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -141,12 +139,7 @@ public class firebase_conexion_firestore {
                         {
                             for (QueryDocumentSnapshot document : task.getResult())
                             {
-                                if(document.getData().get("NumeroControl").toString().equals(numControl))
-                                {
-                                    Log.d("VAL",document.getData().get("NumeroControl").toString() );
-                                    val[0] = true;
-                                    break;
-                                }
+                                numeroControlUsuarios.add(document.getData().get("NumeroControl").toString());
 
                             }
                         }
@@ -156,8 +149,34 @@ public class firebase_conexion_firestore {
                         }
                     }
                 });
-        return val[0];
+
     }
+    //verifica si el numero de control existe en el sistema en Choferes
+    public static  void getNumeroControlChoferes()
+    {
+
+
+        db.collection("Choferes")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful())
+                        {
+                            for (QueryDocumentSnapshot document : task.getResult())
+                            {
+                                numeroControlUsuarios.add(document.getData().get("NumeroControl").toString());
+                            }
+                        }
+                        else {
+
+
+                        }
+                    }
+                });
+
+    }
+
     public static Object getValue(String Key) {
 
         return datos.get(Key);

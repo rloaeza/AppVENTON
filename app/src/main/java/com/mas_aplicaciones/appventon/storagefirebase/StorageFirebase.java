@@ -11,6 +11,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.chofer.registroChofer_organizacion_auto;
 import com.mas_aplicaciones.appventon.usuario.registroUsuario_organizacion;
 
@@ -18,7 +19,7 @@ import dmax.dialog.SpotsDialog;
 
 public class StorageFirebase
 {
-    private StorageReference mStorage = FirebaseStorage.getInstance().getReference();//instancia de clase para le storage
+    private static StorageReference mStorage = MainActivity.mStorage;//instancia de clase para le storage
     //iniciación de la instancia storage
     // dialogo
     private AlertDialog alertDialog;

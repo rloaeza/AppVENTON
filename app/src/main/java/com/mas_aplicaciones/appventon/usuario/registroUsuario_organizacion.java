@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
-import com.mas_aplicaciones.appventon.firebase.firebase_conexion_firestore;
+import com.mas_aplicaciones.appventon.firebase.Firebase_Conexion_Firestore;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 
 import java.util.HashMap;
@@ -41,7 +41,7 @@ public class registroUsuario_organizacion extends Fragment {
     private Spinner spinner_genero,spinner_carreras;
     private final String [] OPCIONES_GENERO =  {"Género","Masculino","Femenino"};
     private final String [] OPCIONES_CARRERAS =  {"Carrera","Ing. Administración","Ing. Sistemas","Ing. Industrial","Ing. Alimientarias","Ing. Electrónica","Ing. Mecatrónica","Ing. Mécanica","Ing. Civil"};
-    firebase_conexion_firestore conexion=new firebase_conexion_firestore();
+    Firebase_Conexion_Firestore conexion=new Firebase_Conexion_Firestore();
     StorageFirebase storageFirebase = new StorageFirebase();
     private final static int GALLERY_INTENT = 1;
 

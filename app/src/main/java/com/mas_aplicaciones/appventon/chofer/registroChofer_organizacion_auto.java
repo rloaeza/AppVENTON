@@ -23,7 +23,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
-import com.mas_aplicaciones.appventon.firebase.firebase_conexion_firestore;
+import com.mas_aplicaciones.appventon.firebase.Firebase_Conexion_Firestore;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 
 import java.util.HashMap;
@@ -45,7 +45,7 @@ public class registroChofer_organizacion_auto extends Fragment {
     private String [] OPCIONES_ORGANIZACION = {"Organización","ITSU"};
     private final String [] OPCIONES_GENERO =  {"Género","Masculino","Femenino"};
     private static Map<String,Object> data = new HashMap<>();
-    private firebase_conexion_firestore conexion=new firebase_conexion_firestore();
+    private Firebase_Conexion_Firestore conexion=new Firebase_Conexion_Firestore();
     private StorageFirebase storageFirebase = new StorageFirebase();
     private final static int GALLERY_INTENT = 1;
 

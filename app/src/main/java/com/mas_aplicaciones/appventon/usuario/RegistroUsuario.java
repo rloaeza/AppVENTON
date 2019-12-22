@@ -16,8 +16,8 @@ import androidx.fragment.app.Fragment;
 
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
-import com.mas_aplicaciones.appventon.firebase.evaluacion_de_views;
-import com.mas_aplicaciones.appventon.firebase.firebase_conexion_firestore;
+import com.mas_aplicaciones.appventon.firebase.Evaluacion_De_Views;
+import com.mas_aplicaciones.appventon.firebase.Firebase_Conexion_Firestore;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 
 import static androidx.navigation.Navigation.findNavController;
@@ -28,8 +28,8 @@ import static androidx.navigation.Navigation.findNavController;
  */
 public class RegistroUsuario extends Fragment {
 
-    evaluacion_de_views objeto_evaluacion_de_views = new evaluacion_de_views();
-    firebase_conexion_firestore objeto_firebase_conexion_firestore = new firebase_conexion_firestore();
+    Evaluacion_De_Views objeto_evaluacion_de_views = new Evaluacion_De_Views();
+    Firebase_Conexion_Firestore objeto_firebase_conexion_firestore = new Firebase_Conexion_Firestore();
     StorageFirebase storageFirebase = new StorageFirebase();
     private EditText editText_nombre;
     private EditText editText_apellidos;

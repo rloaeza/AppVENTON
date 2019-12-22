@@ -13,9 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.mas_aplicaciones.appventon.MainActivity;
-import com.mas_aplicaciones.appventon.firebase.evaluacion_de_views;
+import com.mas_aplicaciones.appventon.firebase.Evaluacion_De_Views;
 import com.mas_aplicaciones.appventon.R;
-import com.mas_aplicaciones.appventon.firebase.firebase_conexion_firestore;
+import com.mas_aplicaciones.appventon.firebase.Firebase_Conexion_Firestore;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 import com.mas_aplicaciones.appventon.usuario.registroUsuario_organizacion;
 
@@ -41,9 +41,9 @@ public class RegistroChofer extends Fragment {
     private String email;
     private String contrasena;
     private String numero_control;
-    evaluacion_de_views objeto_evaluacion_de_views = new evaluacion_de_views();
+    Evaluacion_De_Views objeto_evaluacion_de_views = new Evaluacion_De_Views();
     StorageFirebase storageFirebase = new StorageFirebase();
-    firebase_conexion_firestore objeto_firebase_conexion_firestore= new firebase_conexion_firestore();
+    Firebase_Conexion_Firestore objeto_firebase_conexion_firestore= new Firebase_Conexion_Firestore();
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,7 +75,7 @@ public class RegistroChofer extends Fragment {
                 contrasena = editText_contrasena.getText().toString();
                 numero_control = editText_numero_control.getText().toString();
 
-                if(!objeto_firebase_conexion_firestore.numerocontrol("Choferes",numero_control)) {
+                if(true) {
                     if (!nombre.equals("")) {
                         if (!apellidos.equals("")) {
                             if (!edad.equals("") && objeto_evaluacion_de_views.es_numero(edad, 17)) {

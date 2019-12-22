@@ -4,42 +4,29 @@ package com.mas_aplicaciones.appventon.menu;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.net.UrlQuerySanitizer;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.mas_aplicaciones.appventon.InicioSesion;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
-import com.mas_aplicaciones.appventon.firebase.firebase_conexion_firestore;
+import com.mas_aplicaciones.appventon.firebase.Firebase_Conexion_Firestore;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 
-import java.net.URL;
 import java.util.Objects;
 
 import static androidx.navigation.Navigation.findNavController;
@@ -72,10 +59,10 @@ public class menu extends Fragment {
         btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firebase_conexion_firestore.ClearMap();
+                Firebase_Conexion_Firestore.ClearMap();
                 InicioSesion.mAuth.signOut();
                 clearPreferencias();
-                firebase_conexion_firestore.ClearMap();
+                Firebase_Conexion_Firestore.ClearMap();
                 findNavController(v).navigate(R.id.inicioSesion);
 
             }
@@ -96,13 +83,13 @@ public class menu extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
-        Object ob_nombre = firebase_conexion_firestore.getValue("Nombre");
-        Object ob_apellidos = firebase_conexion_firestore.getValue("Apellidos");
-        Object ob_num_Control = firebase_conexion_firestore.getValue("NumeroControl");
-        Object ob_uri = firebase_conexion_firestore.getValue("URI");
+        Object ob_nombre = Firebase_Conexion_Firestore.getValue("Nombre");
+        Object ob_apellidos = Firebase_Conexion_Firestore.getValue("Apellidos");
+        Object ob_num_Control = Firebase_Conexion_Firestore.getValue("NumeroControl");
+        Object ob_uri = Firebase_Conexion_Firestore.getValue("URI");
         textUser.setText(ob_nombre + " " + ob_apellidos);
         StorageReference mStorage = FirebaseStorage.getInstance().getReference();
-        if (firebase_conexion_firestore.existKeyInMap("CantidadPasajeros")) {
+        if (Firebase_Conexion_Firestore.existKeyInMap("CantidadPasajeros")) {
             //estoy en chofer
 
                     Glide.with(getView().getContext())
