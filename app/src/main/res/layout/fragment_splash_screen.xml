@@ -19,7 +19,6 @@
         android:contentDescription="@string/txtDescripcion"
         android:padding="50dp"
         android:src="@drawable/icono_splash_screen" />
-    />
 
     <TextView
         android:id="@+id/textView_title"
