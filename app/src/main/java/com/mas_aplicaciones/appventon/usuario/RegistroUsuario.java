@@ -115,7 +115,7 @@ public class RegistroUsuario extends Fragment {
                                        {
                                            if (!numero_control.equals(""))
                                            {
-                                               if(FirebaseConexionFirestore.existValueNumControlChofer(numero_control))
+                                               if(FirebaseConexionFirestore.existValueNumControlUsuario(numero_control))
                                                {
                                                    RegistroUsuarioOrganizacion.setValueMap("Nombre", nombre.trim());
                                                    RegistroUsuarioOrganizacion.setValueMap("Apellidos", apellidos.trim());

@@ -157,8 +157,8 @@ public class FirebaseConexionFirestore {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful())
                         {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                numeroControlChoferes.add(document.getData().get("NumeroControl").toString());
+                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                numeroControlChoferes.add(Objects.requireNonNull(document.getData().get("NumeroControl")).toString());
                             }
                         }
                         
@@ -166,7 +166,7 @@ public class FirebaseConexionFirestore {
                 });
 
     }
-    public static void actualizarData(String collection, String UUID,String nombre,String apellido, String telefono,View view)
+    public static void actualizarData(String nombre,String apellido, String telefono,View view)
     {
         if(!apellido.equals(datos.get("Apellidos")))
         {
@@ -211,17 +211,7 @@ public class FirebaseConexionFirestore {
     {
         datos=setData;
     }
-    public static boolean existKeyInMap(String key)
-    {
-        boolean b = false;
-        if(datos.containsKey(key))
-        {
-            b=true;
 
-        }
-        return b ;
-
-    }
 
 
 

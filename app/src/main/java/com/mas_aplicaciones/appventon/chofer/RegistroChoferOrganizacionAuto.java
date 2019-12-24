@@ -12,10 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -25,7 +23,6 @@ import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -48,7 +45,6 @@ public class RegistroChoferOrganizacionAuto extends Fragment {
     private FirebaseConexionFirestore conexion=new FirebaseConexionFirestore();
     private StorageFirebase storageFirebase = new StorageFirebase();
     private final static int GALLERY_INTENT = 1;
-
     public static void setValueMap(String key, Object value)
     {
         data.put(key,value);
@@ -91,7 +87,7 @@ public class RegistroChoferOrganizacionAuto extends Fragment {
 
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
-                startActivityForResult(intent.createChooser(intent,"Selecciona una imagen"),GALLERY_INTENT);
+                startActivityForResult(Intent.createChooser(intent,"Selecciona una imagen"),GALLERY_INTENT);
             }
         });
 

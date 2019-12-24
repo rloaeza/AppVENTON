@@ -86,8 +86,7 @@ public class Configurar extends Fragment
                         if(!celular.equals("") && objeto_evaluacion_de_views.telefonoValido(celular))
                         {
 
-                                FirebaseConexionFirestore.actualizarData(FirebaseConexionFirestore.PERSONA, FirebaseConexionFirestore.DOCUMENT,
-                                        nombre.trim(),apellido.trim(),celular,getView());
+                                FirebaseConexionFirestore.actualizarData(nombre.trim(),apellido.trim(),celular,getView());
                         }
                         else
                         {
