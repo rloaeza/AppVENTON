@@ -50,5 +50,7 @@
     <string name="txtAceptar">Aceptar</string>
     <string name="txtTituloEjemplo">Titulo Ejemplo</string>
     <string name="txtTextoEjemplo">Texto Ejemplo, Lorem ipsu dolor.</string>
+    <string name="cambiar_foto">Cambiar foto</string>
+    <string name="tel_fono">Teléfono</string>
 
 </resources>

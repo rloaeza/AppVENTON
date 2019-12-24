@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,97 +8,116 @@
     android:orientation="vertical"
     android:background="@drawable/japanbackground"
     tools:context=".usuario.registroUsuario_organizacion"
-    android:padding="8dp"
-    >
-        <TableRow
+    android:padding="8dp">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="30dp"
-            android:gravity="center"
-            android:weightSum="1">
-
-            <Spinner
-                android:id="@+id/spinner_selecCarrera"
-                style="@android:style/Widget.Material.Light.Spinner.Underlined"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="0.75"
-                android:backgroundTint="@color/colorBotones"
-
-                tools:listitem="@layout/spinner_item_values"
-                android:padding="0dp"
-                android:popupBackground="@drawable/shape_background_spiner"
-                android:spinnerMode="dropdown"
-               />
-        </TableRow>
-
-        <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:gravity="center"
-        android:weightSum="1">
-
-        <Spinner
-            android:id="@+id/spinner_selecGen"
-
-            style="@android:style/Widget.Material.Light.Spinner.Underlined"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_weight="0.75"
-            android:backgroundTint="@color/colorBotones"
-            android:padding="0dp"
-            tools:listitem="@layout/spinner_item_values"
-            android:focusable="auto"
-            android:foregroundTint="@color/colorBotones"
-            android:popupBackground="@drawable/shape_background_spiner"
-
-            android:spinnerMode="dropdown"
-            android:textAlignment="center"
-        />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:gravity="center"
-        android:weightSum="1">
-        <Button
-            android:id="@+id/button_subir_foto_usuario"
-            android:layout_width="0dp"
-            android:layout_height="33dp"
-            android:layout_gravity="center"
-            android:layout_weight="0.4"
-            android:background="@color/colorBackBotones"
-            android:text="@string/txtFotoPerfilUsuario"
-            android:textColor="@color/colorBotones"
-
-            />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:weightSum="1"
-        android:gravity="center"
-        >
-
-        <Button
-            android:id="@+id/button_registrar"
-            android:layout_width="0dp"
-            android:layout_height="33dp"
-            android:layout_gravity="center"
-            android:layout_weight="0.4"
-            android:background="@color/colorBackBotones"
-            android:text="@string/txtCrearCuenta"
-            android:textColor="@color/colorBotones"
-            />
-    </TableRow>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="30dp"
+                android:gravity="center"
+                android:weightSum="1">
+
+                <Spinner
+                    android:id="@+id/spinner_selecCarrera"
+                    style="@android:style/Widget.Material.Light.Spinner.Underlined"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorBotones"
+
+                    android:padding="0dp"
+                    android:popupBackground="@drawable/shape_background_spiner"
+                    android:spinnerMode="dropdown"
+                    tools:listitem="@layout/spinner_item_values" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:gravity="center"
+                android:weightSum="1">
+
+                <Spinner
+                    android:id="@+id/spinner_selecGen"
+
+                    style="@android:style/Widget.Material.Light.Spinner.Underlined"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorBotones"
+                    android:focusable="auto"
+                    android:foregroundTint="@color/colorBotones"
+                    android:padding="0dp"
+                    android:popupBackground="@drawable/shape_background_spiner"
+                    android:spinnerMode="dropdown"
+
+                    android:textAlignment="center"
+                    tools:listitem="@layout/spinner_item_values" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:gravity="center"
+                android:weightSum="1">
+
+                <Button
+                    android:id="@+id/button_subir_foto_usuario"
+                    android:layout_width="0dp"
+                    android:layout_height="33dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.4"
+                    android:background="@color/colorBackBotones"
+                    android:text="@string/txtFotoPerfilUsuario"
+                    android:textColor="@color/colorBotones"
+
+                    />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:gravity="center"
+                android:weightSum="1">
+
+                <Button
+                    android:id="@+id/button_registrar"
+                    android:layout_width="0dp"
+                    android:layout_height="33dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.4"
+                    android:background="@color/colorBackBotones"
+                    android:text="@string/txtCrearCuenta"
+                    android:textColor="@color/colorBotones" />
+            </TableRow>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

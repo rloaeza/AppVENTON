@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navegador"
-    app:startDestination="@+id/inicioSesion">
+    app:startDestination="@id/splashScreen">
 
     <fragment
         android:id="@+id/inicioSesion"
@@ -117,6 +117,15 @@
         tools:layout="@layout/fragment_registro_chofer_organizacion_auto">
         <action
             android:id="@+id/action_registroChofer_organizacion_auto_to_inicioSesion"
+            app:destination="@id/inicioSesion" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashScreen"
+        android:name="com.mas_aplicaciones.appventon.SplashScreen"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreen_to_inicioSesion"
             app:destination="@id/inicioSesion" />
     </fragment>
 </navigation>

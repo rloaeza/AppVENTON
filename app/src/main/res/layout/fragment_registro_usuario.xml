@@ -9,32 +9,35 @@
     android:background="@drawable/japanbackground"
     tools:context=".usuario.RegistroUsuario">
 
-    <LinearLayout
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="30dp"
             android:gravity="center"
-            android:weightSum="3">
+            android:weightSum="1">
 
             <EditText
                 android:id="@+id/edit_text_nombre"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_gravity="start"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1.2"
+                android:layout_gravity="end"
+                android:layout_weight="1"
                 android:backgroundTint="@color/colorBotones"
                 android:ems="10"
                 android:hint="@string/txtNombre"
@@ -45,16 +48,24 @@
                 android:textColorHint="@color/colorBotones"
                 android:textColorLink="@android:color/background_light"
 
-                tools:layout_editor_absoluteX="14dp"
-                tools:layout_editor_absoluteY="120dp"
                 tools:targetApi="o" />
+
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:weightSum="1">
+
 
             <EditText
                 android:id="@+id/edit_text_apellidos"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_gravity="end"
-                android:layout_weight="1.2"
+                android:layout_weight="1"
                 android:backgroundTint="@color/colorBotones"
                 android:ems="10"
                 android:hint="@string/txtApellidoP"
@@ -80,7 +91,7 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:backgroundTint="@color/colorBotones"
                 android:ems="10"
                 android:hint="@string/txtEdad"
@@ -97,12 +108,17 @@
                 tools:targetApi="o" />
         </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:weightSum="1">
         <EditText
             android:id="@+id/edit_text_telefono"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
             android:backgroundTint="@color/colorBotones"
             android:drawableEnd="@drawable/phone"
             android:ems="10"
@@ -113,19 +129,23 @@
             android:textColor="@color/colorBotones"
             android:textColorHighlight="@android:color/background_light"
             android:textColorHint="@color/colorBotones"
-
             android:textColorLink="@android:color/background_light"
             tools:layout_editor_absoluteX="99dp"
             tools:layout_editor_absoluteY="414dp"
             tools:targetApi="o" />
 
-
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:weightSum="1">
         <EditText
             android:id="@+id/edit_text_email"
-            android:layout_width="249dp"
+            android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
+            android:layout_weight="1"
             android:backgroundTint="@color/colorBotones"
             android:drawableEnd="@drawable/email"
             android:ems="10"
@@ -135,11 +155,11 @@
             android:textColor="@color/colorBotones"
             android:textColorHighlight="@android:color/background_light"
             android:textColorHint="@color/colorBotones"
-
             android:textColorLink="@android:color/background_light"
             tools:layout_editor_absoluteX="99dp"
             tools:layout_editor_absoluteY="261dp"
             tools:targetApi="o" />
+    </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
@@ -153,7 +173,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="0.60"
+                android:layout_weight="1"
                 app:passwordToggleDrawable="@drawable/icon_selector"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="@color/colorBotones"
@@ -180,12 +200,17 @@
 
         </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:weightSum="1">
         <EditText
             android:id="@+id/edit_text_num_control"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
+            android:layout_weight="1"
             android:backgroundTint="@color/colorBotones"
             android:drawableEnd="@drawable/number_control_icon"
             android:ems="10"
@@ -201,7 +226,14 @@
             tools:layout_editor_absoluteX="99dp"
             tools:layout_editor_absoluteY="261dp"
             tools:targetApi="o" />
+        </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:weightSum="1">
         <Button
             android:id="@+id/button_registrar"
             android:layout_width="106dp"
@@ -212,7 +244,9 @@
             android:textColor="@color/colorBotones"
             tools:layout_editor_absoluteX="139dp"
             tools:layout_editor_absoluteY="591dp" />
+        </TableRow>
 
 
-    </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

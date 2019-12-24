@@ -75,22 +75,38 @@ public class RegistroChofer extends Fragment {
                 contrasena = editText_contrasena.getText().toString();
                 numero_control = editText_numero_control.getText().toString();
 
-                if(true) {
-                    if (!nombre.equals("")) {
-                        if (!apellidos.equals("")) {
-                            if (!edad.equals("") && objeto_evaluacion_de_views.es_numero(edad, 17)) {
-                                if (!telefono.equals("") && objeto_evaluacion_de_views.telefonoValido(telefono)) {
-                                    if (!email.equals("") && objeto_evaluacion_de_views.emailValidado(email)) {
-                                        if (!contrasena.equals("") && objeto_evaluacion_de_views.contrasena_correcta(contrasena)) {
-                                            if (!numero_control.equals("")) {
-                                                registroChofer_organizacion_auto.setValueMap("Nombre", nombre);
-                                                registroChofer_organizacion_auto.setValueMap("Apellidos", apellidos);
-                                                registroChofer_organizacion_auto.setValueMap("Edad", Integer.parseInt(edad));
-                                                registroChofer_organizacion_auto.setValueMap("Teléfono", telefono);
-                                                registroChofer_organizacion_auto.setValueMap("Email", email);
-                                                registroChofer_organizacion_auto.setValueMap("Contraseña", contrasena);
-                                                registroChofer_organizacion_auto.setValueMap("NumeroControl", numero_control);
-                                                findNavController(v).navigate(R.id.action_registroChofer_to_registroChofer_organizacion_auto);
+
+                    if (!nombre.equals(""))
+                    {
+                        if (!apellidos.equals(""))
+                        {
+                            if (!edad.equals("") && objeto_evaluacion_de_views.es_numero(edad, 17))
+                            {
+                                if (!telefono.equals("") && objeto_evaluacion_de_views.telefonoValido(telefono))
+                                {
+                                    if (!email.equals("") && objeto_evaluacion_de_views.emailValidado(email))
+                                    {
+                                        if (!contrasena.equals("") && objeto_evaluacion_de_views.contrasena_correcta(contrasena))
+                                        {
+                                            if (!numero_control.equals(""))
+                                            {
+                                                if(Firebase_Conexion_Firestore.existValueNumControlChofer(numero_control))
+                                                {
+                                                    registroChofer_organizacion_auto.setValueMap("Nombre", nombre.trim());
+                                                    registroChofer_organizacion_auto.setValueMap("Apellidos", apellidos.trim());
+                                                    registroChofer_organizacion_auto.setValueMap("Edad", Integer.parseInt(edad));
+                                                    registroChofer_organizacion_auto.setValueMap("Teléfono", telefono);
+                                                    registroChofer_organizacion_auto.setValueMap("Email", email.trim());
+                                                    registroChofer_organizacion_auto.setValueMap("Contraseña", contrasena);
+                                                    registroChofer_organizacion_auto.setValueMap("NumeroControl", numero_control.trim());
+                                                    findNavController(v).navigate(R.id.action_registroChofer_to_registroChofer_organizacion_auto);
+                                                }
+                                                else
+                                                {
+                                                    editText_nombre.setError("Número de control registrado");
+                                                    Toast.makeText(getActivity(), "Debe de utilizar el suyo, si el alguien más está usando el suyo, repórtelo", Toast.LENGTH_SHORT).show();
+                                                }
+
                                             } else {
                                                 editText_contrasena.setError("required");
                                                 Toast.makeText(getActivity(), "Comienza con 1X04XXXX 8 caracteres", Toast.LENGTH_SHORT).show();
@@ -118,12 +134,7 @@ public class RegistroChofer extends Fragment {
                     } else {
                         editText_nombre.setError("required");
                     }
-                }
-                else
-                {
-                    editText_nombre.setError("Número de control registrado");
-                    Toast.makeText(getActivity(), "Debe de utilizar el suyo, si el alguien más está usando el suyo, repórtelo", Toast.LENGTH_SHORT).show();
-                }
+
             }
         });
         return view;

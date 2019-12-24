@@ -2,7 +2,6 @@ package com.mas_aplicaciones.appventon.usuario;
 
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,28 +97,43 @@ public class RegistroUsuario extends Fragment {
 
                     }
                 });
-*/             boolean x= objeto_firebase_conexion_firestore.numerocontrol("Usuarios",numero_control);
-                Log.d("VAL", String.valueOf(x));
-               if(false)
-               {
+*/
 
 
-                   if (!nombre.equals("")) {
+
+
+                   if (!nombre.equals(""))
+                   {
                        if (!apellidos.equals("")) {
-                           if (!edad.equals("") && objeto_evaluacion_de_views.es_numero(edad, 17)) {
-                               if (!telefono.equals("") && objeto_evaluacion_de_views.telefonoValido(telefono)) {
-                                   if (!email.equals("") && objeto_evaluacion_de_views.emailValidado(email)) {
-                                       if (!contrasena.equals("") && objeto_evaluacion_de_views.contrasena_correcta(contrasena)) {
-                                           if (!numero_control.equals("")) {
-                                               registroUsuario_organizacion.setValueMap("Nombre", nombre);
-                                               registroUsuario_organizacion.setValueMap("Apellidos", apellidos);
-                                               registroUsuario_organizacion.setValueMap("Edad", Integer.parseInt(edad));
-                                               registroUsuario_organizacion.setValueMap("Teléfono", telefono);
-                                               registroUsuario_organizacion.setValueMap("Email", email);
-                                               registroUsuario_organizacion.setValueMap("Contraseña", contrasena);
-                                               registroUsuario_organizacion.setValueMap("NumeroControl", numero_control);
-                                               findNavController(v).navigate(R.id.action_registroUsuario_to_registroUsuario_organizacion);
-                                           } else {
+                           if (!edad.equals("") && objeto_evaluacion_de_views.es_numero(edad, 17))
+                           {
+                               if (!telefono.equals("") && objeto_evaluacion_de_views.telefonoValido(telefono))
+                               {
+                                   if (!email.equals("") && objeto_evaluacion_de_views.emailValidado(email))
+                                   {
+                                       if (!contrasena.equals("") && objeto_evaluacion_de_views.contrasena_correcta(contrasena))
+                                       {
+                                           if (!numero_control.equals(""))
+                                           {
+                                               if(Firebase_Conexion_Firestore.existValueNumControlChofer(numero_control))
+                                               {
+                                                   registroUsuario_organizacion.setValueMap("Nombre", nombre.trim());
+                                                   registroUsuario_organizacion.setValueMap("Apellidos", apellidos.trim());
+                                                   registroUsuario_organizacion.setValueMap("Edad", Integer.parseInt(edad));
+                                                   registroUsuario_organizacion.setValueMap("Teléfono", telefono);
+                                                   registroUsuario_organizacion.setValueMap("Email", email.trim());
+                                                   registroUsuario_organizacion.setValueMap("Contraseña", contrasena);
+                                                   registroUsuario_organizacion.setValueMap("NumeroControl", numero_control.trim());
+                                                   findNavController(v).navigate(R.id.action_registroUsuario_to_registroUsuario_organizacion);
+                                               }
+                                               else
+                                               {
+                                                   editText_nombre.setError("Número de control registrado");
+                                                   Toast.makeText(getActivity(), "Debe de utilizar el suyo, si el alguien más está usando el suyo, repórtelo", Toast.LENGTH_SHORT).show();
+                                               }
+                                           }
+                                           else
+                                               {
                                                editText_contrasena.setError("required");
                                                Toast.makeText(getActivity(), "Comienza con 1X04XXXX y tiene 8 caracteres", Toast.LENGTH_SHORT).show();
                                            }
@@ -147,12 +161,8 @@ public class RegistroUsuario extends Fragment {
                    } else {
                        editText_nombre.setError("required");
                    }
-               }
-               else
-               {
-                   editText_numero_control.setError("Número de control registrado");
-                   Toast.makeText(getActivity(), "Debe de utilizar el suyo, si el alguien más está usando el suyo, repórtelo", Toast.LENGTH_SHORT).show();
-               }
+
+
             }
         });
         return view;

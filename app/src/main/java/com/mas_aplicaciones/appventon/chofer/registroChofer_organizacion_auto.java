@@ -115,7 +115,7 @@ public class registroChofer_organizacion_auto extends Fragment {
                                     if (StorageFirebase.getImagenSubida()) {
                                         data.put("Organización", spinner_organizacion.getSelectedItem().toString());
                                         data.put("Género", spinner_genero.getSelectedItem().toString());
-                                        data.put("Placas", placas);
+                                        data.put("Placas", placas.trim());
                                         data.put("Vigencia", vigencia);
                                         data.put("CantidadPasajeros", cantidad_pasajeros);
 
@@ -196,7 +196,7 @@ public class registroChofer_organizacion_auto extends Fragment {
         {
 
             Uri uri = data.getData();
-            storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Choferes",getView());
+            storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Choferes",getView(),registroChofer_organizacion_auto.class);
 
 
 

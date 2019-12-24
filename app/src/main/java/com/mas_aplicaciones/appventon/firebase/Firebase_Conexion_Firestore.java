@@ -8,6 +8,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -29,7 +30,8 @@ public class Firebase_Conexion_Firestore {
     private static Map<String, Object> datos = new HashMap<>();
     private static ArrayList<String> numeroControlUsuarios = new ArrayList<>();
     private static ArrayList<String> numeroControlChoferes = new ArrayList<>();
-
+    public static String PERSONA;//almacena el valor de la coleccion donde encontro las credenciales.
+    public static String DOCUMENT;//almacena el valor de la coleccion donde encontro las credenciales.
     public void agregar_usuario(Map<String, Object> datos, String UUID) {
 
         db.collection("Usuarios").document(UUID)
@@ -76,12 +78,13 @@ public class Firebase_Conexion_Firestore {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     assert document != null;
-                    if (document.exists()) {
+                    if (document.exists())
+                    {
+                        PERSONA="Usuarios";
+                        DOCUMENT=document.getId();
                         Firebase_Conexion_Firestore.setMap(document.getData());
-
+                        Toast.makeText(view.getContext(), "Iniciando... ", Toast.LENGTH_SHORT).show();
                         findNavController(view).navigate(R.id.action_inicioSesion_to_principalUsuario);
-
-
                     }
                 }
             }
@@ -104,15 +107,14 @@ public class Firebase_Conexion_Firestore {
                         Firebase_Conexion_Firestore.setMap(document.getData());
                         if((boolean) Objects.requireNonNull(document.getData()).get("validacion"))
                         {
-                            Toast.makeText(view.getContext(), "Iniciando...", Toast.LENGTH_SHORT).show();
+                            PERSONA="Choferes";
+                            DOCUMENT=document.getId();
+                            Toast.makeText(view.getContext(), "Iniciando... ", Toast.LENGTH_SHORT).show();
                             findNavController(view).navigate(R.id.action_inicioSesion_to_principalChofer);
-
                         }
                         else
                         {
-
                             Toast.makeText(view.getContext(),"Tus datos estan siendo validados en la organización "+document.getData().get("Organización"),Toast.LENGTH_LONG).show();
-
                         }
 
 
@@ -137,9 +139,6 @@ public class Firebase_Conexion_Firestore {
                         {
                             for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult()))
                                 numeroControlUsuarios.add(Objects.requireNonNull(document.getData().get("NumeroControl")).toString());
-
-                            
-                        
                         }
                         
                     }
@@ -167,10 +166,42 @@ public class Firebase_Conexion_Firestore {
                 });
 
     }
+    public static void actualizarData(String collection, String UUID,String nombre,String apellido, String telefono,View view)
+    {
+        if(!apellido.equals(datos.get("Apellidos")))
+        {
+            db.collection(PERSONA).document(DOCUMENT).update("Apellidos",apellido);
+            datos.put("Apellidos",apellido);
+        }
+        if(!nombre.equals(datos.get("Nombre")))
+        {
+            db.collection(PERSONA).document(DOCUMENT).update("Nombre",nombre );
+            datos.put("Nombre",nombre);
+        }
+        if(!telefono.equals(datos.get("Teléfono")))
+        {
+            db.collection(PERSONA).document(DOCUMENT).update("Teléfono",telefono);
+            datos.put("Teléfono",apellido);
+        }
+        Snackbar.make(view,"Datos actualizados",Snackbar.LENGTH_SHORT).show();
+    }
+    public static void actualizarImagen(String URI)
+    {
+        db.collection(PERSONA).document(DOCUMENT).update("URI",URI);
+        datos.put("URI",URI);
+    }
 
     public static Object getValue(String Key) {
 
         return datos.get(Key);
+    }
+    public static boolean existValueNumControlUsuario(String Key)
+    {
+        return numeroControlUsuarios.contains(Key);
+    }
+    public static boolean existValueNumControlChofer(String Key)
+    {
+        return numeroControlChoferes.contains(Key);
     }
     public static void ClearMap() {
 

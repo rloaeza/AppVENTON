@@ -13,7 +13,7 @@
     <!--Colores Background-->
         <!--Para los botones de la App-->
         <color name="colorBackBotones">#009688</color>
-        <color name="colorBackBotones2">#01ab9a</color>
+        <color name="colorBackBotones2">#01AB9A</color>
         <color name="colorFondo1">#C5BFBF</color>
 
         <color name="transparente">#00FFFFFF</color>

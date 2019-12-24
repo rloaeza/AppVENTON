@@ -55,7 +55,7 @@
 
 
         </TableRow>
-        <!--s
+
         <Button
             android:id="@+id/button_configurar_datos"
             android:layout_width="match_parent"
@@ -67,7 +67,7 @@
             tools:layout_editor_absoluteX="31dp"
             tools:layout_editor_absoluteY="129dp"
             android:textAlignment="textStart"/>
-
+        <!--
         <Button
             android:id="@+id/button_ayuda"
             android:layout_width="match_parent"
@@ -79,7 +79,7 @@
             tools:layout_editor_absoluteX="31dp"
             tools:layout_editor_absoluteY="129dp"
             android:textAlignment="textStart"/>
-            -->
+        -->
 
         <Button
             android:id="@+id/button_quejas_sugerencias"

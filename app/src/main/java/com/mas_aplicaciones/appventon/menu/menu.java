@@ -47,13 +47,13 @@ public class menu extends Fragment {
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
         //Button btnAyuda = view.findViewById(R.id.button_ayuda);
         Button btnQuejas = view.findViewById(R.id.button_quejas_sugerencias);
-        //Button btnConfiguracion = view.findViewById(R.id.button_configurar_datos);
+        Button btnConfiguracion = view.findViewById(R.id.button_configurar_datos);
         Button btnCerrarSesion = view.findViewById(R.id.button_cerrar_sesion);
         textUser = view.findViewById(R.id.text_view_nombre);
         imageView_user = view.findViewById(R.id.image_view_2);
         //btnAyuda.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_ayuda3));
         btnQuejas.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_quejas));
-        //sbtnConfiguracion.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_configurar));
+        btnConfiguracion.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_configurar));
 
 
         btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +89,8 @@ public class menu extends Fragment {
         Object ob_uri = Firebase_Conexion_Firestore.getValue("URI");
         textUser.setText(ob_nombre + " " + ob_apellidos);
         StorageReference mStorage = FirebaseStorage.getInstance().getReference();
-        if (Firebase_Conexion_Firestore.existKeyInMap("CantidadPasajeros")) {
+        if (Firebase_Conexion_Firestore.PERSONA.equals("Choferes"))
+        {
             //estoy en chofer
 
                     Glide.with(getView().getContext())
@@ -104,8 +105,12 @@ public class menu extends Fragment {
         } else {
             Glide.with(getView().getContext())
                     .load(ob_uri.toString())
-                    .apply(new RequestOptions().circleCrop())
+                    .fitCenter()
+                    .centerCrop()
+                    .apply(RequestOptions.circleCropTransform())
                     .into(imageView_user);
+
+
             // estoy en usuarios
             /*StorageReference storageReference = mStorage.child("Usuarios").child(ob_num_Control.toString());
             storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

@@ -170,7 +170,7 @@ public class registroUsuario_organizacion extends Fragment {
         {
 
             Uri uri = data.getData();
-            storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Usuarios",getView());
+            storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Usuarios",getView(), registroUsuario_organizacion.class);
 
 
 

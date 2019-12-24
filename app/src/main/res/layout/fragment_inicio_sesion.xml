@@ -11,146 +11,164 @@
     tools:context=".InicioSesion">
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/image_view_usuario"
-            android:layout_width="wrap_content"
-            android:layout_height="94dp"
-            android:layout_gravity="center|top"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="50dp"
-            android:contentDescription="@string/txtDescripcion"
-            android:src="@drawable/iconwhite" />
-        <TableRow
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:weightSum="1"
-            android:layout_marginBottom="30dp">
-            <EditText
-                android:id="@+id/edit_text_email"
-                android:layout_width="0dp"
-                android:layout_weight="0.60"
-                android:layout_height="45dp"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/colorBotones"
-                android:drawableEnd="@drawable/email"
-                android:ems="10"
-                android:hint="@string/txtUsuario"
-                android:importantForAutofill="no"
-                android:inputType="textEmailAddress"
-                android:textColor="@color/colorBotones"
-                android:textColorHighlight="@android:color/background_light"
-                android:textColorHint="@color/colorBotones"
-                android:textColorLink="@android:color/background_light"
+            android:orientation="vertical">
 
-                android:textSize="20sp"
-                tools:targetApi="o" />
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:weightSum="1"
-            android:layout_marginBottom="30dp"
-            >
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_text_contrasena"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="0.60"
-            android:backgroundTint="@color/colorBotones"
-            android:textColorHint="@color/colorBotones"
-            app:hintEnabled="false"
-            app:passwordToggleDrawable="@drawable/icon_selector"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/colorBotones">
-
-            <EditText
-                android:id="@+id/edit_text_contrasena2"
+            <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorBotones"
-                android:hint="@string/txtContra"
-                android:importantForAutofill="no"
-                android:inputType="textPassword"
-                android:textColor="@color/colorBotones"
-                android:textColorHighlight="@android:color/background_light"
-                android:textColorHint="@color/colorBotones"
-                android:textColorLink="@android:color/background_light"
-
-                tools:targetApi="o" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        </TableRow>
-
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:weightSum="1"
-            android:layout_marginBottom="30dp"
-            >
-
-            <Button
-                android:id="@+id/button_iniciar"
-                android:layout_width="0dp"
-                android:layout_weight="0.3"
-                android:layout_height="33dp"
                 android:layout_gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                android:background="@color/colorBackBotones"
-                android:text="@string/txtBotonHola"
-                android:textColor="@color/colorBotones" />
-        </TableRow>
+                <ImageView
+                    android:id="@+id/image_view_usuario"
+                    android:layout_width="wrap_content"
+                    android:layout_height="94dp"
+                    android:layout_gravity="center|top"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="50dp"
+                    android:contentDescription="@string/txtDescripcion"
+                    android:src="@drawable/iconwhite" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"
+                    android:gravity="center"
+                    android:weightSum="1">
+
+                    <EditText
+                        android:id="@+id/edit_text_email"
+                        android:layout_width="285dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.60"
+                        android:backgroundTint="@color/colorBotones"
+                        android:drawableEnd="@drawable/email"
+                        android:ems="10"
+                        android:hint="@string/txtUsuario"
+                        android:importantForAutofill="no"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/colorBotones"
+                        android:textColorHighlight="@android:color/background_light"
+                        android:textColorHint="@color/colorBotones"
+                        android:textColorLink="@android:color/background_light"
+
+                        android:textSize="20sp"
+                        tools:targetApi="o" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"
+                    android:gravity="center"
+                    android:weightSum="1">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/edit_text_contrasena"
+                        android:layout_width="287dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.60"
+                        android:backgroundTint="@color/colorBotones"
+                        android:textColorHint="@color/colorBotones"
+                        app:hintEnabled="false"
+                        app:passwordToggleDrawable="@drawable/icon_selector"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTint="@color/colorBotones">
+
+                        <EditText
+                            android:id="@+id/edit_text_contrasena2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/colorBotones"
+                            android:hint="@string/txtContra"
+                            android:importantForAutofill="no"
+                            android:inputType="textPassword"
+                            android:textColor="@color/colorBotones"
+                            android:textColorHighlight="@android:color/background_light"
+                            android:textColorHint="@color/colorBotones"
+                            android:textColorLink="@android:color/background_light"
+
+                            tools:targetApi="o" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </TableRow>
 
 
-    </LinearLayout>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"
+                    android:gravity="center"
+                    android:weightSum="1">
 
-    <Button
-        android:id="@+id/button_olvidar_contraseña"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#00FFFFFF"
-        android:text="@string/txtOlvidasteContrasena"
-        android:textColor="@color/colorBotones"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+                    <Button
+                        android:id="@+id/button_iniciar"
+                        android:layout_width="0dp"
+                        android:layout_height="33dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.3"
 
-    <Button
-        android:id="@+id/button_registrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="152dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="171dp"
-        android:layout_marginBottom="81dp"
-        android:background="#00FFFFFF"
-        android:text="@string/txtCrearCuenta"
-        android:textColor="@color/colorBotones"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_olvidar_contraseña"
-        app:layout_constraintVertical_bias="0.0" />
+                        android:background="@color/colorBackBotones"
+                        android:text="@string/txtBotonHola"
+                        android:textColor="@color/colorBotones" />
+                </TableRow>
+
+
+            </LinearLayout>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:gravity="center"
+                android:weightSum="1">
+            <Button
+                android:id="@+id/button_olvidar_contraseña"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00FFFFFF"
+                android:text="@string/txtOlvidasteContrasena"
+                android:textColor="@color/colorBotones"
+                android:layout_gravity="center"
+              />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:gravity="center"
+                android:weightSum="1">
+                    <Button
+                        android:id="@+id/button_registrar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#00FFFFFF"
+                        android:text="@string/txtCrearCuenta"
+                        android:textColor="@color/colorBotones"
+                       />
+            </TableRow>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

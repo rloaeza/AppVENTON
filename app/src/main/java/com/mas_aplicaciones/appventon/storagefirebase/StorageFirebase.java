@@ -2,17 +2,17 @@ package com.mas_aplicaciones.appventon.storagefirebase;
 
 import android.app.AlertDialog;
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.chofer.registroChofer_organizacion_auto;
+import com.mas_aplicaciones.appventon.firebase.Firebase_Conexion_Firestore;
 import com.mas_aplicaciones.appventon.usuario.registroUsuario_organizacion;
 
 import dmax.dialog.SpotsDialog;
@@ -41,7 +41,7 @@ public class StorageFirebase
         desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(view.getContext(), "Eliminado" , Toast.LENGTH_SHORT).show();
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -51,7 +51,8 @@ public class StorageFirebase
             }
         });
     }
-    public void agregarFoto(final String id, Uri uri, final String child, final View view)
+
+    public void agregarFoto(final String id, Uri uri, final String child, final View view, final Class clase)
     {
         alertDialog = new SpotsDialog.Builder().setContext(view.getContext()).setMessage("Cargando").build();
         alertDialog.show();
@@ -71,14 +72,31 @@ public class StorageFirebase
                         if(child.equals("Choferes"))
                         {
 
-                            registroChofer_organizacion_auto.setValueMap("URI",uri.toString());
+                            if(clase.isInstance(registroChofer_organizacion_auto.class))//significa que se esta registrando
+                            {
+                                registroChofer_organizacion_auto.setValueMap("URI",uri.toString());
+                            }
+                            else//actualizando
+                            {
+                                Firebase_Conexion_Firestore.actualizarImagen(uri.toString());
+                            }
+
                         }
                         else
                         {
-                            registroUsuario_organizacion.setValueMap("URI",uri.toString());
+                            if(clase.isInstance(registroUsuario_organizacion.class))//significa que se esta registrando
+                            {
+                                registroUsuario_organizacion.setValueMap("URI", uri.toString());
+                            }
+                            else//actualizando
+                            {
+                                Firebase_Conexion_Firestore.actualizarImagen(uri.toString());
+                            }
                         }
+                        Snackbar.make(view,"La imagen puede durar algunos segundos en salir, depende de tu conexion a internet",Snackbar.LENGTH_LONG).show();
 
-                   }
+
+                    }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
