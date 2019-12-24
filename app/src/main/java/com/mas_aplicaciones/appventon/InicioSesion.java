@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -23,7 +24,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthEmailException;
 import com.google.firebase.auth.FirebaseUser;
-import com.mas_aplicaciones.appventon.dialog.CustomDialog;
 import com.mas_aplicaciones.appventon.firebase.EvaluacionDeViews;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import java.util.Objects;
@@ -189,7 +189,7 @@ public class InicioSesion extends Fragment {
                 btnOlvidaContrasena.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new CustomDialog().show(getContext(), R.string.txtOlvidaContrasenaTittle, R.string.txtOlvidaContrasena);
+                        Navigation.findNavController(v).navigate(R.id.action_inicioSesion_to_recuperacionPassword);
                     }
                 });
             return view;

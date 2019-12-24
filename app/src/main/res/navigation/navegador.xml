@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_inicioSesion_to_principalUsuario"
             app:destination="@id/principalUsuario" />
+        <action
+            android:id="@+id/action_inicioSesion_to_recuperacionPassword"
+            app:destination="@id/recuperacionPassword" />
     </fragment>
     <fragment
         android:id="@+id/registroUsuario"
@@ -136,4 +139,9 @@
         android:name="com.mas_aplicaciones.appventon.menu.Configurar_usuarios"
         android:label="fragment_configurar_usuarios"
         tools:layout="@layout/fragment_configurar_usuarios" />
+    <fragment
+        android:id="@+id/recuperacionPassword"
+        android:name="com.mas_aplicaciones.appventon.RecuperacionPassword"
+        android:label="fragment_recuperacion_password"
+        tools:layout="@layout/fragment_recuperacion_password" />
 </navigation>
