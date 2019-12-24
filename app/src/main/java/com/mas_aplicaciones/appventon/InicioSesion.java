@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -27,11 +26,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.mas_aplicaciones.appventon.dialog.CustomDialog;
 import com.mas_aplicaciones.appventon.firebase.EvaluacionDeViews;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
-
 import java.util.Objects;
-
 import dmax.dialog.SpotsDialog;
-
 import static androidx.navigation.Navigation.findNavController;
 
 /**
@@ -46,7 +42,6 @@ public class InicioSesion extends Fragment {
     private View view;
     private AlertDialog alertDialog;
     private EditText editText_email,editText_contrasena;
-    private ImageView imageView_usuario;
     private String email,contrasena;
     private EvaluacionDeViews objeto_evaluacion_de_views = new EvaluacionDeViews();
     private FirebaseConexionFirestore objeto_firebase_conexion_firestore = new FirebaseConexionFirestore();
@@ -171,7 +166,7 @@ public class InicioSesion extends Fragment {
                     }
                     else
                     {
-                        Snackbar.make(getView(),"Ingresando al sistema espere...",Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(Objects.requireNonNull(getView()),"Ingresando al sistema espere...",Snackbar.LENGTH_LONG).show();
                     }
                 }
             });
@@ -194,7 +189,7 @@ public class InicioSesion extends Fragment {
                 btnOlvidaContrasena.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        CustomDialog dialog = new CustomDialog(getContext(),R.string.txtOlvidaContrasenaTittle,R.string.txtOlvidaContrasena);
+                        CustomDialog.show(getContext(), R.string.txtOlvidaContrasenaTittle, R.string.txtOlvidaContrasena);
                     }
                 });
             return view;
@@ -274,7 +269,6 @@ public class InicioSesion extends Fragment {
         {
             alertDialog.cancel();
         }
-//
     }
     /*@Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {//pesado spinner hace todo despues de que carga el layout facebook muestra el layout pero carga poco a poquito

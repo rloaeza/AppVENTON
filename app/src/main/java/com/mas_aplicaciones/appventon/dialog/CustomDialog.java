@@ -16,7 +16,9 @@ import java.util.Objects;
 
 public class CustomDialog {
 
-    public CustomDialog(final Context context, int idTituloError, int idMensajeError) {
+
+    public static void show(final Context context, int idTituloError, int idMensajeError)
+    {
         final android.app.Dialog dialog = new android.app.Dialog(context);
         dialog.setCancelable(false);
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -58,8 +60,6 @@ public class CustomDialog {
 
             }
         });
-
-
     }
 
 
