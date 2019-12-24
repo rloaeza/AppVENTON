@@ -25,7 +25,7 @@
         android:background="@drawable/background_splash_icon"
         android:contentDescription="@string/txtDescripcion"
         android:padding="30dp"
-        android:src="@drawable/icono_splash_screenn" />
+        android:src="@drawable/icono_splash_screen" />
 
         <TextView
             android:id="@+id/textView_title"
