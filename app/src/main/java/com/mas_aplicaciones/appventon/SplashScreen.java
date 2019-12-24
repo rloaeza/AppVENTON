@@ -45,7 +45,7 @@ public class SplashScreen extends Fragment {
                     Navigation.findNavController(Objects.requireNonNull(getView())).navigate(R.id.action_splashScreen_to_inicioSesion);// metodo para pasar al siguiente fragment  sin validar
                 }
                 catch (Exception ex){
-                    Toast.makeText(getContext(), "Error al cargar vista principal.", Toast.LENGTH_SHORT).show();
+                    ///Toast.makeText(getContext(), "Error al cargar vista principal.", Toast.LENGTH_SHORT).show();
                 }
 
 

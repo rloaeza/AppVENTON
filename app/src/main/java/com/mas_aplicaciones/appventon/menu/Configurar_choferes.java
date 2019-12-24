@@ -24,7 +24,7 @@ import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class configurar extends Fragment
+public class Configurar_choferes extends Fragment
 {
 
 
@@ -123,7 +123,7 @@ public class configurar extends Fragment
         {
 
             Uri uri = data.getData();
-            storageFirebase.agregarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(),uri, FirebaseConexionFirestore.PERSONA,getView(), configurar.class);
+            storageFirebase.agregarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(),uri, FirebaseConexionFirestore.PERSONA,getView(), Configurar_choferes.class);
 
 
 

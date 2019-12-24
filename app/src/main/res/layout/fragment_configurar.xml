@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".menu.configurar">
+    tools:context=".menu.Configurar_choferes"
+    android:orientation="vertical">
+
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -20,83 +22,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
+
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/cambiar_foto"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:layout_marginTop="20sp"
+        android:text="Datos Generales"
         android:textColor="@color/colorBotones2"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline7"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/guideline8" />
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/edit_text_celular"
-        android:layout_width="279dp"
-        android:layout_height="40dp"
-        android:layout_gravity="start"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_weight="1.2"
-        android:backgroundTint="@color/colorBotones2"
-        android:ems="10"
-        android:hint="@string/txtTelCel"
-
-        android:importantForAutofill="no"
-        android:inputType="phone"
-        android:textColor="@color/colorBotones2"
-        android:textColorHighlight="@color/common_google_signin_btn_text_dark_focused"
-        android:textColorHint="@color/colorBotones2"
-        android:textColorLink="@color/common_google_signin_btn_text_dark_focused"
-        app:layout_constraintBottom_toTopOf="@+id/guideline8"
-        app:layout_constraintEnd_toStartOf="@+id/guideline6"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/guideline9"
-        tools:targetApi="o" />
-
-    <EditText
-        android:id="@+id/edit_text_apellidos"
-        android:layout_width="276dp"
-        android:layout_height="43dp"
-        android:layout_gravity="start"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_weight="1.2"
-        android:backgroundTint="@color/colorBotones2"
-        android:ems="10"
-        android:hint="@string/txtApellidoP"
-        android:importantForAutofill="no"
-        android:inputType="textCapWords"
-        android:textColor="@color/colorBotones2"
-        android:textColorHighlight="@color/common_google_signin_btn_text_dark_focused"
-        android:textColorHint="@color/colorBotones2"
-        android:textColorLink="@color/common_google_signin_btn_text_dark_focused"
-        app:layout_constraintBottom_toTopOf="@+id/guideline9"
-        app:layout_constraintEnd_toStartOf="@+id/guideline6"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/guideline4"
-        tools:targetApi="o" />
 
     <EditText
         android:id="@+id/edit_text_nombre"
-        android:layout_width="276dp"
-        android:layout_height="46dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_gravity="start"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_weight="1.2"
         android:backgroundTint="@color/colorBotones2"
         android:ems="10"
         android:hint="@string/txtNombre"
@@ -106,102 +55,132 @@
         android:textColorHighlight="@color/common_google_signin_btn_text_dark_focused"
         android:textColorHint="@color/colorBotones2"
         android:textColorLink="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintEnd_toStartOf="@+id/guideline6"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/guideline3"
+
+        tools:layout_editor_absoluteY="62dp"
         tools:targetApi="o" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/edit_text_apellidos"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.0998632" />
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_gravity="start"
+        android:backgroundTint="@color/colorBotones2"
+        android:ems="10"
+        android:hint="@string/txtApellidoP"
+        android:importantForAutofill="no"
+        android:inputType="textCapWords"
+        android:textColor="@color/colorBotones2"
+        android:textColorHighlight="@color/common_google_signin_btn_text_dark_focused"
+        android:textColorHint="@color/colorBotones2"
+        android:textColorLink="@color/common_google_signin_btn_text_dark_focused"
+        tools:targetApi="o" />
+    <EditText
+        android:id="@+id/edit_text_celular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_gravity="start"
+        android:backgroundTint="@color/colorBotones2"
+        android:ems="10"
+        android:hint="@string/txtTelCel"
+        android:importantForAutofill="no"
+        android:inputType="phone"
+        android:textColor="@color/colorBotones2"
+        android:textColorHighlight="@color/common_google_signin_btn_text_dark_focused"
+        android:textColorHint="@color/colorBotones2"
+        android:textColorLink="@color/common_google_signin_btn_text_dark_focused"
+        tools:targetApi="o" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
+
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.18" />
+        tools:layout_editor_absoluteX="96dp"
+        tools:layout_editor_absoluteY="269dp"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/cambiar_foto"
+            android:textColor="@color/colorBotones2"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/button_camara"
+            android:layout_width="78dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/colorBackBotones"
+            android:text="@string/buscar"
+            android:textColor="@color/colorBotones" />
+    </LinearLayout>
+
+
+
 
     <Button
-        android:id="@+id/button_camara"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Button"
-        app:layout_constraintBottom_toTopOf="@+id/guideline7"
-        app:layout_constraintEnd_toStartOf="@+id/guideline6"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toTopOf="@+id/guideline8" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.47" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.36" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.27" />
-
-    <Button
+        android:layout_marginTop="20dp"
         android:id="@+id/button_actualizar"
         android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:paddingStart="3dp"
+        android:paddingEnd="3dp"
+        android:layout_gravity="center"
+        android:background="@color/colorBackBotones"
+        android:text="@string/guardar_cambios"
+        android:textColor="@color/colorBotones"
+       />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorBackBotones2"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Button"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline6"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/guideline7" />
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+        <TextView
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.048661802" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5827633" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.96" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.50121653" />
+            android:text="Datos Servicio"
+            android:textColor="@color/colorBotones2"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

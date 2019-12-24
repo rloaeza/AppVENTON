@@ -53,7 +53,15 @@ public class menu extends Fragment {
         imageView_user = view.findViewById(R.id.image_view_2);
         //btnAyuda.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_ayuda3));
         btnQuejas.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_quejas));
-        btnConfiguracion.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_configurar));
+        if(FirebaseConexionFirestore.PERSONA.equals("Choferes"))
+        {
+            btnConfiguracion.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_configurar));
+        }
+        else
+        {
+            btnConfiguracion.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_configurar_usuarios));
+        }
+
 
 
         btnCerrarSesion.setOnClickListener(new View.OnClickListener() {

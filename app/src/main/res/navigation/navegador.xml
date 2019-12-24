@@ -74,9 +74,6 @@
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu">
         <action
-            android:id="@+id/action_menu2_to_quejas"
-            app:destination="@id/quejas" />
-        <action
             android:id="@+id/action_menu2_to_configurar"
             app:destination="@id/configurar" />
         <action
@@ -85,15 +82,16 @@
         <action
             android:id="@+id/action_menu2_to_inicioSesion"
             app:destination="@id/inicioSesion" />
+        <action
+            android:id="@+id/action_menu2_to_quejas"
+            app:destination="@id/quejas" />
+        <action
+            android:id="@+id/action_menu2_to_configurar_usuarios"
+            app:destination="@id/configurar_usuarios" />
     </fragment>
     <fragment
-        android:id="@+id/quejas"
-        android:name="com.mas_aplicaciones.appventon.menu.quejas"
-        android:label="fragment_quejas"
-        tools:layout="@layout/fragment_quejas" />
-    <fragment
         android:id="@+id/configurar"
-        android:name="com.mas_aplicaciones.appventon.menu.configurar"
+        android:name="com.mas_aplicaciones.appventon.menu.Configurar_choferes"
         android:label="fragment_configurar"
         tools:layout="@layout/fragment_configurar" />
     <fragment
@@ -128,4 +126,14 @@
             android:id="@+id/action_splashScreen_to_inicioSesion"
             app:destination="@id/inicioSesion" />
     </fragment>
+    <fragment
+        android:id="@+id/quejas"
+        android:name="com.mas_aplicaciones.appventon.menu.quejas"
+        android:label="fragment_quejas"
+        tools:layout="@layout/fragment_quejas" />
+    <fragment
+        android:id="@+id/configurar_usuarios"
+        android:name="com.mas_aplicaciones.appventon.menu.Configurar_usuarios"
+        android:label="fragment_configurar_usuarios"
+        tools:layout="@layout/fragment_configurar_usuarios" />
 </navigation>

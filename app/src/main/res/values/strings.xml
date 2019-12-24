@@ -52,5 +52,10 @@
     <string name="txtTextoEjemplo">Texto Ejemplo, Lorem ipsu dolor.</string>
     <string name="cambiar_foto">Cambiar foto</string>
     <string name="tel_fono">Teléfono</string>
+    <string name="queja">Queja</string>
+    <string name="sugerencia">Sugerencia</string>
+    <string name="formulario">Formulario</string>
+    <string name="guardar_cambios">Guardar Cambios</string>
+    <string name="buscar">Buscar</string>
 
 </resources>
