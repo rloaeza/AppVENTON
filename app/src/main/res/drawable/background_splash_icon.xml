@@ -4,9 +4,9 @@
         <shape android:shape="rectangle"
             >
             <!-- background -->
-            <solid android:color="@color/transparente" />
+            <solid android:color="@color/colorBotones" />
             <!-- border -->
-            <stroke android:width="2dp" android:color="@color/colorPrimaryDark" />
+            <stroke android:width="2dp" android:color="@color/colorBackBotones2"  />
             <!-- corner roundness -->
             <corners android:radius="150dp" />
             <size android:width="300dp" android:height="300dp"/>
