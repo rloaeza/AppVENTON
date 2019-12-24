@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
-import com.mas_aplicaciones.appventon.firebase.Firebase_Conexion_Firestore;
+import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 
 import java.util.HashMap;
@@ -34,14 +34,14 @@ import static com.mas_aplicaciones.appventon.InicioSesion.mAuth;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class registroUsuario_organizacion extends Fragment {
+public class RegistroUsuarioOrganizacion extends Fragment {
 
     private static Map<String, Object> data = new HashMap<>();
 
     private Spinner spinner_genero,spinner_carreras;
     private final String [] OPCIONES_GENERO =  {"Género","Masculino","Femenino"};
     private final String [] OPCIONES_CARRERAS =  {"Carrera","Ing. Administración","Ing. Sistemas","Ing. Industrial","Ing. Alimientarias","Ing. Electrónica","Ing. Mecatrónica","Ing. Mécanica","Ing. Civil"};
-    Firebase_Conexion_Firestore conexion=new Firebase_Conexion_Firestore();
+    FirebaseConexionFirestore conexion=new FirebaseConexionFirestore();
     StorageFirebase storageFirebase = new StorageFirebase();
     private final static int GALLERY_INTENT = 1;
 
@@ -170,7 +170,7 @@ public class registroUsuario_organizacion extends Fragment {
         {
 
             Uri uri = data.getData();
-            storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Usuarios",getView(), registroUsuario_organizacion.class);
+            storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Usuarios",getView(), RegistroUsuarioOrganizacion.class);
 
 
 

@@ -24,7 +24,7 @@ import com.google.firebase.storage.StorageReference;
 import com.mas_aplicaciones.appventon.InicioSesion;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
-import com.mas_aplicaciones.appventon.firebase.Firebase_Conexion_Firestore;
+import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 
 import java.util.Objects;
@@ -32,7 +32,7 @@ import java.util.Objects;
 import static androidx.navigation.Navigation.findNavController;
 
 
-public class menu extends Fragment {
+public class Menu extends Fragment {
 
     private StorageFirebase storageFirebase = new StorageFirebase();
     private TextView textUser;
@@ -59,10 +59,10 @@ public class menu extends Fragment {
         btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Firebase_Conexion_Firestore.ClearMap();
+                FirebaseConexionFirestore.ClearMap();
                 InicioSesion.mAuth.signOut();
                 clearPreferencias();
-                Firebase_Conexion_Firestore.ClearMap();
+                FirebaseConexionFirestore.ClearMap();
                 findNavController(v).navigate(R.id.inicioSesion);
 
             }
@@ -83,13 +83,13 @@ public class menu extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
-        Object ob_nombre = Firebase_Conexion_Firestore.getValue("Nombre");
-        Object ob_apellidos = Firebase_Conexion_Firestore.getValue("Apellidos");
-        Object ob_num_Control = Firebase_Conexion_Firestore.getValue("NumeroControl");
-        Object ob_uri = Firebase_Conexion_Firestore.getValue("URI");
+        Object ob_nombre = FirebaseConexionFirestore.getValue("Nombre");
+        Object ob_apellidos = FirebaseConexionFirestore.getValue("Apellidos");
+        Object ob_num_Control = FirebaseConexionFirestore.getValue("NumeroControl");
+        Object ob_uri = FirebaseConexionFirestore.getValue("URI");
         textUser.setText(ob_nombre + " " + ob_apellidos);
         StorageReference mStorage = FirebaseStorage.getInstance().getReference();
-        if (Firebase_Conexion_Firestore.PERSONA.equals("Choferes"))
+        if (FirebaseConexionFirestore.PERSONA.equals("Choferes"))
         {
             //estoy en chofer
 

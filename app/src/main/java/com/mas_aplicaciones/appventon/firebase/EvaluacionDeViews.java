@@ -2,9 +2,9 @@ package com.mas_aplicaciones.appventon.firebase;
 
 import java.util.StringTokenizer;
 
-public class Evaluacion_De_Views
+public class EvaluacionDeViews
 {
-    public Evaluacion_De_Views()
+    public EvaluacionDeViews()
     {
 
     }

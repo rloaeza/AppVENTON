@@ -25,8 +25,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthEmailException;
 import com.google.firebase.auth.FirebaseUser;
 import com.mas_aplicaciones.appventon.dialog.CustomDialog;
-import com.mas_aplicaciones.appventon.firebase.Evaluacion_De_Views;
-import com.mas_aplicaciones.appventon.firebase.Firebase_Conexion_Firestore;
+import com.mas_aplicaciones.appventon.firebase.EvaluacionDeViews;
+import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 
 import java.util.Objects;
 
@@ -48,8 +48,8 @@ public class InicioSesion extends Fragment {
     private EditText editText_email,editText_contrasena;
     private ImageView imageView_usuario;
     private String email,contrasena;
-    private Evaluacion_De_Views objeto_evaluacion_de_views = new Evaluacion_De_Views();
-    private Firebase_Conexion_Firestore objeto_firebase_conexion_firestore = new Firebase_Conexion_Firestore();
+    private EvaluacionDeViews objeto_evaluacion_de_views = new EvaluacionDeViews();
+    private FirebaseConexionFirestore objeto_firebase_conexion_firestore = new FirebaseConexionFirestore();
     private boolean click=false;
 
 

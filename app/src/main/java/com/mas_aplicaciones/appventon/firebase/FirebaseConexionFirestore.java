@@ -24,7 +24,7 @@ import java.util.Objects;
 import static androidx.navigation.Navigation.findNavController;
 
 
-public class Firebase_Conexion_Firestore {
+public class FirebaseConexionFirestore {
     private static FirebaseFirestore db = MainActivity.db;
 
     private static Map<String, Object> datos = new HashMap<>();
@@ -82,7 +82,7 @@ public class Firebase_Conexion_Firestore {
                     {
                         PERSONA="Usuarios";
                         DOCUMENT=document.getId();
-                        Firebase_Conexion_Firestore.setMap(document.getData());
+                        FirebaseConexionFirestore.setMap(document.getData());
                         Toast.makeText(view.getContext(), "Iniciando... ", Toast.LENGTH_SHORT).show();
                         findNavController(view).navigate(R.id.action_inicioSesion_to_principalUsuario);
                     }
@@ -104,7 +104,7 @@ public class Firebase_Conexion_Firestore {
                     if (document.exists())
                     {
 
-                        Firebase_Conexion_Firestore.setMap(document.getData());
+                        FirebaseConexionFirestore.setMap(document.getData());
                         if((boolean) Objects.requireNonNull(document.getData()).get("validacion"))
                         {
                             PERSONA="Choferes";

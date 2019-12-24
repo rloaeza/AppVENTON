@@ -11,9 +11,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.mas_aplicaciones.appventon.MainActivity;
-import com.mas_aplicaciones.appventon.chofer.registroChofer_organizacion_auto;
-import com.mas_aplicaciones.appventon.firebase.Firebase_Conexion_Firestore;
-import com.mas_aplicaciones.appventon.usuario.registroUsuario_organizacion;
+import com.mas_aplicaciones.appventon.chofer.RegistroChoferOrganizacionAuto;
+import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
+import com.mas_aplicaciones.appventon.usuario.RegistroUsuarioOrganizacion;
 
 import dmax.dialog.SpotsDialog;
 
@@ -31,11 +31,11 @@ public class StorageFirebase
         StorageReference desertRef = mStorage.child(child).child(id);
         if(child.equals("Choferes"))
         {
-            registroChofer_organizacion_auto.setValueMap("URI","");
+            RegistroChoferOrganizacionAuto.setValueMap("URI","");
         }
         else
         {
-            registroUsuario_organizacion.setValueMap("URI","");
+            RegistroUsuarioOrganizacion.setValueMap("URI","");
         }
         // Delete the file
         desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -72,25 +72,25 @@ public class StorageFirebase
                         if(child.equals("Choferes"))
                         {
 
-                            if(clase.isInstance(registroChofer_organizacion_auto.class))//significa que se esta registrando
+                            if(clase.isInstance(RegistroChoferOrganizacionAuto.class))//significa que se esta registrando
                             {
-                                registroChofer_organizacion_auto.setValueMap("URI",uri.toString());
+                                RegistroChoferOrganizacionAuto.setValueMap("URI",uri.toString());
                             }
                             else//actualizando
                             {
-                                Firebase_Conexion_Firestore.actualizarImagen(uri.toString());
+                                FirebaseConexionFirestore.actualizarImagen(uri.toString());
                             }
 
                         }
                         else
                         {
-                            if(clase.isInstance(registroUsuario_organizacion.class))//significa que se esta registrando
+                            if(clase.isInstance(RegistroUsuarioOrganizacion.class))//significa que se esta registrando
                             {
-                                registroUsuario_organizacion.setValueMap("URI", uri.toString());
+                                RegistroUsuarioOrganizacion.setValueMap("URI", uri.toString());
                             }
                             else//actualizando
                             {
-                                Firebase_Conexion_Firestore.actualizarImagen(uri.toString());
+                                FirebaseConexionFirestore.actualizarImagen(uri.toString());
                             }
                         }
                         Snackbar.make(view,"La imagen puede durar algunos segundos en salir, depende de tu conexion a internet",Snackbar.LENGTH_LONG).show();

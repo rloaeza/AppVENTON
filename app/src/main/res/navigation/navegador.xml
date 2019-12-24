@@ -70,7 +70,7 @@
     </fragment>
     <fragment
         android:id="@+id/menu2"
-        android:name="com.mas_aplicaciones.appventon.menu.menu"
+        android:name="com.mas_aplicaciones.appventon.menu.Menu"
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu">
         <action
@@ -88,22 +88,22 @@
     </fragment>
     <fragment
         android:id="@+id/quejas"
-        android:name="com.mas_aplicaciones.appventon.menu.quejas"
+        android:name="com.mas_aplicaciones.appventon.menu.Quejas"
         android:label="fragment_quejas"
         tools:layout="@layout/fragment_quejas" />
     <fragment
         android:id="@+id/configurar"
-        android:name="com.mas_aplicaciones.appventon.menu.configurar"
+        android:name="com.mas_aplicaciones.appventon.menu.Configurar"
         android:label="fragment_configurar"
         tools:layout="@layout/fragment_configurar" />
     <fragment
         android:id="@+id/ayuda3"
-        android:name="com.mas_aplicaciones.appventon.menu.ayuda"
+        android:name="com.mas_aplicaciones.appventon.menu.Ayuda"
         android:label="fragment_ayuda"
         tools:layout="@layout/fragment_ayuda" />
     <fragment
         android:id="@+id/registroUsuario_organizacion"
-        android:name="com.mas_aplicaciones.appventon.usuario.registroUsuario_organizacion"
+        android:name="com.mas_aplicaciones.appventon.usuario.RegistroUsuarioOrganizacion"
         android:label="registro_usuario_organizacion"
         tools:layout="@layout/registro_usuario_organizacion">
         <action
@@ -112,7 +112,7 @@
     </fragment>
     <fragment
         android:id="@+id/registroChofer_organizacion_auto"
-        android:name="com.mas_aplicaciones.appventon.chofer.registroChofer_organizacion_auto"
+        android:name="com.mas_aplicaciones.appventon.chofer.RegistroChoferOrganizacionAuto"
         android:label="fragment_registro_chofer_organizacion_auto"
         tools:layout="@layout/fragment_registro_chofer_organizacion_auto">
         <action

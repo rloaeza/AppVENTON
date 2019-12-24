@@ -9,8 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.mas_aplicaciones.appventon.R;
-import com.mas_aplicaciones.appventon.firebase.Firebase_Conexion_Firestore;
+import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 
 import java.util.Objects;
 
@@ -31,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Objects.requireNonNull(getSupportActionBar()).hide();
         // metodos para consultar los numeros de control
-        Firebase_Conexion_Firestore.getNumeroControlUsuarios();
-        Firebase_Conexion_Firestore.getNumeroControlChoferes();
+        FirebaseConexionFirestore.getNumeroControlUsuarios();
+        FirebaseConexionFirestore.getNumeroControlChoferes();
 
 
 

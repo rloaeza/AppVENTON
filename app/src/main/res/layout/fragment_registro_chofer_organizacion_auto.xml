@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".chofer.registroChofer_organizacion_auto"
+    tools:context=".chofer.RegistroChoferOrganizacionAuto"
     android:background="@drawable/backgroundregistrochofer2"
     android:padding="8dp">
 

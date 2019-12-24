@@ -14,25 +14,24 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
-import com.mas_aplicaciones.appventon.firebase.Evaluacion_De_Views;
-import com.mas_aplicaciones.appventon.firebase.Firebase_Conexion_Firestore;
+import com.mas_aplicaciones.appventon.firebase.EvaluacionDeViews;
+import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class configurar extends Fragment
+public class Configurar extends Fragment
 {
 
 
     private EditText editText_nombre, editText_apellidos, editText_celular;
     private Button button_camara,button_actualizar;
     private String nombre, apellido,celular;
-    private Evaluacion_De_Views objeto_evaluacion_de_views = new Evaluacion_De_Views();
+    private EvaluacionDeViews objeto_evaluacion_de_views = new EvaluacionDeViews();
     private final static int GALLERY_INTENT = 1;
     private StorageFirebase storageFirebase = new StorageFirebase();
 
@@ -52,9 +51,9 @@ public class configurar extends Fragment
         editText_nombre = view.findViewById(R.id.edit_text_nombre);
         editText_apellidos = view.findViewById(R.id.edit_text_apellidos);
         editText_celular = view.findViewById(R.id.edit_text_celular);
-        editText_nombre.setText(Firebase_Conexion_Firestore.getValue("Nombre").toString());
-        editText_apellidos.setText(Firebase_Conexion_Firestore.getValue("Apellidos").toString());
-        editText_celular.setText(Firebase_Conexion_Firestore.getValue("Teléfono").toString());
+        editText_nombre.setText(FirebaseConexionFirestore.getValue("Nombre").toString());
+        editText_apellidos.setText(FirebaseConexionFirestore.getValue("Apellidos").toString());
+        editText_celular.setText(FirebaseConexionFirestore.getValue("Teléfono").toString());
 
         //listeners
         button_camara.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +86,7 @@ public class configurar extends Fragment
                         if(!celular.equals("") && objeto_evaluacion_de_views.telefonoValido(celular))
                         {
 
-                                Firebase_Conexion_Firestore.actualizarData(Firebase_Conexion_Firestore.PERSONA,Firebase_Conexion_Firestore.DOCUMENT,
+                                FirebaseConexionFirestore.actualizarData(FirebaseConexionFirestore.PERSONA, FirebaseConexionFirestore.DOCUMENT,
                                         nombre.trim(),apellido.trim(),celular,getView());
                         }
                         else
@@ -119,13 +118,13 @@ public class configurar extends Fragment
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        storageFirebase.EliminarFoto(Firebase_Conexion_Firestore.getValue("NumeroControl").toString(),Firebase_Conexion_Firestore.PERSONA,getView());
+        storageFirebase.EliminarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(), FirebaseConexionFirestore.PERSONA,getView());
 
         if(requestCode==GALLERY_INTENT)
         {
 
             Uri uri = data.getData();
-            storageFirebase.agregarFoto(Firebase_Conexion_Firestore.getValue("NumeroControl").toString(),uri,Firebase_Conexion_Firestore.PERSONA,getView(), configurar.class);
+            storageFirebase.agregarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(),uri, FirebaseConexionFirestore.PERSONA,getView(), Configurar.class);
 
 
 

@@ -15,8 +15,8 @@ import androidx.fragment.app.Fragment;
 
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
-import com.mas_aplicaciones.appventon.firebase.Evaluacion_De_Views;
-import com.mas_aplicaciones.appventon.firebase.Firebase_Conexion_Firestore;
+import com.mas_aplicaciones.appventon.firebase.EvaluacionDeViews;
+import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 
 import static androidx.navigation.Navigation.findNavController;
@@ -27,8 +27,8 @@ import static androidx.navigation.Navigation.findNavController;
  */
 public class RegistroUsuario extends Fragment {
 
-    Evaluacion_De_Views objeto_evaluacion_de_views = new Evaluacion_De_Views();
-    Firebase_Conexion_Firestore objeto_firebase_conexion_firestore = new Firebase_Conexion_Firestore();
+    EvaluacionDeViews objeto_evaluacion_de_views = new EvaluacionDeViews();
+    FirebaseConexionFirestore objeto_firebase_conexion_firestore = new FirebaseConexionFirestore();
     StorageFirebase storageFirebase = new StorageFirebase();
     private EditText editText_nombre;
     private EditText editText_apellidos;
@@ -115,15 +115,15 @@ public class RegistroUsuario extends Fragment {
                                        {
                                            if (!numero_control.equals(""))
                                            {
-                                               if(Firebase_Conexion_Firestore.existValueNumControlChofer(numero_control))
+                                               if(FirebaseConexionFirestore.existValueNumControlChofer(numero_control))
                                                {
-                                                   registroUsuario_organizacion.setValueMap("Nombre", nombre.trim());
-                                                   registroUsuario_organizacion.setValueMap("Apellidos", apellidos.trim());
-                                                   registroUsuario_organizacion.setValueMap("Edad", Integer.parseInt(edad));
-                                                   registroUsuario_organizacion.setValueMap("Teléfono", telefono);
-                                                   registroUsuario_organizacion.setValueMap("Email", email.trim());
-                                                   registroUsuario_organizacion.setValueMap("Contraseña", contrasena);
-                                                   registroUsuario_organizacion.setValueMap("NumeroControl", numero_control.trim());
+                                                   RegistroUsuarioOrganizacion.setValueMap("Nombre", nombre.trim());
+                                                   RegistroUsuarioOrganizacion.setValueMap("Apellidos", apellidos.trim());
+                                                   RegistroUsuarioOrganizacion.setValueMap("Edad", Integer.parseInt(edad));
+                                                   RegistroUsuarioOrganizacion.setValueMap("Teléfono", telefono);
+                                                   RegistroUsuarioOrganizacion.setValueMap("Email", email.trim());
+                                                   RegistroUsuarioOrganizacion.setValueMap("Contraseña", contrasena);
+                                                   RegistroUsuarioOrganizacion.setValueMap("NumeroControl", numero_control.trim());
                                                    findNavController(v).navigate(R.id.action_registroUsuario_to_registroUsuario_organizacion);
                                                }
                                                else
@@ -178,10 +178,10 @@ public class RegistroUsuario extends Fragment {
 
     private void delete_photo()
     {
-        if(registroUsuario_organizacion.getValueMap("NumeroControl")!=null)
+        if(RegistroUsuarioOrganizacion.getValueMap("NumeroControl")!=null)
         {
-            storageFirebase.EliminarFoto(registroUsuario_organizacion.getValueMap("NumeroControl").toString(),"Usuarios",getView());
-            Toast.makeText(getContext(),registroUsuario_organizacion.getValueMap("NumeroControl").toString(),Toast.LENGTH_SHORT).show();
+            storageFirebase.EliminarFoto(RegistroUsuarioOrganizacion.getValueMap("NumeroControl").toString(),"Usuarios",getView());
+            Toast.makeText(getContext(), RegistroUsuarioOrganizacion.getValueMap("NumeroControl").toString(),Toast.LENGTH_SHORT).show();
         }
         else
         {

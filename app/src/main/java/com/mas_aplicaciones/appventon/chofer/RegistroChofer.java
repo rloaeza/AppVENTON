@@ -13,11 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.mas_aplicaciones.appventon.MainActivity;
-import com.mas_aplicaciones.appventon.firebase.Evaluacion_De_Views;
+import com.mas_aplicaciones.appventon.firebase.EvaluacionDeViews;
 import com.mas_aplicaciones.appventon.R;
-import com.mas_aplicaciones.appventon.firebase.Firebase_Conexion_Firestore;
+import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
-import com.mas_aplicaciones.appventon.usuario.registroUsuario_organizacion;
+import com.mas_aplicaciones.appventon.usuario.RegistroUsuarioOrganizacion;
 
 import static androidx.navigation.Navigation.findNavController;
 
@@ -41,9 +41,9 @@ public class RegistroChofer extends Fragment {
     private String email;
     private String contrasena;
     private String numero_control;
-    Evaluacion_De_Views objeto_evaluacion_de_views = new Evaluacion_De_Views();
+    EvaluacionDeViews objeto_evaluacion_de_views = new EvaluacionDeViews();
     StorageFirebase storageFirebase = new StorageFirebase();
-    Firebase_Conexion_Firestore objeto_firebase_conexion_firestore= new Firebase_Conexion_Firestore();
+    FirebaseConexionFirestore objeto_firebase_conexion_firestore= new FirebaseConexionFirestore();
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -90,15 +90,15 @@ public class RegistroChofer extends Fragment {
                                         {
                                             if (!numero_control.equals(""))
                                             {
-                                                if(Firebase_Conexion_Firestore.existValueNumControlChofer(numero_control))
+                                                if(FirebaseConexionFirestore.existValueNumControlChofer(numero_control))
                                                 {
-                                                    registroChofer_organizacion_auto.setValueMap("Nombre", nombre.trim());
-                                                    registroChofer_organizacion_auto.setValueMap("Apellidos", apellidos.trim());
-                                                    registroChofer_organizacion_auto.setValueMap("Edad", Integer.parseInt(edad));
-                                                    registroChofer_organizacion_auto.setValueMap("Teléfono", telefono);
-                                                    registroChofer_organizacion_auto.setValueMap("Email", email.trim());
-                                                    registroChofer_organizacion_auto.setValueMap("Contraseña", contrasena);
-                                                    registroChofer_organizacion_auto.setValueMap("NumeroControl", numero_control.trim());
+                                                    RegistroChoferOrganizacionAuto.setValueMap("Nombre", nombre.trim());
+                                                    RegistroChoferOrganizacionAuto.setValueMap("Apellidos", apellidos.trim());
+                                                    RegistroChoferOrganizacionAuto.setValueMap("Edad", Integer.parseInt(edad));
+                                                    RegistroChoferOrganizacionAuto.setValueMap("Teléfono", telefono);
+                                                    RegistroChoferOrganizacionAuto.setValueMap("Email", email.trim());
+                                                    RegistroChoferOrganizacionAuto.setValueMap("Contraseña", contrasena);
+                                                    RegistroChoferOrganizacionAuto.setValueMap("NumeroControl", numero_control.trim());
                                                     findNavController(v).navigate(R.id.action_registroChofer_to_registroChofer_organizacion_auto);
                                                 }
                                                 else
@@ -150,10 +150,10 @@ public class RegistroChofer extends Fragment {
 
     private void delete_photo()
     {
-        if(registroUsuario_organizacion.getValueMap("NumeroControl")!=null)
+        if(RegistroUsuarioOrganizacion.getValueMap("NumeroControl")!=null)
         {
-            storageFirebase.EliminarFoto(registroUsuario_organizacion.getValueMap("NumeroControl").toString(),"Choferes",getView());
-            Toast.makeText(getContext(),registroUsuario_organizacion.getValueMap("NumeroControl").toString(),Toast.LENGTH_SHORT).show();
+            storageFirebase.EliminarFoto(RegistroUsuarioOrganizacion.getValueMap("NumeroControl").toString(),"Choferes",getView());
+            Toast.makeText(getContext(), RegistroUsuarioOrganizacion.getValueMap("NumeroControl").toString(),Toast.LENGTH_SHORT).show();
         }
         else
         {
