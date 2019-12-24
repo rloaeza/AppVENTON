@@ -16,7 +16,7 @@
         android:layout_marginTop="50dp"
         android:contentDescription="@string/txtMenuDescription"
         android:src="@drawable/ic_stat_menu"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorBackBotones2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
