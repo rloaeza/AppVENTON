@@ -23,7 +23,7 @@ public class StorageFirebase
     //iniciación de la instancia storage
     // dialogo
     private AlertDialog alertDialog;
-    final static boolean[] sucessful = {false};
+    private final static boolean[] sucessful = {false};
 
     public void EliminarFoto(String id,String child, final View view)
     {
@@ -47,7 +47,7 @@ public class StorageFirebase
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Uh-oh, an error occurred!
-               // Toast.makeText(view.getContext(), "ERROR" , Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "Error de subida" , Toast.LENGTH_SHORT).show();
             }
         });
     }

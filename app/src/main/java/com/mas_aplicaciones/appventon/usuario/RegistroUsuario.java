@@ -27,9 +27,8 @@ import static androidx.navigation.Navigation.findNavController;
  */
 public class RegistroUsuario extends Fragment {
 
-    EvaluacionDeViews objeto_evaluacion_de_views = new EvaluacionDeViews();
-    FirebaseConexionFirestore objeto_firebase_conexion_firestore = new FirebaseConexionFirestore();
-    StorageFirebase storageFirebase = new StorageFirebase();
+    private EvaluacionDeViews objeto_evaluacion_de_views = new EvaluacionDeViews();
+    private StorageFirebase storageFirebase = new StorageFirebase();
     private EditText editText_nombre;
     private EditText editText_apellidos;
     private EditText editText_edad ;
@@ -183,13 +182,5 @@ public class RegistroUsuario extends Fragment {
             storageFirebase.EliminarFoto(RegistroUsuarioOrganizacion.getValueMap("NumeroControl").toString(),"Usuarios",getView());
             Toast.makeText(getContext(), RegistroUsuarioOrganizacion.getValueMap("NumeroControl").toString(),Toast.LENGTH_SHORT).show();
         }
-        else
-        {
-           // Toast.makeText(getActivity(),"No entro" ,Toast.LENGTH_SHORT).show();
-        }
-
     }
-
-
-
 }

@@ -22,11 +22,9 @@ import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
 import static androidx.navigation.Navigation.findNavController;
 import static com.mas_aplicaciones.appventon.InicioSesion.mAuth;
 
@@ -41,8 +39,8 @@ public class RegistroUsuarioOrganizacion extends Fragment {
     private Spinner spinner_genero,spinner_carreras;
     private final String [] OPCIONES_GENERO =  {"Género","Masculino","Femenino"};
     private final String [] OPCIONES_CARRERAS =  {"Carrera","Ing. Administración","Ing. Sistemas","Ing. Industrial","Ing. Alimientarias","Ing. Electrónica","Ing. Mecatrónica","Ing. Mécanica","Ing. Civil"};
-    FirebaseConexionFirestore conexion=new FirebaseConexionFirestore();
-    StorageFirebase storageFirebase = new StorageFirebase();
+    private FirebaseConexionFirestore conexion=new FirebaseConexionFirestore();
+    private StorageFirebase storageFirebase = new StorageFirebase();
     private final static int GALLERY_INTENT = 1;
 
 
