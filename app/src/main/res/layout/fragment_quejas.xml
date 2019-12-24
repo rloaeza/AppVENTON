@@ -5,9 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".menu.Quejas">
-
+    tools:context=".menu.quejas">
     <!-- TODO: Update blank fragment layout -->
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,6 +22,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorBackBotones"
@@ -29,9 +31,42 @@
             android:text="@string/txtQuejasugerencia"
             android:textColor="@color/colorBotones"
             android:textSize="25sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginBottom="20dp"
+            />
+
+        <TextView
+            android:id="@+id/textView_Email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txtTextoEjemplo"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"/>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp">
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/radioButton1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Queja"
+                    android:layout_marginEnd="30dp"/>
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sugerencia" />
+            </RadioGroup>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
 
         <EditText
             android:id="@+id/edit_text_mensaje"

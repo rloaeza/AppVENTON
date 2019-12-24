@@ -32,9 +32,9 @@ import java.util.Objects;
 import static androidx.navigation.Navigation.findNavController;
 
 
-public class Menu extends Fragment {
+public class menu extends Fragment {
 
-    private StorageFirebase storageFirebase = new StorageFirebase();
+
     private TextView textUser;
     private ImageView imageView_user;
     @Override

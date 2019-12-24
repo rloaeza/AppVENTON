@@ -70,7 +70,7 @@
     </fragment>
     <fragment
         android:id="@+id/menu2"
-        android:name="com.mas_aplicaciones.appventon.menu.Menu"
+        android:name="com.mas_aplicaciones.appventon.menu.menu"
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu">
         <action
@@ -88,17 +88,17 @@
     </fragment>
     <fragment
         android:id="@+id/quejas"
-        android:name="com.mas_aplicaciones.appventon.menu.Quejas"
+        android:name="com.mas_aplicaciones.appventon.menu.quejas"
         android:label="fragment_quejas"
         tools:layout="@layout/fragment_quejas" />
     <fragment
         android:id="@+id/configurar"
-        android:name="com.mas_aplicaciones.appventon.menu.Configurar"
+        android:name="com.mas_aplicaciones.appventon.menu.configurar"
         android:label="fragment_configurar"
         tools:layout="@layout/fragment_configurar" />
     <fragment
         android:id="@+id/ayuda3"
-        android:name="com.mas_aplicaciones.appventon.menu.Ayuda"
+        android:name="com.mas_aplicaciones.appventon.menu.ayuda"
         android:label="fragment_ayuda"
         tools:layout="@layout/fragment_ayuda" />
     <fragment
