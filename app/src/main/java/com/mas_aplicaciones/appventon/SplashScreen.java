@@ -50,7 +50,7 @@ public class SplashScreen extends Fragment {
 
 
             }
-        },1000);
+        },2000);
     }
 
 
