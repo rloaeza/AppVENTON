@@ -1,6 +1,7 @@
 package com.mas_aplicaciones.appventon.dialog;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -39,6 +40,7 @@ public class CustomDialog {
             }
         });
         btnAceptar.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Button botonAyuda = (Button) v;

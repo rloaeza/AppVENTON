@@ -2,6 +2,7 @@ package com.mas_aplicaciones.appventon;
 
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     public static StorageReference mStorage = FirebaseStorage.getInstance().getReference();//instancia de clase para le storage
+    @SuppressLint("StaticFieldLeak")
     public static FirebaseFirestore db  = FirebaseFirestore.getInstance();
 
 
@@ -40,10 +42,7 @@ public class MainActivity extends AppCompatActivity {
     {
         this.activar=activar;
     }
-    public  void activado(int activar, String ImagenDeletePeople)
-    {
-        this.activar=activar;
-    }
+
     @Override
     public void onBackPressed() {
 
