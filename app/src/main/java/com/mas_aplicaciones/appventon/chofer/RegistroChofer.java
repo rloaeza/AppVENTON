@@ -41,9 +41,8 @@ public class RegistroChofer extends Fragment {
     private String email;
     private String contrasena;
     private String numero_control;
-    EvaluacionDeViews objeto_evaluacion_de_views = new EvaluacionDeViews();
-    StorageFirebase storageFirebase = new StorageFirebase();
-    FirebaseConexionFirestore objeto_firebase_conexion_firestore= new FirebaseConexionFirestore();
+    private EvaluacionDeViews objeto_evaluacion_de_views = new EvaluacionDeViews();
+    private StorageFirebase storageFirebase = new StorageFirebase();
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -155,11 +154,6 @@ public class RegistroChofer extends Fragment {
             storageFirebase.EliminarFoto(RegistroUsuarioOrganizacion.getValueMap("NumeroControl").toString(),"Choferes",getView());
             Toast.makeText(getContext(), RegistroUsuarioOrganizacion.getValueMap("NumeroControl").toString(),Toast.LENGTH_SHORT).show();
         }
-        else
-        {
-           // Toast.makeText(getActivity(),"No entro" ,Toast.LENGTH_SHORT).show();
-        }
-
     }
 
 }
