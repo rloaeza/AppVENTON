@@ -3,5 +3,6 @@
     <item
         android:bottom="0dp"
         android:drawable="@drawable/button_border_inactive"
-        android:top="0dp" />
+        android:top="0dp"
+        />
 </layer-list>

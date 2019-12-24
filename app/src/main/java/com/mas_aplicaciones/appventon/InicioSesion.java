@@ -189,7 +189,7 @@ public class InicioSesion extends Fragment {
                 btnOlvidaContrasena.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        CustomDialog.show(getContext(), R.string.txtOlvidaContrasenaTittle, R.string.txtOlvidaContrasena);
+                        new CustomDialog().show(getContext(), R.string.txtOlvidaContrasenaTittle, R.string.txtOlvidaContrasena);
                     }
                 });
             return view;

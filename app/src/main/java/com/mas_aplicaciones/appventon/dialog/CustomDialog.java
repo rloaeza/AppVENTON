@@ -18,7 +18,7 @@ import java.util.Objects;
 public class CustomDialog {
 
 
-    public static void show(final Context context, int idTituloError, int idMensajeError)
+    public  void show(final Context context, int idTituloError, int idMensajeError)
     {
         final android.app.Dialog dialog = new android.app.Dialog(context);
         dialog.setCancelable(false);
