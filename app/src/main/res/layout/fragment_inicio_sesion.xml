@@ -12,6 +12,7 @@
 
 
     <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"
@@ -140,35 +141,51 @@
                 android:layout_marginBottom="30dp"
                 android:gravity="center"
                 android:weightSum="1">
-            <Button
-                android:id="@+id/button_olvidar_contraseña"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#00FFFFFF"
-                android:text="@string/txtOlvidasteContrasena"
-                android:textColor="@color/colorBotones"
-                android:layout_gravity="center"
-              />
+
+                <Button
+                    android:id="@+id/button_olvidar_contraseña"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="#00FFFFFF"
+                    android:text="@string/txtOlvidasteContrasena"
+                    android:textColor="@color/colorBotones" />
             </TableRow>
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
                 android:gravity="center"
                 android:weightSum="1">
-                    <Button
-                        android:id="@+id/button_registrar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="#00FFFFFF"
-                        android:text="@string/txtCrearCuenta"
-                        android:textColor="@color/colorBotones"
-                       />
+
+                <Button
+                    android:id="@+id/button_registrar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00FFFFFF"
+                    android:text="@string/txtCrearCuenta"
+                    android:textColor="@color/colorBotones" />
             </TableRow>
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>
+
+    <ImageButton
+        android:id="@+id/imageButton_about"
+        android:layout_width="45dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/transparente"
+        android:contentDescription="@string/txtDescripcion"
+        android:src="@drawable/about"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -38,6 +39,7 @@ public class InicioSesion extends Fragment {
 
     // Initialize Firebase Auth
     public static FirebaseAuth mAuth ;
+    private ImageButton imageButton_about;
     private FirebaseUser currentUser;
     private View view;
     private AlertDialog alertDialog;
@@ -97,7 +99,8 @@ public class InicioSesion extends Fragment {
             editText_contrasena = view.findViewById(R.id.edit_text_contrasena2);
             Button btnRegistrar = view.findViewById(R.id.button_registrar);
             Button btnOlvidaContrasena = view.findViewById(R.id.button_olvidar_contraseña);
-            final Button btnIniciarSesion = view.findViewById(R.id.button_iniciar);
+            imageButton_about = view.findViewById(R.id.imageButton_about);
+            Button btnIniciarSesion = view.findViewById(R.id.button_iniciar);
             //listener para entrar al tipo usuario
 
             btnIniciarSesion.setOnClickListener(new View.OnClickListener() {//acomoda y luego muestra y realiza todo lo necesario validad
@@ -190,6 +193,12 @@ public class InicioSesion extends Fragment {
                     @Override
                     public void onClick(View v) {
                         Navigation.findNavController(v).navigate(R.id.action_inicioSesion_to_recuperacionPassword);
+                    }
+                });
+                imageButton_about.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Navigation.findNavController(v).navigate(R.id.action_inicioSesion_to_about);
                     }
                 });
             return view;
