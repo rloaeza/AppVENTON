@@ -109,67 +109,77 @@ public class InicioSesion extends Fragment {
                 {
                     if(!click)
                     {
+                        imageButton_about.setVisibility(View.INVISIBLE);
                         if (isNetDisponible() && isOnlineNet())
                         {
+                            imageButton_about.setVisibility(View.INVISIBLE);
                             email = editText_email.getText().toString();
                             contrasena = editText_contrasena.getText().toString();
                             if (objeto_evaluacion_de_views.emailValidado(email))
                             {
-                                mAuth.signInWithEmailAndPassword(email, contrasena)
-                                        .addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                                if (task.isSuccessful())
-                                                {
-                                                    alertDialog = new SpotsDialog.Builder().setContext(view.getContext()).setMessage("Iniciando").build();
-                                                    alertDialog.show();
-                                                    // Sign in success, update UI with the signed-in user's information
-                                                    currentUser = mAuth.getCurrentUser();
-                                                    guardarPreferencias();
-                                                    if (currentUser != null && currentUser.isEmailVerified()) {
+                                imageButton_about.setVisibility(View.INVISIBLE);
+                                if(!contrasena.equals("")) {
+                                    imageButton_about.setVisibility(View.INVISIBLE);
+                                    mAuth.signInWithEmailAndPassword(email, contrasena)
+                                            .addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                                    if (task.isSuccessful()) {
+                                                        alertDialog = new SpotsDialog.Builder().setContext(view.getContext()).setMessage("Iniciando").build();
+                                                        alertDialog.show();
+                                                        // Sign in success, update UI with the signed-in user's information
+                                                        currentUser = mAuth.getCurrentUser();
+                                                        guardarPreferencias();
+                                                        if (currentUser != null && currentUser.isEmailVerified()) {
 
-                                                        objeto_firebase_conexion_firestore.buscarUsuario(currentUser.getUid(), view);
-                                                        objeto_firebase_conexion_firestore.buscarChofer(currentUser.getUid(), view);
-                                                        editText_contrasena.setText("");
-                                                        editText_email.setText("");
+                                                            objeto_firebase_conexion_firestore.buscarUsuario(currentUser.getUid(), view);
+                                                            objeto_firebase_conexion_firestore.buscarChofer(currentUser.getUid(), view);
+                                                            editText_contrasena.setText("");
+                                                            editText_email.setText("");
+                                                        } else {
+                                                            Toast.makeText(getActivity(), "Email no validado, revisa el email registrado", Toast.LENGTH_LONG).show();
+                                                        }
+
                                                     } else {
-                                                        Toast.makeText(getActivity(), "Email no validado, revisa el email registrado", Toast.LENGTH_LONG).show();
-                                                    }
+                                                        // If sign in fails, display a message to the user.
+                                                        if (task.getException() instanceof FirebaseAuthEmailException) {
+                                                            Toast.makeText(getActivity(), "Usuario no registrado", Toast.LENGTH_SHORT).show();
+                                                        } else {
+                                                            Toast.makeText(getActivity(), "Email o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                                                        }
 
+
+                                                    }
                                                 }
-                                                else
-                                                {
-                                                    // If sign in fails, display a message to the user.
-                                                    if (task.getException() instanceof FirebaseAuthEmailException)
-                                                    {
-                                                        Toast.makeText(getActivity(), "Usuario no registrado", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                    else
-                                                    {
-                                                        Toast.makeText(getActivity(), "Email o contraseña incorrectos", Toast.LENGTH_SHORT).show();
-                                                    }
+                                            });
+                                    click = true;
+                                }
+                                else
+                                {
+                                    Toast.makeText(getActivity(), "Contraseña vacia", Toast.LENGTH_SHORT).show();
+                                    editText_contrasena.setError("required");
+                                    imageButton_about.setVisibility(View.VISIBLE);
+                                }
 
-
-                                                }
-                                            }
-                                        });
-                                click=true;
                             }
                             else
                             {
                                 Toast.makeText(getActivity(), "Email invalido", Toast.LENGTH_SHORT).show();
                                 editText_email.setError("required");
+                                imageButton_about.setVisibility(View.VISIBLE);
                             }
                         }
                         else
                         {
                             Toast.makeText(getActivity(), "Compruebe su conexión de Internet", Toast.LENGTH_SHORT).show();
+                            imageButton_about.setVisibility(View.VISIBLE);
                         }
 
                     }
                     else
                     {
                         Snackbar.make(Objects.requireNonNull(getView()),"Ingresando al sistema espere...",Snackbar.LENGTH_LONG).show();
+                        imageButton_about.setVisibility(View.VISIBLE);
                     }
                 }
             });
@@ -259,6 +269,7 @@ public class InicioSesion extends Fragment {
                                     editText_contrasena.setText("");
                                     editText_email.setText("");
                                 }
+
                             }
                             else
                             {
@@ -267,6 +278,10 @@ public class InicioSesion extends Fragment {
 
                         }
                     });
+        }
+        else
+        {
+            imageButton_about.setVisibility(View.VISIBLE);
         }
 
     }
