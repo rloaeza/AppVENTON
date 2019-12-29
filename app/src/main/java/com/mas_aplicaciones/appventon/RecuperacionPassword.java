@@ -15,9 +15,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.mas_aplicaciones.appventon.firebase.EvaluacionDeViews;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.firebase.QueriesFirebase;
@@ -42,6 +44,7 @@ public class RecuperacionPassword extends Fragment {
 
     private EditText editText_email,editText_telefono,editText_numero_control;
     private RadioButton radioButton_prestado_servicios, radioButton_pasajero;
+    private RadioGroup radioGroup;
     private Spinner spinner_carrera;
     private Button button_recuperar;
     private String email, telefono,numeroControl,carrera,tipo_usuario;
@@ -49,7 +52,7 @@ public class RecuperacionPassword extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
         if (getActivity() instanceof MainActivity) {
             ((MainActivity) getActivity()).activado(3);
         }
@@ -58,10 +61,11 @@ public class RecuperacionPassword extends Fragment {
         editText_email = view.findViewById(R.id.edit_text_email);
         editText_numero_control= view.findViewById(R.id.edit_text_num_control);
         editText_telefono = view.findViewById(R.id.edit_text_telefono);
+        radioGroup = view.findViewById(R.id.radioGroup_peticion);
         radioButton_prestado_servicios = view.findViewById(R.id.radioButton_prestador_servicios);
         radioButton_pasajero = view.findViewById(R.id.radioButton_pasajero);
         spinner_carrera = view.findViewById(R.id.spinner_selecCarrera);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(),R.layout.spinner_item_values_2, StaticResources.OPCIONES_CARRERAS);
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(),R.layout.spinner_item_values_2, StaticResources.OPCIONES_CARRERAS);
         spinner_carrera.setAdapter(arrayAdapter);
         button_recuperar = view.findViewById(R.id.button_recuperar_cuenta);
 
@@ -83,18 +87,19 @@ public class RecuperacionPassword extends Fragment {
                         {
                             if(spinner_carrera.getSelectedItemPosition()>=1)
                             {
-                                if(!radioButton_pasajero.isChecked() || !radioButton_prestado_servicios.isChecked())
+                                if(radioButton_pasajero.isChecked() || radioButton_prestado_servicios.isChecked())
                                 {
-                                    carrera = spinner_carrera.getSelectedItem().toString();
+                                    carrera = spinner_carrera.getSelectedItem().toString().trim();
                                     tipo_usuario=(radioButton_prestado_servicios.isChecked())?"Choferes":"Usuarios";
 
-                                    if(!QueriesFirebase.BuscarDocumento(email.trim(),carrera,telefono,numeroControl,tipo_usuario))
-                                    {
+                                     new QueriesFirebase().BuscarDocumento(email.trim(),carrera,telefono,numeroControl,tipo_usuario,view);
 
-                                      Toast.makeText(getContext(),"Se enviará un correo a el email con las credenciales",Toast.LENGTH_SHORT).show();
-                                      sendEmailWithGmail2(StaticResources.EMAILSENDER,StaticResources.PASSWORD,"vicente_prez@hotmail.com","","");
-                                    }
-
+                                     editText_numero_control.setText("");
+                                     editText_email.requestFocus();
+                                     editText_email.setText("");
+                                     editText_telefono.setText("");
+                                     radioGroup.clearCheck();
+                                     spinner_carrera.setSelection(0);
                                 }
                                 else
                                 {
@@ -132,99 +137,5 @@ public class RecuperacionPassword extends Fragment {
 
 
 
-    private void sendEmailWithGmail2(final String recipientEmail, final String recipientPassword,String to, String subject, String message) {
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.socketFactory.port", "465");
-        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", "465");
 
-        Session session = Session.getDefaultInstance(props, new Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(recipientEmail, recipientPassword);
-            }
-        });
-
-        SenderAsyncTask2 task = new SenderAsyncTask2(session, recipientEmail, subject, message);
-        task.execute();
-    }
-    /**
-     * AsyncTask to send email
-     */
-    class SenderAsyncTask2 extends AsyncTask<String, String, String> {
-
-        private String from, to, subject, message;
-        private ProgressDialog progressDialog;
-        private Session session;
-
-        public SenderAsyncTask2(Session session, String from, String subject, String message) {
-            this.session = session;
-            this.from = from;
-            this.to = QueriesFirebase.getValue("Email").toString();
-            this.subject = subject;
-            this.message = message;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = ProgressDialog.show(getActivity(), "Enviando", "Espere", true);
-            progressDialog.setCancelable(false);
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                Message mimeMessage = new MimeMessage(session);
-                mimeMessage.setFrom(new InternetAddress(from,"AppVenton"));
-                mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-                mimeMessage.setSubject("Recuperación de credenciales");
-                String htmlText2 = "<p ALIGN=\"center\"><img  width=\"200\" height=\"200\" src=\"https://firebasestorage.googleapis.com/v0/b/appventonitecsu.appspot.com/o/icono2.png?alt=media&token=1389b4bb-2ced-4d1c-896e-ab4aa714cbca\"></p>";
-                String htmlText =
-                        "<body> " +
-                                "<h4><font size=3 face=\"Sans Serif,arial,verdana\">Hola, </font></h4> " +
-                                "<br>" +
-                                htmlText2 +
-                                "<hr>" +
-                                "<p ALIGN=\"justify\"><font size=3 face=\"Sans Serif,arial,verdana\">" + "Tus credenciales <strong>" + QueriesFirebase.getValue("Nombre") + " " + QueriesFirebase.getValue("Apellidos") +
-                                "</strong> son:" + "</font></p>" +
-                                "<p ALIGN=\"center\"><font size=3 face=\"Sans Serif,arial,verdana\">" + "<br><strong>"+to+"<br>"+QueriesFirebase.getValue("Contraseña")+"</strong>" + "</font></p>" +
-                                "<p ALIGN=\"justify\"><font size=3 face=\"Sans Serif,arial,verdana\">Si tú no solisitaste esto, no tienes por que preocuparte tus datos están protegidos</p>" +
-                                "<p ALIGN=\"justify\"><font size=3 face=\"Sans Serif,arial,verdana\">Saludos cordiales,</font></p>" +
-                                "<p><font size=3 face=\"Sans Serif,arial,verdana\">El equipo </font><font color=\"#008577\" size=3 face=\"Sans Serif,arial,verdana\">AppVenton</font></p>" +
-                                "<br>" +
-                                "<hr>" +
-                                "<footer>" +
-                                "<p><font color=\"#C5BFBF\" size=2 face=\"Sans Serif,arial,verdana\">Gracias!!</font></p>" +
-                                "<p ALIGN=\"justify\"><font color=\"#C5BFBF\" size=1 face=\"Sans Serif,arial,verdana\">©AppVenton from Instituto Tecnológico Superior de Uruapan, Carretera Uruapan-Carapan No. 5555 Col. La Basilia Uruapan, Michoacán. Este correo fue enviado para: "+FirebaseConexionFirestore.getValue("Email")+" y fue enviado por AppVenton</font></p>" +
-                                "</footer>" +
-                                "</body>";
-                mimeMessage.setContent(htmlText, "text/html; charset=utf-8");
-
-
-
-            } catch (MessagingException e) {
-                e.printStackTrace();
-                return e.getMessage();
-            } catch (Exception e) {
-                e.printStackTrace();
-                return e.getMessage();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(String... values) {
-            super.onProgressUpdate(values);
-            progressDialog.setMessage(values[0]);
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            progressDialog.dismiss();
-            Snackbar.make(getView(), "Mensaje enviado...", Snackbar.LENGTH_LONG).show();
-
-        }
-    }
 }

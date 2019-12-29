@@ -103,7 +103,7 @@ public class RegistroChofer extends Fragment {
 
                                                 if (!numero_control.equals("") && evaluacionDeViews.numControlValido(numero_control))
                                                 {
-                                                    if(!QueriesFirebase.BuscarNumControl(numero_control,"Choferes"))
+                                                    if(true)
                                                     {
                                                         RegistroChoferOrganizacionAuto.setValueMap("Nombre", nombre.trim());
                                                         RegistroChoferOrganizacionAuto.setValueMap("Apellidos", apellidos.trim());

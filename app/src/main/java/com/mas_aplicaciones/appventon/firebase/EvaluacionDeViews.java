@@ -86,10 +86,10 @@ public class EvaluacionDeViews
     }
     public boolean numControlValido(String numCtrl)
     {
-        boolean ban = true;
-        if(numCtrl.length() !=8 && numCtrl.charAt(0)!='1' && numCtrl.charAt(2)!='0' && numCtrl.charAt(3)!='4')
+        boolean ban = false;
+        if(numCtrl.length() ==8 && numCtrl.charAt(0)=='1' && numCtrl.charAt(2)=='0' && numCtrl.charAt(3)=='4')
         {
-            ban =  false;
+            ban =  true;
         }
         return ban;
     }

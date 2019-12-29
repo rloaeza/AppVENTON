@@ -89,7 +89,7 @@ public class RegistroUsuario extends Fragment {
                                        {
                                            if (!numero_control.equals("") && evaluacionDeViews.numControlValido(numero_control))
                                            {
-                                               if(!QueriesFirebase.BuscarNumControl(numero_control,"Usuarios"))
+                                               if(true)
                                                {
                                                    RegistroUsuarioOrganizacion.setValueMap("Nombre", nombre.trim());
                                                    RegistroUsuarioOrganizacion.setValueMap("Apellidos", apellidos.trim());
