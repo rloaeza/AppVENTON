@@ -42,7 +42,8 @@ import javax.mail.internet.MimeMessage;
  * to handle interaction events.
  * create an instance of this fragment.
  */
-public class quejas extends Fragment {
+public class quejas extends Fragment
+{
     private RadioButton radioButton_queja,radioButton_sugerencia;
     private Button button_enviar;
     private EditText editText_queja;
