@@ -53,7 +53,7 @@ public class RegistroUsuario extends Fragment {
         }
 
         // Inflate the layout for this fragment
-        View view =inflater.inflate(R.layout.fragment_registro_usuario, container, false);
+        final View view =inflater.inflate(R.layout.fragment_registro_usuario, container, false);
         Button btnSiguiente = view.findViewById(R.id.button_registrar);
         editText_nombre = view.findViewById(R.id.edit_text_nombre);
         editText_apellidos = view.findViewById(R.id.edit_text_apellidos);
@@ -89,22 +89,16 @@ public class RegistroUsuario extends Fragment {
                                        {
                                            if (!numero_control.equals("") && evaluacionDeViews.numControlValido(numero_control))
                                            {
-                                               if(true)
-                                               {
+
+
                                                    RegistroUsuarioOrganizacion.setValueMap("Nombre", nombre.trim());
                                                    RegistroUsuarioOrganizacion.setValueMap("Apellidos", apellidos.trim());
                                                    RegistroUsuarioOrganizacion.setValueMap("Edad", Integer.parseInt(edad));
                                                    RegistroUsuarioOrganizacion.setValueMap("Teléfono", telefono);
                                                    RegistroUsuarioOrganizacion.setValueMap("Email", email.trim());
                                                    RegistroUsuarioOrganizacion.setValueMap("Contraseña", contrasena);
-                                                   RegistroUsuarioOrganizacion.setValueMap("NumeroControl", numero_control.trim());
-                                                   findNavController(v).navigate(R.id.action_registroUsuario_to_registroUsuario_organizacion);
-                                               }
-                                               else
-                                               {
-                                                   editText_numero_control.setError("Número de control registrado");
-                                                   Toast.makeText(getActivity(), "Debe de utilizar el suyo, si el alguien más está usando el suyo, repórtelo", Toast.LENGTH_SHORT).show();
-                                               }
+                                                   QueriesFirebase.BuscarNumControl(numero_control,"Usuarios",view,1);
+
                                            }
                                            else
                                                {

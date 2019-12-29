@@ -52,6 +52,10 @@ public class RegistroChoferOrganizacionAuto extends Fragment {
     {
         return data.get(key);
     }
+    public static void clear()
+    {
+        data.clear();
+    }
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -136,10 +140,12 @@ public class RegistroChoferOrganizacionAuto extends Fragment {
                                                                 Toast.makeText(getActivity(), "Checar correo electrónico para validar su correo", Toast.LENGTH_SHORT).show();
 
                                                                 //agrega los datos a usuarios y le asigna el mismo UID de la autentificación a los datos de este.
-                                                                data.put("validacion", false);
+                                                                data.put("Validacion", false);
                                                                 conexion.agregar_chofer(data, user.getUid());
 
                                                                 findNavController(v).navigate(R.id.action_registroChofer_organizacion_auto_to_inicioSesion);
+                                                                data.clear();
+
 
                                                             } else {
                                                                 // If sign in fails, display a message to the user.
@@ -203,11 +209,9 @@ public class RegistroChoferOrganizacionAuto extends Fragment {
 
             Uri uri = data.getData();
             storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Choferes",getView(), 0);
-
-
-
         }
     }
+
 
 
 }

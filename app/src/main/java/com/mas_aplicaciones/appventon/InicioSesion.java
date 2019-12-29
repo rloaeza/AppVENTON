@@ -265,6 +265,7 @@ public class InicioSesion extends Fragment {
                                     objeto_firebase_conexion_firestore.buscarChofer(currentUser.getUid(), view);
                                     editText_contrasena.setText("");
                                     editText_email.setText("");
+                                    editText_email.requestFocus();
                                 }
 
                             }

@@ -45,6 +45,7 @@ import javax.mail.internet.MimeMessage;
 public class quejas extends Fragment
 {
     private RadioButton radioButton_queja,radioButton_sugerencia;
+    private RadioGroup radioGroup;
     private Button button_enviar;
     private EditText editText_queja;
     private TextView textView_emailreceiver;
@@ -63,6 +64,7 @@ public class quejas extends Fragment
         button_enviar =view.findViewById(R.id.button_enviar_queja);
         textView_emailreceiver = view.findViewById(R.id.textView_Email);
         editText_queja = view.findViewById(R.id.edit_text_mensaje);
+        radioGroup = view.findViewById(R.id.radioGroup_peticion);
         radioButton_queja = view.findViewById(R.id.radioButton_queja);
         radioButton_sugerencia = view.findViewById(R.id.radioButton_sugerencia);
         textView_emailreceiver.setText(FirebaseConexionFirestore.getValue("Email").toString());
@@ -73,33 +75,28 @@ public class quejas extends Fragment
 
 
                 user=textView_emailreceiver.getText().toString();
-                if(!radioButton_queja.isChecked() || !radioButton_sugerencia.isChecked())
+                if(radioButton_queja.isChecked() || radioButton_sugerencia.isChecked())
                 {
-                    subject=(radioButton_queja.isChecked())?"Queja":"Sugerencia";
+                    if(!editText_queja.getText().toString().equals(""))
+                    {
+                        body = editText_queja.getText().toString();
+                        subject=(radioButton_queja.isChecked())?"Queja":"Sugerencia";
+                        sendEmailWithGmail(StaticResources.EMAILSENDER,StaticResources.PASSWORD,user,subject,body);//sdcard/DCIM/Camera/test.jpg
+                        editText_queja.setText("");
+                        editText_queja.requestFocus();
+                        radioGroup.clearCheck();
+                    }
+                    else
+                    {
+                        editText_queja.setError("required");
+                        Toast.makeText(getContext(),"Mensaje vacío",Toast.LENGTH_SHORT).show();
+                    }
+
                 }
                 else
                 {
                     Toast.makeText(getContext(),"Petición no seleccionada",Toast.LENGTH_SHORT).show();
                 }
-                if(!editText_queja.getText().equals(""))
-                {
-                    body = editText_queja.getText().toString();
-                }
-                else
-                {
-                    editText_queja.setError("required");
-                    Toast.makeText(getContext(),"Mensaje vacío",Toast.LENGTH_SHORT).show();
-                }
-
-
-
-                // Perform action on click
-
-                //Snackbar.make(getView(),"Hola",Snackbar.LENGTH_SHORT).show();
-
-
-                sendEmailWithGmail(StaticResources.EMAILSENDER,StaticResources.PASSWORD,user,subject,body);//sdcard/DCIM/Camera/test.jpg
-
             }
         });
 

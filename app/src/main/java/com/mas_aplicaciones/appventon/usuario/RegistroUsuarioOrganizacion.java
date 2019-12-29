@@ -53,6 +53,10 @@ public class RegistroUsuarioOrganizacion extends Fragment {
     {
         return data.get(key);
     }
+    public static void clear()
+    {
+         data.clear();
+    }
 
 
     @Override
@@ -127,6 +131,8 @@ public class RegistroUsuarioOrganizacion extends Fragment {
 
 
                                                 findNavController(v).navigate((R.id.action_registroUsuario_organizacion_to_inicioSesion2));
+                                                data.clear();
+
                                             } else {
                                                 // If sign in fails, display a message to the user.
                                                 //si el registro de usuario genera una colision, esto es que ya existe un email registrado con esa dir
@@ -171,12 +177,8 @@ public class RegistroUsuarioOrganizacion extends Fragment {
 
             Uri uri = data.getData();
             storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Usuarios",getView(),0);
-
-
-
         }
     }
-
 
 
 }

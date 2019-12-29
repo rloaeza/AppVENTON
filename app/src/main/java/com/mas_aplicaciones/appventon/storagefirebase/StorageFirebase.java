@@ -50,7 +50,7 @@ public class StorageFirebase
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Uh-oh, an error occurred!
-                Toast.makeText(view.getContext(), "Error de subida" , Toast.LENGTH_SHORT).show();
+                //
             }
         });
     }
@@ -110,6 +110,7 @@ public class StorageFirebase
                     @Override
                     public void onFailure(@NonNull Exception exception) {
                         // Handle any errors
+                        Toast.makeText(view.getContext(), "Error de subida" , Toast.LENGTH_SHORT).show();
 
                     }
             });
@@ -134,5 +135,9 @@ public class StorageFirebase
     public static boolean getImagenSubida()
     {
         return sucessful[0];
+    }
+    public static void setImagenSubida()
+    {
+         sucessful[0]=false;
     }
 }

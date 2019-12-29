@@ -20,7 +20,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.mas_aplicaciones.appventon.MainActivity;
+import com.mas_aplicaciones.appventon.R;
+import com.mas_aplicaciones.appventon.chofer.RegistroChoferOrganizacionAuto;
 import com.mas_aplicaciones.appventon.staticresources.StaticResources;
+import com.mas_aplicaciones.appventon.usuario.RegistroUsuarioOrganizacion;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +40,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import dmax.dialog.SpotsDialog;
+
+import static androidx.navigation.Navigation.findNavController;
 
 public class QueriesFirebase
 {
@@ -58,16 +63,20 @@ public class QueriesFirebase
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
 
+                if(queryDocumentSnapshots.getDocuments().size()>0)
+                {
+                    datos=queryDocumentSnapshots.getDocuments().get(0).getData();
+                    alertDialog.cancel();
 
-                datos=queryDocumentSnapshots.getDocuments().get(0).getData();
-                alertDialog.cancel();
-                if(datos.get("Teléfono").toString().equals(telefono) && datos.get("NumeroControl").toString().equals(NumeroControl) && datos.get("Carrera").toString().equals(carrera))
-                {
-                    usar();
+                        if (datos.get("Teléfono").toString().equals(telefono) && datos.get("NumeroControl").toString().equals(NumeroControl) && datos.get("Carrera").toString().equals(carrera)) {
+                            usar();
+                        } else {
+                            Toast.makeText(view.getContext(), "No existe registro con esos datos", Toast.LENGTH_SHORT).show();
+                        }
                 }
-                else
-                {
-                    Toast.makeText(view.getContext(),"No existe registro con esos datos",Toast.LENGTH_SHORT).show();
+                else {
+                    alertDialog.cancel();
+                    Toast.makeText(view.getContext(), "No existe registro con esos datos", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -85,15 +94,44 @@ public class QueriesFirebase
 
 
 
-    public static void BuscarNumControl(final String NumeroControl, String Collections)
+    public static void BuscarNumControl(final String NumeroControl, String Collections, final View view, final int i)
     {
 
 
         CollectionReference Collection = db.collection(Collections);
-
+        final AlertDialog alertDialog = new SpotsDialog.Builder().setContext(view.getContext()).setMessage("Evaluando Datos en el sistema...").build();
+        alertDialog.show();
         // Create a query against the collection.
-       // Collection.whereEqualTo("NumeroControl", NumeroControl).get());
+        Collection.whereEqualTo("NumeroControl", NumeroControl).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
+                if(queryDocumentSnapshots.getDocuments().size()>0)
+                {
+                        alertDialog.cancel();
+                        Toast.makeText(view.getContext(), "Número de control registrado. \n Debe de utilizar el suyo, si el alguien más está usando el suyo, repórtelo", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    alertDialog.cancel();
+                    MainActivity.view=view;
+                    MainActivity.NumeroControl=NumeroControl;
+                    if (i == 1)//es registro usuario
+                    {
+                        RegistroUsuarioOrganizacion.setValueMap("NumeroControl", NumeroControl.trim());
+                        MainActivity.Collection="Usuarios";
+                        findNavController(view).navigate(R.id.action_registroUsuario_to_registroUsuario_organizacion);
+                    } else // es registro chofer
+                    {
+                        RegistroChoferOrganizacionAuto.setValueMap("NumeroControl", NumeroControl.trim());
+                        MainActivity.Collection="Choferes";
+                        findNavController(view).navigate(R.id.action_registroChofer_to_registroChofer_organizacion_auto);
+                    }
+                }
+
+            }
+
+        });
 
 
 

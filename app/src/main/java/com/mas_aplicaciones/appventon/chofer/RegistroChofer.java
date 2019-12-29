@@ -58,7 +58,7 @@ public class RegistroChofer extends Fragment {
             ((MainActivity) getActivity()).activado(3);
         }
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_registro_chofer, container, false);
+        final View view = inflater.inflate(R.layout.fragment_registro_chofer, container, false);
         editText_nombre = view.findViewById(R.id.edit_text_nombre);
         editText_apellidos = view.findViewById(R.id.edit_text_apellidos);
         editText_edad = view.findViewById(R.id.edit_text_edad);
@@ -103,24 +103,16 @@ public class RegistroChofer extends Fragment {
 
                                                 if (!numero_control.equals("") && evaluacionDeViews.numControlValido(numero_control))
                                                 {
-                                                    if(true)
-                                                    {
+
                                                         RegistroChoferOrganizacionAuto.setValueMap("Nombre", nombre.trim());
                                                         RegistroChoferOrganizacionAuto.setValueMap("Apellidos", apellidos.trim());
                                                         RegistroChoferOrganizacionAuto.setValueMap("Edad", Integer.parseInt(edad));
                                                         RegistroChoferOrganizacionAuto.setValueMap("Teléfono", telefono);
                                                         RegistroChoferOrganizacionAuto.setValueMap("Email", email.trim());
                                                         RegistroChoferOrganizacionAuto.setValueMap("Contraseña", contrasena);
-                                                        RegistroChoferOrganizacionAuto.setValueMap("NumeroControl", numero_control.trim());
                                                         RegistroChoferOrganizacionAuto.setValueMap("LastDate", Calendar.getInstance().getTime());
                                                         RegistroChoferOrganizacionAuto.setValueMap("Ranking",0.00);
-                                                        findNavController(v).navigate(R.id.action_registroChofer_to_registroChofer_organizacion_auto);
-                                                    }
-                                                    else
-                                                    {
-                                                        editText_numero_control.setError("Número de control registrado");
-                                                        Toast.makeText(getActivity(), "Debe de utilizar el suyo, si el alguien más está usando el suyo, repórtelo", Toast.LENGTH_SHORT).show();
-                                                    }
+                                                        QueriesFirebase.BuscarNumControl(numero_control,"Choferes",view,0);
 
                                                 } else {
                                                     editText_numero_control.setError("required");
