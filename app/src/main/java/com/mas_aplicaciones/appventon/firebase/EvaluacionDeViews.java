@@ -4,10 +4,7 @@ import java.util.StringTokenizer;
 
 public class EvaluacionDeViews
 {
-    public EvaluacionDeViews()
-    {
 
-    }
 
     // Max length = 3 XML
 
@@ -72,11 +69,6 @@ public class EvaluacionDeViews
                 {
                     ban =  false;
                 }
-            /*    else
-                {
-                    ban = false;
-                }
-            */
 
             }
             catch (NumberFormatException ex)
@@ -91,8 +83,15 @@ public class EvaluacionDeViews
     {
         StringTokenizer  st = new StringTokenizer(email,"@");
         return st.countTokens() == 2;
-
-
+    }
+    public boolean numControlValido(String numCtrl)
+    {
+        boolean ban = true;
+        if(numCtrl.length() !=8 && numCtrl.charAt(0)!='1' && numCtrl.charAt(2)!='0' && numCtrl.charAt(3)!='4')
+        {
+            ban =  false;
+        }
+        return ban;
     }
 
 }

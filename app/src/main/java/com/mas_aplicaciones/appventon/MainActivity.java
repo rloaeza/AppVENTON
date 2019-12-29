@@ -32,8 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Objects.requireNonNull(getSupportActionBar()).hide();
         // metodos para consultar los numeros de control
-        FirebaseConexionFirestore.getNumeroControlUsuarios();
-        FirebaseConexionFirestore.getNumeroControlChoferes();
+
 
 
 

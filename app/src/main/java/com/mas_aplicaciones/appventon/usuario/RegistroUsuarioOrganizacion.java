@@ -21,7 +21,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
+import com.mas_aplicaciones.appventon.staticresources.StaticResources;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
+
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -37,8 +40,6 @@ public class RegistroUsuarioOrganizacion extends Fragment {
     private static Map<String, Object> data = new HashMap<>();
 
     private Spinner spinner_genero,spinner_carreras;
-    private final String [] OPCIONES_GENERO =  {"Género","Masculino","Femenino"};
-    private final String [] OPCIONES_CARRERAS =  {"Carrera","Ing. Administración","Ing. Sistemas","Ing. Industrial","Ing. Alimientarias","Ing. Electrónica","Ing. Mecatrónica","Ing. Mécanica","Ing. Civil"};
     private FirebaseConexionFirestore conexion=new FirebaseConexionFirestore();
     private StorageFirebase storageFirebase = new StorageFirebase();
     private final static int GALLERY_INTENT = 1;
@@ -67,8 +68,8 @@ public class RegistroUsuarioOrganizacion extends Fragment {
         spinner_genero = view.findViewById(R.id.spinner_selecGen);
         //spinner carrera
         spinner_carreras = view.findViewById(R.id.spinner_selecCarrera);
-        ArrayAdapter<String> adapter_genero = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_item_values, OPCIONES_GENERO);
-        ArrayAdapter<String> adapter_carreras = new ArrayAdapter<>(getActivity(), R.layout.spinner_item_values, OPCIONES_CARRERAS);
+        ArrayAdapter<String> adapter_genero = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_item_values, StaticResources.OPCIONES_GENERO);
+        ArrayAdapter<String> adapter_carreras = new ArrayAdapter<>(getActivity(), R.layout.spinner_item_values, StaticResources.OPCIONES_CARRERAS);
         spinner_genero.setAdapter(adapter_genero);
         spinner_carreras.setAdapter(adapter_carreras);
 
@@ -100,6 +101,7 @@ public class RegistroUsuarioOrganizacion extends Fragment {
                     {
                         data.put("Carrera",spinner_carreras.getSelectedItem().toString());
                         data.put("Género",spinner_genero.getSelectedItem().toString());
+                        data.put("LastDate", Calendar.getInstance().getTime());
                         //si la imagen fue agregada
                         if(StorageFirebase.getImagenSubida())
                         {
@@ -168,7 +170,7 @@ public class RegistroUsuarioOrganizacion extends Fragment {
         {
 
             Uri uri = data.getData();
-            storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Usuarios",getView(), RegistroUsuarioOrganizacion.class);
+            storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Usuarios",getView(),0);
 
 
 

@@ -4,7 +4,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="txtBotonHola">Iniciar Sesión</string>
-    <string name="txtUsuario">Email</string>
+    <string name="txtEmail">Email</string>
     <string name="txtContra">Contraseña</string>
     <!-- Esta descripción me la pidió el ImageView  en su propiedad contentDescription "La puse con la finalidad de que no marcara Warnings" -->
     <string name="txtDescripcion">Inicio</string>
@@ -16,8 +16,9 @@
     <!-- Texto dialogos -->
     <string name="txtOlvidaContrasenaTittle">Olvidé contraseña</string>
     <string name="txtOlvidaContrasena">Contacta al encargado para hacer tu registro.</string>
-    <string name="txtFotoPerfilUsuario">Foto de perfil</string>
-    <string name="txtNumeroControl">Numero de control</string>
+    <string name="txtFotoPerfilUsuario">Buscar Foto de perfil</string>
+    <string name="txtFotoPerfilAutos">Buscar Foto de auto</string>
+    <string name="txtNumeroControl">Número de control</string>
     <!-- etiquetas para el registro de usuario-->
     <string name="txtNombre">Nombre</string>
     <string name="txtApellidoP">Apellidos</string>
@@ -30,7 +31,7 @@
 
     <!-- textos de los botones de tipo de uruario-->
 
-    <string name="txtConductor">Conductor</string>
+    <string name="txtConductor">Prestador de servicios</string>
     <string name="txtPasajero">Pasajero</string>
 
     <string name="txtPlacas">Placas</string>

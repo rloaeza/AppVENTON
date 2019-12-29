@@ -17,10 +17,10 @@
         android:paddingEnd="10dp"
         android:text="@string/txtConfigurar"
         android:textColor="@color/colorBotones"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:shadowColor="@color/colorBotones2"
+        android:textSize="25sp" />
 
 
     <TextView
@@ -32,10 +32,7 @@
         android:layout_marginTop="20sp"
         android:text="Datos Generales"
         android:textColor="@color/colorBotones2"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="20sp" />
 
 
     <EditText
@@ -55,7 +52,6 @@
         android:textColorHighlight="@color/common_google_signin_btn_text_dark_focused"
         android:textColorHint="@color/colorBotones2"
         android:textColorLink="@android:color/black"
-
         tools:layout_editor_absoluteY="62dp"
         tools:targetApi="o" />
 

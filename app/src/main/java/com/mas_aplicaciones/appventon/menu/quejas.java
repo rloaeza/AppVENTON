@@ -4,23 +4,24 @@ package com.mas_aplicaciones.appventon.menu;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
-
+import com.mas_aplicaciones.appventon.staticresources.StaticResources;
 
 import java.util.Properties;
 
@@ -37,19 +38,15 @@ import javax.mail.internet.MimeMessage;
 /**
  * A simple {@link quejas} subclass.
  * Activities that contain this fragment must implement the
- * {@link } interface
+ * {@link  SenderAsyncTask} class to send the emails
  * to handle interaction events.
- * Use the {@link } factory method to
  * create an instance of this fragment.
  */
 public class quejas extends Fragment {
-    private RadioButton radioButton1,radioButton2;
+    private RadioButton radioButton_queja,radioButton_sugerencia;
     private Button button_enviar;
     private EditText editText_queja;
     private TextView textView_emailreceiver;
-    private final String EMAILSENDER ="appventonitsu@gmail.com";
-    private final String SERVERDEFULT ="gmail.com";
-    private final String PASSWORD ="AppVenton1234";
     private String user,subject,body;
 
     @Override
@@ -65,24 +62,42 @@ public class quejas extends Fragment {
         button_enviar =view.findViewById(R.id.button_enviar_queja);
         textView_emailreceiver = view.findViewById(R.id.textView_Email);
         editText_queja = view.findViewById(R.id.edit_text_mensaje);
-        radioButton1 = view.findViewById(R.id.radioButton1);
-        radioButton2 = view.findViewById(R.id.radioButton2);
+        radioButton_queja = view.findViewById(R.id.radioButton_queja);
+        radioButton_sugerencia = view.findViewById(R.id.radioButton_sugerencia);
         textView_emailreceiver.setText(FirebaseConexionFirestore.getValue("Email").toString());
         button_enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                user=textView_emailreceiver.getText().toString();
 
-                subject=(radioButton1.isChecked())?"Queja":"Sugerencia";
-                body =editText_queja.getText().toString();
+
+                user=textView_emailreceiver.getText().toString();
+                if(!radioButton_queja.isChecked() || !radioButton_sugerencia.isChecked())
+                {
+                    subject=(radioButton_queja.isChecked())?"Queja":"Sugerencia";
+                }
+                else
+                {
+                    Toast.makeText(getContext(),"Petición no seleccionada",Toast.LENGTH_SHORT).show();
+                }
+                if(!editText_queja.getText().equals(""))
+                {
+                    body = editText_queja.getText().toString();
+                }
+                else
+                {
+                    editText_queja.setError("required");
+                    Toast.makeText(getContext(),"Mensaje vacío",Toast.LENGTH_SHORT).show();
+                }
+
+
 
                 // Perform action on click
 
                 //Snackbar.make(getView(),"Hola",Snackbar.LENGTH_SHORT).show();
 
 
-                sendEmailWithGmail(EMAILSENDER,PASSWORD,user,subject,body);//sdcard/DCIM/Camera/test.jpg
+                sendEmailWithGmail(StaticResources.EMAILSENDER,StaticResources.PASSWORD,user,subject,body);//sdcard/DCIM/Camera/test.jpg
 
             }
         });
@@ -136,7 +151,7 @@ public class quejas extends Fragment {
         protected String doInBackground(String... params) {
             try {
                 Message mimeMessage = new MimeMessage(session);
-                mimeMessage.setFrom(new InternetAddress(from));
+                mimeMessage.setFrom(new InternetAddress(from,"AppVenton"));
                 mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
                 mimeMessage.setSubject("Gracias por ayudarnos a mejorar AppVenton");
                 String htmlText2 = "<p ALIGN=\"center\"><img  width=\"200\" height=\"200\" src=\"https://firebasestorage.googleapis.com/v0/b/appventonitecsu.appspot.com/o/icono2.png?alt=media&token=1389b4bb-2ced-4d1c-896e-ab4aa714cbca\"></p>";
@@ -155,7 +170,7 @@ public class quejas extends Fragment {
 
                                     "<footer>"+
                                         "<p><font color=\"#C5BFBF\" size=2 face=\"Sans Serif,arial,verdana\">Gracias!!</font></p>"+
-                                        "<p ALIGN=\"justify\"><font color=\"#C5BFBF\" size=1 face=\"Sans Serif,arial,verdana\">©AppVenton from Instituto Tecnológico Superior de Uruapan, Carretera Uruapan-Carapan No. 5555 Col. La Basilia Uruapan, Michoacán.</font></p>"+
+                                        "<p ALIGN=\"justify\"><font color=\"#C5BFBF\" size=1 face=\"Sans Serif,arial,verdana\">©AppVenton from Instituto Tecnológico Superior de Uruapan, Carretera Uruapan-Carapan No. 5555 Col. La Basilia Uruapan, Michoacán. Este correo fue enviado para: "+FirebaseConexionFirestore.getValue("Email")+" y fue enviado por AppVenton </font></p>"+
                                     "</footer>"+
                          "</body>";
 

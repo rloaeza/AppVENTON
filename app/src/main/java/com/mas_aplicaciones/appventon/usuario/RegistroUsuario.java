@@ -8,15 +8,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.firebase.EvaluacionDeViews;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
+import com.mas_aplicaciones.appventon.firebase.QueriesFirebase;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 
 import static androidx.navigation.Navigation.findNavController;
@@ -27,7 +26,7 @@ import static androidx.navigation.Navigation.findNavController;
  */
 public class RegistroUsuario extends Fragment {
 
-    private EvaluacionDeViews objeto_evaluacion_de_views = new EvaluacionDeViews();
+    private EvaluacionDeViews evaluacionDeViews = new EvaluacionDeViews();
     private StorageFirebase storageFirebase = new StorageFirebase();
     private EditText editText_nombre;
     private EditText editText_apellidos;
@@ -77,44 +76,20 @@ public class RegistroUsuario extends Fragment {
                 email = editText_email.getText().toString();
                 contrasena = editText_contrasena.getText().toString();
                 numero_control = editText_numero_control.getText().toString();
-               // editText_numero_control.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
-               /* editText_numero_control.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                        s.
-                         TODO -- usar los setError el propio objeto control, con este TextWatcher, para simplificar las validaciones By VicEspino
-
-                    }
-                });
-*/
-
-
-
-
                    if (!nombre.equals(""))
                    {
                        if (!apellidos.equals("")) {
-                           if (!edad.equals("") && objeto_evaluacion_de_views.es_numero(edad, 17))
+                           if (!edad.equals("") && evaluacionDeViews.es_numero(edad, 17))
                            {
-                               if (!telefono.equals("") && objeto_evaluacion_de_views.telefonoValido(telefono))
+                               if (!telefono.equals("") && evaluacionDeViews.telefonoValido(telefono))
                                {
-                                   if (!email.equals("") && objeto_evaluacion_de_views.emailValidado(email))
+                                   if (!email.equals("") && evaluacionDeViews.emailValidado(email))
                                    {
-                                       if (!contrasena.equals("") && objeto_evaluacion_de_views.contrasena_correcta(contrasena))
+                                       if (!contrasena.equals("") && evaluacionDeViews.contrasena_correcta(contrasena))
                                        {
-                                           if (!numero_control.equals(""))
+                                           if (!numero_control.equals("") && evaluacionDeViews.numControlValido(numero_control))
                                            {
-                                               if(FirebaseConexionFirestore.existValueNumControlUsuario(numero_control))
+                                               if(!QueriesFirebase.BuscarNumControl(numero_control,"Usuarios"))
                                                {
                                                    RegistroUsuarioOrganizacion.setValueMap("Nombre", nombre.trim());
                                                    RegistroUsuarioOrganizacion.setValueMap("Apellidos", apellidos.trim());
@@ -127,13 +102,13 @@ public class RegistroUsuario extends Fragment {
                                                }
                                                else
                                                {
-                                                   editText_nombre.setError("Número de control registrado");
+                                                   editText_numero_control.setError("Número de control registrado");
                                                    Toast.makeText(getActivity(), "Debe de utilizar el suyo, si el alguien más está usando el suyo, repórtelo", Toast.LENGTH_SHORT).show();
                                                }
                                            }
                                            else
                                                {
-                                               editText_contrasena.setError("required");
+                                               editText_numero_control.setError("required");
                                                Toast.makeText(getActivity(), "Comienza con 1X04XXXX y tiene 8 caracteres", Toast.LENGTH_SHORT).show();
                                            }
 

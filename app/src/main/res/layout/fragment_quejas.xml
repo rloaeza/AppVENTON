@@ -19,6 +19,9 @@
         android:textColor="@color/colorBotones"
         android:textSize="25sp"
         android:layout_marginBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:shadowColor="@color/colorBotones2"
         />
 
     <ScrollView
@@ -59,26 +62,24 @@
                 android:orientation="horizontal">
 
                 <RadioGroup
+                    android:id="@+id/radioGroup_peticion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/radioButton1"
+                        android:id="@+id/radioButton_queja"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="30dp"
-                        android:text="@string/queja"
-                        android:textColorLink="@color/colorBackBotones" />
+                        android:text="@string/queja" />
 
                     <RadioButton
-                        android:id="@+id/radioButton2"
+                        android:id="@+id/radioButton_sugerencia"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/sugerencia"
-                        android:textColorHighlight="@color/colorBackBotones"
-                        android:textColorHint="@color/colorBackBotones"
-                        android:textColorLink="@color/colorBackBotones" />
+                        />
                 </RadioGroup>
 
 

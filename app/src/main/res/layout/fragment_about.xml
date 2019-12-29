@@ -1,14 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".About">
+    tools:context=".about.About"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
-</FrameLayout>
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackBotones"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:shadowColor="@color/colorBotones2"
+        android:text="Acerca de"
+        android:textColor="@color/colorBotones"
+        android:textSize="25sp"
+       />
+    <Button
+        android:id="@+id/button_desarrollado_por"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Desarrollado por"
+        android:background="@color/colorBotones"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        tools:layout_editor_absoluteX="31dp"
+        tools:layout_editor_absoluteY="129dp"
+        android:textAlignment="textStart"
+        />
+    <Button
+        android:id="@+id/button_terminos_uso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Términos de uso"
+        android:background="@color/colorBotones"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        tools:layout_editor_absoluteX="31dp"
+        tools:layout_editor_absoluteY="129dp"
+        android:textAlignment="textStart"
+        android:visibility="invisible"/>
+    <Button
+        android:id="@+id/button_politicas_privacidad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Políticas de privacidad"
+        android:background="@color/colorBotones"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        tools:layout_editor_absoluteX="31dp"
+        tools:layout_editor_absoluteY="129dp"
+        android:textAlignment="textStart"
+        android:visibility="invisible"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

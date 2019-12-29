@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
+import com.mas_aplicaciones.appventon.staticresources.StaticResources;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,11 +37,9 @@ import static com.mas_aplicaciones.appventon.InicioSesion.mAuth;
 public class RegistroChoferOrganizacionAuto extends Fragment {
 
     private View view;
-    private Spinner spinner_organizacion,spinner_genero;
+    private Spinner spinner_organizacion,spinner_genero,spinner_carreras;
     private EditText editText_cantidad_pasajeros, editText_vigencia,editText_placas;
     private String cantidad_pasajeros, vigencia, placas;
-    private String [] OPCIONES_ORGANIZACION = {"Organización","ITSU"};
-    private final String [] OPCIONES_GENERO =  {"Género","Masculino","Femenino"};
     private static Map<String,Object> data = new HashMap<>();
     private FirebaseConexionFirestore conexion=new FirebaseConexionFirestore();
     private StorageFirebase storageFirebase = new StorageFirebase();
@@ -65,8 +64,11 @@ public class RegistroChoferOrganizacionAuto extends Fragment {
 
         spinner_organizacion = view.findViewById(R.id.spinner_organizacion);
         spinner_genero = view.findViewById(R.id.spinner_selecGen);
-        ArrayAdapter<String> adapter_organizacion = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_item_values, OPCIONES_ORGANIZACION);
-        ArrayAdapter<String> adapter_genero = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),R.layout.spinner_item_values,OPCIONES_GENERO);
+        spinner_carreras = view.findViewById(R.id.spinner_selecCarrera);
+        ArrayAdapter<String> adapter_carreras = new ArrayAdapter<>(getActivity(), R.layout.spinner_item_values, StaticResources.OPCIONES_CARRERAS);
+        ArrayAdapter<String> adapter_organizacion = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_item_values, StaticResources.OPCIONES_ORGANIZACION);
+        ArrayAdapter<String> adapter_genero = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),R.layout.spinner_item_values,StaticResources.OPCIONES_GENERO);
+        spinner_carreras.setAdapter(adapter_carreras);
         spinner_organizacion.setAdapter(adapter_organizacion);
         spinner_genero.setAdapter(adapter_genero);
         editText_vigencia = view.findViewById(R.id.edit_text_vigencia);
@@ -107,59 +109,67 @@ public class RegistroChoferOrganizacionAuto extends Fragment {
                         if(!placas.equals(""))
                         {
                             if (spinner_organizacion.getSelectedItemPosition() >= 1) {
-                                if (spinner_genero.getSelectedItemPosition() >= 1) {
-                                    if (StorageFirebase.getImagenSubida()) {
-                                        data.put("Organización", spinner_organizacion.getSelectedItem().toString());
-                                        data.put("Género", spinner_genero.getSelectedItem().toString());
-                                        data.put("Placas", placas.trim());
-                                        data.put("Vigencia", vigencia);
-                                        data.put("CantidadPasajeros", cantidad_pasajeros);
+                                if (spinner_carreras.getSelectedItemPosition() >= 1) {
+                                    if (spinner_genero.getSelectedItemPosition() >= 1) {
+                                        if (StorageFirebase.getImagenSubida()) {
+                                            data.put("Organización", spinner_organizacion.getSelectedItem().toString());
+                                            data.put("Carrera",spinner_carreras.getSelectedItem().toString());
+                                            data.put("Género", spinner_genero.getSelectedItem().toString());
+                                            data.put("Placas", placas.trim());
+                                            data.put("Vigencia", vigencia);
+                                            data.put("CantidadPasajeros", cantidad_pasajeros);
 
-                                        mAuth.createUserWithEmailAndPassword(Objects.requireNonNull(data.get("Email")).toString(), Objects.requireNonNull(data.get("Contraseña")).toString())
-                                                .addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                                        if (task.isSuccessful()) {
-                                                            FirebaseUser user = mAuth.getCurrentUser();
+                                            mAuth.createUserWithEmailAndPassword(Objects.requireNonNull(data.get("Email")).toString(), Objects.requireNonNull(data.get("Contraseña")).toString())
+                                                    .addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                                            if (task.isSuccessful()) {
+                                                                FirebaseUser user = mAuth.getCurrentUser();
 
-                                                            try {
-                                                                assert user != null;
-                                                                user.sendEmailVerification();
-                                                            } catch (NullPointerException e) {
-                                                                e.printStackTrace();
-                                                            }
+                                                                try {
+                                                                    assert user != null;
+                                                                    user.sendEmailVerification();
+                                                                } catch (NullPointerException e) {
+                                                                    e.printStackTrace();
+                                                                }
 
-                                                            Toast.makeText(getActivity(), "Checar correo electrónico para validar su correo", Toast.LENGTH_SHORT).show();
+                                                                Toast.makeText(getActivity(), "Checar correo electrónico para validar su correo", Toast.LENGTH_SHORT).show();
 
-                                                            //agrega los datos a usuarios y le asigna el mismo UID de la autentificación a los datos de este.
-                                                            data.put("validacion", false);
-                                                            conexion.agregar_chofer(data, user.getUid());
+                                                                //agrega los datos a usuarios y le asigna el mismo UID de la autentificación a los datos de este.
+                                                                data.put("validacion", false);
+                                                                conexion.agregar_chofer(data, user.getUid());
 
-                                                            findNavController(v).navigate(R.id.action_registroChofer_organizacion_auto_to_inicioSesion);
+                                                                findNavController(v).navigate(R.id.action_registroChofer_organizacion_auto_to_inicioSesion);
 
-                                                        } else {
-                                                            // If sign in fails, display a message to the user.
-                                                            //si el registro de usuario genera una colision, esto es que ya existe un email registrado con esa dir
-                                                            if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                                                Toast.makeText(getActivity(), "Ese Email ya fue registrado", Toast.LENGTH_SHORT).show();
                                                             } else {
-                                                                Toast.makeText(getActivity(), "Error de registro, sin acceso a Internet", Toast.LENGTH_SHORT).show();
-                                                                data.clear();
-                                                                findNavController(view).navigate(R.id.action_registroChofer_organizacion_auto_to_inicioSesion);
+                                                                // If sign in fails, display a message to the user.
+                                                                //si el registro de usuario genera una colision, esto es que ya existe un email registrado con esa dir
+                                                                if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                                                    Toast.makeText(getActivity(), "Ese Email ya fue registrado", Toast.LENGTH_SHORT).show();
+                                                                } else {
+                                                                    Toast.makeText(getActivity(), "Error de registro, sin acceso a Internet", Toast.LENGTH_SHORT).show();
+                                                                    data.clear();
+                                                                    findNavController(view).navigate(R.id.action_registroChofer_organizacion_auto_to_inicioSesion);
 
+                                                                }
                                                             }
                                                         }
-                                                    }
-                                                });
+                                                    });
+                                        } else {
+                                            Toast.makeText(getActivity(), "Debe de subir imagen de su rostro", Toast.LENGTH_SHORT).show();
+                                        }
                                     } else {
-                                        Toast.makeText(getActivity(), "Debe de subir imagen de su rostro", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), "Género no seleccionado", Toast.LENGTH_SHORT).show();
                                     }
-                                } else {
-                                    Toast.makeText(getActivity(), "Género no seleccionado", Toast.LENGTH_SHORT).show();
                                 }
+                                else
+                                {
+                                    Toast.makeText(getActivity(),"Carrera no seleccionada",Toast.LENGTH_SHORT).show();
+                                }
+
                             }
                             else {
-                                Toast.makeText(getActivity(), "Carrera no seleccionada", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Organización no seleccionada", Toast.LENGTH_SHORT).show();
                             }
                         }
                         else
@@ -192,7 +202,7 @@ public class RegistroChoferOrganizacionAuto extends Fragment {
         {
 
             Uri uri = data.getData();
-            storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Choferes",getView(), RegistroChoferOrganizacionAuto.class);
+            storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Choferes",getView(), 0);
 
 
 

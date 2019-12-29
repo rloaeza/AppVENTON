@@ -67,6 +67,7 @@ public class menu extends Fragment {
         btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseConexionFirestore.actualizarDate();
                 FirebaseConexionFirestore.ClearMap();
                 InicioSesion.mAuth.signOut();
                 clearPreferencias();

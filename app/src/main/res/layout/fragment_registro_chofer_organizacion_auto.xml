@@ -38,10 +38,10 @@
 
                 <EditText
                     android:id="@+id/edit_text_cantidad_pasajeros"
-                    android:layout_width="197dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.5"
+                    android:layout_weight="1"
                     android:backgroundTint="@color/colorBotones"
                     android:ems="10"
                     android:hint="@string/txtNPasajeros"
@@ -61,11 +61,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
                 android:gravity="center"
-                android:weightSum="2">
+                android:weightSum="1">
 
                 <EditText
                     android:id="@+id/edit_text_vigencia"
-                    android:layout_width="200dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
@@ -88,11 +88,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
                 android:gravity="center"
-                android:weightSum="2">
+                android:weightSum="1">
 
                 <EditText
                     android:id="@+id/edit_text_placas"
-                    android:layout_width="196dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
@@ -122,13 +122,34 @@
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.75"
+                    android:layout_weight="1"
                     android:backgroundTint="@color/colorBotones"
+                    android:padding="0dp"
                     android:popupBackground="@drawable/shape_background_spiner"
                     android:spinnerMode="dropdown"
+                    tools:listitem="@layout/spinner_item_values" />
 
-                    />
+            </TableRow>
 
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:gravity="center"
+                android:weightSum="1">
+
+            <Spinner
+                android:id="@+id/spinner_selecCarrera"
+                style="@android:style/Widget.Material.Light.Spinner.Underlined"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorBotones"
+                android:padding="0dp"
+                android:popupBackground="@drawable/shape_background_spiner"
+                android:spinnerMode="dropdown"
+                tools:listitem="@layout/spinner_item_values" />
             </TableRow>
 
             <TableRow
@@ -143,14 +164,13 @@
                     style="@android:style/Widget.Material.Light.Spinner.Underlined"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="0.75"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
                     android:backgroundTint="@color/colorBotones"
-                    android:focusable="auto"
-                    android:foregroundTint="@color/colorBotones"
+                    android:padding="0dp"
                     android:popupBackground="@drawable/shape_background_spiner"
                     android:spinnerMode="dropdown"
-                    android:textAlignment="center" />
+                    tools:listitem="@layout/spinner_item_values"/>
             </TableRow>
 
             <TableRow
@@ -163,7 +183,7 @@
                 <Button
                     android:id="@+id/button_subir_foto_chofer"
                     android:layout_width="0dp"
-                    android:layout_height="33dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_weight="0.4"
                     android:background="@color/colorBackBotones"
@@ -172,6 +192,26 @@
 
                     />
             </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:gravity="center"
+                android:weightSum="1">
+
+                <Button
+                    android:id="@+id/button_subir_foto_auto"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.4"
+                    android:background="@color/colorBackBotones"
+                    android:text="@string/txtFotoPerfilAutos"
+                    android:textColor="@color/colorBotones"
+
+                    />
+            </TableRow>
+
 
             <TableRow
                 android:layout_width="match_parent"

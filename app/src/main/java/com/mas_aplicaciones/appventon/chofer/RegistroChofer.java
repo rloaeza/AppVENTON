@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,8 +18,12 @@ import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.firebase.EvaluacionDeViews;
 import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
+import com.mas_aplicaciones.appventon.firebase.QueriesFirebase;
+import com.mas_aplicaciones.appventon.staticresources.StaticResources;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 import com.mas_aplicaciones.appventon.usuario.RegistroUsuarioOrganizacion;
+
+import java.util.Calendar;
 
 import static androidx.navigation.Navigation.findNavController;
 
@@ -34,6 +40,7 @@ public class RegistroChofer extends Fragment {
     private EditText editText_email;
     private EditText editText_contrasena;
     private EditText editText_numero_control;
+    private Spinner spinner_carrera;
     private String nombre;
     private String apellidos;
     private String edad;
@@ -41,7 +48,7 @@ public class RegistroChofer extends Fragment {
     private String email;
     private String contrasena;
     private String numero_control;
-    private EvaluacionDeViews objeto_evaluacion_de_views = new EvaluacionDeViews();
+    private EvaluacionDeViews evaluacionDeViews = new EvaluacionDeViews();
     private StorageFirebase storageFirebase = new StorageFirebase();
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -59,6 +66,9 @@ public class RegistroChofer extends Fragment {
         editText_email = view.findViewById(R.id.edit_text_email);
         editText_contrasena = view.findViewById(R.id.edit_text_contrasena2);
         editText_numero_control = view.findViewById(R.id.edit_text_num_control);
+        spinner_carrera = view.findViewById(R.id.spinner_selecCarrera);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(),R.layout.spinner_item_values, StaticResources.OPCIONES_CARRERAS);
+        spinner_carrera.setAdapter(arrayAdapter);
         Button btnSiguiente = view.findViewById(R.id.button_registrar);
 
         btnSiguiente.setOnClickListener(new View.OnClickListener()
@@ -79,36 +89,47 @@ public class RegistroChofer extends Fragment {
                     {
                         if (!apellidos.equals(""))
                         {
-                            if (!edad.equals("") && objeto_evaluacion_de_views.es_numero(edad, 17))
+                            if (!edad.equals("") && evaluacionDeViews.es_numero(edad, 17))
                             {
-                                if (!telefono.equals("") && objeto_evaluacion_de_views.telefonoValido(telefono))
+                                if (!telefono.equals("") && evaluacionDeViews.telefonoValido(telefono))
                                 {
-                                    if (!email.equals("") && objeto_evaluacion_de_views.emailValidado(email))
+                                    if (!email.equals("") && evaluacionDeViews.emailValidado(email))
                                     {
-                                        if (!contrasena.equals("") && objeto_evaluacion_de_views.contrasena_correcta(contrasena))
+                                        if (!contrasena.equals("") && evaluacionDeViews.contrasena_correcta(contrasena))
                                         {
-                                            if (!numero_control.equals(""))
+                                            if(spinner_carrera.getSelectedItemPosition()>=1)
                                             {
-                                                if(FirebaseConexionFirestore.existValueNumControlChofer(numero_control))
-                                                {
-                                                    RegistroChoferOrganizacionAuto.setValueMap("Nombre", nombre.trim());
-                                                    RegistroChoferOrganizacionAuto.setValueMap("Apellidos", apellidos.trim());
-                                                    RegistroChoferOrganizacionAuto.setValueMap("Edad", Integer.parseInt(edad));
-                                                    RegistroChoferOrganizacionAuto.setValueMap("Teléfono", telefono);
-                                                    RegistroChoferOrganizacionAuto.setValueMap("Email", email.trim());
-                                                    RegistroChoferOrganizacionAuto.setValueMap("Contraseña", contrasena);
-                                                    RegistroChoferOrganizacionAuto.setValueMap("NumeroControl", numero_control.trim());
-                                                    findNavController(v).navigate(R.id.action_registroChofer_to_registroChofer_organizacion_auto);
-                                                }
-                                                else
-                                                {
-                                                    editText_nombre.setError("Número de control registrado");
-                                                    Toast.makeText(getActivity(), "Debe de utilizar el suyo, si el alguien más está usando el suyo, repórtelo", Toast.LENGTH_SHORT).show();
-                                                }
 
-                                            } else {
-                                                editText_contrasena.setError("required");
-                                                Toast.makeText(getActivity(), "Comienza con 1X04XXXX 8 caracteres", Toast.LENGTH_SHORT).show();
+
+                                                if (!numero_control.equals("") && evaluacionDeViews.numControlValido(numero_control))
+                                                {
+                                                    if(!QueriesFirebase.BuscarNumControl(numero_control,"Choferes"))
+                                                    {
+                                                        RegistroChoferOrganizacionAuto.setValueMap("Nombre", nombre.trim());
+                                                        RegistroChoferOrganizacionAuto.setValueMap("Apellidos", apellidos.trim());
+                                                        RegistroChoferOrganizacionAuto.setValueMap("Edad", Integer.parseInt(edad));
+                                                        RegistroChoferOrganizacionAuto.setValueMap("Teléfono", telefono);
+                                                        RegistroChoferOrganizacionAuto.setValueMap("Email", email.trim());
+                                                        RegistroChoferOrganizacionAuto.setValueMap("Contraseña", contrasena);
+                                                        RegistroChoferOrganizacionAuto.setValueMap("NumeroControl", numero_control.trim());
+                                                        RegistroChoferOrganizacionAuto.setValueMap("LastDate", Calendar.getInstance().getTime());
+                                                        RegistroChoferOrganizacionAuto.setValueMap("Ranking",0.00);
+                                                        findNavController(v).navigate(R.id.action_registroChofer_to_registroChofer_organizacion_auto);
+                                                    }
+                                                    else
+                                                    {
+                                                        editText_numero_control.setError("Número de control registrado");
+                                                        Toast.makeText(getActivity(), "Debe de utilizar el suyo, si el alguien más está usando el suyo, repórtelo", Toast.LENGTH_SHORT).show();
+                                                    }
+
+                                                } else {
+                                                    editText_numero_control.setError("required");
+                                                    Toast.makeText(getActivity(), "Comienza con 1X04XXXX 8 caracteres", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Toast.makeText(getActivity(),"Carrera no seleccionada",Toast.LENGTH_SHORT).show();
                                             }
                                         } else {
                                             editText_contrasena.setError("required");

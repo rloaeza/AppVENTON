@@ -55,7 +55,7 @@
                         android:backgroundTint="@color/colorBotones"
                         android:drawableEnd="@drawable/email"
                         android:ems="10"
-                        android:hint="@string/txtUsuario"
+                        android:hint="@string/txtEmail"
                         android:importantForAutofill="no"
                         android:inputType="textEmailAddress"
                         android:textColor="@color/colorBotones"

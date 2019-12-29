@@ -149,7 +149,32 @@
         tools:layout="@layout/fragment_recuperacion_password" />
     <fragment
         android:id="@+id/about"
-        android:name="com.mas_aplicaciones.appventon.About"
+        android:name="com.mas_aplicaciones.appventon.about.About"
         android:label="fragment_about"
-        tools:layout="@layout/fragment_about" />
+        tools:layout="@layout/fragment_about" >
+        <action
+            android:id="@+id/action_about_to_terminos"
+            app:destination="@id/terminos" />
+        <action
+            android:id="@+id/action_about_to_politicasPrivacidad"
+            app:destination="@id/politicasPrivacidad" />
+        <action
+            android:id="@+id/action_about_to_desarrolladores"
+            app:destination="@id/desarrolladores" />
+    </fragment>
+    <fragment
+        android:id="@+id/desarrolladores"
+        android:name="com.mas_aplicaciones.appventon.about.Desarrolladores"
+        android:label="fragment_desarrolladores"
+        tools:layout="@layout/fragment_desarrolladores" />
+    <fragment
+        android:id="@+id/politicasPrivacidad"
+        android:name="com.mas_aplicaciones.appventon.about.PoliticasPrivacidad"
+        android:label="fragment_politicas_privacidad"
+        tools:layout="@layout/fragment_politicas_privacidad" />
+    <fragment
+        android:id="@+id/terminos"
+        android:name="com.mas_aplicaciones.appventon.about.Terminos"
+        android:label="fragment_terminos"
+        tools:layout="@layout/fragment_terminos" />
 </navigation>

@@ -17,6 +17,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -29,7 +31,6 @@ public class FirebaseConexionFirestore {
 
     private static Map<String, Object> datos = new HashMap<>();
     private static ArrayList<String> numeroControlUsuarios = new ArrayList<>();
-    private static ArrayList<String> numeroControlChoferes = new ArrayList<>();
     public static String PERSONA;//almacena el valor de la coleccion donde encontro las credenciales.
     public static String DOCUMENT;//almacena el valor de la coleccion donde encontro las credenciales.
     public void agregar_usuario(Map<String, Object> datos, String UUID) {
@@ -126,47 +127,8 @@ public class FirebaseConexionFirestore {
             }
         });
     }
-    //verifica si el numero de control existe en el sistema en Usuarios
-    public static void getNumeroControlUsuarios()
-    {
 
-        db.collection("Usuarios")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful())
-                        {
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult()))
-                                numeroControlUsuarios.add(Objects.requireNonNull(document.getData().get("NumeroControl")).toString());
-                        }
-                        
-                    }
-                });
-
-    }
-    //verifica si el numero de control existe en el sistema en Choferes
-    public static  void getNumeroControlChoferes()
-    {
-
-
-        db.collection("Choferes")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful())
-                        {
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                numeroControlChoferes.add(Objects.requireNonNull(document.getData().get("NumeroControl")).toString());
-                            }
-                        }
-                        
-                    }
-                });
-
-    }
-    public static void actualizarData(String nombre,String apellido, String telefono,View view)
+    public static void actualizarData(String nombre, String apellido, String telefono, View view)
     {
         if(!apellido.equals(datos.get("Apellidos")))
         {
@@ -183,7 +145,14 @@ public class FirebaseConexionFirestore {
             db.collection(PERSONA).document(DOCUMENT).update("Teléfono",telefono);
             datos.put("Teléfono",apellido);
         }
+
         Snackbar.make(view,"Datos actualizados",Snackbar.LENGTH_SHORT).show();
+    }
+    public static  void actualizarDate()
+    {
+        db.collection(PERSONA).document(DOCUMENT).update("LastDate", Calendar.getInstance().getTime());
+        datos.put("LastDate", Calendar.getInstance().getTime());
+
     }
     public static void actualizarImagen(String URI)
     {
@@ -195,14 +164,7 @@ public class FirebaseConexionFirestore {
 
         return datos.get(Key);
     }
-    public static boolean existValueNumControlUsuario(String Key)
-    {
-        return numeroControlUsuarios.contains(Key);
-    }
-    public static boolean existValueNumControlChofer(String Key)
-    {
-        return numeroControlChoferes.contains(Key);
-    }
+
     public static void ClearMap() {
 
         datos.clear();

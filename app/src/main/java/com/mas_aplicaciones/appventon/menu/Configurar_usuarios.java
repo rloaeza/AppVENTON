@@ -118,7 +118,7 @@ public class Configurar_usuarios extends Fragment {
         {
 
             Uri uri = data.getData();
-            storageFirebase.agregarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(),uri, FirebaseConexionFirestore.PERSONA,getView(), Configurar_choferes.class);
+            storageFirebase.agregarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(),uri, FirebaseConexionFirestore.PERSONA,getView(), 1);
 
 
 

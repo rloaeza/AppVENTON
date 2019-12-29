@@ -2,9 +2,12 @@ package com.mas_aplicaciones.appventon.storagefirebase;
 
 import android.app.AlertDialog;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -52,7 +55,7 @@ public class StorageFirebase
         });
     }
 
-    public void agregarFoto(final String id, Uri uri, final String child, final View view, final Class clase)
+    public void agregarFoto(final String id, Uri uri, final String child, final View view, final int num)
     {
         alertDialog = new SpotsDialog.Builder().setContext(view.getContext()).setMessage("Cargando").build();
         alertDialog.show();
@@ -72,29 +75,35 @@ public class StorageFirebase
                         if(child.equals("Choferes"))
                         {
 
-                            if(clase.isInstance(RegistroChoferOrganizacionAuto.class))//significa que se esta registrando
+                            if(num==0)//significa que se esta registrando
                             {
                                 RegistroChoferOrganizacionAuto.setValueMap("URI",uri.toString());
                             }
                             else//actualizando
                             {
                                 FirebaseConexionFirestore.actualizarImagen(uri.toString());
+                                Snackbar.make(view,"La imagen puede durar algunos segundos en salir, depende de tu conexion a internet",Snackbar.LENGTH_LONG).show();
+
+
                             }
+
 
                         }
                         else
                         {
-                            if(clase.isInstance(RegistroUsuarioOrganizacion.class))//significa que se esta registrando
+                            if(num==0)//significa que se esta registrando
                             {
                                 RegistroUsuarioOrganizacion.setValueMap("URI", uri.toString());
                             }
                             else//actualizando
                             {
                                 FirebaseConexionFirestore.actualizarImagen(uri.toString());
-                            }
-                        }
-                        Snackbar.make(view,"La imagen puede durar algunos segundos en salir, depende de tu conexion a internet",Snackbar.LENGTH_LONG).show();
+                                Snackbar.make(view,"La imagen puede durar algunos segundos en salir, depende de tu conexion a internet",Snackbar.LENGTH_LONG).show();
 
+
+                            }
+
+                        }
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {
