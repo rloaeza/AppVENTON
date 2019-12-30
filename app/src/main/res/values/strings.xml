@@ -67,9 +67,9 @@
     <string name="txtDesarrollado_por">Desarrollado por</string>
     <string name="txtT_rminos_de_uso">Términos de uso</string>
     <string name="txtPol_ticas_de_privacidad">Políticas de privacidad</string>
-    <string name="txt_1">Esta aplicación ha sido desarrollada por alumnos y docentes del Instituto Tecnológico Superior de Uruapan de la carrera de Ingeniería en Sistemas Computacionales.</string>
-    <string name="txt_2">Profesores  Dr. Roberto Loaeza Valerio  Profra. Irma Gutiérrez Miranda</string>
-    <string name="txt_3">Alumnos  Vicente Aguilera Pérez  Víctor Alfonso Pérez Espino</string>
+    <string name="txt_1">Esta aplicación ha sido desarrollada por alumnos y docentes del Instituto Tecnológico Superior de Uruapan de la carrera de Ingeniería en Sistemas Computacionales.\n\n\n\n</string>
+    <string name="txt_2">Profesores:\n  Dr. Roberto Loaeza Valerio \n Profra. Irma Gutiérrez Miranda\n\n\n</string>
+    <string name="txt_3">Alumnos:\n  Vicente Aguilera Pérez \n Víctor Alfonso Pérez Espino\n\n\n\n</string>
     <string name="txt2020_appventon">©2020 AppVenton</string>
 
 
