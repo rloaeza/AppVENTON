@@ -50,7 +50,7 @@ public class menu extends Fragment {
         Button btnConfiguracion = view.findViewById(R.id.button_configurar_datos);
         Button btnCerrarSesion = view.findViewById(R.id.button_cerrar_sesion);
         textUser = view.findViewById(R.id.text_view_nombre);
-        imageView_user = view.findViewById(R.id.image_view_2);
+        imageView_user = view.findViewById(R.id.image_view_persona);
         //btnAyuda.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_ayuda3));
         btnQuejas.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_quejas));
         if(FirebaseConexionFirestore.PERSONA.equals("Choferes"))
@@ -68,7 +68,7 @@ public class menu extends Fragment {
             @Override
             public void onClick(View v) {
                 FirebaseConexionFirestore.actualizarDate();
-                FirebaseConexionFirestore.ClearMap();
+
                 InicioSesion.mAuth.signOut();
                 clearPreferencias();
                 FirebaseConexionFirestore.ClearMap();

@@ -2,8 +2,13 @@ package com.mas_aplicaciones.appventon.usuario;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +17,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.exifinterface.media.ExifInterface;
 import androidx.fragment.app.Fragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,6 +30,11 @@ import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.staticresources.StaticResources;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,7 +71,7 @@ public class RegistroUsuarioOrganizacion extends Fragment {
 
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if(getActivity() instanceof MainActivity) {
             ((MainActivity) getActivity()).activado(3);
 
@@ -87,8 +98,9 @@ public class RegistroUsuarioOrganizacion extends Fragment {
             @Override
             public void onClick( final View v)
             {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
+
                 startActivityForResult(intent.createChooser(intent,"Selecciona una imagen"),GALLERY_INTENT);
             }
         });
@@ -106,6 +118,7 @@ public class RegistroUsuarioOrganizacion extends Fragment {
                         data.put("Carrera",spinner_carreras.getSelectedItem().toString());
                         data.put("Género",spinner_genero.getSelectedItem().toString());
                         data.put("LastDate", Calendar.getInstance().getTime());
+                        data.put("Saldo",0.0);
                         //si la imagen fue agregada
                         if(StorageFirebase.getImagenSubida())
                         {
@@ -175,10 +188,30 @@ public class RegistroUsuarioOrganizacion extends Fragment {
         if(requestCode==GALLERY_INTENT)
         {
 
+
             Uri uri = data.getData();
-            storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Usuarios",getView(),0);
+            try {
+
+                InputStream  inputStream = getActivity().getContentResolver().openInputStream(uri);
+                if((Double.parseDouble(String.valueOf(inputStream.available()))/1024)<200.1)
+                {
+                    storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Usuarios",getView(),0);
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), "La imagen debe que ser menor de 200.1 kb",Toast.LENGTH_LONG).show();
+                }
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
         }
     }
+
+
 
 
 }

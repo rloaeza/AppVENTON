@@ -114,17 +114,14 @@ public class QueriesFirebase
                 else
                 {
                     alertDialog.cancel();
-                    MainActivity.view=view;
-                    MainActivity.NumeroControl=NumeroControl;
+
                     if (i == 1)//es registro usuario
                     {
                         RegistroUsuarioOrganizacion.setValueMap("NumeroControl", NumeroControl.trim());
-                        MainActivity.Collection="Usuarios";
                         findNavController(view).navigate(R.id.action_registroUsuario_to_registroUsuario_organizacion);
                     } else // es registro chofer
                     {
                         RegistroChoferOrganizacionAuto.setValueMap("NumeroControl", NumeroControl.trim());
-                        MainActivity.Collection="Choferes";
                         findNavController(view).navigate(R.id.action_registroChofer_to_registroChofer_organizacion_auto);
                     }
                 }

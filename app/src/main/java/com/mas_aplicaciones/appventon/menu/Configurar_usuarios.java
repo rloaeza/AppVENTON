@@ -19,6 +19,9 @@ import com.mas_aplicaciones.appventon.firebase.EvaluacionDeViews;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 
 public class Configurar_usuarios extends Fragment {
 
@@ -54,7 +57,7 @@ public class Configurar_usuarios extends Fragment {
         button_camara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
 
                 startActivityForResult(intent.createChooser(intent,"Selecciona una imagen"),GALLERY_INTENT);
@@ -118,10 +121,22 @@ public class Configurar_usuarios extends Fragment {
         {
 
             Uri uri = data.getData();
-            storageFirebase.agregarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(),uri, FirebaseConexionFirestore.PERSONA,getView(), 1);
+            try {
+
+                InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
+                if((Double.parseDouble(String.valueOf(inputStream.available()))/1024)<200.1)
+                {
+                    storageFirebase.agregarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(),uri, FirebaseConexionFirestore.PERSONA,getView(), 1);
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), "La imagen debe que ser menor de 200.1 kb",Toast.LENGTH_LONG).show();
+                }
 
 
-
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

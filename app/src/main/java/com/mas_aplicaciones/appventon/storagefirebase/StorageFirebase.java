@@ -2,11 +2,9 @@ package com.mas_aplicaciones.appventon.storagefirebase;
 
 import android.app.AlertDialog;
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,9 +34,13 @@ public class StorageFirebase
         {
             RegistroChoferOrganizacionAuto.setValueMap("URI","");
         }
-        else
+        else if(child.equals("Usuarios"))
         {
             RegistroUsuarioOrganizacion.setValueMap("URI","");
+        }
+        else
+        {
+            RegistroUsuarioOrganizacion.setValueMap("URI_Coche","");
         }
         // Delete the file
         desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -61,6 +63,7 @@ public class StorageFirebase
         alertDialog.show();
 
         final StorageReference storageReference = mStorage.child(child).child(id);
+
         storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
@@ -81,7 +84,7 @@ public class StorageFirebase
                             }
                             else//actualizando
                             {
-                                FirebaseConexionFirestore.actualizarImagen(uri.toString());
+                                FirebaseConexionFirestore.actualizarImagen(uri.toString(), 0);
                                 Snackbar.make(view,"La imagen puede durar algunos segundos en salir, depende de tu conexion a internet",Snackbar.LENGTH_LONG).show();
 
 
@@ -97,7 +100,7 @@ public class StorageFirebase
                             }
                             else//actualizando
                             {
-                                FirebaseConexionFirestore.actualizarImagen(uri.toString());
+                                FirebaseConexionFirestore.actualizarImagen(uri.toString(), 0);
                                 Snackbar.make(view,"La imagen puede durar algunos segundos en salir, depende de tu conexion a internet",Snackbar.LENGTH_LONG).show();
 
 
@@ -132,6 +135,53 @@ public class StorageFirebase
 
     }
 
+
+    public void agregarFotoCoche(final String id, Uri uri, final View view, final int num)
+    {
+        alertDialog = new SpotsDialog.Builder().setContext(view.getContext()).setMessage("Cargando").build();
+        alertDialog.show();
+
+        final StorageReference storageReference = mStorage.child("Coches").child(id);
+
+        storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
+            {
+                //agrega el uri a el database
+
+                storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri)
+                    {
+                                FirebaseConexionFirestore.actualizarImagen(uri.toString(),1);
+                                Snackbar.make(view,"La imagen puede durar algunos segundos en salir, depende de tu conexion a internet",Snackbar.LENGTH_LONG).show();
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle any errors
+                        Toast.makeText(view.getContext(), "Error de subida" , Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+                //Toast.makeText(view.getContext(), "Imagen agregada al sistema con el identificador " + id, Toast.LENGTH_SHORT).show();
+                sucessful[0] = true;
+                alertDialog.cancel();
+            }
+
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(view.getContext(), "Error de subida \n verifique si conexión \n contacte al administrador", Toast.LENGTH_SHORT).show();
+                alertDialog.cancel();
+                sucessful[0] = false;
+                e.printStackTrace();
+            }
+        });
+
+    }
     public static boolean getImagenSubida()
     {
         return sucessful[0];

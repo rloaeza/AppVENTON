@@ -24,6 +24,9 @@ import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.staticresources.StaticResources;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -91,7 +94,7 @@ public class RegistroChoferOrganizacionAuto extends Fragment {
             public void onClick( final View v)
             {
 
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
                 startActivityForResult(Intent.createChooser(intent,"Selecciona una imagen"),GALLERY_INTENT);
             }
@@ -122,7 +125,7 @@ public class RegistroChoferOrganizacionAuto extends Fragment {
                                             data.put("Placas", placas.trim());
                                             data.put("Vigencia", vigencia);
                                             data.put("CantidadPasajeros", cantidad_pasajeros);
-
+                                            data.put("URI_Coche", "");
                                             mAuth.createUserWithEmailAndPassword(Objects.requireNonNull(data.get("Email")).toString(), Objects.requireNonNull(data.get("Contraseña")).toString())
                                                     .addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>() {
                                                         @Override
@@ -208,7 +211,23 @@ public class RegistroChoferOrganizacionAuto extends Fragment {
         {
 
             Uri uri = data.getData();
-            storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Choferes",getView(), 0);
+            try {
+
+                InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
+                if((Double.parseDouble(String.valueOf(inputStream.available()))/1024)<200.1)
+                {
+                    storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Choferes",getView(), 0);
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), "La imagen debe que ser menor de 200.1 kb",Toast.LENGTH_LONG).show();
+                }
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 

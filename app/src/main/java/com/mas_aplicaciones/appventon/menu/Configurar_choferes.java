@@ -9,16 +9,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.firebase.EvaluacionDeViews;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 
 /**
@@ -29,10 +35,12 @@ public class Configurar_choferes extends Fragment
 
 
     private EditText editText_nombre, editText_apellidos, editText_celular;
-    private Button button_camara,button_actualizar;
+    private Button button_camara,button_actualizar,button_subir_foto_auto;
     private String nombre, apellido,celular;
     private EvaluacionDeViews objeto_evaluacion_de_views = new EvaluacionDeViews();
     private final static int GALLERY_INTENT = 1;
+    private final static int GALLERY_INTENT2 = 3;
+    private ImageView imageView_carro;
     private StorageFirebase storageFirebase = new StorageFirebase();
 
 
@@ -47,6 +55,7 @@ public class Configurar_choferes extends Fragment
         final View view = inflater.inflate(R.layout.fragment_configurar, container, false);
 
         button_actualizar = view.findViewById(R.id.button_actualizar);
+        button_subir_foto_auto = view.findViewById(R.id.button_subir_foto_auto);
         button_camara = view.findViewById(R.id.button_camara);
         editText_nombre = view.findViewById(R.id.edit_text_nombre);
         editText_apellidos = view.findViewById(R.id.edit_text_apellidos);
@@ -54,12 +63,34 @@ public class Configurar_choferes extends Fragment
         editText_nombre.setText(FirebaseConexionFirestore.getValue("Nombre").toString());
         editText_apellidos.setText(FirebaseConexionFirestore.getValue("Apellidos").toString());
         editText_celular.setText(FirebaseConexionFirestore.getValue("Teléfono").toString());
+        imageView_carro = view.findViewById(R.id.image_view_auto);
 
+        if(!FirebaseConexionFirestore.getValue("URI_Coche").toString().equals(""))
+        {
+            Glide.with(getView().getContext())
+                    .load(FirebaseConexionFirestore.getValue("URI_Coche").toString())
+                    .fitCenter()
+                    .centerCrop()
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(imageView_carro);
+        }
         //listeners
+
+        button_subir_foto_auto.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick( final View v)
+            {
+
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(Intent.createChooser(intent,"Selecciona una imagen"),GALLERY_INTENT2);
+            }
+        });
         button_camara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
 
                 startActivityForResult(intent.createChooser(intent,"Selecciona una imagen"),GALLERY_INTENT);
@@ -117,16 +148,49 @@ public class Configurar_choferes extends Fragment
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        storageFirebase.EliminarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(), FirebaseConexionFirestore.PERSONA,getView());
 
         if(requestCode==GALLERY_INTENT)
         {
+            storageFirebase.EliminarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(), FirebaseConexionFirestore.PERSONA,getView());
+            Uri uri = data.getData();
+            try
+            {
+                InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
+                if((Double.parseDouble(String.valueOf(inputStream.available()))/1024)<200.1)
+                {
+                    storageFirebase.agregarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(),uri, FirebaseConexionFirestore.PERSONA,getView(),1);
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), "La imagen debe que ser menor de 200.1 kb",Toast.LENGTH_LONG).show();
+                }
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        if(requestCode==GALLERY_INTENT2)
+        {
+            storageFirebase.EliminarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(), "Coches",getView());
 
             Uri uri = data.getData();
-            storageFirebase.agregarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(),uri, FirebaseConexionFirestore.PERSONA,getView(),1);
-
-
-
+            try
+            {
+                InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
+                if((Double.parseDouble(String.valueOf(inputStream.available()))/1024)<200.1)
+                {
+                    storageFirebase.agregarFotoCoche(FirebaseConexionFirestore.getValue("NumeroControl").toString(),uri,getView(),1);
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), "La imagen debe que ser menor de 200.1 kb",Toast.LENGTH_LONG).show();
+                }
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 

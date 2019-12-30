@@ -103,14 +103,13 @@
         android:layout_gravity="center">
 
         <TextView
-            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/cambiar_foto"
+            android:text="@string/cambiar_foto_perfil"
             android:textColor="@color/colorBotones2"
             android:textSize="18sp" />
 
@@ -126,9 +125,48 @@
             android:text="@string/buscar"
             android:textColor="@color/colorBotones" />
     </LinearLayout>
+    <ImageView
+        android:id="@+id/image_view_auto"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:background="@color/transparente"
+        android:contentDescription="@string/txtDescripcion"
+        android:padding="5dp"/>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="96dp"
+        tools:layout_editor_absoluteY="269dp"
+        android:layout_gravity="center">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/cambiar_foto_perfil"
+            android:textColor="@color/colorBotones2"
+            android:textSize="18sp" />
+        <Button
+            android:id="@+id/button_subir_foto_auto"
+            android:layout_width="0dp"
+            android:layout_height="31dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.4"
+            android:background="@color/colorBackBotones"
+            android:text="@string/txtFotoPerfilAutos"
+            android:textColor="@color/colorBotones"
 
+            />
 
+    </LinearLayout>
 
     <Button
         android:layout_marginTop="20dp"

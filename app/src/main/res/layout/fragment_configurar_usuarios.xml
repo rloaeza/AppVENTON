@@ -116,7 +116,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@string/cambiar_foto"
+                android:text="@string/cambiar_foto_perfil"
                 android:textColor="@color/colorBotones2"
                 android:textSize="18sp" />
 

@@ -32,7 +32,7 @@
 
 
             <ImageView
-                android:id="@+id/image_view_2"
+                android:id="@+id/image_view_persona"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

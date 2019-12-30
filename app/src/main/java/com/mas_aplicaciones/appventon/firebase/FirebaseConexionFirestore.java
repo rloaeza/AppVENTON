@@ -12,13 +12,10 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -106,7 +103,7 @@ public class FirebaseConexionFirestore {
                     {
 
                         FirebaseConexionFirestore.setMap(document.getData());
-                        if((boolean) Objects.requireNonNull(document.getData()).get("validacion"))
+                        if((boolean) Objects.requireNonNull(document.getData()).get("Validacion"))
                         {
                             PERSONA="Choferes";
                             DOCUMENT=document.getId();
@@ -154,10 +151,17 @@ public class FirebaseConexionFirestore {
         datos.put("LastDate", Calendar.getInstance().getTime());
 
     }
-    public static void actualizarImagen(String URI)
-    {
-        db.collection(PERSONA).document(DOCUMENT).update("URI",URI);
-        datos.put("URI",URI);
+    public static void actualizarImagen(String URI, int actualizar) {
+        if (actualizar == 0)//imagen de perfil
+        {
+            db.collection(PERSONA).document(DOCUMENT).update("URI",URI);
+            datos.put("URI",URI);
+        }
+        else//la del coche
+        {
+            db.collection(PERSONA).document(DOCUMENT).update("URI_Coche",URI);
+            datos.put("URI_Coche",URI);
+        }
     }
 
     public static Object getValue(String Key) {
