@@ -59,6 +59,18 @@
     <string name="guardar_cambios">Guardar Cambios</string>
     <string name="buscar">Buscar</string>
     <string name="modificar">Modificar</string>
+    <string name="txtRecuperaci_n_de_credenciales">Recuperación de credenciales</string>
+    <string name="txtFormulario">Formulario</string>
+    <string name="txtRecuperar_cuenta">Recuperar cuenta</string>
+    <string name="txtaAppventon">AppVenton</string>
+    <string name="txtaAcerca_de">Acerca de</string>
+    <string name="txtDesarrollado_por">Desarrollado por</string>
+    <string name="txtT_rminos_de_uso">Términos de uso</string>
+    <string name="txtPol_ticas_de_privacidad">Políticas de privacidad</string>
+    <string name="txt_1">Esta aplicación ha sido desarrollada por alumnos y docentes del Instituto Tecnológico Superior de Uruapan de la carrera de Ingeniería en Sistemas Computacionales.</string>
+    <string name="txt_2">Profesores  Dr. Roberto Loaeza Valerio  Profra. Irma Gutiérrez Miranda</string>
+    <string name="txt_3">Alumnos  Vicente Aguilera Pérez  Víctor Alfonso Pérez Espino</string>
+    <string name="txt2020_appventon">©2020 AppVenton</string>
 
 
 </resources>
