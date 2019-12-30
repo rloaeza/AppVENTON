@@ -24,6 +24,14 @@
             android:shadowColor="@color/colorBotones2"
              />
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
 
         <TextView
 
@@ -97,8 +105,27 @@
             android:textColorHint="@color/colorBotones2"
             android:textColorLink="@color/common_google_signin_btn_text_dark_focused"
             tools:targetApi="o" />
+        <Button
+        android:layout_marginTop="20dp"
+        android:id="@+id/button_actualizar"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:textSize="12sp"
+        android:background="@color/colorBackBotones"
+        android:text="@string/guardar_cambios"
+        android:textColor="@color/colorBotones"
+        />
 
-
+        <ImageView
+        android:id="@+id/image_view_persona"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:background="@color/transparente"
+        android:contentDescription="@string/txtDescripcion"
+        android:padding="5dp"/>
 
         <LinearLayout
             android:layout_marginTop="20dp"
@@ -136,19 +163,6 @@
 
 
 
-
-        <Button
-            android:layout_marginTop="20dp"
-            android:id="@+id/button_actualizar"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:textSize="12sp"
-            android:background="@color/colorBackBotones"
-            android:text="@string/guardar_cambios"
-            android:textColor="@color/colorBotones"
-            />
-
         <View
             android:id="@+id/divider"
             android:layout_marginTop="20dp"
@@ -177,6 +191,8 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </LinearLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </ScrollView>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

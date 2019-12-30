@@ -73,6 +73,9 @@
         <action
             android:id="@+id/action_principalChofer_to_menu2"
             app:destination="@+id/menu2" />
+        <action
+            android:id="@+id/action_principalChofer_to_configurar"
+            app:destination="@id/configurar" />
     </fragment>
     <fragment
         android:id="@+id/menu2"
@@ -94,6 +97,9 @@
         <action
             android:id="@+id/action_menu2_to_configurar_usuarios"
             app:destination="@id/configurar_usuarios" />
+        <action
+            android:id="@+id/action_menu2_to_about"
+            app:destination="@id/about" />
     </fragment>
     <fragment
         android:id="@+id/configurar"

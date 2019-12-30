@@ -5,14 +5,18 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.firebase.EvaluacionDeViews;
@@ -29,7 +33,8 @@ public class Configurar_usuarios extends Fragment {
 
     private EditText editText_nombre, editText_apellidos, editText_celular;
     private Button button_camara,button_actualizar;
-    private String nombre, apellido,celular;
+    private String nombre, apellido,celular,foto_persona;
+    private ImageView imageView_persona;
     private EvaluacionDeViews objeto_evaluacion_de_views = new EvaluacionDeViews();
     private final static int GALLERY_INTENT = 1;
     private StorageFirebase storageFirebase = new StorageFirebase();
@@ -52,7 +57,9 @@ public class Configurar_usuarios extends Fragment {
         editText_nombre.setText(FirebaseConexionFirestore.getValue("Nombre").toString());
         editText_apellidos.setText(FirebaseConexionFirestore.getValue("Apellidos").toString());
         editText_celular.setText(FirebaseConexionFirestore.getValue("Teléfono").toString());
+        imageView_persona = view.findViewById(R.id.image_view_persona);
 
+        foto_persona = FirebaseConexionFirestore.getValue("URI").toString();
         //listeners
         button_camara.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +117,17 @@ public class Configurar_usuarios extends Fragment {
         return view;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState)
+    {
+        Glide.with(getView().getContext())
+                .load(foto_persona)
+                .fitCenter()
+                .centerCrop()
+                .apply(RequestOptions.circleCropTransform())
+                .into(imageView_persona);
+        super.onActivityCreated(savedInstanceState);
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)

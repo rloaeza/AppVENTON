@@ -7,6 +7,7 @@
     tools:context=".menu.quejas"
     android:orientation="vertical">
 
+
     <TextView
 
         android:id="@+id/textView2"

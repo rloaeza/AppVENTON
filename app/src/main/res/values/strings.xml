@@ -58,5 +58,7 @@
     <string name="formulario">Formulario</string>
     <string name="guardar_cambios">Guardar Cambios</string>
     <string name="buscar">Buscar</string>
+    <string name="modificar">Modificar</string>
+
 
 </resources>

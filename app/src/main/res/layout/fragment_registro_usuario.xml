@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/genero"
+<androidx.appcompat.widget.LinearLayoutCompat
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:gravity="center"
+tools:context=".usuario.RegistroUsuario"
+android:background="@drawable/japanbackground"
+android:padding="8dp">
+
+<ScrollView
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/japanbackground"
-    tools:context=".usuario.RegistroUsuario">
-
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="8dp"
+    >
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
         android:orientation="vertical">
+
 
         <TableRow
             android:layout_width="match_parent"
@@ -114,25 +115,25 @@
             android:layout_marginBottom="30dp"
             android:gravity="center"
             android:weightSum="1">
-        <EditText
-            android:id="@+id/edit_text_telefono"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="40dp"
-            android:backgroundTint="@color/colorBotones"
-            android:drawableEnd="@drawable/phone"
-            android:ems="10"
-            android:hint="@string/txtTelCel"
-            android:importantForAutofill="no"
-            android:inputType="phone"
-            android:maxLength="10"
-            android:textColor="@color/colorBotones"
-            android:textColorHighlight="@android:color/background_light"
-            android:textColorHint="@color/colorBotones"
-            android:textColorLink="@android:color/background_light"
-            tools:layout_editor_absoluteX="99dp"
-            tools:layout_editor_absoluteY="414dp"
-            tools:targetApi="o" />
+            <EditText
+                android:id="@+id/edit_text_telefono"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/colorBotones"
+                android:drawableEnd="@drawable/phone"
+                android:ems="10"
+                android:hint="@string/txtTelCel"
+                android:importantForAutofill="no"
+                android:inputType="phone"
+                android:maxLength="10"
+                android:textColor="@color/colorBotones"
+                android:textColorHighlight="@android:color/background_light"
+                android:textColorHint="@color/colorBotones"
+                android:textColorLink="@android:color/background_light"
+                tools:layout_editor_absoluteX="99dp"
+                tools:layout_editor_absoluteY="414dp"
+                tools:targetApi="o" />
 
         </TableRow>
         <TableRow
@@ -141,25 +142,25 @@
             android:layout_marginBottom="30dp"
             android:gravity="center"
             android:weightSum="1">
-        <EditText
-            android:id="@+id/edit_text_email"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/colorBotones"
-            android:drawableEnd="@drawable/email"
-            android:ems="10"
-            android:hint="@string/txtEmail"
-            android:importantForAutofill="no"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/colorBotones"
-            android:textColorHighlight="@android:color/background_light"
-            android:textColorHint="@color/colorBotones"
-            android:textColorLink="@android:color/background_light"
-            tools:layout_editor_absoluteX="99dp"
-            tools:layout_editor_absoluteY="261dp"
-            tools:targetApi="o" />
-    </TableRow>
+            <EditText
+                android:id="@+id/edit_text_email"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorBotones"
+                android:drawableEnd="@drawable/email"
+                android:ems="10"
+                android:hint="@string/txtEmail"
+                android:importantForAutofill="no"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/colorBotones"
+                android:textColorHighlight="@android:color/background_light"
+                android:textColorHint="@color/colorBotones"
+                android:textColorLink="@android:color/background_light"
+                tools:layout_editor_absoluteX="99dp"
+                tools:layout_editor_absoluteY="261dp"
+                tools:targetApi="o" />
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
@@ -206,26 +207,26 @@
             android:layout_marginBottom="30dp"
             android:gravity="center"
             android:weightSum="1">
-        <EditText
-            android:id="@+id/edit_text_num_control"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/colorBotones"
-            android:drawableEnd="@drawable/number_control_icon"
-            android:ems="10"
-            android:hint="@string/txtNumeroControl"
-            android:importantForAutofill="no"
-            android:inputType="numberDecimal"
-            android:maxLength="8"
-            android:textColor="@color/colorBotones"
-            android:textColorHighlight="@android:color/background_light"
-            android:textColorHint="@color/colorBotones"
+            <EditText
+                android:id="@+id/edit_text_num_control"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorBotones"
+                android:drawableEnd="@drawable/number_control_icon"
+                android:ems="10"
+                android:hint="@string/txtNumeroControl"
+                android:importantForAutofill="no"
+                android:inputType="numberDecimal"
+                android:maxLength="8"
+                android:textColor="@color/colorBotones"
+                android:textColorHighlight="@android:color/background_light"
+                android:textColorHint="@color/colorBotones"
 
-            android:textColorLink="@android:color/background_light"
-            tools:layout_editor_absoluteX="99dp"
-            tools:layout_editor_absoluteY="261dp"
-            tools:targetApi="o" />
+                android:textColorLink="@android:color/background_light"
+                tools:layout_editor_absoluteX="99dp"
+                tools:layout_editor_absoluteY="261dp"
+                tools:targetApi="o" />
         </TableRow>
 
         <TableRow
@@ -234,19 +235,19 @@
             android:layout_marginBottom="30dp"
             android:gravity="center"
             android:weightSum="1">
-        <Button
-            android:id="@+id/button_registrar"
-            android:layout_width="106dp"
-            android:layout_height="33dp"
-            android:layout_gravity="center"
-            android:background="@color/colorBackBotones"
-            android:text="@string/txtSiguiente"
-            android:textColor="@color/colorBotones"
-            tools:layout_editor_absoluteX="139dp"
-            tools:layout_editor_absoluteY="591dp" />
+            <Button
+                android:id="@+id/button_registrar"
+                android:layout_width="106dp"
+                android:layout_height="33dp"
+                android:layout_gravity="center"
+                android:background="@color/colorBackBotones"
+                android:text="@string/txtSiguiente"
+                android:textColor="@color/colorBotones"
+                tools:layout_editor_absoluteX="139dp"
+                tools:layout_editor_absoluteY="591dp" />
         </TableRow>
-
-
     </androidx.appcompat.widget.LinearLayoutCompat>
-    </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -35,8 +35,8 @@ import static androidx.navigation.Navigation.findNavController;
 public class menu extends Fragment {
 
 
-    private TextView textUser;
-    private ImageView imageView_user;
+    private TextView textPersona;
+    private ImageView imageView_persona;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,11 +48,13 @@ public class menu extends Fragment {
         //Button btnAyuda = view.findViewById(R.id.button_ayuda);
         Button btnQuejas = view.findViewById(R.id.button_quejas_sugerencias);
         Button btnConfiguracion = view.findViewById(R.id.button_configurar_datos);
+        Button btnAcerca = view.findViewById(R.id.button_about);
         Button btnCerrarSesion = view.findViewById(R.id.button_cerrar_sesion);
-        textUser = view.findViewById(R.id.text_view_nombre);
-        imageView_user = view.findViewById(R.id.image_view_persona);
+        textPersona = view.findViewById(R.id.text_view_nombre);
+        imageView_persona = view.findViewById(R.id.image_view_persona);
         //btnAyuda.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_ayuda3));
         btnQuejas.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_quejas));
+        btnAcerca.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_about));
         if(FirebaseConexionFirestore.PERSONA.equals("Choferes"))
         {
             btnConfiguracion.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_menu2_to_configurar));
@@ -94,30 +96,21 @@ public class menu extends Fragment {
 
         Object ob_nombre = FirebaseConexionFirestore.getValue("Nombre");
         Object ob_apellidos = FirebaseConexionFirestore.getValue("Apellidos");
-        Object ob_num_Control = FirebaseConexionFirestore.getValue("NumeroControl");
         Object ob_uri = FirebaseConexionFirestore.getValue("URI");
-        textUser.setText(ob_nombre + " " + ob_apellidos);
+        textPersona.setText(ob_nombre + " " + ob_apellidos);
         StorageReference mStorage = FirebaseStorage.getInstance().getReference();
-        if (FirebaseConexionFirestore.PERSONA.equals("Choferes"))
-        {
-            //estoy en chofer
-
-                    Glide.with(getView().getContext())
-                            .load(ob_uri.toString())
-                            .fitCenter()
-                            .centerCrop()
-                            .apply(RequestOptions.circleCropTransform())
-                            .into(imageView_user);
+        Glide.with(getView().getContext())
+                .load(ob_uri.toString())
+                .fitCenter()
+                .centerCrop()
+                .apply(RequestOptions.circleCropTransform())
+                .into(imageView_persona);
 
 
 
-        } else {
-            Glide.with(getView().getContext())
-                    .load(ob_uri.toString())
-                    .fitCenter()
-                    .centerCrop()
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(imageView_user);
+
+
+
 
 
             // estoy en usuarios
@@ -142,7 +135,6 @@ public class menu extends Fragment {
 
                 }
             });*/
-        }
 
         super.onActivityCreated(savedInstanceState);
 

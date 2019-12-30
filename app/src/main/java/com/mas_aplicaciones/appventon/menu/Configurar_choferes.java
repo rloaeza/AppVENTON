@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
@@ -36,11 +37,11 @@ public class Configurar_choferes extends Fragment
 
     private EditText editText_nombre, editText_apellidos, editText_celular;
     private Button button_camara,button_actualizar,button_subir_foto_auto;
-    private String nombre, apellido,celular;
+    private String nombre, apellido,celular,foto_auto,foto_persona;
     private EvaluacionDeViews objeto_evaluacion_de_views = new EvaluacionDeViews();
     private final static int GALLERY_INTENT = 1;
     private final static int GALLERY_INTENT2 = 3;
-    private ImageView imageView_carro;
+    private ImageView imageView_carro,imageView_persona;
     private StorageFirebase storageFirebase = new StorageFirebase();
 
 
@@ -64,16 +65,10 @@ public class Configurar_choferes extends Fragment
         editText_apellidos.setText(FirebaseConexionFirestore.getValue("Apellidos").toString());
         editText_celular.setText(FirebaseConexionFirestore.getValue("Teléfono").toString());
         imageView_carro = view.findViewById(R.id.image_view_auto);
+        imageView_persona = view.findViewById(R.id.image_view_persona);
 
-        if(!FirebaseConexionFirestore.getValue("URI_Coche").toString().equals(""))
-        {
-            Glide.with(getView().getContext())
-                    .load(FirebaseConexionFirestore.getValue("URI_Coche").toString())
-                    .fitCenter()
-                    .centerCrop()
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(imageView_carro);
-        }
+        foto_auto = FirebaseConexionFirestore.getValue("URI_Coche").toString();
+        foto_persona = FirebaseConexionFirestore.getValue("URI").toString();
         //listeners
 
         button_subir_foto_auto.setOnClickListener(new View.OnClickListener()
@@ -82,7 +77,7 @@ public class Configurar_choferes extends Fragment
             public void onClick( final View v)
             {
 
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
                 startActivityForResult(Intent.createChooser(intent,"Selecciona una imagen"),GALLERY_INTENT2);
             }
@@ -143,6 +138,26 @@ public class Configurar_choferes extends Fragment
         return view;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState)
+    {
+        Glide.with(getView().getContext())
+                .load(foto_persona)
+                .fitCenter()
+                .centerCrop()
+                .apply(RequestOptions.circleCropTransform())
+                .into(imageView_persona);
+        if(!foto_auto.equals(""))
+        {
+            Glide.with(getView().getContext())
+                    .load(foto_auto)
+                    .fitCenter()
+                    .centerCrop()
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(imageView_carro);
+        }
+        super.onActivityCreated(savedInstanceState);
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
