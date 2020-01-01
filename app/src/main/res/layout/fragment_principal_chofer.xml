@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,26 +9,81 @@
     tools:context=".chofer.PrincipalChofer"
     android:orientation="vertical">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="100">
 
 
-    <ImageButton
-        android:id="@+id/image_button_menu"
-        android:layout_width="55dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/colorBackBotones2"
-        android:contentDescription="@string/txtMenuDescription"
-        android:src="@drawable/ic_stat_menu"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <!--<ImageButton
+                android:id="@+id/image_button_menu"
+                android:layout_width="55dp"
+                android:layout_weight="6"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorBackBotones2"
+                android:contentDescription="@string/txtMenuDescription"
+                android:src="@drawable/ic_stat_menu"
+                />
+            dark-v9 traffic-day-v2-->
+         <com.mapbox.mapboxsdk.maps.MapView
+             android:id="@+id/map"
+             android:layout_width="match_parent"
+             android:layout_height="0dp"
+             android:layout_weight="100"
+             mapbox:mapbox_cameraTargetLat="19.420869"
+             mapbox:mapbox_cameraTargetLng="-102.062817"
+             mapbox_mapbox_styleUrl="mapbox://styles/mapbox/streets-v10"
+             mapbox:mapbox_cameraZoom="12" >
+
+             <com.google.android.material.floatingactionbutton.FloatingActionButton
+                 android:id="@+id/image_button_menu"
+                 android:layout_marginStart="10dp"
+                 android:layout_marginTop="10dp"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:clickable="true"
+                 android:focusable="true"
+                 mapbox:backgroundTint="@color/colorBackBotones"
+                 android:src="@drawable/ic_stat_menu"/>
+
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginBottom="5dp"
+                 android:layout_marginEnd="5dp"
+                 android:layout_gravity="bottom|end"
+                 android:text="@string/txtaAppventon"
+                 android:textColor="@color/colorBackBotones"
+                 android:textAlignment="center"
+                 android:background="@drawable/background_title_splash"
+                 android:textSize="16sp" />
+         </com.mapbox.mapboxsdk.maps.MapView>
+
+
+            <!--<androidx.cardview.widget.CardView
+                android:id="@+id/cardview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/japanbackground"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="@dimen/cardview_default_elevation">
+                <FrameLayout
+                    android:id="@+id/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/japanbackground"/>
+            </androidx.cardview.widget.CardView>-->
         </androidx.appcompat.widget.LinearLayoutCompat>
-    </ScrollView>
+
+
+
 </androidx.appcompat.widget.LinearLayoutCompat>

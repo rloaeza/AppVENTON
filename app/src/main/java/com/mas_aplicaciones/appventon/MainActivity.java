@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.mapbox.mapboxsdk.Mapbox;
 import com.mas_aplicaciones.appventon.chofer.RegistroChoferOrganizacionAuto;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 import com.mas_aplicaciones.appventon.usuario.RegistroUsuarioOrganizacion;
@@ -29,22 +30,7 @@ public class MainActivity extends AppCompatActivity {
     public static FirebaseFirestore db  = FirebaseFirestore.getInstance();
 
 
-    /*public void actionSnackbar(){
-       Snackbar.make(view,"No podrá ver el mapa hasta que suba uma imagen de su auto",Snackbar.LENGTH_LONG).setAction(R.string.modificar,
-                new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Navigation.findNavController(view).navigate(R.id.action_principalChofer_to_menu2);
-                }
-            }).show();
-        Snackbar.make(, "hola", Snackbar.LENGTH_LONG)
-                .setAction("hola", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(MainActivity.this, "goas", Toast.LENGTH_SHORT).show();
-                    }
-                }).show();
-    }*/
+
 
 
     private int activar = 3;

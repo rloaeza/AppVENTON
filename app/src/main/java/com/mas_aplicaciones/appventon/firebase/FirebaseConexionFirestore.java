@@ -1,6 +1,8 @@
 package com.mas_aplicaciones.appventon.firebase;
 
 
+import android.location.Location;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -12,14 +14,22 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.JsonObject;
+import com.mapbox.geojson.Feature;
+import com.mapbox.geojson.Point;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
 import static androidx.navigation.Navigation.findNavController;
 
 
@@ -27,6 +37,7 @@ public class FirebaseConexionFirestore {
     private static FirebaseFirestore db = MainActivity.db;
 
     private static Map<String, Object> datos = new HashMap<>();
+    public static List<Feature> features = new ArrayList<>();
     private static ArrayList<String> numeroControlUsuarios = new ArrayList<>();
     public static String PERSONA;//almacena el valor de la coleccion donde encontro las credenciales.
     public static String DOCUMENT;//almacena el valor de la coleccion donde encontro las credenciales.
@@ -81,7 +92,8 @@ public class FirebaseConexionFirestore {
                         PERSONA="Usuarios";
                         DOCUMENT=document.getId();
                         FirebaseConexionFirestore.setMap(document.getData());
-                        Toast.makeText(view.getContext(), "Iniciando... ", Toast.LENGTH_SHORT).show();
+                        features=cargarLugares();
+                       // Toast.makeText(view.getContext(), "Iniciando... ", Toast.LENGTH_SHORT).show();
                         findNavController(view).navigate(R.id.action_inicioSesion_to_principalUsuario);
                     }
                 }
@@ -107,7 +119,8 @@ public class FirebaseConexionFirestore {
                         {
                             PERSONA="Choferes";
                             DOCUMENT=document.getId();
-                            Toast.makeText(view.getContext(), "Iniciando... ", Toast.LENGTH_SHORT).show();
+                            features=cargarLugares();
+                           // Toast.makeText(view.getContext(), "Iniciando... ", Toast.LENGTH_SHORT).show();
                             findNavController(view).navigate(R.id.action_inicioSesion_to_principalChofer);
                         }
                         else
@@ -177,7 +190,33 @@ public class FirebaseConexionFirestore {
     {
         datos=setData;
     }
+    public static List<Feature> cargarLugares()
+    {
+        final List<Feature> symbolLayerIconFeatureList = new ArrayList<>();
+        db.collection("Puntos_recoleccion")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                JsonObject jsonObject = new JsonObject();
+                                jsonObject.addProperty("title", document.getData().get("nombre").toString());
+                                GeoPoint geoPoint = (GeoPoint) document.getData().get("location");
 
+                                symbolLayerIconFeatureList.add(
+                                        Feature.fromGeometry(Point.fromLngLat(geoPoint.getLongitude(), geoPoint.getLatitude()), jsonObject));
+
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+        return  symbolLayerIconFeatureList;
+
+
+    }
 
 
 

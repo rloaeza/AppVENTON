@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AppVENTON</string>
+    <string name="app_name">AppVenton</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -72,5 +72,9 @@
     <string name="txt_3">Alumnos:\n  Vicente Aguilera Pérez \n Víctor Alfonso Pérez Espino\n\n\n\n</string>
     <string name="txt2020_appventon">©2020 AppVenton</string>
 
+
+    <!-- mapbox -->
+
+    <string name="access_token">pk.eyJ1IjoiYXBwdmVudG9uIiwiYSI6ImNrNHQybGRnZTAyb3kzam1uNm1xNjh1dWEifQ.CWKwjqeR_KL9zMHpdXTTGQ</string>
 
 </resources>
