@@ -14,11 +14,12 @@
         <!--Para los botones de la App-->
         <color name="colorBackBotones">#009688</color>
         <color name="colorBackBotones2">#01AB9A</color>
-        <color name="colorFondo1">#C5BFBF</color>
+        <color name="colorBackBotones3">#C5BFBF</color>
 
         <color name="transparente">#00FFFFFF</color>
         <color name="my_spinner_text_color">#FFFFFF</color>
     <!--Colores Background-->
         <color name="colorQuejasText">#01AB9A</color>
+        <color name="rating_active">#ffcb2c</color>
 
 </resources>
