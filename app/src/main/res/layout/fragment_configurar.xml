@@ -26,7 +26,7 @@
 
 <androidx.appcompat.widget.LinearLayoutCompat
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
     <!-- TODO: Update blank fragment layout -->
 
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="Datos Generales"
+                android:text="@string/datos_generales"
                 android:textColor="@color/colorBotones"
                 android:textSize="20sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -166,7 +166,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="Auto"
+            android:text="@string/auto"
             android:textColor="@color/colorBotones"
             android:textSize="20sp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -235,7 +235,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="Datos Servicio"
+                android:text="@string/datos_servicio"
                 android:textColor="@color/colorBotones"
                 android:textSize="20sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -249,64 +249,76 @@
         >
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="96dp"
-            tools:layout_editor_absoluteY="269dp"
+            android:layout_width="293dp"
+            android:layout_height="265dp"
             android:layout_gravity="center"
+            android:layout_margin="10dp"
             android:orientation="vertical"
-            android:layout_margin="10dp">
+            tools:layout_editor_absoluteX="96dp"
+            tools:layout_editor_absoluteY="269dp">
+
+
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="Recompensas"
+                android:text="@string/recompensas"
                 android:textColor="@color/colorBackBotones3"
-                android:textSize="20sp" />
+                android:textSize="20sp">
+
+            </TextView>
+
             <RatingBar
                 android:id="@+id/rating"
-                android:scaleX="0.5"
-                android:scaleY="0.5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:numStars="6"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
                 android:stepSize="0.5"
-                android:theme="@style/RatingBar"
-                />
+                android:theme="@style/RatingBar" />
+
             <TextView
+                android:id="@+id/recompensa1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="3 estrellas $250"
+                android:text="@string/_3_estrellas_250"
                 android:textColor="@color/colorBackBotones3"
                 android:textSize="20sp" />
+
             <TextView
+                android:id="@+id/recompensa2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="5 estrellas $500"
+                android:text="@string/_5_estrellas_500"
                 android:textColor="@color/colorBackBotones3"
                 android:textSize="20sp" />
+
             <TextView
+                android:id="@+id/recompensa3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="6 estrellas Condonación 30%"
+                android:text="@string/_6_estrellas_condonaci_n_30"
                 android:textColor="@color/colorBackBotones3"
                 android:textSize="20sp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="*Los valores estan sujetos a modificaciones de acuerdo a AppVenton"
+                android:text="@string/los_valores_estan_sujetos_a_modificaciones_de_acuerdo_a_appventon_recompensas_no_acumulables"
                 android:textColor="@color/colorBackBotones3"
-                android:textSize="5sp" />
+                android:textSize="12sp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.cardview.widget.CardView>

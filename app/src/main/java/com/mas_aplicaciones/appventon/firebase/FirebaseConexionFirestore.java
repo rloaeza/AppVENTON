@@ -1,11 +1,20 @@
 package com.mas_aplicaciones.appventon.firebase;
 
 
+import android.app.AlertDialog;
 import android.location.Location;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -13,7 +22,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -29,6 +40,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import dmax.dialog.SpotsDialog;
+
 import static androidx.constraintlayout.widget.Constraints.TAG;
 import static androidx.navigation.Navigation.findNavController;
 
@@ -41,6 +54,9 @@ public class FirebaseConexionFirestore {
     private static ArrayList<String> numeroControlUsuarios = new ArrayList<>();
     public static String PERSONA;//almacena el valor de la coleccion donde encontro las credenciales.
     public static String DOCUMENT;//almacena el valor de la coleccion donde encontro las credenciales.
+
+
+
     public void agregar_usuario(Map<String, Object> datos, String UUID) {
 
         db.collection("Usuarios").document(UUID)
@@ -125,7 +141,7 @@ public class FirebaseConexionFirestore {
                         }
                         else
                         {
-                            Toast.makeText(view.getContext(),"Tus datos estan siendo validados en la organización "+document.getData().get("Organización"),Toast.LENGTH_LONG).show();
+                            Toast.makeText(view.getContext(),"Tus datos están siendo validados en la organización "+document.getData().get("Organización"),Toast.LENGTH_LONG).show();
                         }
 
 
@@ -133,6 +149,69 @@ public class FirebaseConexionFirestore {
 
                     }
 
+                }
+            }
+        });
+    }
+    public static void actualizarFotoAutomatica(String collection, final View view, final ImageView imageView_persona, final ImageView imageView_carro)
+    {
+        DocumentReference docRef = db.collection(collection).document(DOCUMENT);
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e);
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists())
+                {
+                    datos.put("URI",snapshot.getData().get("URI").toString());
+                    datos.put("URI_Coche",snapshot.getData().get("URI_Coche").toString());
+                    String foto_persona = snapshot.getData().get("URI").toString();
+                    String foto_auto = snapshot.getData().get("URI_Coche").toString();
+                    Glide.with(view.getContext())
+                        .load(foto_persona)
+                        .fitCenter()
+                        .centerCrop()
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(imageView_persona);
+                    Glide.with(view.getContext())
+                            .load(foto_auto)
+                            .fitCenter()
+                            .centerCrop()
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(imageView_carro);
+
+                } else {
+                    Log.d(TAG, "Current data: null");
+                }
+            }
+        });
+    }
+    public static void actualizarRating(String collection, final View view, final TextView[] textViews, final RatingBar ratingBar, final FragmentActivity activity)
+    {
+        DocumentReference docRef = db.collection(collection).document(DOCUMENT);
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e);
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists())
+                {
+                    datos.put("URI",snapshot.getData().get("URI").toString());
+                    datos.put("URI_Coche",snapshot.getData().get("URI_Coche").toString());
+                    datos.put("Ranking",snapshot.getData().get("Ranking").toString());
+                    int cantidad = (int) (Float.parseFloat(FirebaseConexionFirestore.getValue("Ranking").toString())/0.5);
+                    ratingBar.setRating((float)(cantidad*0.5));
+                    recompensas(ratingBar,textViews,activity);
+                } else {
+                    Log.d(TAG, "Current data: null");
                 }
             }
         });
@@ -190,6 +269,7 @@ public class FirebaseConexionFirestore {
     {
         datos=setData;
     }
+    //cargar lugares para colocar en el mapa
     public static List<Feature> cargarLugares()
     {
         final List<Feature> symbolLayerIconFeatureList = new ArrayList<>();
@@ -214,8 +294,35 @@ public class FirebaseConexionFirestore {
                     }
                 });
         return  symbolLayerIconFeatureList;
+    }
+    private static void recompensas(RatingBar ratingBar, TextView[] textViews, FragmentActivity activity)
+    {
+        {
+            if(ratingBar.getRating()>=3 && ratingBar.getRating()<5)
+            {
+                textViews[0].setTextColor(activity.getResources().getColor(R.color.colorBackBotones));
+                textViews[1].setTextColor(activity.getResources().getColor(R.color.colorBackBotones3));
+                textViews[2].setTextColor(activity.getResources().getColor(R.color.colorBackBotones3));
+            }
+            else if(ratingBar.getRating()>=5 && ratingBar.getRating()<6)
+            {
+                textViews[0].setTextColor(activity.getResources().getColor(R.color.colorBackBotones3));
+                textViews[1].setTextColor(activity.getResources().getColor(R.color.colorBackBotones));
+                textViews[2].setTextColor(activity.getResources().getColor(R.color.colorBackBotones3));
+            }
+            else if(ratingBar.getRating()==6)
+            {
+                textViews[0].setTextColor(activity.getResources().getColor(R.color.colorBackBotones3));
+                textViews[1].setTextColor(activity.getResources().getColor(R.color.colorBackBotones3));
+                textViews[2].setTextColor(activity.getResources().getColor(R.color.colorBackBotones));
+            }
+            else{
+                textViews[0].setTextColor(activity.getResources().getColor(R.color.colorBackBotones3));
+                textViews[1].setTextColor(activity.getResources().getColor(R.color.colorBackBotones3));
+                textViews[2].setTextColor(activity.getResources().getColor(R.color.colorBackBotones3));
+            }
 
-
+        }
     }
 
 
