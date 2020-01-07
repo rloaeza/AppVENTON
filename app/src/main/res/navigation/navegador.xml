@@ -62,8 +62,11 @@
         android:label="fragment_principal_usuario"
         tools:layout="@layout/fragment_principal_usuario">
         <action
-            android:id="@+id/action_principalUsuario_to_menu2"
-            app:destination="@id/menu2" />
+            android:id="@+id/action_principalUsuario_to_menuUsuario"
+            app:destination="@id/menuUsuario" />
+        <action
+            android:id="@+id/action_principalUsuario_to_lugarUsuario"
+            app:destination="@id/lugarUsuario" />
     </fragment>
     <fragment
         android:id="@+id/principalChofer"
@@ -76,6 +79,9 @@
         <action
             android:id="@+id/action_principalChofer_to_configurar"
             app:destination="@id/configurar" />
+        <action
+            android:id="@+id/action_principalChofer_to_lugar2"
+            app:destination="@id/lugar" />
     </fragment>
     <fragment
         android:id="@+id/menu2"
@@ -95,11 +101,11 @@
             android:id="@+id/action_menu2_to_quejas"
             app:destination="@id/quejas" />
         <action
-            android:id="@+id/action_menu2_to_configurar_usuarios"
-            app:destination="@id/configurar_usuarios" />
-        <action
             android:id="@+id/action_menu2_to_about"
             app:destination="@id/about" />
+        <action
+            android:id="@+id/action_menu2_to_viajes"
+            app:destination="@id/viajes" />
     </fragment>
     <fragment
         android:id="@+id/configurar"
@@ -183,4 +189,66 @@
         android:name="com.mas_aplicaciones.appventon.about.Terminos"
         android:label="fragment_terminos"
         tools:layout="@layout/fragment_terminos" />
+    <fragment
+        android:id="@+id/lugar"
+        android:name="com.mas_aplicaciones.appventon.Lugar"
+        android:label="fragment_lugar"
+        tools:layout="@layout/fragment_lugar" >
+        <action
+            android:id="@+id/action_lugar_to_agregarLugar"
+            app:destination="@id/agregarLugar" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuUsuario"
+        android:name="com.mas_aplicaciones.appventon.MenuUsuario"
+        android:label="fragment_menu_usuario"
+        tools:layout="@layout/fragment_menu_usuario" >
+        <action
+            android:id="@+id/action_menuUsuario_to_quejas"
+            app:destination="@id/quejas" />
+        <action
+            android:id="@+id/action_menuUsuario_to_configurar_usuarios"
+            app:destination="@id/configurar_usuarios" />
+        <action
+            android:id="@+id/action_menuUsuario_to_ayuda3"
+            app:destination="@id/ayuda3" />
+        <action
+            android:id="@+id/action_menuUsuario_to_inicioSesion"
+            app:destination="@id/inicioSesion" />
+        <action
+            android:id="@+id/action_menuUsuario_to_about"
+            app:destination="@id/about" />
+    </fragment>
+    <fragment
+        android:id="@+id/lugarUsuario"
+        android:name="com.mas_aplicaciones.appventon.LugarUsuario"
+        android:label="fragment_lugar_usuario"
+        tools:layout="@layout/fragment_lugar_usuario" >
+        <action
+            android:id="@+id/action_lugarUsuario_to_descripcionViaje"
+            app:destination="@id/descripcionViaje" />
+    </fragment>
+    <fragment
+        android:id="@+id/agregarLugar"
+        android:name="com.mas_aplicaciones.appventon.AgregarLugar"
+        android:label="fragment_agregar_lugar"
+        tools:layout="@layout/fragment_agregar_lugar" >
+        <action
+            android:id="@+id/action_agregarLugar_to_principalChofer"
+            app:destination="@id/principalChofer" />
+    </fragment>
+    <fragment
+        android:id="@+id/viajes"
+        android:name="com.mas_aplicaciones.appventon.Viajes"
+        android:label="fragment_viajes"
+        tools:layout="@layout/fragment_viajes" >
+        <action
+            android:id="@+id/action_viajes_to_principalChofer2"
+            app:destination="@id/principalChofer" />
+    </fragment>
+    <fragment
+        android:id="@+id/descripcionViaje"
+        android:name="com.mas_aplicaciones.appventon.DescripcionViaje"
+        android:label="fragment_descripcion_viaje"
+        tools:layout="@layout/fragment_descripcion_viaje" />
 </navigation>

@@ -16,6 +16,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mas_aplicaciones.appventon.chofer.RegistroChoferOrganizacionAuto;
+import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 import com.mas_aplicaciones.appventon.usuario.RegistroUsuarioOrganizacion;
 
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else{// si es diferente a inicio, principal usuario o principa chofer
            super.onBackPressed();
+            FirebaseConexionFirestore.choferModels.clear();
 
         }
     }

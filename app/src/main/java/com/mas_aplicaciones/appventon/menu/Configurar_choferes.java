@@ -2,7 +2,6 @@ package com.mas_aplicaciones.appventon.menu;
 
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,16 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.mas_aplicaciones.appventon.MainActivity;
@@ -27,9 +23,9 @@ import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.firebase.EvaluacionDeViews;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
-
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 
 
 /**
@@ -40,17 +36,12 @@ public class Configurar_choferes extends Fragment
 
 
     private EditText editText_nombre, editText_apellidos, editText_celular;
-    private Button button_actualizar,button_subir_foto_auto;
     private String nombre, apellido,celular,foto_auto,foto_persona;
     private EvaluacionDeViews objeto_evaluacion_de_views = new EvaluacionDeViews();
     private final static int GALLERY_INTENT = 1;
     private final static int GALLERY_INTENT2 = 3;
-    private RatingBar ratingBar;
     private ImageView imageView_carro,imageView_persona;
     private StorageFirebase storageFirebase = new StorageFirebase();
-    private TextView recompensa1,recompensa2,recompensa3;
-
-
 
 
     @Override
@@ -63,8 +54,8 @@ public class Configurar_choferes extends Fragment
         }
         final View view = inflater.inflate(R.layout.fragment_configurar, container, false);
 
-        button_actualizar = view.findViewById(R.id.button_actualizar);
-        button_subir_foto_auto = view.findViewById(R.id.button_subir_foto_auto);
+        Button button_actualizar = view.findViewById(R.id.button_actualizar);
+        Button button_subir_foto_auto = view.findViewById(R.id.button_subir_foto_auto);
         editText_nombre = view.findViewById(R.id.edit_text_nombre);
         editText_apellidos = view.findViewById(R.id.edit_text_apellidos);
         editText_celular = view.findViewById(R.id.edit_text_celular);
@@ -73,22 +64,23 @@ public class Configurar_choferes extends Fragment
         editText_celular.setText(FirebaseConexionFirestore.getValue("Teléfono").toString());
         imageView_carro = view.findViewById(R.id.image_view_auto);
         imageView_persona = view.findViewById(R.id.image_view_persona);
-        ratingBar = view.findViewById(R.id.rating);
+        RatingBar ratingBar = view.findViewById(R.id.rating);
         int cantidad = (int) (Float.parseFloat(FirebaseConexionFirestore.getValue("Ranking").toString())/0.5);
         ratingBar.setRating((float)(cantidad*0.5));
 
         foto_auto = FirebaseConexionFirestore.getValue("URI_Coche").toString();
         foto_persona = FirebaseConexionFirestore.getValue("URI").toString();
-        recompensa1 = view.findViewById(R.id.recompensa1);
-        recompensa2 = view.findViewById(R.id.recompensa2);
-        recompensa3 = view.findViewById(R.id.recompensa3);
-        TextView textViews[]={recompensa1,recompensa2,recompensa3};
+        TextView recompensa1 = view.findViewById(R.id.recompensa1);
+        TextView recompensa2 = view.findViewById(R.id.recompensa2);
+        TextView recompensa3 = view.findViewById(R.id.recompensa3);
+        TextView[] textViews = {recompensa1, recompensa2, recompensa3};
 
         //listeners
 
 
-        FirebaseConexionFirestore.actualizarRating("Choferes",view,textViews,ratingBar,getActivity());
+        FirebaseConexionFirestore.actualizarRatingAutomatico("Choferes",view,textViews, ratingBar,getActivity());
         FirebaseConexionFirestore.actualizarFotoAutomatica("Choferes",view,imageView_persona,imageView_carro);
+
 
         button_subir_foto_auto.setOnClickListener(new View.OnClickListener()
         {
@@ -107,7 +99,7 @@ public class Configurar_choferes extends Fragment
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
 
-                startActivityForResult(intent.createChooser(intent,"Selecciona una imagen"),GALLERY_INTENT);
+                startActivityForResult(Intent.createChooser(intent,"Selecciona una imagen"),GALLERY_INTENT);
 
 
             }
@@ -160,7 +152,7 @@ public class Configurar_choferes extends Fragment
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {
-        Glide.with(getView().getContext())
+        Glide.with(Objects.requireNonNull(getView()).getContext())
                 .load(foto_persona)
                 .fitCenter()
                 .centerCrop()
@@ -168,6 +160,7 @@ public class Configurar_choferes extends Fragment
                 .into(imageView_persona);
         if(!foto_auto.equals(""))
         {
+
             Glide.with(getView().getContext())
                     .load(foto_auto)
                     .fitCenter()
@@ -189,10 +182,12 @@ public class Configurar_choferes extends Fragment
             Uri uri = data.getData();
             try
             {
-                InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
+                assert null!=uri;
+                InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri);
+                assert inputStream != null;
                 if((Double.parseDouble(String.valueOf(inputStream.available()))/1024)<200.1)
                 {
-                    storageFirebase.agregarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(),uri, FirebaseConexionFirestore.PERSONA,getView(),1);
+                    storageFirebase.agregarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(),uri, FirebaseConexionFirestore.PERSONA, Objects.requireNonNull(getView()),1);
 
                 }
                 else
@@ -212,10 +207,12 @@ public class Configurar_choferes extends Fragment
             Uri uri = data.getData();
             try
             {
-                InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
+                assert null!=uri;
+                InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri);
+                assert inputStream != null;
                 if((Double.parseDouble(String.valueOf(inputStream.available()))/1024)<200.1)
                 {
-                    storageFirebase.agregarFotoCoche(FirebaseConexionFirestore.getValue("NumeroControl").toString(),uri,getView(),1);
+                    storageFirebase.agregarFotoCoche(FirebaseConexionFirestore.getValue("NumeroControl").toString(),uri, Objects.requireNonNull(getView()),1);
                 }
                 else
                 {

@@ -77,12 +77,18 @@
 
     <string name="access_token">pk.eyJ1IjoiYXBwdmVudG9uIiwiYSI6ImNrNHQybGRnZTAyb3kzam1uNm1xNjh1dWEifQ.CWKwjqeR_KL9zMHpdXTTGQ</string>
     <string name="datos_generales">Datos Generales</string>
-    <string name="datos_servicio">Datos Servicio</string>
-    <string name="auto">Auto</string>
+    <string name="datos_servicio">Datos del Servicio</string>
+    <string name="auto">Datos de Auto</string>
     <string name="recompensas">Recompensas</string>
     <string name="_3_estrellas_250">3 estrellas $250</string>
     <string name="_5_estrellas_500">5 estrellas $500</string>
     <string name="_6_estrellas_condonaci_n_30">6 estrellas Condonación 30%</string>
-    <string name="los_valores_estan_sujetos_a_modificaciones_de_acuerdo_a_appventon_recompensas_no_acumulables">*Los valores estan sujetos a modificaciones de acuerdo a AppVenton, recompensas no acumulables</string>
+    <string name="los_valores_estan_sujetos_a_modificaciones_de_acuerdo_a_appventon_recompensas_no_acumulables">*Los valores estan sujetos a modificaciones de acuerdo a AppVenton. \n*Recompensas no acumulables.</string>
+    <string name="viajes">Viajes</string>
+    <string name="agregar_viaje_hoy">Agregar Viaje Hoy</string>
+    <string name="comentario_viaje_hoy">Algún comentario, aviso, información de tiempo, que quiera compartir con sus compañeros pasajeros.</string>
+    <string name="seleccionar_lugar">Seleccionar Lugar</string>
+    <string name="lugar_informaci_n">Lugar Información</string>
+
 
 </resources>

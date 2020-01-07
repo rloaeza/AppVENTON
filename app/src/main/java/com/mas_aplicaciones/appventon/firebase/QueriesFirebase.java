@@ -21,10 +21,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
+import com.mas_aplicaciones.appventon.chofer.PrincipalChofer;
 import com.mas_aplicaciones.appventon.chofer.RegistroChoferOrganizacionAuto;
 import com.mas_aplicaciones.appventon.staticresources.StaticResources;
 import com.mas_aplicaciones.appventon.usuario.RegistroUsuarioOrganizacion;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +50,7 @@ public class QueriesFirebase
     private static FirebaseFirestore db = MainActivity.db;
     private static Map<String, Object> datos = new HashMap<>();
     private static View views;
+
     public void BuscarDocumento(final String email, final String carrera, final String telefono, final String NumeroControl, final String tipo_usuario, final View view)
     {
 
@@ -134,6 +137,30 @@ public class QueriesFirebase
 
     }
 
+    public static void BuscarChoferEnLugar(final List<String>idsChofer_lugar,final String UUIDChofer_lugar,final Map<String,Object>mapa_chofer_lugar,  final View view)
+    {
+
+        final AlertDialog alertDialog = new SpotsDialog.Builder().setContext(view.getContext()).setMessage("Verificando...").build();
+        alertDialog.show();
+
+                if(!FirebaseConexionFirestore.getValue("Viaje").toString().equals(""))
+                {
+                    alertDialog.cancel();
+                    Toast.makeText(view.getContext(), "No se puede registrar debe cumplir su viaje actual o cancelarlo", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    alertDialog.cancel();
+                    FirebaseConexionFirestore firebaseConexionFirestore = new FirebaseConexionFirestore();
+                    FirebaseConexionFirestore.actualizarArrayChoferesPuntosRecoleccion(PrincipalChofer.lugar.get("id").toString(),idsChofer_lugar,UUIDChofer_lugar,1,null);
+                    FirebaseConexionFirestore.actualizarViaje(UUIDChofer_lugar);
+                    firebaseConexionFirestore.agregar_chofer_lugar(mapa_chofer_lugar,UUIDChofer_lugar);
+                    Toast.makeText(view.getContext(), "Registrado", Toast.LENGTH_SHORT).show();
+                    PrincipalChofer.lugar.clear();
+                    findNavController(view).navigate(R.id.action_agregarLugar_to_principalChofer);
+                }
+
+    }
     public static void ClearMap() {
 
         datos.clear();

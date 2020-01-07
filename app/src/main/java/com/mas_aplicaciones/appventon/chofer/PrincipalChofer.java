@@ -1,15 +1,12 @@
 package com.mas_aplicaciones.appventon.chofer;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.graphics.PointF;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,17 +17,8 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.gson.JsonObject;
-import com.mapbox.android.core.location.LocationEngine;
-import com.mapbox.android.core.permissions.PermissionsListener;
-import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
-import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.location.LocationComponent;
@@ -41,8 +29,6 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
-import com.mapbox.mapboxsdk.plugins.locationlayer.LocationLayerPlugin;
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory;
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
@@ -50,13 +36,12 @@ import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.staticresources.StaticResources;
-
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
-import dmax.dialog.SpotsDialog;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
+import static androidx.navigation.Navigation.findNavController;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconAllowOverlap;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconIgnorePlacement;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconOffset;
@@ -66,12 +51,11 @@ public class PrincipalChofer extends Fragment {
 
     private final int REQUEST_ACCESS_FINE=0;
     private MapView mapView;
-   // private LatLng currentPosition;
-  //  private FusedLocationProviderClient fusedLocationClient;
+    public static Map<String,Object> lugar= new HashMap<>();
     private static final String SOURCE_ID = "SOURCE_ID";
     private static final String ICON_ID = "ICON_ID";
     private static final String LAYER_ID = "LAYER_ID";
-    private AlertDialog alertDialog;
+
 
 
 
@@ -79,7 +63,7 @@ public class PrincipalChofer extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        Mapbox.getInstance(getActivity(), getString(R.string.access_token));
+        Mapbox.getInstance(Objects.requireNonNull(getActivity()), getString(R.string.access_token));
 
 
         //fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
@@ -118,14 +102,14 @@ public class PrincipalChofer extends Fragment {
 
     }
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
 
         mapView =view.findViewById(R.id.map);
         mapView.setVisibility(View.INVISIBLE);
         mapView.onCreate(savedInstanceState);
-        if( ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+        if( ActivityCompat.checkSelfPermission(Objects.requireNonNull(getActivity()), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
         {
         mapView.getMapAsync(new OnMapReadyCallback() {
@@ -144,7 +128,7 @@ public class PrincipalChofer extends Fragment {
 
                                     // Add the SymbolLayer icon image to the map style
                                     .withImage(ICON_ID, BitmapFactory.decodeResource(
-                                            getActivity().getResources(), R.drawable.marker_40))
+                                            Objects.requireNonNull(getActivity()).getResources(), R.drawable.marker_40))
 
                                     // Adding a GeoJson source for the SymbolLayer icons.
                                     .withSource(new GeoJsonSource(SOURCE_ID,
@@ -176,11 +160,38 @@ public class PrincipalChofer extends Fragment {
                         public boolean onMapClick(@NonNull LatLng point) {
                             PointF screenPoint = mapboxMap.getProjection().toScreenLocation(point);
                             List<Feature> features = mapboxMap.queryRenderedFeatures(screenPoint, LAYER_ID);
-                            if (!features.isEmpty()) {
+                            if (!features.isEmpty())
+                            {
                                 Feature selectedFeature = features.get(0);
-                                String title = selectedFeature.getStringProperty("title");
-                                Toast.makeText(getContext(), "You selected " + title, Toast.LENGTH_SHORT).show();
-                                Navigation.findNavController(getView()).navigate(R.id.action_principalChofer_to_menu2);
+                                double lat = Double.parseDouble(selectedFeature.getStringProperty("lat"));
+                                double lon = Double.parseDouble(selectedFeature.getStringProperty("lon"));
+                                Location location = mapboxMap.getLocationComponent().getLastKnownLocation();
+                                Location location1 = new Location("punto2");
+                                location1.setLongitude(lat);
+                                assert location != null;
+                                location.setLatitude(location.getLatitude());
+                                location.setLongitude(location.getLongitude());
+                                location1.setLatitude(lat);
+                                location1.setLongitude(lon);
+                                float distancia = location.distanceTo(location1);
+                                if(distancia<6000)
+                                {
+                                    String title = selectedFeature.getStringProperty("title");
+                                    String codigo = selectedFeature.getStringProperty("id");
+                                    String imagen = selectedFeature.getStringProperty("imagen");
+                                    lugar.put("title", title);
+                                    lugar.put("id", codigo);
+                                    lugar.put("imagen", imagen);
+                                    FirebaseConexionFirestore.buscarListaChoferes(view,1,"",lugar.get("id").toString());
+                                    Toast.makeText(getContext(), "You selected " + distancia, Toast.LENGTH_SHORT).show();
+
+
+                                    findNavController(Objects.requireNonNull(getView())).navigate(R.id.action_principalChofer_to_lugar2);
+                                }
+                                else{
+                                    Toast.makeText(getContext(),"No puede ver información está lejos del punto de acceso",Toast.LENGTH_SHORT).show();
+                                }
+
                             }
                             return true;
                         }
@@ -252,7 +263,7 @@ public class PrincipalChofer extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
@@ -289,41 +300,13 @@ public class PrincipalChofer extends Fragment {
 
 
 
-
-
-
-
-
-    private boolean enableLocationComponent() {
-
-        // Check if permissions are enabled and if not request
-        alertDialog = new SpotsDialog.Builder().setContext(getContext()).setMessage("Localizando").build();
-        alertDialog.show();
-       if( ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-       {
-
-            Toast.makeText(getActivity(),"paso",Toast.LENGTH_LONG).show();
-            alertDialog.cancel();
-            return true;
-
-        }
-        else {
-            alertDialog.cancel();
-
-           return false;
-
-
-        }
-    }
-
     private void getLocation(MapboxMap mapboxMap,Style style)
     {
         // Get an instance of the component
         LocationComponent locationComponent = mapboxMap.getLocationComponent();
 
         // Activate with a built LocationComponentActivationOptions object
-        locationComponent.activateLocationComponent(LocationComponentActivationOptions.builder(getActivity(),style).build());
+        locationComponent.activateLocationComponent(LocationComponentActivationOptions.builder(Objects.requireNonNull(getActivity()),style).build());
 
         // Enable to make component visible
         locationComponent.setLocationComponentEnabled(true);

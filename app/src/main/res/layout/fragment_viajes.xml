@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    tools:context=".Viajes"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackBotones"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="@string/lugar_informaci_n"
+        android:textColor="@color/colorBotones"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:shadowColor="@color/colorBotones2"
+        android:textSize="25sp" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="10dp"
+                card_view:cardElevation="5dp"
+                card_view:cardUseCompatPadding="true"
+                >
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_gravity="center"
+                            android:textSize="20sp"
+                            android:layout_margin="15dp"
+                            android:textColor="@color/colorBotones2"
+                            android:id="@+id/text_view_lugar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:id="@+id/image_view_persona"
+                            android:layout_width="170dp"
+                            android:layout_height="170dp"
+                            android:layout_margin="20dp"
+                            android:background="@color/transparente"
+                            android:contentDescription="@string/txtDescripcion"
+                            android:padding="5dp" />
+
+
+
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+
+                    <TimePicker
+                        android:id="@+id/time"
+                        android:layout_margin="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:headerBackground="@color/colorBackBotones2"
+                        android:numbersSelectorColor="@color/colorBackBotones2" />
+                    <TextView
+                        android:id="@+id/text_view_espacios_restantes"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/colorBotones2"
+                        android:textSize="20sp"
+                        android:layout_height="match_parent"/>
+
+                    <Spinner
+                        android:id="@+id/spinner_tiempo_espera"
+                        style="@android:style/Widget.Material.Spinner.Underlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:backgroundTint="@color/colorBotones2"
+                        android:padding="0dp"
+                        android:spinnerMode="dropdown"
+                        tools:listitem="@layout/spinner_item_values_2"/>
+
+
+                    <EditText
+                        android:id="@+id/edit_text_mensaje"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:backgroundTint="@color/colorQuejasText"
+                        android:cursorVisible="true"
+                        android:ems="10"
+                        android:layout_margin="10dp"
+                        android:gravity="start|top"
+                        android:hint="@string/comentario_viaje_hoy"
+                        android:importantForAutofill="no"
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:textColorHighlight="@android:color/background_light"
+                        android:textColorLink="@color/colorBackBotones"
+                        tools:targetApi="o" />
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.cardview.widget.CardView>
+
+
+
+
+
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="5dp"
+                card_view:cardElevation="5dp"
+                app:cardBackgroundColor="@color/colorBackBotones2"
+                card_view:cardUseCompatPadding="true"
+                >
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="Usuarios"
+                        android:textColor="@color/colorBotones"
+                        android:textSize="20sp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
+          <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/recycler_usuarios"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                >
+                <Button
+                    android:id="@+id/button_actualizar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/colorBackBotones"
+                    android:paddingStart="3dp"
+                    android:paddingEnd="3dp"
+                    android:text="@string/guardar_cambios"
+                    android:textColor="@color/colorBotones" />
+                <Button
+                    android:id="@+id/button_cancelar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/colorBackBotones"
+                    android:paddingStart="3dp"
+                    android:paddingEnd="3dp"
+                    android:text="Cancelar Viaje"
+                    android:textColor="@color/colorBotones" />
+            </LinearLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </ScrollView>
+</androidx.appcompat.widget.LinearLayoutCompat>

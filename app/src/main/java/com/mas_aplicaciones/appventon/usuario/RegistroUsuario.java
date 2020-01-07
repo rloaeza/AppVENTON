@@ -14,13 +14,8 @@ import androidx.fragment.app.Fragment;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.firebase.EvaluacionDeViews;
-import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.firebase.QueriesFirebase;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
-
-import static androidx.navigation.Navigation.findNavController;
-
-
 /**
  * A simple {@link Fragment} subclass.
  */

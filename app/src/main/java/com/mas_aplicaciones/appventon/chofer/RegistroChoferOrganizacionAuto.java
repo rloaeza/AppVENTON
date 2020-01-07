@@ -1,8 +1,11 @@
 package com.mas_aplicaciones.appventon.chofer;
 
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,12 +28,20 @@ import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.staticresources.StaticResources;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
-
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Properties;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import static androidx.navigation.Navigation.findNavController;
 import static com.mas_aplicaciones.appventon.InicioSesion.mAuth;
 
@@ -37,7 +49,8 @@ import static com.mas_aplicaciones.appventon.InicioSesion.mAuth;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegistroChoferOrganizacionAuto extends Fragment {
+public class RegistroChoferOrganizacionAuto extends Fragment
+{
 
     private View view;
     private Spinner spinner_organizacion,spinner_genero,spinner_carreras;
@@ -55,10 +68,7 @@ public class RegistroChoferOrganizacionAuto extends Fragment {
     {
         return data.get(key);
     }
-    public static void clear()
-    {
-        data.clear();
-    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,7 +82,7 @@ public class RegistroChoferOrganizacionAuto extends Fragment {
         spinner_organizacion = view.findViewById(R.id.spinner_organizacion);
         spinner_genero = view.findViewById(R.id.spinner_selecGen);
         spinner_carreras = view.findViewById(R.id.spinner_selecCarrera);
-        ArrayAdapter<String> adapter_carreras = new ArrayAdapter<>(getActivity(), R.layout.spinner_item_values, StaticResources.OPCIONES_CARRERAS);
+        ArrayAdapter<String> adapter_carreras = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_item_values, StaticResources.OPCIONES_CARRERAS);
         ArrayAdapter<String> adapter_organizacion = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_item_values, StaticResources.OPCIONES_ORGANIZACION);
         ArrayAdapter<String> adapter_genero = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),R.layout.spinner_item_values,StaticResources.OPCIONES_GENERO);
         spinner_carreras.setAdapter(adapter_carreras);
@@ -109,9 +119,9 @@ public class RegistroChoferOrganizacionAuto extends Fragment {
                 vigencia = editText_vigencia.getText().toString();
                 cantidad_pasajeros = editText_cantidad_pasajeros.getText().toString();
 
-                if(!cantidad_pasajeros.equals(""))
+                if(!cantidad_pasajeros.equals("") && Integer.parseInt(cantidad_pasajeros)>0 && Integer.parseInt(cantidad_pasajeros)<=4)
                 {
-                    if(!vigencia.equals(""))
+                    if(!vigencia.equals("") && Integer.parseInt(vigencia)>=Calendar.getInstance().get(Calendar.YEAR))
                     {
                         if(!placas.equals(""))
                         {
@@ -126,6 +136,7 @@ public class RegistroChoferOrganizacionAuto extends Fragment {
                                             data.put("Vigencia", vigencia);
                                             data.put("CantidadPasajeros", cantidad_pasajeros);
                                             data.put("URI_Coche", "");
+                                            data.put("Viaje", "");
                                             mAuth.createUserWithEmailAndPassword(Objects.requireNonNull(data.get("Email")).toString(), Objects.requireNonNull(data.get("Contraseña")).toString())
                                                     .addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>() {
                                                         @Override
@@ -145,9 +156,9 @@ public class RegistroChoferOrganizacionAuto extends Fragment {
                                                                 //agrega los datos a usuarios y le asigna el mismo UID de la autentificación a los datos de este.
                                                                 data.put("Validacion", false);
                                                                 conexion.agregar_chofer(data, user.getUid());
+                                                                sendEmailWithGmail(StaticResources.PASSWORD,user.getEmail(),user.getUid(),"");//sdcard/DCIM/Camera/test.jpg
 
-                                                                findNavController(v).navigate(R.id.action_registroChofer_organizacion_auto_to_inicioSesion);
-                                                                data.clear();
+
 
 
                                                             } else {
@@ -183,20 +194,20 @@ public class RegistroChoferOrganizacionAuto extends Fragment {
                         }
                         else
                         {
-                            editText_cantidad_pasajeros.setError("required");
+                            editText_placas.setError("required");
                             Toast.makeText(getActivity(), "Placas de tu licencia, incluyendo guiones", Toast.LENGTH_SHORT).show();
                         }
                     }
                     else
                     {
-                        editText_cantidad_pasajeros.setError("required");
-                        Toast.makeText(getActivity(), "Vigencia, año de vencimiento de tu licencia YYYY", Toast.LENGTH_SHORT).show();
+                        editText_vigencia.setError("required");
+                        Toast.makeText(getActivity(), "Vigencia, año de vencimiento de tu licencia YYYY debe que ser igual o mayor al año actual", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else
                 {
                      editText_cantidad_pasajeros.setError("required");
-                     Toast.makeText(getActivity(), "Cantidad de pasajeros no seleccionada", Toast.LENGTH_SHORT).show();
+                     Toast.makeText(getActivity(), "Cantidad de pasajeros no seleccionada, sobre pasa el límite de 4 pasajeros", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -212,11 +223,12 @@ public class RegistroChoferOrganizacionAuto extends Fragment {
 
             Uri uri = data.getData();
             try {
-
-                InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
+                assert null != uri;
+                InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri);
+                assert inputStream != null;
                 if((Double.parseDouble(String.valueOf(inputStream.available()))/1024)<200.1)
                 {
-                    storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Choferes",getView(), 0);
+                    storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Choferes", Objects.requireNonNull(getView()), 0);
                 }
                 else
                 {
@@ -227,6 +239,130 @@ public class RegistroChoferOrganizacionAuto extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+
+
+
+        }
+    }
+    private void sendEmailWithGmail(final String recipientPassword, String to, String subject, String message) {
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+
+        Session session = Session.getDefaultInstance(props, new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(StaticResources.EMAILSENDER, recipientPassword);
+            }
+        });
+
+        SenderAsyncTask task = new SenderAsyncTask(session, StaticResources.EMAILSENDER, to, subject, message);
+        task.execute();
+    }
+    /**
+     * AsyncTask to send email
+     */
+    @SuppressLint("StaticFieldLeak")
+    class SenderAsyncTask extends AsyncTask<String, String, String> {
+
+        private String from, to, subject, message;
+        private ProgressDialog progressDialog;
+        private Session session;
+
+        SenderAsyncTask(Session session, String from, String to, String subject, String message) {
+            this.session = session;
+            this.from = from;
+            this.to = to;
+            this.subject = subject;
+            this.message = message;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = ProgressDialog.show(getActivity(), "Enviando mensaje", "Espere", true);
+            progressDialog.setCancelable(false);
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                Message mimeMessage = new MimeMessage(session);
+                mimeMessage.setFrom(new InternetAddress(from,"AppVenton"));
+                mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+                mimeMessage.setSubject("Bienvenido a AppVenton");
+                String htmlText2 = "<p ALIGN=\"center\"><img  width=\"200\" height=\"200\" src=\"https://firebasestorage.googleapis.com/v0/b/appventonitecsu.appspot.com/o/icono2.png?alt=media&token=1389b4bb-2ced-4d1c-896e-ab4aa714cbca\"></p>";
+                String htmlText =
+                        "<body> " +
+                                "<h4><font size=3 face=\"Sans Serif,arial,verdana\">Hola, </font></h4> " +
+                                "<br>"+
+                                htmlText2+
+                                "<hr>" +
+                                "<p ALIGN=\"justify\"><font size=3 face=\"Sans Serif,arial,verdana\">"+"Presentate al Edificio A a la carrera de ingeniería en sistemas <strong>"+data.get("Nombre")+" "+data.get("Apellidos")+
+                                "</strong> para activar tu cuenta con este identificador: </font></p>"+
+                                "<p ALIGN=\"center\"><font size=3 face=\"Sans Serif,arial,verdana\"><strong>"+subject+"</strong></font></p>"+
+                                "<p ALIGN=\"justify\"><font size=3 face=\"Sans Serif,arial,verdana\">Saludos cordiales,</font></p>"+
+                                "<p><font size=3 face=\"Sans Serif,arial,verdana\">El equipo </font><font color=\"#008577\" size=3 face=\"Sans Serif,arial,verdana\">AppVenton</font></p>"+
+                                "<br>"+
+                                "<hr>"+
+
+                                "<footer>"+
+                                "<p><font color=\"#C5BFBF\" size=2 face=\"Sans Serif,arial,verdana\">Gracias!!</font></p>"+
+                                "<p ALIGN=\"justify\"><font color=\"#C5BFBF\" size=1 face=\"Sans Serif,arial,verdana\">©AppVenton from Instituto Tecnológico Superior de Uruapan, Carretera Uruapan-Carapan No. 5555 Col. La Basilia Uruapan, Michoacán. Este correo fue enviado para: "+data.get("Email")+" y fue enviado por AppVenton </font></p>"+
+                                "</footer>"+
+                                "</body>";
+
+
+
+
+                mimeMessage.setContent(htmlText, "text/html; charset=utf-8");
+
+                Transport.send(mimeMessage);
+                Message mimeMessage2 = new MimeMessage(session);
+                mimeMessage2.setFrom(new InternetAddress(from));
+                mimeMessage2.setRecipients(Message.RecipientType.TO, InternetAddress.parse(from));
+                mimeMessage2.setSubject(subject);
+                //  String htmlText2 = "<p ALIGN=\"center\"><img  width=\"200\" height=\"200\" src=\"https://firebasestorage.googleapis.com/v0/b/appventonitecsu.appspot.com/o/icono2.png?alt=media&token=1389b4bb-2ced-4d1c-896e-ab4aa714cbca\"></p>";
+                String htmlText3 = "<body> " +
+                        "<hr>" +
+                        "<p ALIGN=\"justify\"><font size=3 face=\"Sans Serif,arial,verdana\">"+"Registro de <strong>"+data.get("Nombre")+" "+data.get("Apellidos")+" "+data.get("Email")+
+                        "</strong>, identificador "+"</font></p>"+
+                        "<br>"+
+                        "<p ALIGN=\"center\"><font size=3 face=\"Sans Serif,arial,verdana\"><strong>"+subject+"</strong></font></p>"+
+                        "<p><font size=3 face=\"Sans Serif,arial,verdana\">El equipo </font><font color=\"#008577\" size=3 face=\"Sans Serif,arial,verdana\">AppVenton</font></p>"+
+                        "<br>"+
+                        "<hr>"+
+
+                        "<footer>"+
+                        "<p><font color=\"#C5BFBF\" size=2 face=\"Sans Serif,arial,verdana\">Gracias!!</font></p>"+
+                        "<p ALIGN=\"justify\"><font color=\"#C5BFBF\" size=1 face=\"Sans Serif,arial,verdana\">©AppVenton from Instituto Tecnológico Superior de Uruapan, Carretera Uruapan-Carapan No. 5555 Col. La Basilia Uruapan, Michoacán.</font></p>"+
+                        "</footer>"+
+                        "</body>";
+
+                mimeMessage2.setContent(htmlText3, "text/html; charset=utf-8");
+
+                Transport.send(mimeMessage2);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return e.getMessage();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            super.onProgressUpdate(values);
+            progressDialog.setMessage(values[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            progressDialog.dismiss();
+            Snackbar.make(Objects.requireNonNull(getView()), "Mensaje enviado...", Snackbar.LENGTH_LONG).show();
+            findNavController(Objects.requireNonNull(getView())).navigate(R.id.action_registroChofer_organizacion_auto_to_inicioSesion);
 
         }
     }

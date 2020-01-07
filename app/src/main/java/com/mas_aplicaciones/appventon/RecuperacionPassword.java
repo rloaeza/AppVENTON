@@ -1,13 +1,9 @@
 package com.mas_aplicaciones.appventon;
 
-
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
 
-import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,22 +14,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.mas_aplicaciones.appventon.firebase.EvaluacionDeViews;
-import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.firebase.QueriesFirebase;
 import com.mas_aplicaciones.appventon.staticresources.StaticResources;
-import java.util.Properties;
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
-import dmax.dialog.SpotsDialog;
+import java.util.Objects;
 
 
 /**
@@ -46,12 +31,11 @@ public class RecuperacionPassword extends Fragment {
     private RadioButton radioButton_prestado_servicios, radioButton_pasajero;
     private RadioGroup radioGroup;
     private Spinner spinner_carrera;
-    private Button button_recuperar;
     private String email, telefono,numeroControl,carrera,tipo_usuario;
     private EvaluacionDeViews evaluacionDeViews = new EvaluacionDeViews();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
         if (getActivity() instanceof MainActivity) {
             ((MainActivity) getActivity()).activado(3);
@@ -65,9 +49,9 @@ public class RecuperacionPassword extends Fragment {
         radioButton_prestado_servicios = view.findViewById(R.id.radioButton_prestador_servicios);
         radioButton_pasajero = view.findViewById(R.id.radioButton_pasajero);
         spinner_carrera = view.findViewById(R.id.spinner_selecCarrera);
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(),R.layout.spinner_item_values_2, StaticResources.OPCIONES_CARRERAS);
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),R.layout.spinner_item_values_2, StaticResources.OPCIONES_CARRERAS);
         spinner_carrera.setAdapter(arrayAdapter);
-        button_recuperar = view.findViewById(R.id.button_recuperar_cuenta);
+        Button button_recuperar = view.findViewById(R.id.button_recuperar_cuenta);
 
 
         button_recuperar.setOnClickListener(new View.OnClickListener()

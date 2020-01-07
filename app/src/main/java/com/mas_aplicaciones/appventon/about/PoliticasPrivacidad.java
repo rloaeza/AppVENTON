@@ -1,6 +1,8 @@
 package com.mas_aplicaciones.appventon.about;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +24,7 @@ public class PoliticasPrivacidad extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (getActivity() instanceof MainActivity)
         {

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    tools:context=".AgregarLugar"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackBotones"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="@string/agregar_viaje_hoy"
+        android:textColor="@color/colorBotones"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:shadowColor="@color/colorBotones2"
+        android:textSize="25sp" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!-- TODO: Update blank fragment layout -->
+
+
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="10dp"
+                card_view:cardElevation="5dp"
+                card_view:cardUseCompatPadding="true"
+                >
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="302dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical"
+                    tools:layout_editor_absoluteX="96dp"
+                    tools:layout_editor_absoluteY="269dp">
+
+
+                    <TimePicker
+                        android:id="@+id/time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:headerBackground="@color/colorBackBotones2"
+                        android:numbersSelectorColor="@color/colorBackBotones2" />
+
+
+                    <Spinner
+                        android:id="@+id/spinner_tiempo_espera"
+                        style="@android:style/Widget.Material.Spinner.Underlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:backgroundTint="@color/colorBotones2"
+                        android:padding="0dp"
+                        android:spinnerMode="dropdown"
+                        tools:listitem="@layout/spinner_item_values_2"/>
+
+                    <Spinner
+                        android:id="@+id/spinner_cantidad"
+                        style="@android:style/Widget.Material.Spinner.Underlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:backgroundTint="@color/colorBotones2"
+                        android:padding="0dp"
+                        android:spinnerMode="dropdown"
+                        tools:listitem="@layout/spinner_item_values_2" />
+                    <EditText
+                        android:id="@+id/edit_text_mensaje"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:backgroundTint="@color/colorQuejasText"
+                        android:cursorVisible="true"
+                        android:ems="10"
+                        android:gravity="start|top"
+                        android:hint="@string/comentario_viaje_hoy"
+                        android:importantForAutofill="no"
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:textColorHighlight="@android:color/background_light"
+                        android:textColorLink="@color/colorBackBotones"
+                        tools:targetApi="o" />
+
+
+                    <Button
+                        android:id="@+id/button_seleccionar_lugar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:background="@color/colorBackBotones2"
+                        android:text="@string/seleccionar_lugar"
+                        android:textColor="@color/colorBotones" />
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
+
+
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </ScrollView>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

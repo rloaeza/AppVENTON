@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
@@ -99,11 +99,23 @@
             tools:layout_editor_absoluteX="31dp"
             tools:layout_editor_absoluteY="129dp"
             android:textAlignment="textStart"/>
+
         <Button
             android:id="@+id/button_about"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Acerca de"
+            android:background="@color/colorBotones"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/txtaAcerca_de"
+            android:textAlignment="textStart"
+            tools:layout_editor_absoluteX="31dp"
+            tools:layout_editor_absoluteY="129dp" />
+        <Button
+            android:id="@+id/button_viaje"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/viajes"
             android:background="@color/colorBotones"
             android:paddingRight="10dp"
             android:paddingLeft="10dp"
@@ -121,6 +133,7 @@
             android:paddingEnd="10dp"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="263dp" />
+
     </TableLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>

@@ -267,6 +267,11 @@ public class InicioSesion extends Fragment {
                                     editText_email.setText("");
                                     editText_email.requestFocus();
                                 }
+                                else
+                                {
+                                    alertDialog.cancel();
+                                    Toast.makeText(getActivity(), "Revice su correo electrónico para validar el email",Toast.LENGTH_LONG).show();
+                                }
 
                             }
                             else

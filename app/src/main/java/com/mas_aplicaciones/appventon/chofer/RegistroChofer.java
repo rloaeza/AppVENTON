@@ -10,22 +10,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.firebase.EvaluacionDeViews;
 import com.mas_aplicaciones.appventon.R;
-import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.firebase.QueriesFirebase;
 import com.mas_aplicaciones.appventon.staticresources.StaticResources;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 import com.mas_aplicaciones.appventon.usuario.RegistroUsuarioOrganizacion;
-
 import java.util.Calendar;
+import java.util.Objects;
 
-import static androidx.navigation.Navigation.findNavController;
 
 
 /**
@@ -67,7 +64,7 @@ public class RegistroChofer extends Fragment {
         editText_contrasena = view.findViewById(R.id.edit_text_contrasena2);
         editText_numero_control = view.findViewById(R.id.edit_text_num_control);
         spinner_carrera = view.findViewById(R.id.spinner_selecCarrera);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(),R.layout.spinner_item_values, StaticResources.OPCIONES_CARRERAS);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),R.layout.spinner_item_values, StaticResources.OPCIONES_CARRERAS);
         spinner_carrera.setAdapter(arrayAdapter);
         Button btnSiguiente = view.findViewById(R.id.button_registrar);
 

@@ -2,13 +2,8 @@ package com.mas_aplicaciones.appventon.usuario;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.ParcelFileDescriptor;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +12,6 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.exifinterface.media.ExifInterface;
 import androidx.fragment.app.Fragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,10 +23,6 @@ import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.staticresources.StaticResources;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
@@ -64,10 +54,7 @@ public class RegistroUsuarioOrganizacion extends Fragment {
     {
         return data.get(key);
     }
-    public static void clear()
-    {
-         data.clear();
-    }
+
 
 
     @Override
@@ -101,7 +88,7 @@ public class RegistroUsuarioOrganizacion extends Fragment {
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
 
-                startActivityForResult(intent.createChooser(intent,"Selecciona una imagen"),GALLERY_INTENT);
+                startActivityForResult(Intent.createChooser(intent,"Selecciona una imagen"),GALLERY_INTENT);
             }
         });
 
@@ -144,7 +131,7 @@ public class RegistroUsuarioOrganizacion extends Fragment {
 
 
                                                 findNavController(v).navigate((R.id.action_registroUsuario_organizacion_to_inicioSesion2));
-                                                data.clear();
+
 
                                             } else {
                                                 // If sign in fails, display a message to the user.
@@ -191,11 +178,12 @@ public class RegistroUsuarioOrganizacion extends Fragment {
 
             Uri uri = data.getData();
             try {
-
-                InputStream  inputStream = getActivity().getContentResolver().openInputStream(uri);
+                assert  null != uri;
+                InputStream  inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri);
+                assert inputStream != null;
                 if((Double.parseDouble(String.valueOf(inputStream.available()))/1024)<200.1)
                 {
-                    storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Usuarios",getView(),0);
+                    storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Usuarios", Objects.requireNonNull(getView()),0);
                 }
                 else
                 {

@@ -1,6 +1,7 @@
 package com.mas_aplicaciones.appventon.menu;
 
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,21 +14,18 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import com.google.android.material.snackbar.Snackbar;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.staticresources.StaticResources;
 
+import java.util.Objects;
 import java.util.Properties;
-
 import javax.mail.Authenticator;
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -46,7 +44,6 @@ public class quejas extends Fragment
 {
     private RadioButton radioButton_queja,radioButton_sugerencia;
     private RadioGroup radioGroup;
-    private Button button_enviar;
     private EditText editText_queja;
     private TextView textView_emailreceiver;
     private String user,subject,body;
@@ -61,7 +58,7 @@ public class quejas extends Fragment
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_quejas, container, false);
 
-        button_enviar =view.findViewById(R.id.button_enviar_queja);
+        Button button_enviar = view.findViewById(R.id.button_enviar_queja);
         textView_emailreceiver = view.findViewById(R.id.textView_Email);
         editText_queja = view.findViewById(R.id.edit_text_mensaje);
         radioGroup = view.findViewById(R.id.radioGroup_peticion);
@@ -81,7 +78,7 @@ public class quejas extends Fragment
                     {
                         body = editText_queja.getText().toString();
                         subject=(radioButton_queja.isChecked())?"Queja":"Sugerencia";
-                        sendEmailWithGmail(StaticResources.EMAILSENDER,StaticResources.PASSWORD,user,subject,body);//sdcard/DCIM/Camera/test.jpg
+                        sendEmailWithGmail(StaticResources.PASSWORD,user,subject,body);//sdcard/DCIM/Camera/test.jpg
                         editText_queja.setText("");
                         editText_queja.requestFocus();
                         radioGroup.clearCheck();
@@ -103,7 +100,7 @@ public class quejas extends Fragment
         return view;
     }
 
-    private void sendEmailWithGmail(final String recipientEmail, final String recipientPassword,String to, String subject, String message) {
+    private void sendEmailWithGmail(final String recipientPassword, String to, String subject, String message) {
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
@@ -113,24 +110,25 @@ public class quejas extends Fragment
 
         Session session = Session.getDefaultInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(recipientEmail, recipientPassword);
+                return new PasswordAuthentication(StaticResources.EMAILSENDER, recipientPassword);
             }
         });
 
-        SenderAsyncTask task = new SenderAsyncTask(session, recipientEmail, to, subject, message);
+        SenderAsyncTask task = new SenderAsyncTask(session, StaticResources.EMAILSENDER, to, subject, message);
         task.execute();
     }
 
     /**
      * AsyncTask to send email
      */
+    @SuppressLint("StaticFieldLeak")
     class SenderAsyncTask extends AsyncTask<String, String, String> {
 
         private String from, to, subject, message;
         private ProgressDialog progressDialog;
         private Session session;
 
-        public SenderAsyncTask(Session session, String from, String to, String subject, String message) {
+        SenderAsyncTask(Session session, String from, String to, String subject, String message) {
             this.session = session;
             this.from = from;
             this.to = to;
@@ -201,9 +199,6 @@ public class quejas extends Fragment
                 mimeMessage2.setContent(htmlText3, "text/html; charset=utf-8");
 
                 Transport.send(mimeMessage2);
-            } catch (MessagingException e) {
-                e.printStackTrace();
-                return e.getMessage();
             } catch (Exception e) {
                 e.printStackTrace();
                 return e.getMessage();
@@ -220,7 +215,7 @@ public class quejas extends Fragment
         @Override
         protected void onPostExecute(String result) {
             progressDialog.dismiss();
-            Snackbar.make(getView(), "Mensaje enviado...", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(Objects.requireNonNull(getView()), "Mensaje enviado...", Snackbar.LENGTH_LONG).show();
 
         }
     }
