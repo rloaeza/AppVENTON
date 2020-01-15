@@ -3,117 +3,178 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".menu.quejas"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center">
 
 
-    <TextView
 
-        android:id="@+id/textView2"
+
+    <androidx.cardview.widget.CardView
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorBackBotones"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:text="@string/txtQuejasugerencia"
-        android:textColor="@color/colorBotones"
-        android:textSize="25sp"
-        android:layout_marginBottom="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:shadowColor="@color/colorBotones2"
-        />
-
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp">
-
-
+        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="@color/colorBotones"
+        app:cardElevation="5dp"
+        app:cardCornerRadius="5dp">
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-
-            <TextView
-                android:id="@+id/textView_Email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_gravity="center"
-                android:layout_marginBottom="30dp"
-                android:text="@string/txtTextoEjemplo"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/formulario" />
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="30dp"
-                android:orientation="horizontal">
-
-                <RadioGroup
-                    android:id="@+id/radioGroup_peticion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/radioButton_queja"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="30dp"
-                        android:text="@string/queja" />
-
-                    <RadioButton
-                        android:id="@+id/radioButton_sugerencia"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/sugerencia"
-                        />
-                </RadioGroup>
-
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <EditText
-                android:id="@+id/edit_text_mensaje"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:backgroundTint="@color/colorQuejasText"
-                android:cursorVisible="true"
-                android:ems="10"
-                android:gravity="start|top"
-                android:hint="@string/txtQueja"
-                android:importantForAutofill="no"
-                android:inputType="textMultiLine|textCapSentences"
-                android:textColorHighlight="@android:color/background_light"
-                android:textColorLink="@color/colorBackBotones"
-                tools:targetApi="o" />
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                app:cardBackgroundColor="@color/colorBackBotones2"
+                >
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
 
-            <Button
-                android:id="@+id/button_enviar_queja"
-                android:layout_width="wrap_content"
+                        android:layout_gravity="center"
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:gravity="center"
+
+                        android:shadowColor="@color/colorBotones2"
+                        android:text="@string/txtQuejasugerencia"
+                        android:textColor="@color/colorBotones"
+                        android:textSize="25sp" />
+
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </com.google.android.material.card.MaterialCardView>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:background="@color/colorBackBotones2"
-                android:text="@string/txtEnviar"
-                android:textColor="@color/colorBotones"
-                tools:layout_editor_absoluteX="31dp"
-                tools:layout_editor_absoluteY="129dp" />
+                android:orientation="vertical">
 
+
+
+                <ScrollView
+                    android:id="@+id/scrollView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp">
+
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:id="@+id/textView_Email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="30dp"
+                            android:text="@string/txtTextoEjemplo"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/formulario" />
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="30dp"
+                            android:orientation="horizontal">
+
+                            <RadioGroup
+                                android:id="@+id/radioGroup_peticion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <RadioButton
+                                    android:id="@+id/radioButton_queja"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="30dp"
+                                    android:text="@string/queja" />
+
+                                <RadioButton
+                                    android:id="@+id/radioButton_sugerencia"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/sugerencia"
+                                    />
+                            </RadioGroup>
+
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <EditText
+                            android:id="@+id/edit_text_mensaje"
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:backgroundTint="@color/colorQuejasText"
+                            android:cursorVisible="true"
+                            android:ems="10"
+                            android:gravity="start|top"
+                            android:hint="@string/txtQueja"
+                            android:importantForAutofill="no"
+                            android:inputType="textMultiLine|textCapSentences"
+                            android:textColorHighlight="@android:color/background_light"
+                            android:textColorLink="@color/colorBackBotones"
+                            tools:targetApi="o" />
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/button_enviar_queja"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="5dp"
+                            app:cardElevation="5dp"
+
+                            app:cardBackgroundColor="@color/colorBackBotones2"
+                            app:cardUseCompatPadding="true"
+                            >
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:padding="10dp"
+                                >
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingStart="10dp"
+                                    android:paddingEnd="10dp"
+                                    android:text="@string/txtEnviar"
+                                    android:textColor="@color/colorBotones"
+                                    android:textSize="14sp" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </com.google.android.material.card.MaterialCardView>
+
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </ScrollView>
+            </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
-    </ScrollView>
+
+
+    </androidx.cardview.widget.CardView>
 
 
 

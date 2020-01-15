@@ -90,6 +90,8 @@
     <string name="seleccionar_lugar">Seleccionar Lugar</string>
     <string name="seleccionar_chofer">Seleccionar</string>
     <string name="lugar_informaci_n">Lugar Información</string>
+    <string name="txtusuarios">Usuarios</string>
+    <string name="txt_cancelar_viaje">Cancelar Viaje</string>
 
 
 </resources>

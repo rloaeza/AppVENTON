@@ -148,7 +148,7 @@
                         android:layout_height="wrap_content"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
-                        android:text="Usuarios"
+                        android:text="@string/txtusuarios"
                         android:textColor="@color/colorBotones"
                         android:textSize="20sp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -165,7 +165,6 @@
                 android:layout_height="wrap_content"
                 card_view:cardCornerRadius="5dp"
                 card_view:cardElevation="5dp"
-                android:padding="5dp"
                 app:cardBackgroundColor="@color/colorBackBotones2"
                 card_view:cardUseCompatPadding="true"
                 >
@@ -173,15 +172,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:padding="10dp"
                     >
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
-                        android:text="Cancelar Viaje"
+                        android:text="@string/txt_cancelar_viaje"
                         android:textColor="@color/colorBotones"
-                        android:textSize="20sp" />
+                        android:textSize="14sp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </com.google.android.material.card.MaterialCardView>
 
