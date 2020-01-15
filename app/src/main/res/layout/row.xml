@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:card_view="http://schemas.android.com/tools"
@@ -10,15 +20,29 @@
     card_view:cardUseCompatPadding="true">
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+
         <ImageView
-            android:id="@+id/image_view_Photo"
-            android:layout_width="200dp"
+            android:id="@+id/image_view_photo"
+            android:layout_width="100dp"
             android:layout_gravity="center"
-            android:layout_height="200dp"/>
+            android:layout_height="100dp"
+            android:layout_margin="15dp"/>
+            <ImageView
+                android:id="@+id/image_view_photo_coche"
+                android:layout_width="150dp"
+                android:layout_gravity="center"
+                android:layout_height="150dp"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,6 +58,14 @@
                 android:textStyle="bold|italic"
                 />
             <TextView
+                android:id="@+id/text_view_fecha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#a9a"
+                android:text="NCan de drivers"
+                android:textSize="22sp"
+                />
+            <TextView
                 android:id="@+id/text_view_hora"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -42,13 +74,39 @@
                 android:textSize="22sp"
                 />
             <TextView
-                android:id="@+id/text_view_fecha"
+                android:id="@+id/text_view_comentario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#a9a"
                 android:text="NCan de drivers"
                 android:textSize="22sp"
                 />
+            <TextView
+                android:id="@+id/text_view_espacios_restantes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#a9a"
+                android:text="NCan de drivers"
+                android:textSize="22sp"
+                />
+            <TextView
+                android:id="@+id/text_view_tiempo_espera"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#a9a"
+                android:text="NCan de drivers"
+                android:textSize="22sp"
+                />
+            <Button
+                android:id="@+id/button_seleccionar_chofer"
+                android:text="@string/seleccionar_chofer"
+                android:background="@color/colorBackBotones"
+                android:textColor="@color/colorBotones"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -60,3 +118,4 @@
 
 
 </androidx.cardview.widget.CardView>
+</androidx.appcompat.widget.LinearLayoutCompat>

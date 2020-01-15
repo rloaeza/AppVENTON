@@ -53,8 +53,6 @@ public class QueriesFirebase
 
     public void BuscarDocumento(final String email, final String carrera, final String telefono, final String NumeroControl, final String tipo_usuario, final View view)
     {
-
-
         CollectionReference Collection = db.collection(tipo_usuario);
         views=view;
         // Create a query against the collection.
@@ -100,7 +98,6 @@ public class QueriesFirebase
     public static void BuscarNumControl(final String NumeroControl, String Collections, final View view, final int i)
     {
 
-
         CollectionReference Collection = db.collection(Collections);
         final AlertDialog alertDialog = new SpotsDialog.Builder().setContext(view.getContext()).setMessage("Evaluando Datos en el sistema...").build();
         alertDialog.show();
@@ -137,7 +134,7 @@ public class QueriesFirebase
 
     }
 
-    public static void BuscarChoferEnLugar(final List<String>idsChofer_lugar,final String UUIDChofer_lugar,final Map<String,Object>mapa_chofer_lugar,  final View view)
+    public  void AgregarLugar(final String UUID_chofer_lugar,final Map<String,Object>mapa_chofer_lugar,  final View view)
     {
 
         final AlertDialog alertDialog = new SpotsDialog.Builder().setContext(view.getContext()).setMessage("Verificando...").build();
@@ -152,11 +149,9 @@ public class QueriesFirebase
                 {
                     alertDialog.cancel();
                     FirebaseConexionFirestore firebaseConexionFirestore = new FirebaseConexionFirestore();
-                    FirebaseConexionFirestore.actualizarArrayChoferesPuntosRecoleccion(PrincipalChofer.lugar.get("id").toString(),idsChofer_lugar,UUIDChofer_lugar,1,null);
-                    FirebaseConexionFirestore.actualizarViaje(UUIDChofer_lugar);
-                    firebaseConexionFirestore.agregar_chofer_lugar(mapa_chofer_lugar,UUIDChofer_lugar);
+                    //FirebaseConexionFirestore.actualizarViaje(UUID_chofer_lugar);//modifica el campo viaje del mapa del chofer
+                    firebaseConexionFirestore.agregar_chofer_lugar(mapa_chofer_lugar,UUID_chofer_lugar);//agrega el map con el uuid creado
                     Toast.makeText(view.getContext(), "Registrado", Toast.LENGTH_SHORT).show();
-                    PrincipalChofer.lugar.clear();
                     findNavController(view).navigate(R.id.action_agregarLugar_to_principalChofer);
                 }
 

@@ -53,7 +53,7 @@ public class RegistroChoferOrganizacionAuto extends Fragment
 {
 
     private View view;
-    private Spinner spinner_organizacion,spinner_genero,spinner_carreras;
+    private Spinner spinner_organizacion,spinner_genero;
     private EditText editText_cantidad_pasajeros, editText_vigencia,editText_placas;
     private String cantidad_pasajeros, vigencia, placas;
     private static Map<String,Object> data = new HashMap<>();
@@ -81,11 +81,9 @@ public class RegistroChoferOrganizacionAuto extends Fragment
 
         spinner_organizacion = view.findViewById(R.id.spinner_organizacion);
         spinner_genero = view.findViewById(R.id.spinner_selecGen);
-        spinner_carreras = view.findViewById(R.id.spinner_selecCarrera);
-        ArrayAdapter<String> adapter_carreras = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_item_values, StaticResources.OPCIONES_CARRERAS);
         ArrayAdapter<String> adapter_organizacion = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_item_values, StaticResources.OPCIONES_ORGANIZACION);
         ArrayAdapter<String> adapter_genero = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),R.layout.spinner_item_values,StaticResources.OPCIONES_GENERO);
-        spinner_carreras.setAdapter(adapter_carreras);
+
         spinner_organizacion.setAdapter(adapter_organizacion);
         spinner_genero.setAdapter(adapter_genero);
         editText_vigencia = view.findViewById(R.id.edit_text_vigencia);
@@ -126,11 +124,10 @@ public class RegistroChoferOrganizacionAuto extends Fragment
                         if(!placas.equals(""))
                         {
                             if (spinner_organizacion.getSelectedItemPosition() >= 1) {
-                                if (spinner_carreras.getSelectedItemPosition() >= 1) {
+
                                     if (spinner_genero.getSelectedItemPosition() >= 1) {
                                         if (StorageFirebase.getImagenSubida()) {
                                             data.put("Organización", spinner_organizacion.getSelectedItem().toString());
-                                            data.put("Carrera",spinner_carreras.getSelectedItem().toString());
                                             data.put("Género", spinner_genero.getSelectedItem().toString());
                                             data.put("Placas", placas.trim());
                                             data.put("Vigencia", vigencia);
@@ -181,12 +178,6 @@ public class RegistroChoferOrganizacionAuto extends Fragment
                                     } else {
                                         Toast.makeText(getActivity(), "Género no seleccionado", Toast.LENGTH_SHORT).show();
                                     }
-                                }
-                                else
-                                {
-                                    Toast.makeText(getActivity(),"Carrera no seleccionada",Toast.LENGTH_SHORT).show();
-                                }
-
                             }
                             else {
                                 Toast.makeText(getActivity(), "Organización no seleccionada", Toast.LENGTH_SHORT).show();

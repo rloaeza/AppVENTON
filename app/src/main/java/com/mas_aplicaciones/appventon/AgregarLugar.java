@@ -1,8 +1,10 @@
 package com.mas_aplicaciones.appventon;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +28,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
+import static androidx.navigation.Navigation.findNavController;
+
 
 public class AgregarLugar extends Fragment
 {
@@ -33,6 +37,7 @@ public class AgregarLugar extends Fragment
     private Spinner spinner_espacios,spinner_tiempo_espera;
     private List<String> espacios = new ArrayList<>();
     private TimePicker timePicker;
+    private AlertDialog dialogo;
 
 
     @Override
@@ -43,7 +48,7 @@ public class AgregarLugar extends Fragment
         if (getActivity() instanceof MainActivity) {
             ((MainActivity) getActivity()).activado(3);
         }
-        View view = inflater.inflate(R.layout.fragment_agregar_lugar, container, false);
+        final View view = inflater.inflate(R.layout.fragment_agregar_lugar, container, false);
         for(int i=0;i<=Integer.parseInt(FirebaseConexionFirestore.getValue("CantidadPasajeros").toString());i++)
         {
             if( i==0){
@@ -55,6 +60,7 @@ public class AgregarLugar extends Fragment
             }
 
         }
+        cargarDialogo(view);
         timePicker = view.findViewById(R.id.time);
         editText_comentario = view.findViewById(R.id.edit_text_mensaje);
         Button button_agregar_lugar = view.findViewById(R.id.button_seleccionar_lugar);
@@ -66,40 +72,15 @@ public class AgregarLugar extends Fragment
         spinner_espacios.setAdapter(adapter_cantidad_pasajeros);
         button_agregar_lugar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
+            public void onClick(final View v)
             {
-                List<String> agregarChoferes= (ArrayList<String>) PrincipalChofer.lugar.get("Choferes-lista");
-
-
 
                 if (spinner_espacios.getSelectedItemPosition() >= 1) {
                     if (spinner_tiempo_espera.getSelectedItemPosition() >= 1) {
                         if (timePicker.getHour()>=6 && timePicker.getHour()<=20)
                         {
 
-                                Map<String, Object> chofer_lugar = new HashMap<>();
-
-                                chofer_lugar.put("IdChofer", FirebaseConexionFirestore.DOCUMENT);
-                                chofer_lugar.put("Nombre", FirebaseConexionFirestore.getValue("Nombre").toString()+" "+FirebaseConexionFirestore.getValue("Apellidos").toString());
-                                chofer_lugar.put("URI", FirebaseConexionFirestore.getValue("URI").toString());
-                                chofer_lugar.put("URI_Coche", FirebaseConexionFirestore.getValue("URI_Coche").toString());
-                                chofer_lugar.put("Hora", timePicker.getHour()+":"+timePicker.getMinute());
-                                chofer_lugar.put("Fecha", Calendar.getInstance().getTime());
-                                chofer_lugar.put("TiempoEspera", spinner_tiempo_espera.getSelectedItem());
-                                chofer_lugar.put("Espacios", spinner_espacios.getSelectedItem());
-                                chofer_lugar.put("Usuarios", new ArrayList<String>());
-                                chofer_lugar.put("Lleno", false);
-                                chofer_lugar.put("Comentario", editText_comentario.getText().toString());
-                                chofer_lugar.put("IdLugar", Objects.requireNonNull(PrincipalChofer.lugar.get("id")).toString());
-                                chofer_lugar.put("Ranking", Objects.requireNonNull(FirebaseConexionFirestore.getValue("Ranking")));
-                                chofer_lugar.put("Nombre_Lugar", Objects.requireNonNull(PrincipalChofer.lugar.get("title")));
-                                chofer_lugar.put("URI_Lugar",Objects.requireNonNull(PrincipalChofer.lugar.get("imagen").toString()));
-                                String UUIDDChofer_lugar = UUID.randomUUID().toString();
-
-                                Log.e("err",PrincipalChofer.lugar.get("id")+String.valueOf(PrincipalChofer.lugar.get("Choferes-lista")));
-                                QueriesFirebase.BuscarChoferEnLugar(agregarChoferes,UUIDDChofer_lugar,chofer_lugar, Objects.requireNonNull(getView()));
-
-
+                                    dialogo.show();
                         }
                         else
                         {
@@ -119,6 +100,59 @@ public class AgregarLugar extends Fragment
             }
         });
         return view;
+    }
+
+    private void cargarDialogo(final View view)
+    {
+        dialogo = new AlertDialog
+                .Builder(getActivity()) // getActivity() si es dentro de un fragmento
+                .setPositiveButton("Crear Viaje y aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        // Hicieron click en el botón positivo, así que la acción está confirmada
+                        insertarDatos(view);
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Hicieron click en el botón negativo, no confirmaron
+                        // Simplemente descartamos el diálogo
+                        PrincipalChofer.lugar.clear();
+                        findNavController(view).navigate(R.id.action_agregarLugar_to_principalChofer);
+                        dialog.dismiss();
+                    }
+                })
+                .setTitle("Confirmar") // El título
+                .setMessage("¿Deseas Crear el viaje por la ruta especificada, después de aceptarlo, no podrá editarlo solo cancelarlo pero " +
+                        "afectará su reputación de servicio, si es que ya hay usuarios en espera?") // El mensaje
+                .create();
+    }
+
+    private void insertarDatos(View view)
+    {
+        Map<String, Object> map_chofer_lugar = new HashMap<>();
+        map_chofer_lugar.put("IdChofer", FirebaseConexionFirestore.DOCUMENT);
+        map_chofer_lugar.put("Nombre", FirebaseConexionFirestore.getValue("Nombre").toString()+" "+FirebaseConexionFirestore.getValue("Apellidos").toString());
+        map_chofer_lugar.put("URI", FirebaseConexionFirestore.getValue("URI").toString());
+        map_chofer_lugar.put("URI_Coche", FirebaseConexionFirestore.getValue("URI_Coche").toString());
+        map_chofer_lugar.put("Hora", timePicker.getHour()+":"+timePicker.getMinute());
+        map_chofer_lugar.put("Fecha", Calendar.getInstance().getTime());
+        map_chofer_lugar.put("TiempoEspera", spinner_tiempo_espera.getSelectedItem());
+        map_chofer_lugar.put("Espacios", spinner_espacios.getSelectedItem());
+        map_chofer_lugar.put("Lleno", false);
+        map_chofer_lugar.put("Comentario", editText_comentario.getText().toString());
+        map_chofer_lugar.put("IdLugar", Objects.requireNonNull(PrincipalChofer.lugar.get("id")).toString());
+        map_chofer_lugar.put("Ranking", Objects.requireNonNull(FirebaseConexionFirestore.getValue("Ranking")));
+        map_chofer_lugar.put("Nombre_Lugar", Objects.requireNonNull(PrincipalChofer.lugar.get("nombre")));
+        map_chofer_lugar.put("URI_Lugar",Objects.requireNonNull(PrincipalChofer.lugar.get("imagen").toString()));
+        //string que contiene el uuid generado
+        String UUIDD_chofer_lugar = UUID.randomUUID().toString();
+        //objeto de la clase QueriesFirebase
+        QueriesFirebase queriesFirebase = new QueriesFirebase();
+        //método para agregar servicio
+        queriesFirebase.AgregarLugar(UUIDD_chofer_lugar,map_chofer_lugar,view);
     }
 
 

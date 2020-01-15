@@ -35,7 +35,7 @@ import java.util.Objects;
 public class Viajes extends Fragment {
 
     private EditText editText_comentario;
-    private RecyclerView recycler_usuarios;
+
     private Spinner spinner_tiempo_espera;
     private ImageView image_view_persona;
     private TextView textView_lugar_nombre,text_view_espacios_restantes;
@@ -67,15 +67,15 @@ public class Viajes extends Fragment {
         textView_lugar_nombre = view.findViewById(R.id.text_view_lugar);
         text_view_espacios_restantes = view.findViewById(R.id.text_view_espacios_restantes);
         editText_comentario = view.findViewById(R.id.edit_text_mensaje);
-        image_view_persona = view.findViewById(R.id.image_view_persona);
+        image_view_persona = view.findViewById(R.id.image_view_lugar);
         spinner_tiempo_espera = view.findViewById(R.id.spinner_tiempo_espera);
         ArrayAdapter<String> adapter_tiempo_espera = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_item_values_2, StaticResources.OPCIONES_TIEMPO_ESPERA);
         spinner_tiempo_espera.setAdapter(adapter_tiempo_espera);
-        recycler_usuarios = view.findViewById(R.id.recycler_usuarios);
-        FirebaseConexionFirestore.actualizarViajeAutomatica(view,image_view_persona,spinner_tiempo_espera,recycler_usuarios,textView_lugar_nombre,text_view_espacios_restantes,editText_comentario,timePicker);
+
+        FirebaseConexionFirestore.actualizarViajeAutomatica(view,image_view_persona,spinner_tiempo_espera,textView_lugar_nombre,text_view_espacios_restantes,editText_comentario,timePicker);
         Button button_actualizar = view.findViewById(R.id.button_actualizar);
         Button button_cancelar = view.findViewById(R.id.button_cancelar);
-        button_actualizar.setOnClickListener(new View.OnClickListener()
+       /* button_actualizar.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -97,12 +97,12 @@ public class Viajes extends Fragment {
                 }
 
             }
-        });
+        });*/
         button_cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                FirebaseConexionFirestore.eliminarViajeChofer(view);
+               // FirebaseConexionFirestore.eliminarViajeChofer(view);
             }
         });
 

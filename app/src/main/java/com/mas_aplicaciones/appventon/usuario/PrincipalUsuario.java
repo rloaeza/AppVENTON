@@ -162,10 +162,11 @@ public class PrincipalUsuario extends Fragment {
                                     String title = selectedFeature.getStringProperty("title");
                                     String codigo = selectedFeature.getStringProperty("id");
                                     String imagen = selectedFeature.getStringProperty("imagen");
+                                    boolean hay = Boolean.parseBoolean(selectedFeature.getStringProperty("hay"));
                                     lugar.put("title", title);
                                     lugar.put("id", codigo);
                                     lugar.put("imagen", imagen);
-                                    FirebaseConexionFirestore.buscarListaChoferes(view,1,"",lugar.get("id").toString());
+                                    lugar.put("hay",hay);
                                     Toast.makeText(getContext(), "You selected " + distancia, Toast.LENGTH_SHORT).show();
 
 

@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else{// si es diferente a inicio, principal usuario o principa chofer
            super.onBackPressed();
-            FirebaseConexionFirestore.choferModels.clear();
+
 
         }
     }

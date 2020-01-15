@@ -50,7 +50,6 @@ public class Configurar_usuarios extends Fragment {
         }
         final View view = inflater.inflate(R.layout.fragment_configurar_usuarios, container, false);
         button_actualizar = view.findViewById(R.id.button_actualizar);
-        button_camara = view.findViewById(R.id.button_camara);
         editText_nombre = view.findViewById(R.id.edit_text_nombre);
         editText_apellidos = view.findViewById(R.id.edit_text_apellidos);
         editText_celular = view.findViewById(R.id.edit_text_celular);
@@ -61,7 +60,7 @@ public class Configurar_usuarios extends Fragment {
 
         foto_persona = FirebaseConexionFirestore.getValue("URI").toString();
         //listeners
-        button_camara.setOnClickListener(new View.OnClickListener() {
+        imageView_persona.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK);

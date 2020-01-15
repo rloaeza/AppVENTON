@@ -80,24 +80,6 @@ public class PrincipalChofer extends Fragment {
                 }
             }
         }
-        /*fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        // Got last known location. In some rare situations this can be null.
-                        if (location != null) {
-                            // Logic to handle location object
-                            Log.d("Lon",String.valueOf(location.getLatitude()));
-                            Log.d("Lon",String.valueOf(location.getLongitude()));
-                            currentPosition = new LatLng(location.getLatitude(),location.getLongitude());
-
-
-                        }
-                    }
-                });*/
-
-
-
 
 
     }
@@ -166,6 +148,7 @@ public class PrincipalChofer extends Fragment {
                                 double lat = Double.parseDouble(selectedFeature.getStringProperty("lat"));
                                 double lon = Double.parseDouble(selectedFeature.getStringProperty("lon"));
                                 Location location = mapboxMap.getLocationComponent().getLastKnownLocation();
+
                                 Location location1 = new Location("punto2");
                                 location1.setLongitude(lat);
                                 assert location != null;
@@ -174,15 +157,16 @@ public class PrincipalChofer extends Fragment {
                                 location1.setLatitude(lat);
                                 location1.setLongitude(lon);
                                 float distancia = location.distanceTo(location1);
-                                if(distancia<6000)
+                                if(distancia<100000)
                                 {
-                                    String title = selectedFeature.getStringProperty("title");
+                                    String nombre = selectedFeature.getStringProperty("nombre");
                                     String codigo = selectedFeature.getStringProperty("id");
                                     String imagen = selectedFeature.getStringProperty("imagen");
-                                    lugar.put("title", title);
+                                    boolean hay = Boolean.parseBoolean(selectedFeature.getStringProperty("hay"));
+                                    lugar.put("nombre", nombre);
                                     lugar.put("id", codigo);
                                     lugar.put("imagen", imagen);
-                                    FirebaseConexionFirestore.buscarListaChoferes(view,1,"",lugar.get("id").toString());
+                                    lugar.put("hay",hay);
                                     Toast.makeText(getContext(), "You selected " + distancia, Toast.LENGTH_SHORT).show();
 
 

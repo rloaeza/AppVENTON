@@ -57,10 +57,10 @@
                             android:layout_height="wrap_content"/>
                         <ImageView
                             android:layout_gravity="center"
-                            android:id="@+id/image_view_persona"
+                            android:id="@+id/image_view_lugar"
                             android:layout_width="170dp"
                             android:layout_height="170dp"
-                            android:layout_margin="20dp"
+                            android:layout_margin="10dp"
                             android:background="@color/transparente"
                             android:contentDescription="@string/txtDescripcion"
                             android:padding="5dp" />
@@ -70,14 +70,13 @@
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
-
-
-
                     <TimePicker
+                        android:layout_gravity="center"
                         android:id="@+id/time"
                         android:layout_margin="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:timePickerMode="spinner"
                         android:headerBackground="@color/colorBackBotones2"
                         android:numbersSelectorColor="@color/colorBackBotones2" />
                     <TextView

@@ -48,7 +48,7 @@ public class Lugar extends Fragment {
 
         TextView textView_titulo = view.findViewById(R.id.text_view_lugar);
         imageView_lugar = view.findViewById(R.id.image_view_lugar);
-        textView_titulo.setText(Objects.requireNonNull(PrincipalChofer.lugar.get("title")).toString());
+        textView_titulo.setText(Objects.requireNonNull(PrincipalChofer.lugar.get("nombre")).toString());
         Button button_agregar_lugar = view.findViewById(R.id.button_seleccionar_lugar);
         button_agregar_lugar.setOnClickListener(new View.OnClickListener() {
             @Override
