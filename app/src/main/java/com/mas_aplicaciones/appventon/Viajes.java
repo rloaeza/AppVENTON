@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.material.card.MaterialCardView;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.staticresources.StaticResources;
 
@@ -73,8 +74,8 @@ public class Viajes extends Fragment {
         spinner_tiempo_espera.setAdapter(adapter_tiempo_espera);
 
         FirebaseConexionFirestore.actualizarViajeAutomatica(view,image_view_persona,spinner_tiempo_espera,textView_lugar_nombre,text_view_espacios_restantes,editText_comentario,timePicker);
-        Button button_actualizar = view.findViewById(R.id.button_actualizar);
-        Button button_cancelar = view.findViewById(R.id.button_cancelar);
+        //Button button_actualizar = view.findViewById(R.id.button_actualizar);
+        MaterialCardView button_cancelar = view.findViewById(R.id.button_cancelar);
        /* button_actualizar.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -98,11 +99,13 @@ public class Viajes extends Fragment {
 
             }
         });*/
+
         button_cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
                // FirebaseConexionFirestore.eliminarViajeChofer(view);
+                Toast.makeText(getActivity(),"adios",Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -157,37 +157,34 @@
               android:id="@+id/recycler_usuarios"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"/>
-            <LinearLayout
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/button_cancelar"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                card_view:cardCornerRadius="5dp"
+                card_view:cardElevation="5dp"
+                android:padding="5dp"
+                app:cardBackgroundColor="@color/colorBackBotones2"
+                card_view:cardUseCompatPadding="true"
                 >
-                <Button
-                    android:id="@+id/button_actualizar"
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
-                    android:layout_height="33dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@color/colorBackBotones"
-                    android:paddingStart="3dp"
-                    android:paddingEnd="3dp"
-                    android:text="@string/guardar_cambios"
-                    android:textColor="@color/colorBotones" />
-                <Button
-                    android:id="@+id/button_cancelar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="33dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@color/colorBackBotones"
-                    android:paddingStart="3dp"
-                    android:paddingEnd="3dp"
-                    android:text="Cancelar Viaje"
-                    android:textColor="@color/colorBotones" />
-            </LinearLayout>
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="Cancelar Viaje"
+                        android:textColor="@color/colorBotones"
+                        android:textSize="20sp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </com.google.android.material.card.MaterialCardView>
+
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
