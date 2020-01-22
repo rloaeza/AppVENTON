@@ -132,14 +132,11 @@ public class Configurar_usuarios extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        storageFirebase.EliminarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(), FirebaseConexionFirestore.PERSONA,getView());
-
         if(requestCode==GALLERY_INTENT)
         {
-
-            Uri uri = data.getData();
             try {
-
+                Uri uri = data.getData();
+                storageFirebase.EliminarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(), FirebaseConexionFirestore.PERSONA,getView());
                 InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
                 if((Double.parseDouble(String.valueOf(inputStream.available()))/1024)<200.1)
                 {
