@@ -90,8 +90,8 @@ public class InicioSesion extends Fragment {
             view = inflater.inflate(R.layout.fragment_inicio_sesion, container, false);
             editText_email = view.findViewById(R.id.edit_text_email);
             editText_contrasena = view.findViewById(R.id.edit_text_contrasena2);
-            Button btnRegistrar = view.findViewById(R.id.button_registrar);
-            Button btnOlvidaContrasena = view.findViewById(R.id.button_olvidar_contraseña);
+            MaterialCardView btnRegistrar = view.findViewById(R.id.button_registrar);
+            MaterialCardView btnOlvidaContrasena = view.findViewById(R.id.button_olvidar_contraseña);
             imageButton_about = view.findViewById(R.id.imageButton_about);
             MaterialCardView btnIniciarSesion = view.findViewById(R.id.button_iniciar);
             //listener para entrar al tipo usuario
