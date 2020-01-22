@@ -14,6 +14,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.android.material.card.MaterialCardView;
 import com.mas_aplicaciones.appventon.firebase.EvaluacionDeViews;
 import com.mas_aplicaciones.appventon.firebase.QueriesFirebase;
 import com.mas_aplicaciones.appventon.staticresources.StaticResources;
@@ -51,69 +53,64 @@ public class RecuperacionPassword extends Fragment {
         spinner_carrera = view.findViewById(R.id.spinner_selecCarrera);
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),R.layout.spinner_item_values_2, StaticResources.OPCIONES_CARRERAS);
         spinner_carrera.setAdapter(arrayAdapter);
-        Button button_recuperar = view.findViewById(R.id.button_recuperar_cuenta);
+        MaterialCardView button_recuperar = view.findViewById(R.id.button_recuperar_cuenta);
 
 
-        button_recuperar.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
+        button_recuperar.setOnClickListener(v -> {
+            email=editText_email.getText().toString();
+            numeroControl = editText_numero_control.getText().toString();
+            telefono= editText_telefono.getText().toString();
+
+            if(!email.equals("") && evaluacionDeViews.emailValidado(email))
             {
-                email=editText_email.getText().toString();
-                numeroControl = editText_numero_control.getText().toString();
-                telefono= editText_telefono.getText().toString();
-
-                if(!email.equals("") && evaluacionDeViews.emailValidado(email))
+                if(!telefono.equals("") && evaluacionDeViews.telefonoValido(telefono))
                 {
-                    if(!telefono.equals("") && evaluacionDeViews.telefonoValido(telefono))
+                    if(!numeroControl.equals("") && evaluacionDeViews.numControlValido(numeroControl))
                     {
-                        if(!numeroControl.equals("") && evaluacionDeViews.numControlValido(numeroControl))
+                        if(spinner_carrera.getSelectedItemPosition()>=1)
                         {
-                            if(spinner_carrera.getSelectedItemPosition()>=1)
+                            if(radioButton_pasajero.isChecked() || radioButton_prestado_servicios.isChecked())
                             {
-                                if(radioButton_pasajero.isChecked() || radioButton_prestado_servicios.isChecked())
-                                {
-                                    carrera = spinner_carrera.getSelectedItem().toString().trim();
-                                    tipo_usuario=(radioButton_prestado_servicios.isChecked())?"Choferes":"Usuarios";
+                                carrera = spinner_carrera.getSelectedItem().toString().trim();
+                                tipo_usuario=(radioButton_prestado_servicios.isChecked())?"Choferes":"Usuarios";
 
-                                     new QueriesFirebase().BuscarDocumento(email.trim(),carrera,telefono,numeroControl,tipo_usuario,view);
+                                 new QueriesFirebase().BuscarDocumento(email.trim(),carrera,telefono,numeroControl,tipo_usuario,view);
 
-                                     editText_numero_control.setText("");
-                                     editText_email.requestFocus();
-                                     editText_email.setText("");
-                                     editText_telefono.setText("");
-                                     radioGroup.clearCheck();
-                                     spinner_carrera.setSelection(0);
-                                }
-                                else
-                                {
-                                    Toast.makeText(getContext(),"Seleccione qué tipo de usuario es",Toast.LENGTH_SHORT).show();
-                                }
+                                 editText_numero_control.setText("");
+                                 editText_email.requestFocus();
+                                 editText_email.setText("");
+                                 editText_telefono.setText("");
+                                 radioGroup.clearCheck();
+                                 spinner_carrera.setSelection(0);
                             }
                             else
                             {
-                                Toast.makeText(getActivity(),"Carrera no seleccionada",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(),"Seleccione qué tipo de usuario es",Toast.LENGTH_SHORT).show();
                             }
-
-
                         }
                         else
                         {
-                            editText_numero_control.setError("required");
-                            Toast.makeText(getActivity(), "Comienza con 1X04XXXX y tiene 8 caracteres", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(),"Carrera no seleccionada",Toast.LENGTH_SHORT).show();
                         }
+
+
                     }
                     else
                     {
-                        editText_telefono.setError("required");
-                        Toast.makeText(getActivity(), "Teléfono nulo o incorrecto", Toast.LENGTH_SHORT).show();
+                        editText_numero_control.setError("required");
+                        Toast.makeText(getActivity(), "Comienza con 1X04XXXX y tiene 8 caracteres", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else
                 {
-                    editText_email.setError("required");
-                    Toast.makeText(getActivity(), "Email incorrecto", Toast.LENGTH_SHORT).show();
+                    editText_telefono.setError("required");
+                    Toast.makeText(getActivity(), "Teléfono nulo o incorrecto", Toast.LENGTH_SHORT).show();
                 }
+            }
+            else
+            {
+                editText_email.setError("required");
+                Toast.makeText(getActivity(), "Email incorrecto", Toast.LENGTH_SHORT).show();
             }
         });
         return view;

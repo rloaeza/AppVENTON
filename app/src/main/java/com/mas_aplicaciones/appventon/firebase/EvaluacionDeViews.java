@@ -12,7 +12,7 @@ public class EvaluacionDeViews
     {
         try {
 
-            return Integer.parseInt(editText) > edadminima && Integer.parseInt(editText) < 100;
+            return Integer.parseInt(editText) > edadminima && Integer.parseInt(editText) < 60;
         }
         catch (NumberFormatException nfe)
         {

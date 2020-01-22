@@ -132,14 +132,16 @@ public class RegistroChofer extends Fragment {
                             }
                         } else {
                             editText_edad.setError("required");
-                            Toast.makeText(getActivity(), "La edad es incorrecta, o no está en el rango (17-100) años ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "La edad es incorrecta, debe que ser mayor que 17 años", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         editText_apellidos.setError("required");
+                        Toast.makeText(getActivity(), "El apellido es invalido", Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
                     editText_nombre.setError("required");
+                    Toast.makeText(getActivity(), "El nombre es invalido", Toast.LENGTH_SHORT).show();
                 }
 
         });

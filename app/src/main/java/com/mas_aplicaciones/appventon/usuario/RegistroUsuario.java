@@ -61,74 +61,72 @@ public class RegistroUsuario extends Fragment {
         editText_numero_control = view.findViewById(R.id.edit_text_num_control);
 
 
-        btnSiguiente.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
+        btnSiguiente.setOnClickListener(v -> {
 
-                nombre = editText_nombre.getText().toString();
-                apellidos = editText_apellidos.getText().toString();
-                edad = editText_edad.getText().toString();
-                telefono = editText_telefono.getText().toString();
-                email = editText_email.getText().toString();
-                contrasena = editText_contrasena.getText().toString();
-                numero_control = editText_numero_control.getText().toString();
-                   if (!nombre.equals(""))
-                   {
-                       if (!apellidos.equals("")) {
-                           if (!edad.equals("") && evaluacionDeViews.es_numero(edad, 17))
+            nombre = editText_nombre.getText().toString();
+            apellidos = editText_apellidos.getText().toString();
+            edad = editText_edad.getText().toString();
+            telefono = editText_telefono.getText().toString();
+            email = editText_email.getText().toString();
+            contrasena = editText_contrasena.getText().toString();
+            numero_control = editText_numero_control.getText().toString();
+               if (!nombre.equals(""))
+               {
+                   if (!apellidos.equals("")) {
+                       if (!edad.equals("") && evaluacionDeViews.es_numero(edad, 17))
+                       {
+                           if (!telefono.equals("") && evaluacionDeViews.telefonoValido(telefono))
                            {
-                               if (!telefono.equals("") && evaluacionDeViews.telefonoValido(telefono))
+                               if (!email.equals("") && evaluacionDeViews.emailValidado(email))
                                {
-                                   if (!email.equals("") && evaluacionDeViews.emailValidado(email))
+                                   if (!contrasena.equals("") && evaluacionDeViews.contrasena_correcta(contrasena))
                                    {
-                                       if (!contrasena.equals("") && evaluacionDeViews.contrasena_correcta(contrasena))
+                                       if (!numero_control.equals("") && evaluacionDeViews.numControlValido(numero_control))
                                        {
-                                           if (!numero_control.equals("") && evaluacionDeViews.numControlValido(numero_control))
-                                           {
 
 
-                                                   RegistroUsuarioOrganizacion.setValueMap("Nombre", nombre.trim());
-                                                   RegistroUsuarioOrganizacion.setValueMap("Apellidos", apellidos.trim());
-                                                   RegistroUsuarioOrganizacion.setValueMap("Edad", Integer.parseInt(edad));
-                                                   RegistroUsuarioOrganizacion.setValueMap("Teléfono", telefono);
-                                                   RegistroUsuarioOrganizacion.setValueMap("Email", email.trim());
-                                                   RegistroUsuarioOrganizacion.setValueMap("Contraseña", contrasena);
-                                                   QueriesFirebase.BuscarNumControl(numero_control,"Usuarios",view,1);
+                                               RegistroUsuarioOrganizacion.setValueMap("Nombre", nombre.trim());
+                                               RegistroUsuarioOrganizacion.setValueMap("Apellidos", apellidos.trim());
+                                               RegistroUsuarioOrganizacion.setValueMap("Edad", Integer.parseInt(edad));
+                                               RegistroUsuarioOrganizacion.setValueMap("Teléfono", telefono);
+                                               RegistroUsuarioOrganizacion.setValueMap("Email", email.trim());
+                                               RegistroUsuarioOrganizacion.setValueMap("Contraseña", contrasena);
+                                               QueriesFirebase.BuscarNumControl(numero_control,"Usuarios",view,1);
 
-                                           }
-                                           else
-                                               {
-                                               editText_numero_control.setError("required");
-                                               Toast.makeText(getActivity(), "Comienza con 1X04XXXX y tiene 8 caracteres", Toast.LENGTH_SHORT).show();
-                                           }
-
-                                       } else {
-                                           editText_contrasena.setError("required");
-                                           Toast.makeText(getActivity(), "Debe tener mínimo una letra mayuscula, un número y 8 caracteres", Toast.LENGTH_SHORT).show();
                                        }
+                                       else
+                                           {
+                                           editText_numero_control.setError("required");
+                                           Toast.makeText(getActivity(), "Comienza con 1X04XXXX y tiene 8 caracteres", Toast.LENGTH_SHORT).show();
+                                       }
+
                                    } else {
-                                       editText_email.setError("required");
-                                       Toast.makeText(getActivity(), "Email incorrecto", Toast.LENGTH_SHORT).show();
+                                       editText_contrasena.setError("required");
+                                       Toast.makeText(getActivity(), "Debe tener mínimo una letra mayuscula, un número y 8 caracteres", Toast.LENGTH_SHORT).show();
                                    }
                                } else {
-                                   editText_telefono.setError("required");
-                                   Toast.makeText(getActivity(), "Teléfono nulo o incorrecto", Toast.LENGTH_SHORT).show();
+                                   editText_email.setError("required");
+                                   Toast.makeText(getActivity(), "Email incorrecto", Toast.LENGTH_SHORT).show();
                                }
                            } else {
-                               editText_edad.setError("required");
-                               Toast.makeText(getActivity(), "La edad es incorrecta, o no está en el rango (17-100) años ", Toast.LENGTH_SHORT).show();
+                               editText_telefono.setError("required");
+                               Toast.makeText(getActivity(), "Teléfono nulo o incorrecto", Toast.LENGTH_SHORT).show();
                            }
                        } else {
-                           editText_apellidos.setError("required");
+                           editText_edad.setError("required");
+                           Toast.makeText(getActivity(), "La edad es incorrecta, debe que ser mayor que 17 años", Toast.LENGTH_SHORT).show();
                        }
-
                    } else {
-                       editText_nombre.setError("required");
+                       editText_apellidos.setError("required");
+                       Toast.makeText(getActivity(), "El apellido es invalido", Toast.LENGTH_SHORT).show();
                    }
 
+               } else {
+                   editText_nombre.setError("required");
+                   Toast.makeText(getActivity(), "El nombre es invalido", Toast.LENGTH_SHORT).show();
+               }
 
-            }
+
         });
         return view;
     }
