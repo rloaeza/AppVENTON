@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
@@ -95,7 +96,7 @@ public class RegistroChoferOrganizacionAuto extends Fragment
 
 
         //button action subir foto
-        Button btnSubirFotoChofer = view.findViewById(R.id.button_subir_foto_chofer);
+        MaterialCardView btnSubirFotoChofer = view.findViewById(R.id.button_subir_foto_chofer);
         btnSubirFotoChofer.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -108,7 +109,7 @@ public class RegistroChoferOrganizacionAuto extends Fragment
             }
         });
 
-        Button btnSiguiente = view.findViewById(R.id.button_registrar);
+        MaterialCardView btnSiguiente = view.findViewById(R.id.button_registrar);
         btnSiguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick( final View v)
