@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.google.android.material.card.MaterialCardView;
 import com.mas_aplicaciones.appventon.chofer.PrincipalChofer;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.firebase.QueriesFirebase;
@@ -63,7 +65,7 @@ public class AgregarLugar extends Fragment
         cargarDialogo(view);
         timePicker = view.findViewById(R.id.time);
         editText_comentario = view.findViewById(R.id.edit_text_mensaje);
-        Button button_agregar_lugar = view.findViewById(R.id.button_seleccionar_lugar);
+        MaterialCardView button_agregar_lugar = view.findViewById(R.id.button_seleccionar_lugar);
         spinner_tiempo_espera = view.findViewById(R.id.spinner_tiempo_espera);
         spinner_espacios = view.findViewById(R.id.spinner_cantidad);
         ArrayAdapter<String> adapter_tiempo_espera = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_item_values_2, StaticResources.OPCIONES_TIEMPO_ESPERA);
