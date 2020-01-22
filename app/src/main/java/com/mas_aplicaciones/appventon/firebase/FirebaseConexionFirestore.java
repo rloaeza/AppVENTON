@@ -66,7 +66,8 @@ public class FirebaseConexionFirestore {
     private static List<String> listaAux = new ArrayList<>();
 
 
-    public static List<Feature> features = new ArrayList<>();
+    public static List<Feature> featuresChoferes = new ArrayList<>();
+    public static List<Feature> featuresUsuarios = new ArrayList<>();
     private static ArrayList<String> numeroControlUsuarios = new ArrayList<>();
     public static String PERSONA;//almacena el valor de la coleccion donde encontro las credenciales.
     public static String DOCUMENT;//almacena el valor de la coleccion donde encontro las credenciales.
@@ -124,7 +125,7 @@ public class FirebaseConexionFirestore {
                         PERSONA="Usuarios";
                         DOCUMENT=document.getId();
                         FirebaseConexionFirestore.setMap(document.getData());
-                        features=cargarLugaresUsuarios();
+                        featuresUsuarios=cargarLugaresUsuarios();
                         findNavController(view).navigate(R.id.action_inicioSesion_to_principalUsuario);
                     }
                 }
@@ -150,7 +151,7 @@ public class FirebaseConexionFirestore {
                         {
                             PERSONA="Choferes";
                             DOCUMENT=document.getId();
-                            features=cargarLugaresChofer();
+                            featuresChoferes=cargarLugaresChofer();
                             // Toast.makeText(view.getContext(), "Iniciando... ", Toast.LENGTH_SHORT).show();
                             findNavController(view).navigate(R.id.action_inicioSesion_to_principalChofer);
                         }

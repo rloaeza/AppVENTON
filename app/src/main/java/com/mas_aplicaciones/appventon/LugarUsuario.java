@@ -142,13 +142,13 @@ public class LugarUsuario extends Fragment
         {
             //StaticResources.actionSnackbar(view.getRootView(),"No hay más viajes disponibles",R.string.regresar_al_mapa,R.id.action_lugarUsuario_to_principalUsuario);
             Log.e("err", " soy 0");
-            FirebaseConexionFirestore.features.clear();
+            FirebaseConexionFirestore.featuresUsuarios.clear();
             FirebaseConexionFirestore.cargarLugaresUsuarios();
         }
         else
         {
             Log.e("err", "soy 1");
-            FirebaseConexionFirestore.features.clear();
+            FirebaseConexionFirestore.featuresUsuarios.clear();
             FirebaseConexionFirestore.cargarLugaresUsuarios();
             //StaticResources.actionSnackbar(view.getRootView(),"Se canceló un viaje");
         }

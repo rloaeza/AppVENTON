@@ -102,81 +102,63 @@ public class PrincipalUsuario extends Fragment {
                 ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
         {
             mapView.getMapAsync(mapboxMap -> {
+                        mapboxMap.setStyle(new Style.Builder().fromUri("mapbox://styles/mapbox/cjf4m44iw0uza2spb3q0a7s41")
+                        // Add the SymbolLayer icon image to the map style
+                        .withImage(ICON_ID, BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.marker_40))
 
+                        // Adding a GeoJson source for the SymbolLayer icons.
+                        .withSource(new GeoJsonSource(SOURCE_ID, FeatureCollection.fromFeatures(FirebaseConexionFirestore.featuresUsuarios)))
 
-
-                mapboxMap.setStyle(new Style.Builder().fromUri("mapbox://styles/mapbox/cjf4m44iw0uza2spb3q0a7s41")
-
-                                // Add the SymbolLayer icon image to the map style
-                                .withImage(ICON_ID, BitmapFactory.decodeResource(
-                                        getActivity().getResources(), R.drawable.marker_40))
-
-                                // Adding a GeoJson source for the SymbolLayer icons.
-                                .withSource(new GeoJsonSource(SOURCE_ID,
-                                        FeatureCollection.fromFeatures(FirebaseConexionFirestore.features)))
-
-                                // Adding the actual SymbolLayer to the map style. An offset is added that the bottom of the red
-                                // marker icon gets fixed to the coordinate, rather than the middle of the icon being fixed to
-                                // the coordinate point. This is offset is not always needed and is dependent on the image
-                                // that you use for the SymbolLayer icon.
-                                .withLayer(
-                                        new SymbolLayer(LAYER_ID, SOURCE_ID)
-                                                .withProperties(PropertyFactory.iconImage(ICON_ID),
-                                                        iconAllowOverlap(true),
-                                                        iconIgnorePlacement(true),
-                                                        iconOffset(new Float[]{0f, -9f}))
-                                ),new Style.OnStyleLoaded() {
-                    @Override
-                    public void onStyleLoaded(@NonNull Style style) {
-
-// Map is set up and the style has loaded. Now you can add additional data or make other map adjustments.
-                         getLocation(mapboxMap, style);
-                        mapboxMap.addOnMapClickListener(point -> {
-                            PointF screenPoint = mapboxMap.getProjection().toScreenLocation(point);
-                            List<Feature> features = mapboxMap.queryRenderedFeatures(screenPoint, LAYER_ID);
-                            if (!features.isEmpty())
-                            {
-                                Feature selectedFeature = features.get(0);
-                                double lat = Double.parseDouble(selectedFeature.getStringProperty("lat"));
-                                double lon = Double.parseDouble(selectedFeature.getStringProperty("lon"));
-                                Location location = mapboxMap.getLocationComponent().getLastKnownLocation();
-                                Location location1 = new Location("punto2");
-                                location1.setLongitude(lat);
-                                assert location != null;
-                                location.setLatitude(location.getLatitude());
-                                location.setLongitude(location.getLongitude());
-                                location1.setLatitude(lat);
-                                location1.setLongitude(lon);
-                                float distancia = location.distanceTo(location1);
-                                if(distancia<6000)
-                                {
-                                    String title = selectedFeature.getStringProperty("title");
-                                    String codigo = selectedFeature.getStringProperty("id");
-                                    String imagen = selectedFeature.getStringProperty("imagen");
-                                    boolean hay = Boolean.parseBoolean(selectedFeature.getStringProperty("hay"));
-                                    lugar.put("title", title);
-                                    lugar.put("id", codigo);
-                                    lugar.put("imagen", imagen);
-                                    lugar.put("hay",hay);
-                                    Toast.makeText(getContext(), "You selected " + distancia, Toast.LENGTH_SHORT).show();
-
-
-
-                                    findNavController(Objects.requireNonNull(getView())).navigate(R.id.action_principalUsuario_to_lugarUsuario);
-                                }
-                                else{
-                                    Toast.makeText(getContext(),"No puede ver información está lejos del punto de acceso",Toast.LENGTH_SHORT).show();
-                                }
-
-                            }
-                            return true;
+                        // Adding the actual SymbolLayer to the map style. An offset is added that the bottom of the red
+                        // marker icon gets fixed to the coordinate, rather than the middle of the icon being fixed to
+                        // the coordinate point. This is offset is not always needed and is dependent on the image
+                        // that you use for the SymbolLayer icon.
+                        .withLayer(new SymbolLayer(LAYER_ID, SOURCE_ID)
+                                        .withProperties(PropertyFactory.iconImage(ICON_ID),
+                                                iconAllowOverlap(true),
+                                                iconIgnorePlacement(true),
+                                                iconOffset(new Float[]{0f, -9f}))
+                        ),
+                        style -> {
+                        // Map is set up and the style has loaded. Now you can add additional data or make other map adjustments.
+                                    getLocation(mapboxMap, style);
+                                    mapboxMap.addOnMapClickListener(point -> {
+                                        PointF screenPoint = mapboxMap.getProjection().toScreenLocation(point);
+                                        List<Feature> features = mapboxMap.queryRenderedFeatures(screenPoint, LAYER_ID);
+                                        if (!features.isEmpty())
+                                        {
+                                            Feature selectedFeature = features.get(0);
+                                            double lat = Double.parseDouble(selectedFeature.getStringProperty("lat"));
+                                            double lon = Double.parseDouble(selectedFeature.getStringProperty("lon"));
+                                            Location location = mapboxMap.getLocationComponent().getLastKnownLocation();
+                                            Location location1 = new Location("punto2");
+                                            location1.setLongitude(lat);
+                                            assert location != null;
+                                            location.setLatitude(location.getLatitude());
+                                            location.setLongitude(location.getLongitude());
+                                            location1.setLatitude(lat);
+                                            location1.setLongitude(lon);
+                                            float distancia = location.distanceTo(location1);
+                                            if(distancia<6000)
+                                            {
+                                                String title = selectedFeature.getStringProperty("title");
+                                                String codigo = selectedFeature.getStringProperty("id");
+                                                String imagen = selectedFeature.getStringProperty("imagen");
+                                                boolean hay = Boolean.parseBoolean(selectedFeature.getStringProperty("hay"));
+                                                lugar.put("title", title);
+                                                lugar.put("id", codigo);
+                                                lugar.put("imagen", imagen);
+                                                lugar.put("hay",hay);
+                                                Toast.makeText(getContext(), "You selected " + distancia, Toast.LENGTH_SHORT).show();
+                                                findNavController(Objects.requireNonNull(getView())).navigate(R.id.action_principalUsuario_to_lugarUsuario);
+                                            }
+                                            else{
+                                                Toast.makeText(getContext(),"No puede ver información está lejos del punto de acceso",Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                        return true;
+                                    });
                         });
-
-                    }
-                });
-
-
-
             });
         }
 
