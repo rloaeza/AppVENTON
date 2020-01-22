@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.material.card.MaterialCardView;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.firebase.EvaluacionDeViews;
@@ -49,7 +51,7 @@ public class RegistroUsuario extends Fragment {
 
         // Inflate the layout for this fragment
         final View view =inflater.inflate(R.layout.fragment_registro_usuario, container, false);
-        Button btnSiguiente = view.findViewById(R.id.button_registrar);
+        MaterialCardView btnSiguiente = view.findViewById(R.id.button_registrar);
         editText_nombre = view.findViewById(R.id.edit_text_nombre);
         editText_apellidos = view.findViewById(R.id.edit_text_apellidos);
         editText_edad = view.findViewById(R.id.edit_text_edad);

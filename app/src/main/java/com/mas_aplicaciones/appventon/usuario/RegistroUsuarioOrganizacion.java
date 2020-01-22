@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
@@ -75,8 +76,8 @@ public class RegistroUsuarioOrganizacion extends Fragment {
         spinner_genero.setAdapter(adapter_genero);
         spinner_carreras.setAdapter(adapter_carreras);
 
-        Button btnRegistrar = view.findViewById(R.id.button_registrar);
-        Button btnSubirFotoUsuario = view.findViewById(R.id.button_subir_foto_usuario);
+        MaterialCardView btnRegistrar = view.findViewById(R.id.button_registrar);
+        MaterialCardView btnSubirFotoUsuario = view.findViewById(R.id.button_subir_foto_usuario);
 
 
         //button action subir foto
