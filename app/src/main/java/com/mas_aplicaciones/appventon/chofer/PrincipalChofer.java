@@ -220,7 +220,8 @@ public class PrincipalChofer extends Fragment {
         if(FirebaseConexionFirestore.getValue("URI_Coche").equals(""))
         {
             mapView.setVisibility(View.INVISIBLE);
-            StaticResources.actionSnackbar(getView());
+            StaticResources.actionSnackbar(getView(),"No podrá ver el mapa hasta que suba uma imagen de su auto", R.string.modificar,
+                    R.id.action_principalChofer_to_configurar);
         }
         else {
             mapView.setVisibility(View.VISIBLE);

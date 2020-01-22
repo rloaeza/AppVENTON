@@ -14,9 +14,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,6 +33,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.JsonObject;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.Point;
+import com.mas_aplicaciones.appventon.Interfaces.CancelarChoferLugar;
+import com.mas_aplicaciones.appventon.Interfaces.CargarDatos;
+import com.mas_aplicaciones.appventon.Interfaces.NotificarToast;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.chofer.PrincipalChofer;
@@ -47,6 +47,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 import dmax.dialog.SpotsDialog;
 
@@ -55,6 +56,9 @@ import static androidx.navigation.Navigation.findNavController;
 
 
 public class FirebaseConexionFirestore {
+    private CancelarChoferLugar cancelarChoferLugar;
+    private NotificarToast notificarToast;
+    private CargarDatos cargarDatos;
     private static FirebaseFirestore db = MainActivity.db;
 
     private static Map<String, Object> datos = new HashMap<>();
@@ -167,74 +171,80 @@ public class FirebaseConexionFirestore {
     public static void actualizarFotoAutomatica(String collection, final View view, final ImageView imageView_persona, final ImageView imageView_carro)
     {
         DocumentReference docRef = db.collection(collection).document(DOCUMENT);
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot snapshot,
-                                @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.w(TAG, "Listen failed.", e);
-                    return;
-                }
+        docRef.addSnapshotListener((snapshot, e) -> {
+            if (e != null) {
+                Log.w(TAG, "Listen failed.", e);
+                return;
+            }
 
-                if (snapshot != null && snapshot.exists())
+            if (snapshot != null && snapshot.exists())
+            {
+                datos.put("URI",snapshot.getData().get("URI").toString());
+                datos.put("URI_Coche",snapshot.getData().get("URI_Coche").toString());
+                String foto_persona = snapshot.getData().get("URI").toString();
+                String foto_auto = snapshot.getData().get("URI_Coche").toString();
+                Glide.with(view.getContext())
+                        .load(foto_persona)
+                        .fitCenter()
+                        .centerCrop()
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(imageView_persona);
+                Glide.with(view.getContext())
+                        .load(foto_auto)
+                        .fitCenter()
+                        .centerCrop()
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(imageView_carro);
+                if(datos.get("Viaje")!=null)
                 {
-                    datos.put("URI",snapshot.getData().get("URI").toString());
-                    datos.put("URI_Coche",snapshot.getData().get("URI_Coche").toString());
-                    String foto_persona = snapshot.getData().get("URI").toString();
-                    String foto_auto = snapshot.getData().get("URI_Coche").toString();
-                    Glide.with(view.getContext())
-                            .load(foto_persona)
-                            .fitCenter()
-                            .centerCrop()
-                            .apply(RequestOptions.circleCropTransform())
-                            .into(imageView_persona);
-                    Glide.with(view.getContext())
-                            .load(foto_auto)
-                            .fitCenter()
-                            .centerCrop()
-                            .apply(RequestOptions.circleCropTransform())
-                            .into(imageView_carro);
                     if(!datos.get("Viaje").equals("")) {
                         db.collection("Chofer_lugar").document(datos.get("Viaje").toString()).update("URI", foto_persona);
                         db.collection("Chofer_lugar").document(datos.get("Viaje").toString()).update("URI_Coche",foto_auto);
                     }
-
-                } else {
-                    Log.d(TAG, "Current data: null");
                 }
+
+
+            } else {
+                Log.d(TAG, "Current data: null");
             }
         });
     }
-    public static void actualizarRatingAutomatico(String collection, final View view, final TextView[] textViews, final RatingBar ratingBar, final FragmentActivity activity)
+    public static void actualizarRatingAutomatico(String collection, final TextView[] textViews, final RatingBar ratingBar, final FragmentActivity activity)
     {
         DocumentReference docRef = db.collection(collection).document(DOCUMENT);
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot snapshot,
-                                @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.w(TAG, "Listen failed.", e);
-                    return;
-                }
+        docRef.addSnapshotListener((snapshot, e) -> {
+            if (e != null) {
+                Log.w(TAG, "Listen failed.", e);
+                return;
+            }
 
-                if (snapshot != null && snapshot.exists())
-                {
-                    datos.put("URI",snapshot.getData().get("URI").toString());
-                    datos.put("URI_Coche",snapshot.getData().get("URI_Coche").toString());
-                    datos.put("Ranking",snapshot.getData().get("Ranking").toString());
-                    int cantidad = (int) (Float.parseFloat(FirebaseConexionFirestore.getValue("Ranking").toString())/0.5);
-                    ratingBar.setRating((float)(cantidad*0.5));
-                    recompensas(ratingBar,textViews,activity);
-                    if(!datos.get("Viaje").equals(""))
-                    {
-                        db.collection("Chofer_lugar").document(datos.get("Viaje").toString()).update("Ranking",datos.get("Ranking"));
+            if (snapshot != null && snapshot.exists() && !datos.isEmpty() )
+            {
+                datos.put("URI",snapshot.getData().get("URI").toString());
+                datos.put("URI_Coche",snapshot.getData().get("URI_Coche").toString());
+                datos.put("Ranking",snapshot.getData().get("Ranking").toString());
+                double cantidad =  (Float.parseFloat(FirebaseConexionFirestore.getValue("Ranking").toString())/0.5);
+                ratingBar.setRating((float)(cantidad*0.5));
+                recompensas(ratingBar,textViews,activity);
+                if(datos.get("Viaje")!=null) {
+                    if (!datos.get("Viaje").equals("")) {
+                        db.collection("Chofer_lugar").document(datos.get("Viaje").toString()).update("Ranking", datos.get("Ranking"));
                     }
-
-                } else {
-                    Log.d(TAG, "Current data: null");
                 }
+
+
+            } else {
+                Log.d(TAG, "Current data: null");
             }
         });
+    }
+    public void actualizarRating(double v)
+    {
+        double cantidad =  (Float.parseFloat(FirebaseConexionFirestore.getValue("Ranking").toString()));
+        cantidad=cantidad-v;
+        db.collection("Choferes").document(DOCUMENT).update("Ranking",cantidad);
+        datos.put("Ranking",cantidad);
+
     }
     public static void actualizarData(String nombre, @NonNull String apellido, String telefono, View view)
     {
@@ -267,38 +277,7 @@ public class FirebaseConexionFirestore {
         datos.put("LastDate", Calendar.getInstance().getTime());
 
     }
-    public static void actualizarDatosViajeChofer(String comentario,String espera,String time)
-    {
 
-
-        if(!datosChoferLugar.get("Comentario").equals(comentario))
-        {
-            FirebaseConexionFirestore.setValueChoferLugar("Comentario",comentario);
-            db.collection("Chofer_lugar").document(datos.get("Viaje").toString()).update("Comentario",datosChoferLugar.get("Comentario"));
-
-        }
-        if(!datosChoferLugar.get("TiempoEspera").equals(espera))
-        {
-            setValueChoferLugar("TiempoEspera",espera);
-            db.collection("Chofer_lugar").document(datos.get("Viaje").toString()).update("TiempoEspera",datosChoferLugar.get("TiempoEspera"));
-
-        }
-        if(!datosChoferLugar.get("Hora").equals(time))
-        {
-            setValueChoferLugar("Hora",time);
-            db.collection("Chofer_lugar").document(datos.get("Viaje").toString()).update("Hora", time);
-
-        }
-        if(!datos.get("Viaje").equals(""))
-        {
-            db.collection("Chofer_lugar").document(datos.get("Viaje").toString()).update("Comentario", comentario);
-            db.collection("Chofer_lugar").document(datos.get("Viaje").toString()).update("Hora", time);
-            db.collection("Chofer_lugar").document(datos.get("Viaje").toString()).update("TiempoEspera",espera);
-
-        }
-
-
-    }
     public static  void actualizarViaje(String viaje)
     {
         db.collection(PERSONA).document(DOCUMENT).update("Viaje", viaje);
@@ -320,13 +299,22 @@ public class FirebaseConexionFirestore {
         }
     }
 
+    /*metodos usados el la vista viajes*/
     //modificar el campo hay de Puntos_recoleccion al momento de agregar
-    public static void actualizarHay(String UUID_lugar)
+    public  void actualizarHay(String UUID_lugar)
     {
         db.collection("Puntos_recoleccion").document(UUID_lugar).update("hay", true);
         PrincipalChofer.lugar.put("hay",true);
         PrincipalChofer.lugar.clear();
     }
+    public void actualizarHay(String UUID_lugar,boolean hay)
+    {
+        Log.e("err",UUID_lugar+""+hay);
+        db.collection("Puntos_recoleccion").document(UUID_lugar).update("hay", hay);
+
+    }
+
+
     public void agregar_chofer_lugar(final Map<String, Object> datos, final String UUID_chofer) {
 
         db.collection("Chofer_lugar").document(UUID_chofer)
@@ -345,48 +333,106 @@ public class FirebaseConexionFirestore {
                         // Log.w(TAG, "Error writing document", e);
                     }
                 });
-
-
     }
-
-
-    public static void actualizarViajeAutomatica(final View view, final ImageView imageView_lugar, final Spinner spinner_tiempo_espera, final TextView textView_lugar_nombre, final TextView text_view_espacios_restantes, final EditText editText_comentario, final TimePicker timePicker)
+    public void eliminar_chofer_lugar(String UUID_chofer_lugar)
     {
-
-        DocumentReference docRef = db.collection("Chofer_lugar").document(datos.get("Viaje").toString());
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot snapshot,
-                                @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.w(TAG, "Listen failed.", e);
-                    return;
-                }
-
-                if (snapshot != null && snapshot.exists())
+        //notificar a los usuarios
+        db.collection("Chofer_lugar").document(UUID_chofer_lugar)
+                .delete()
+                .addOnSuccessListener(
+                        aVoid ->
+                        notificarToast.notificar("Eliminado el viaje")
+                )
+                .addOnFailureListener(
+                        e ->
+                        notificarToast.notificar("Error")
+                );
+    }
+    public  void getDatosViaje(String viaje)
+    {
+        DocumentReference docRef = db.collection("Chofer_lugar").document(viaje);
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists())
                 {
-                    datosChoferLugar = snapshot.getData();
-                    Glide.with(view.getRootView().getContext())
-                            .load(datosChoferLugar.get("URI_Lugar"))
-                            .fitCenter()
-                            .centerCrop()
-                            .apply(RequestOptions.circleCropTransform())
-                            .into(imageView_lugar);
+                    cargarDatos.getInformacion(document.getData());
 
-                    textView_lugar_nombre.setText(datosChoferLugar.get("Nombre_Lugar").toString());
-                    text_view_espacios_restantes.setText("Espacios disponibles: "+datosChoferLugar.get("Espacios").toString());
-                    editText_comentario.setText(datosChoferLugar.get("Comentario").toString());
-                    spinner_tiempo_espera.setSelection(Integer.parseInt(datosChoferLugar.get("TiempoEspera").toString()));
-                    String []hora=datosChoferLugar.get("Hora").toString().split(":");
-                    timePicker.setHour(Integer.parseInt(hora[0]));
-                    timePicker.setMinute(Integer.parseInt(hora[1]));
 
                 } else {
-                    Log.d(TAG, "Current data: null");
+                    Log.d(TAG, "No such document");
                 }
+            } else {
+                Log.d(TAG, "get failed with ", task.getException());
             }
         });
+
+
     }
+    public void consultarRelacionChoferLugar(String idLugar)
+    {
+        db.collection("Chofer_lugar")
+                .whereEqualTo("IdLugar", idLugar)
+                .get()
+                .addOnCompleteListener(task ->
+                {
+                    if (task.isSuccessful()) {
+
+
+                        if(task.getResult().size()>0)
+                        {
+                            cancelarChoferLugar.getChoferesRelacionados(true);
+                        }
+                        else
+                        {
+                            cancelarChoferLugar.getChoferesRelacionados(false);
+                        }
+
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.getException());
+                    }
+                });
+    }
+    public void consultarRelacionUsuarioChofer(String UUID_chofer)
+    {
+        //notificar eliminacion a los usuarios
+        db.collection("Usuarios")
+                .whereEqualTo("Viaje", UUID_chofer)
+                .get()
+                .addOnCompleteListener(task ->
+                {
+                    if (task.isSuccessful()) {
+                        int cantidad=0;
+                        for (QueryDocumentSnapshot document : task.getResult())
+                        {
+                            //notificar aquí
+                            document.getId();
+                            cantidad++;
+                        }
+                        cancelarChoferLugar.getUsuariosRelacionados(cantidad);
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.getException());
+                    }
+                });
+    }
+
+    /* end metodos usados el la vista viajes*/
+    //set listeners
+    public void setCancelarChoferLugarListener(CancelarChoferLugar cancelarChoferLugar)
+    {
+        this.cancelarChoferLugar=cancelarChoferLugar;
+    }
+    public void setNotificarToastListener(NotificarToast notificarToast)
+    {
+        this.notificarToast = notificarToast;
+    }
+    public void setCargarDatosViajeListener(CargarDatos cargarDatos)
+    {
+        this.cargarDatos=cargarDatos;
+    }
+    //end set listeners
+
+
 
 
 
@@ -424,33 +470,30 @@ public class FirebaseConexionFirestore {
         final List<Feature> symbolLayerIconFeatureList = new ArrayList<>();
         db.collection("Puntos_recoleccion")
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult())
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult())
+                        {
+
+                            if((boolean)document.get("hay"))
                             {
-
-                                if(((document.getData().get("chofer-lugar"))+"").length()>4)
-                                {
-                                    JsonObject jsonObject = new JsonObject();
-                                    jsonObject.addProperty("title", document.get("nombre").toString());
-                                    jsonObject.addProperty("id", document.getId());
-                                    GeoPoint geoPoint = (GeoPoint) document.get("location");
-                                    jsonObject.addProperty("lat", geoPoint.getLatitude());
-                                    jsonObject.addProperty("lon", geoPoint.getLongitude());
-                                    jsonObject.addProperty("imagen", document.get("imagen").toString());
-                                    jsonObject.addProperty("hay",document.get("hay").toString());
+                                JsonObject jsonObject = new JsonObject();
+                                jsonObject.addProperty("title", document.get("nombre").toString());
+                                jsonObject.addProperty("id", document.getId());
+                                GeoPoint geoPoint = (GeoPoint) document.get("location");
+                                jsonObject.addProperty("lat", geoPoint.getLatitude());
+                                jsonObject.addProperty("lon", geoPoint.getLongitude());
+                                jsonObject.addProperty("imagen", document.get("imagen").toString());
+                                jsonObject.addProperty("hay", document.get("hay").toString());
 
 
-                                    symbolLayerIconFeatureList.add(
-                                            Feature.fromGeometry(Point.fromLngLat(geoPoint.getLongitude(), geoPoint.getLatitude()), jsonObject));
-                                }
+                                symbolLayerIconFeatureList.add(
+                                        Feature.fromGeometry(Point.fromLngLat(geoPoint.getLongitude(), geoPoint.getLatitude()), jsonObject));
 
                             }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
                         }
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.getException());
                     }
                 });
         return  symbolLayerIconFeatureList;
@@ -461,32 +504,29 @@ public class FirebaseConexionFirestore {
         final List<Feature> symbolLayerIconFeatureList = new ArrayList<>();
         db.collection("Puntos_recoleccion")
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult())
-                            {
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult())
+                        {
 
 
-                                    JsonObject jsonObject = new JsonObject();
-                                    jsonObject.addProperty("id", document.getId());
-                                    jsonObject.addProperty("nombre", document.get("nombre").toString());
-                                    GeoPoint geoPoint = (GeoPoint) document.getData().get("location");
-                                    jsonObject.addProperty("lat", geoPoint.getLatitude());
-                                    jsonObject.addProperty("lon", geoPoint.getLongitude());
-                                    jsonObject.addProperty("imagen", document.get("imagen").toString());
-                                    jsonObject.addProperty("hay",document.get("hay").toString());
+                                JsonObject jsonObject = new JsonObject();
+                                jsonObject.addProperty("id", document.getId());
+                                jsonObject.addProperty("nombre", document.get("nombre").toString());
+                                GeoPoint geoPoint = (GeoPoint) document.getData().get("location");
+                                jsonObject.addProperty("lat", geoPoint.getLatitude());
+                                jsonObject.addProperty("lon", geoPoint.getLongitude());
+                                jsonObject.addProperty("imagen", document.get("imagen").toString());
+                                jsonObject.addProperty("hay",document.get("hay").toString());
 
 
-                                    symbolLayerIconFeatureList.add(
-                                            Feature.fromGeometry(Point.fromLngLat(geoPoint.getLongitude(), geoPoint.getLatitude()), jsonObject));
+                                symbolLayerIconFeatureList.add(
+                                        Feature.fromGeometry(Point.fromLngLat(geoPoint.getLongitude(), geoPoint.getLatitude()), jsonObject));
 
 
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
                         }
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.getException());
                     }
                 });
         return  symbolLayerIconFeatureList;
@@ -538,6 +578,42 @@ public class FirebaseConexionFirestore {
         datos=setData;
     }
 
+
+
+//desuso de metodos
+    /*
+    *  public static void actualizarDatosViajeChofer(String comentario,String espera,String time)
+    {
+
+
+        if(!datosChoferLugar.get("Comentario").equals(comentario))
+        {
+            FirebaseConexionFirestore.setValueChoferLugar("Comentario",comentario);
+            db.collection("Chofer_lugar").document(datos.get("Viaje").toString()).update("Comentario",datosChoferLugar.get("Comentario"));
+
+        }
+        if(!datosChoferLugar.get("TiempoEspera").equals(espera))
+        {
+            setValueChoferLugar("TiempoEspera",espera);
+            db.collection("Chofer_lugar").document(datos.get("Viaje").toString()).update("TiempoEspera",datosChoferLugar.get("TiempoEspera"));
+
+        }
+        if(!datosChoferLugar.get("Hora").equals(time))
+        {
+            setValueChoferLugar("Hora",time);
+            db.collection("Chofer_lugar").document(datos.get("Viaje").toString()).update("Hora", time);
+
+        }
+        if(!datos.get("Viaje").equals(""))
+        {
+            db.collection("Chofer_lugar").document(datos.get("Viaje").toString()).update("Comentario", comentario);
+            db.collection("Chofer_lugar").document(datos.get("Viaje").toString()).update("Hora", time);
+            db.collection("Chofer_lugar").document(datos.get("Viaje").toString()).update("TiempoEspera",espera);
+
+        }
+
+
+    }*/
 
 
 }

@@ -78,7 +78,7 @@ public class Configurar_choferes extends Fragment
         //listeners
 
 
-        FirebaseConexionFirestore.actualizarRatingAutomatico("Choferes",view,textViews, ratingBar,getActivity());
+        FirebaseConexionFirestore.actualizarRatingAutomatico("Choferes",textViews, ratingBar,getActivity());
         FirebaseConexionFirestore.actualizarFotoAutomatica("Choferes",view,imageView_persona,imageView_carro);
 
 
@@ -176,54 +176,56 @@ public class Configurar_choferes extends Fragment
     {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==GALLERY_INTENT)
-        {
-            storageFirebase.EliminarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(), FirebaseConexionFirestore.PERSONA,getView());
-            Uri uri = data.getData();
-            try
-            {
-                assert null!=uri;
-                InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri);
-                assert inputStream != null;
-                if((Double.parseDouble(String.valueOf(inputStream.available()))/1024)<200.1)
-                {
-                    storageFirebase.agregarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(),uri, FirebaseConexionFirestore.PERSONA, Objects.requireNonNull(getView()),1);
 
-                }
-                else
-                {
-                    Toast.makeText(getActivity(), "La imagen debe que ser menor de 200.1 kb",Toast.LENGTH_LONG).show();
-                }
-            }
-            catch (IOException e)
+            if(requestCode==GALLERY_INTENT)
             {
-                e.printStackTrace();
-            }
-        }
-        if(requestCode==GALLERY_INTENT2)
-        {
-            storageFirebase.EliminarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(), "Coches",getView());
+                try
+                {
+                    Uri uri = data.getData();
+                    storageFirebase.EliminarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(), FirebaseConexionFirestore.PERSONA,getView());
+                    assert null!=uri;
+                    InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri);
+                    assert inputStream != null;
+                    if((Double.parseDouble(String.valueOf(inputStream.available()))/1024)<200.1)
+                    {
+                        storageFirebase.agregarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(),uri, FirebaseConexionFirestore.PERSONA, Objects.requireNonNull(getView()),1);
 
-            Uri uri = data.getData();
-            try
-            {
-                assert null!=uri;
-                InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri);
-                assert inputStream != null;
-                if((Double.parseDouble(String.valueOf(inputStream.available()))/1024)<200.1)
-                {
-                    storageFirebase.agregarFotoCoche(FirebaseConexionFirestore.getValue("NumeroControl").toString(),uri, Objects.requireNonNull(getView()),1);
+                    }
+                    else
+                    {
+                        Toast.makeText(getActivity(), "La imagen debe que ser menor de 200.1 kb",Toast.LENGTH_LONG).show();
+                    }
                 }
-                else
+                catch (IOException | NullPointerException e)
                 {
-                    Toast.makeText(getActivity(), "La imagen debe que ser menor de 200.1 kb",Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
                 }
             }
-            catch (IOException e)
+            if(requestCode==GALLERY_INTENT2)
             {
-                e.printStackTrace();
+                try
+                {
+                    Uri uri = data.getData();
+                    storageFirebase.EliminarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(), "Coches",getView());
+                    assert null!=uri;
+                    InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri);
+                    assert inputStream != null;
+                    if((Double.parseDouble(String.valueOf(inputStream.available()))/1024)<200.1)
+                    {
+                        storageFirebase.agregarFotoCoche(FirebaseConexionFirestore.getValue("NumeroControl").toString(),uri, Objects.requireNonNull(getView()),1);
+                    }
+                    else
+                    {
+                        Toast.makeText(getActivity(), "La imagen debe que ser menor de 200.1 kb",Toast.LENGTH_LONG).show();
+                    }
+                }
+                catch (IOException | NullPointerException e)
+                {
+                    e.printStackTrace();
+                }
             }
-        }
+
+
 
     }
 

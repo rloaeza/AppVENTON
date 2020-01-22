@@ -51,6 +51,8 @@ public class AdaptadorChofer extends BaseAdapter
                 }
             }
 
+
+
         }
 
     }
@@ -115,7 +117,7 @@ public class AdaptadorChofer extends BaseAdapter
                 .apply(RequestOptions.circleCropTransform())
                 .into((imageView_chofer));
         Glide.with(context)
-                .load(entidadChofer.getImagen())
+                .load(entidadChofer.getImagen_Coche())
                 .fitCenter()
                 .centerCrop()
                 .apply(RequestOptions.circleCropTransform())

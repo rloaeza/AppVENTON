@@ -80,17 +80,14 @@ public class menu extends Fragment {
 
 
 
-        btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseConexionFirestore.actualizarDate();
+        btnCerrarSesion.setOnClickListener(v -> {
 
-                InicioSesion.mAuth.signOut();
-                clearPreferencias();
-                FirebaseConexionFirestore.ClearMap();
-                findNavController(v).navigate(R.id.inicioSesion);
+            FirebaseConexionFirestore.actualizarDate();
+            InicioSesion.mAuth.signOut();
+            clearPreferencias();
+            FirebaseConexionFirestore.ClearMap();
+            findNavController(v).navigate(R.id.inicioSesion);
 
-            }
         });
 
         return view;
@@ -115,6 +112,7 @@ public class menu extends Fragment {
         textPersona.setText(ob_nombre + " " + ob_apellidos);
 
         Glide.with(Objects.requireNonNull(getView()).getContext())
+
                 .load(ob_uri.toString())
                 .fitCenter()
                 .centerCrop()

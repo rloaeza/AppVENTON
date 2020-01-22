@@ -17,14 +17,14 @@ public class StaticResources
     public final static String EMAILSENDER ="appventonitsu@gmail.com";
     public final static String PASSWORD ="AppVenton1234";
 
-    public static void actionSnackbar(final View view){
-       Snackbar.make(view,"No podrá ver el mapa hasta que suba uma imagen de su auto",Snackbar.LENGTH_LONG).setAction(R.string.modificar,
-                new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Navigation.findNavController(view).navigate(R.id.action_principalChofer_to_configurar);
-                }
-            }).show();
+    public static void actionSnackbar(final View view,String mensaje,int id_button,int id_fragment){
+       Snackbar.make(view,mensaje,Snackbar.LENGTH_LONG).setAction(
+              id_button,
+               v -> Navigation.findNavController(view).navigate(id_fragment)).show();
+
+    }
+    public static void actionSnackbar(final View view,String mensaje){
+        Snackbar.make(view,mensaje,Snackbar.LENGTH_LONG).show();
 
     }
 

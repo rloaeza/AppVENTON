@@ -16,6 +16,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 
 }
 
@@ -48,7 +52,12 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     // glide to images on android
-    implementation("com.github.bumptech.glide:glide:4.9.0@aar") {
+    implementation ("com.github.bumptech.glide:glide:4.9.0") {
+        exclude group: "com.android.support"
+    }
+    annotationProcessor 'androidx.annotation:annotation:1.0.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation ("com.github.bumptech.glide:glide:4.9.0@aar") {
         transitive = true
     }
     //mapbox

@@ -227,6 +227,9 @@
         <action
             android:id="@+id/action_lugarUsuario_to_descripcionViaje"
             app:destination="@id/descripcionViaje" />
+        <action
+            android:id="@+id/action_lugarUsuario_to_principalUsuario"
+            app:destination="@id/principalUsuario" />
     </fragment>
     <fragment
         android:id="@+id/agregarLugar"

@@ -106,6 +106,7 @@ public class RegistroUsuarioOrganizacion extends Fragment {
                         data.put("Género",spinner_genero.getSelectedItem().toString());
                         data.put("LastDate", Calendar.getInstance().getTime());
                         data.put("Saldo",0.0);
+                        data.put("Viaje","");
                         //si la imagen fue agregada
                         if(StorageFirebase.getImagenSubida())
                         {

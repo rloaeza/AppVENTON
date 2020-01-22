@@ -59,6 +59,7 @@
     <string name="guardar_cambios">Guardar Cambios</string>
     <string name="buscar">Buscar</string>
     <string name="modificar">Modificar</string>
+    <string name="regresar_al_mapa">Regresar al mapa</string>
     <string name="txtRecuperaci_n_de_credenciales">Recuperación de credenciales</string>
     <string name="txtFormulario">Formulario</string>
     <string name="txtRecuperar_cuenta">Recuperar cuenta</string>

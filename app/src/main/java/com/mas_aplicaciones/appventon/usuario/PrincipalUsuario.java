@@ -101,46 +101,37 @@ public class PrincipalUsuario extends Fragment {
         if( ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
         {
-            mapView.getMapAsync(new OnMapReadyCallback() {
-                @Override
-                public void onMapReady(@NonNull final MapboxMap mapboxMap) {
+            mapView.getMapAsync(mapboxMap -> {
 
 
 
-                    mapboxMap.setStyle(new Style.Builder().fromUri("mapbox://styles/mapbox/streets-v11")
+                mapboxMap.setStyle(new Style.Builder().fromUri("mapbox://styles/mapbox/cjf4m44iw0uza2spb3q0a7s41")
 
-                                    // Add the SymbolLayer icon image to the map style
-                                    .withImage(ICON_ID, BitmapFactory.decodeResource(
-                                            getActivity().getResources(), R.drawable.marker_40))
+                                // Add the SymbolLayer icon image to the map style
+                                .withImage(ICON_ID, BitmapFactory.decodeResource(
+                                        getActivity().getResources(), R.drawable.marker_40))
 
-                                    // Adding a GeoJson source for the SymbolLayer icons.
-                                    .withSource(new GeoJsonSource(SOURCE_ID,
-                                            FeatureCollection.fromFeatures(FirebaseConexionFirestore.features)))
+                                // Adding a GeoJson source for the SymbolLayer icons.
+                                .withSource(new GeoJsonSource(SOURCE_ID,
+                                        FeatureCollection.fromFeatures(FirebaseConexionFirestore.features)))
 
-                                    // Adding the actual SymbolLayer to the map style. An offset is added that the bottom of the red
-                                    // marker icon gets fixed to the coordinate, rather than the middle of the icon being fixed to
-                                    // the coordinate point. This is offset is not always needed and is dependent on the image
-                                    // that you use for the SymbolLayer icon.
-                                    .withLayer(
-                                            new SymbolLayer(LAYER_ID, SOURCE_ID)
-                                                    .withProperties(PropertyFactory.iconImage(ICON_ID),
-                                                            iconAllowOverlap(true),
-                                                            iconIgnorePlacement(true),
-                                                            iconOffset(new Float[]{0f, -9f}))
-                                    ),
-                            new Style.OnStyleLoaded() {
-                                @Override
-                                public void onStyleLoaded(@NonNull Style style) {
+                                // Adding the actual SymbolLayer to the map style. An offset is added that the bottom of the red
+                                // marker icon gets fixed to the coordinate, rather than the middle of the icon being fixed to
+                                // the coordinate point. This is offset is not always needed and is dependent on the image
+                                // that you use for the SymbolLayer icon.
+                                .withLayer(
+                                        new SymbolLayer(LAYER_ID, SOURCE_ID)
+                                                .withProperties(PropertyFactory.iconImage(ICON_ID),
+                                                        iconAllowOverlap(true),
+                                                        iconIgnorePlacement(true),
+                                                        iconOffset(new Float[]{0f, -9f}))
+                                ),new Style.OnStyleLoaded() {
+                    @Override
+                    public void onStyleLoaded(@NonNull Style style) {
 
-                                    getLocation(mapboxMap, style);
-
-
-                                }
-
-                            });
-                    mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
-                        @Override
-                        public boolean onMapClick(@NonNull LatLng point) {
+// Map is set up and the style has loaded. Now you can add additional data or make other map adjustments.
+                         getLocation(mapboxMap, style);
+                        mapboxMap.addOnMapClickListener(point -> {
                             PointF screenPoint = mapboxMap.getProjection().toScreenLocation(point);
                             List<Feature> features = mapboxMap.queryRenderedFeatures(screenPoint, LAYER_ID);
                             if (!features.isEmpty())
@@ -179,11 +170,10 @@ public class PrincipalUsuario extends Fragment {
 
                             }
                             return true;
-                        }
-                    });
+                        });
 
-                }
-
+                    }
+                });
 
 
 
