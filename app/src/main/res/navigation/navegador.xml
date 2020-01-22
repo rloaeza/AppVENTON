@@ -225,9 +225,6 @@
         android:label="fragment_lugar_usuario"
         tools:layout="@layout/fragment_lugar_usuario" >
         <action
-            android:id="@+id/action_lugarUsuario_to_descripcionViaje"
-            app:destination="@id/descripcionViaje" />
-        <action
             android:id="@+id/action_lugarUsuario_to_principalUsuario"
             app:destination="@id/principalUsuario" />
     </fragment>

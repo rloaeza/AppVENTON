@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -100,13 +101,12 @@ public class InicioSesion extends Fragment {
             Button btnRegistrar = view.findViewById(R.id.button_registrar);
             Button btnOlvidaContrasena = view.findViewById(R.id.button_olvidar_contraseña);
             imageButton_about = view.findViewById(R.id.imageButton_about);
-            Button btnIniciarSesion = view.findViewById(R.id.button_iniciar);
+            MaterialCardView btnIniciarSesion = view.findViewById(R.id.button_iniciar);
             //listener para entrar al tipo usuario
 
-            btnIniciarSesion.setOnClickListener(new View.OnClickListener() {//acomoda y luego muestra y realiza todo lo necesario validad
-                @Override
-                public void onClick( final View v)
-                {
+            btnIniciarSesion.setOnClickListener(v ->
+            {//acomoda y luego muestra y realiza todo lo necesario validad
+
                     if(!click)
                     {
                         imageButton_about.setVisibility(View.INVISIBLE);
@@ -120,6 +120,8 @@ public class InicioSesion extends Fragment {
                                 imageButton_about.setVisibility(View.INVISIBLE);
                                 if(!contrasena.equals("")) {
                                     imageButton_about.setVisibility(View.INVISIBLE);
+                                    btnRegistrar.setEnabled(false);
+                                    btnOlvidaContrasena.setEnabled(false);
                                     mAuth.signInWithEmailAndPassword(email, contrasena)
                                             .addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>() {
                                                 @Override
@@ -134,6 +136,7 @@ public class InicioSesion extends Fragment {
 
                                                             objeto_firebase_conexion_firestore.buscarUsuario(currentUser.getUid(), view);
                                                             objeto_firebase_conexion_firestore.buscarChofer(currentUser.getUid(), view);
+
                                                             editText_contrasena.setText("");
                                                             editText_email.setText("");
                                                         } else {
@@ -181,43 +184,33 @@ public class InicioSesion extends Fragment {
                         Snackbar.make(Objects.requireNonNull(getView()),"Ingresando al sistema espere...",Snackbar.LENGTH_LONG).show();
                         imageButton_about.setVisibility(View.VISIBLE);
                     }
-                }
+
             });
             //listener para ingresar a tipo de usuario
 
-                btnRegistrar.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick( View v) {
-                        if(isOnlineNet() && isNetDisponible())
-                        {
+                btnRegistrar.setOnClickListener(v ->
+                {
+                    if(isOnlineNet() && isNetDisponible())
+                    {
 
-                            findNavController(v).navigate(R.id.action_inicioSesion_to_tipoUsuario);// metodo para pasar al siguiente fragment  sin validar
-                        }
-                        else
-                        {
-                            Toast.makeText(getActivity(),"Compruebe su conexión de Internet",Toast.LENGTH_SHORT).show();
-                        }
+                        findNavController(v).navigate(R.id.action_inicioSesion_to_tipoUsuario);// metodo para pasar al siguiente fragment  sin validar
+                    }
+                    else
+                    {
+                        Toast.makeText(getActivity(),"Compruebe su conexión de Internet",Toast.LENGTH_SHORT).show();
                     }
                 });
-                btnOlvidaContrasena.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                btnOlvidaContrasena.setOnClickListener(v->
+                {
                         Navigation.findNavController(v).navigate(R.id.action_inicioSesion_to_recuperacionPassword);
-                    }
                 });
-                imageButton_about.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Navigation.findNavController(v).navigate(R.id.action_inicioSesion_to_about);
-                    }
-                });
+                imageButton_about.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_inicioSesion_to_about));
             return view;
     }
 
-
-
     @Override
-    public void onStart() {
+    public void onStart()
+    {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
             if(isNetDisponible() && isOnlineNet())
@@ -229,8 +222,6 @@ public class InicioSesion extends Fragment {
                 Toast.makeText(getActivity(),"Compruebe su conexión de Internet",Toast.LENGTH_SHORT).show();
             }
     }
-
-
 
     private void guardarPreferencias()
     {
@@ -258,8 +249,6 @@ public class InicioSesion extends Fragment {
                                 alertDialog = new SpotsDialog.Builder().setContext(view.getContext()).setMessage("Iniciando").build();
                                 alertDialog.show();
                                 currentUser = mAuth.getCurrentUser();
-
-
                                 if (currentUser != null && currentUser.isEmailVerified()) {
                                     objeto_firebase_conexion_firestore.buscarUsuario(currentUser.getUid(), view);
                                     objeto_firebase_conexion_firestore.buscarChofer(currentUser.getUid(), view);
@@ -272,7 +261,6 @@ public class InicioSesion extends Fragment {
                                     alertDialog.cancel();
                                     Toast.makeText(getActivity(), "Revice su correo electrónico para validar el email",Toast.LENGTH_LONG).show();
                                 }
-
                             }
                             else
                             {
