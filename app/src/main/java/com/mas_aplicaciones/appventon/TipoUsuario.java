@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.card.MaterialCardView;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,8 +34,8 @@ public class TipoUsuario extends Fragment {
             ((MainActivity) getActivity()).activado(3);
         }
         View view = inflater.inflate(R.layout.fragment_tipo_usuario, container, false);
-        Button btnConductor = view.findViewById(R.id.button_conductor);
-        Button btnUsuario =view.findViewById(R.id.button_pasajero);
+        MaterialCardView btnConductor = view.findViewById(R.id.button_conductor);
+        MaterialCardView btnUsuario =view.findViewById(R.id.button_pasajero);
         btnConductor.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_tipoUsuario_to_registroChofer));
         btnUsuario.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_tipoUsuario_to_registroUsuario));
 

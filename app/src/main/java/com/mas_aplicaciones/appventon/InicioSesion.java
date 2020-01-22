@@ -51,9 +51,6 @@ public class InicioSesion extends Fragment {
     private boolean click=false;
 
 
-
-
-
     private boolean isNetDisponible() {
 
         getActivity();
@@ -79,20 +76,15 @@ public class InicioSesion extends Fragment {
         return false;
     }
 
-
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
 
             if(getActivity() instanceof MainActivity)
             {
                 ((MainActivity) getActivity()).activado(1);
             }
             mAuth = FirebaseAuth.getInstance() ;
-
 
             // Inflate the layout for this fragment
             view = inflater.inflate(R.layout.fragment_inicio_sesion, container, false);
@@ -106,7 +98,6 @@ public class InicioSesion extends Fragment {
 
             btnIniciarSesion.setOnClickListener(v ->
             {//acomoda y luego muestra y realiza todo lo necesario validad
-
                     if(!click)
                     {
                         imageButton_about.setVisibility(View.INVISIBLE);
