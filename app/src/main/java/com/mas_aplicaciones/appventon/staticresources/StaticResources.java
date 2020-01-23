@@ -25,9 +25,6 @@ public class StaticResources
                v -> Navigation.findNavController(view).navigate(id_fragment)).show();
 
     }
-    public static void actionSnackbar(final View view,String mensaje){
-        Snackbar.make(Objects.requireNonNull(view),mensaje,Snackbar.LENGTH_LONG).show();
 
-    }
 
 }

@@ -50,9 +50,8 @@ public class Viajes extends Fragment {
 
     private EditText editText_comentario;
     private AlertDialog dialogo;
-    private Spinner spinner_tiempo_espera;
     private ImageView image_view_lugar;
-    private TextView textView_lugar_nombre,text_view_espacios_restantes;
+    private TextView textView_lugar_nombre,text_view_espacios_restantes,tiempo_espera;
     private List<String> espacios = new ArrayList<>();
     private TimePicker timePicker;
     private final FirebaseConexionFirestore firebaseConexionFirestore = new FirebaseConexionFirestore();
@@ -85,9 +84,7 @@ public class Viajes extends Fragment {
         text_view_espacios_restantes = view.findViewById(R.id.text_view_espacios_restantes);
         editText_comentario = view.findViewById(R.id.edit_text_mensaje);
         image_view_lugar = view.findViewById(R.id.image_view_lugar);
-        spinner_tiempo_espera = view.findViewById(R.id.spinner_tiempo_espera);
-        ArrayAdapter<String> adapter_tiempo_espera = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_item_values_2, StaticResources.OPCIONES_TIEMPO_ESPERA);
-        spinner_tiempo_espera.setAdapter(adapter_tiempo_espera);
+        tiempo_espera = view.findViewById(R.id.text_view_tiempo_espera);
         MaterialCardView button_cancelar = view.findViewById(R.id.button_cancelar);
         button_cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +109,7 @@ public class Viajes extends Fragment {
                 textView_lugar_nombre.setText(datos.get("Nombre_Lugar").toString());
                 text_view_espacios_restantes.setText("Espacios disponibles: "+datos.get("Espacios").toString());
                 editText_comentario.setText(datos.get("Comentario").toString());
-                spinner_tiempo_espera.setSelection(Integer.parseInt(datos.get("TiempoEspera").toString()));
+                tiempo_espera.setText("Tiempo de espera en el lugar: "+datos.get("TiempoEspera").toString()+" min");
                 String []hora=datos.get("Hora").toString().split(":");
                 timePicker.setHour(Integer.parseInt(hora[0]));
                 timePicker.setMinute(Integer.parseInt(hora[1]));

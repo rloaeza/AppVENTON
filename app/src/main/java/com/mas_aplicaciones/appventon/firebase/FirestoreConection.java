@@ -181,7 +181,7 @@ public class FirestoreConection
                         break;
                     case REMOVED:
                         Log.d("err", "onEvent: remove ");
-                        opcion[0] =2;
+                        opcion[0]=2;
                         entidadChoferListDel.add(entidadChofer);
                         break;
                     default:

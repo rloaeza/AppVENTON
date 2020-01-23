@@ -1,13 +1,11 @@
 package com.mas_aplicaciones.appventon;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -17,9 +15,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.snackbar.Snackbar;
 import com.mas_aplicaciones.appventon.Interfaces.Choferes;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.firebase.FirestoreConection;
@@ -27,9 +27,7 @@ import com.mas_aplicaciones.appventon.staticresources.StaticResources;
 import com.mas_aplicaciones.appventon.usuario.PrincipalUsuario;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import dmax.dialog.SpotsDialog;
+import java.util.Objects;
 
 import static androidx.navigation.Navigation.findNavController;
 
@@ -39,11 +37,10 @@ public class LugarUsuario extends Fragment
     private View view;
     private TextView textView_titulo;
     private ImageView imageView_lugar;
-    private CardView cardView_disponibles;
-    private TextView textView_diponibles;
     private ListView listView_choferesLugar;
     AdaptadorChofer arrayAdapter=null;
     FirestoreConection firestoreConection = new FirestoreConection();
+    FirebaseConexionFirestore firebaseConexionFirestore = new FirebaseConexionFirestore();
 
 
 
@@ -98,8 +95,7 @@ public class LugarUsuario extends Fragment
                 }
                 else
                 {
-                    Log.e("err", "soy null");
-                    Log.e("err", ""+opcion);
+
                 }
 
 
@@ -119,9 +115,7 @@ public class LugarUsuario extends Fragment
 
         textView_titulo = view.findViewById(R.id.text_view_lugar);
         imageView_lugar = view.findViewById(R.id.image_view_lugar);
-        textView_diponibles = view.findViewById(R.id.text_view_disponibles);
         textView_titulo.setText(PrincipalUsuario.lugar.get("title").toString());
-        cardView_disponibles = view.findViewById(R.id.cardView);
         listView_choferesLugar = view.findViewById(R.id.list_view_choferesLugar);
         firestoreConection.obtenerChoferes(PrincipalUsuario.lugar.get("id").toString());
         firestoreConection.cambiosChoferes(PrincipalUsuario.lugar.get("id").toString());
@@ -132,7 +126,7 @@ public class LugarUsuario extends Fragment
     @Override
     public void onPause()
     {
-
+        firebaseConexionFirestore.cargarLugaresUsuarios(null);
         super.onPause();
     }
 
@@ -140,17 +134,19 @@ public class LugarUsuario extends Fragment
     {
         if(arrayAdapter.getCount()==0)
         {
-            StaticResources.actionSnackbar(view.getRootView(),"No hay más viajes disponibles",R.string.regresar_al_mapa,R.id.action_lugarUsuario_to_principalUsuario);
+
             Log.e("err", " soy 0");
             FirebaseConexionFirestore.featuresUsuarios.clear();
-            FirebaseConexionFirestore.cargarLugaresUsuarios();
+            getActivity().onBackPressed();
+            //Toast.makeText(getActivity(),"No hay más viajes en este punto",Snackbar.LENGTH_LONG).show();
+
         }
         else
         {
             Log.e("err", "soy 1");
             FirebaseConexionFirestore.featuresUsuarios.clear();
-            FirebaseConexionFirestore.cargarLugaresUsuarios();
-            StaticResources.actionSnackbar(view.getRootView(),"Se canceló un viaje");
+            //
+            // Snackbar.make(Objects.requireNonNull(view),"Se canceló un viaje",Snackbar.LENGTH_LONG).show();
         }
 
     }

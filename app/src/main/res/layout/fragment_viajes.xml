@@ -87,20 +87,15 @@
                         android:textSize="20sp"
                         android:layout_height="match_parent"/>
 
-                    <Spinner
-                        android:id="@+id/spinner_tiempo_espera"
-                        style="@android:style/Widget.Material.Spinner.Underlined"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="20dp"
-                        android:backgroundTint="@color/colorBotones2"
-                        android:padding="0dp"
-                        android:spinnerMode="dropdown"
-                        tools:listitem="@layout/spinner_item_values_2"/>
+                    <TextView
+                        android:id="@+id/text_view_tiempo_espera"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/colorBotones2"
+                        android:textSize="20sp"
+                        android:layout_height="match_parent"
+                       />
 
 
                     <EditText

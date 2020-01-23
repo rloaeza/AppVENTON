@@ -72,34 +72,30 @@ public class AgregarLugar extends Fragment
         ArrayAdapter<String> adapter_cantidad_pasajeros = new ArrayAdapter<>(getActivity(), R.layout.spinner_item_values_2,espacios );
         spinner_tiempo_espera.setAdapter(adapter_tiempo_espera);
         spinner_espacios.setAdapter(adapter_cantidad_pasajeros);
-        button_agregar_lugar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v)
-            {
+        button_agregar_lugar.setOnClickListener(v -> {
 
-                if (spinner_espacios.getSelectedItemPosition() >= 1) {
-                    if (spinner_tiempo_espera.getSelectedItemPosition() >= 1) {
-                        if (timePicker.getHour()>=6 && timePicker.getHour()<=20)
-                        {
+            if (spinner_espacios.getSelectedItemPosition() >= 1) {
+                if (spinner_tiempo_espera.getSelectedItemPosition() >= 1) {
+                    if (timePicker.getHour()>=6 && timePicker.getHour()<=20)
+                    {
 
-                                    dialogo.show();
-                        }
-                        else
-                        {
-                            Toast.makeText(getContext(),"La hora debe estan entre las  6 am y las 8:59 pm",Toast.LENGTH_SHORT).show();
-                        }
+                                dialogo.show();
                     }
                     else
                     {
-                        Toast.makeText(getContext(),"Seleccione cuanto tiempo esperará en el lugar",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),"La hora debe estan entre las  6 am y las 8:59 pm",Toast.LENGTH_SHORT).show();
                     }
                 }
                 else
                 {
-                    Toast.makeText(getContext(),"Seleccione cuántos asientos disponibles tiene",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Seleccione cuanto tiempo esperará en el lugar",Toast.LENGTH_SHORT).show();
                 }
-
             }
+            else
+            {
+                Toast.makeText(getContext(),"Seleccione cuántos asientos disponibles tiene",Toast.LENGTH_SHORT).show();
+            }
+
         });
         return view;
     }

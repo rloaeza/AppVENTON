@@ -96,6 +96,7 @@ public class PrincipalChofer extends Fragment {
         {
         mapView.getMapAsync(mapboxMap -> {
 
+
                 mapboxMap.setStyle(new Style.Builder().fromUri("mapbox://styles/mapbox/cjf4m44iw0uza2spb3q0a7s41")
 
                                 // Add the SymbolLayer icon image to the map style

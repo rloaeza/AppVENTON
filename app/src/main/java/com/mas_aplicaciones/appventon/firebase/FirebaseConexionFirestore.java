@@ -1,18 +1,13 @@
 package com.mas_aplicaciones.appventon.firebase;
 
 
-import android.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -21,15 +16,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.JsonObject;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.Point;
@@ -39,7 +30,6 @@ import com.mas_aplicaciones.appventon.Interfaces.NotificarToast;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.chofer.PrincipalChofer;
-import com.mas_aplicaciones.appventon.usuario.PrincipalUsuario;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -47,9 +37,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.UUID;
-
-import dmax.dialog.SpotsDialog;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 import static androidx.navigation.Navigation.findNavController;
@@ -63,7 +50,7 @@ public class FirebaseConexionFirestore {
 
     private static Map<String, Object> datos = new HashMap<>();
     private static Map<String, Object> datosChoferLugar = new HashMap<>();
-    private static List<String> listaAux = new ArrayList<>();
+
 
 
     public static List<Feature> featuresChoferes = new ArrayList<>();
@@ -123,8 +110,8 @@ public class FirebaseConexionFirestore {
                     PERSONA="Usuarios";
                     DOCUMENT=document.getId();
                     FirebaseConexionFirestore.setMap(document.getData());
-                    featuresUsuarios=cargarLugaresUsuarios();
-                    findNavController(view).navigate(R.id.action_inicioSesion_to_principalUsuario);
+                    cargarLugaresUsuarios(view);
+
                 }
             }
         });
@@ -148,8 +135,8 @@ public class FirebaseConexionFirestore {
                         {
                             PERSONA="Choferes";
                             DOCUMENT=document.getId();
-                            featuresChoferes=cargarLugaresChofer();
-                            findNavController(view).navigate(R.id.action_inicioSesion_to_principalChofer);
+                            cargarLugaresChofer(view);
+
                         }
                         else
                         {
@@ -423,48 +410,15 @@ public class FirebaseConexionFirestore {
     //end set listeners
 
 
-
-
-
-
-
-
-    /*public static void eliminarViajeChofer(final View view)
-    {
-        final String id = datos.get("Viaje").toString();
-        final String idLugar =datosChoferLugar.get("IdLugar").toString();
-        Log.e("err",idLugar);
-        db.collection("Chofer_lugar").document(id)
-                .delete()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
-
-                        actualizarViaje("");
-                        Navigation.findNavController(view).navigate(R.id.action_viajes_to_principalChofer2);
-                        Toast.makeText(view.getContext(),"Cancelado",Toast.LENGTH_SHORT).show();
-
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error deleting document", e);
-                    }
-                });
-    }*/
     //cargar lugares para colocar en el mapa
-    public static List<Feature> cargarLugaresUsuarios()
+    public void cargarLugaresUsuarios(View view)
     {
-        final List<Feature> symbolLayerIconFeatureList = new ArrayList<>();
         db.collection("Puntos_recoleccion")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult())
                         {
-
                             if((boolean)document.get("hay"))
                             {
                                 JsonObject jsonObject = new JsonObject();
@@ -476,22 +430,25 @@ public class FirebaseConexionFirestore {
                                 jsonObject.addProperty("imagen", document.get("imagen").toString());
                                 jsonObject.addProperty("hay", document.get("hay").toString());
 
-
-                                symbolLayerIconFeatureList.add(
+                                featuresUsuarios.add(
                                         Feature.fromGeometry(Point.fromLngLat(geoPoint.getLongitude(), geoPoint.getLatitude()), jsonObject));
 
                             }
+                        }
+                        if(view!=null)
+                        {
+                            findNavController(view).navigate(R.id.action_inicioSesion_to_principalUsuario);
                         }
                     } else {
                         Log.d(TAG, "Error getting documents: ", task.getException());
                     }
                 });
-        return  symbolLayerIconFeatureList;
+
     }
 
-    public static List<Feature> cargarLugaresChofer()
+    public static void cargarLugaresChofer(View view)
     {
-        final List<Feature> symbolLayerIconFeatureList = new ArrayList<>();
+
         db.collection("Puntos_recoleccion")
                 .get()
                 .addOnCompleteListener(task -> {
@@ -510,16 +467,20 @@ public class FirebaseConexionFirestore {
                                 jsonObject.addProperty("hay",document.get("hay").toString());
 
 
-                                symbolLayerIconFeatureList.add(
+                                featuresChoferes.add(
                                         Feature.fromGeometry(Point.fromLngLat(geoPoint.getLongitude(), geoPoint.getLatitude()), jsonObject));
 
 
                         }
+                        if(view!=null)
+                        {
+                            findNavController(view).navigate(R.id.action_inicioSesion_to_principalChofer);
+                        }
+
                     } else {
                         Log.d(TAG, "Error getting documents: ", task.getException());
                     }
                 });
-        return  symbolLayerIconFeatureList;
     }
 
     private static void recompensas(@NonNull RatingBar ratingBar, TextView[] textViews, FragmentActivity activity)
