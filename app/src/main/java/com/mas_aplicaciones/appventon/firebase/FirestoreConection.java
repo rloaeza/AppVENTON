@@ -134,11 +134,19 @@ public class FirestoreConection
                 String horaarray[] = hora.split(":");
                 if(Integer.parseInt(horaarray[0])>12)
                 {
-                    hora=(Integer.parseInt(horaarray[0])-12)+":"+horaarray[1]+"pm";
+
+                    hora=(Integer.parseInt(horaarray[0])-12)+":";
                 }
                 else
                 {
-                    hora=horaarray[0]+":"+horaarray[1]+"am";
+                    hora=horaarray[0]+":";
+                }
+                if(Integer.parseInt(horaarray[1])<10)
+                {
+                    hora=hora+"0"+horaarray[1]+"pm";
+                }else
+                {
+                    hora=hora+horaarray[1]+"pm";
                 }
 
                 EntidadChofer entidadChofer = new EntidadChofer();

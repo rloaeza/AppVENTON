@@ -8,6 +8,8 @@ import androidx.navigation.Navigation;
 import com.google.android.material.snackbar.Snackbar;
 import com.mas_aplicaciones.appventon.R;
 
+import java.util.Objects;
+
 public class StaticResources
 {
     public final static String [] OPCIONES_GENERO =  {"Género","Masculino","Femenino"};
@@ -18,13 +20,13 @@ public class StaticResources
     public final static String PASSWORD ="AppVenton1234";
 
     public static void actionSnackbar(final View view,String mensaje,int id_button,int id_fragment){
-       Snackbar.make(view,mensaje,Snackbar.LENGTH_LONG).setAction(
+       Snackbar.make(Objects.requireNonNull(view),mensaje,Snackbar.LENGTH_LONG).setAction(
               id_button,
                v -> Navigation.findNavController(view).navigate(id_fragment)).show();
 
     }
     public static void actionSnackbar(final View view,String mensaje){
-        Snackbar.make(view,mensaje,Snackbar.LENGTH_LONG).show();
+        Snackbar.make(Objects.requireNonNull(view),mensaje,Snackbar.LENGTH_LONG).show();
 
     }
 

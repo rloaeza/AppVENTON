@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.card.MaterialCardView;
 import com.mas_aplicaciones.appventon.chofer.PrincipalChofer;
 
 import java.util.Objects;
@@ -49,13 +50,8 @@ public class Lugar extends Fragment {
         TextView textView_titulo = view.findViewById(R.id.text_view_lugar);
         imageView_lugar = view.findViewById(R.id.image_view_lugar);
         textView_titulo.setText(Objects.requireNonNull(PrincipalChofer.lugar.get("nombre")).toString());
-        Button button_agregar_lugar = view.findViewById(R.id.button_seleccionar_lugar);
-        button_agregar_lugar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_lugar_to_agregarLugar);
-            }
-        });
+        MaterialCardView button_agregar_lugar = view.findViewById(R.id.button_seleccionar_lugar);
+        button_agregar_lugar.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_lugar_to_agregarLugar));
 
         return view;
 

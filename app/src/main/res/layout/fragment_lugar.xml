@@ -81,14 +81,33 @@
                         android:background="@color/transparente"
                         android:contentDescription="@string/txtDescripcion"
                         android:layout_margin="10dp"/>
-                    <Button
+                    <com.google.android.material.card.MaterialCardView
                         android:id="@+id/button_seleccionar_lugar"
-                        android:layout_width="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_height="40dp"
-                        android:text="@string/seleccionar_lugar"
-                        android:background="@color/colorBackBotones2"
-                        android:textColor="@color/colorBotones"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="5dp"
+                        app:cardBackgroundColor="@color/colorBackBotones2"
+                        app:cardUseCompatPadding="true"
+                        >
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="10dp"
+                                android:text="@string/seleccionar_lugar"
+                                android:textColor="@color/colorBotones"
+                                android:textSize="14sp" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </com.google.android.material.card.MaterialCardView>
+
 
 
                 </androidx.appcompat.widget.LinearLayoutCompat>

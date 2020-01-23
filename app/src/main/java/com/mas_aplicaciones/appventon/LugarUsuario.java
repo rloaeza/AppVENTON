@@ -140,7 +140,7 @@ public class LugarUsuario extends Fragment
     {
         if(arrayAdapter.getCount()==0)
         {
-            //StaticResources.actionSnackbar(view.getRootView(),"No hay más viajes disponibles",R.string.regresar_al_mapa,R.id.action_lugarUsuario_to_principalUsuario);
+            StaticResources.actionSnackbar(view.getRootView(),"No hay más viajes disponibles",R.string.regresar_al_mapa,R.id.action_lugarUsuario_to_principalUsuario);
             Log.e("err", " soy 0");
             FirebaseConexionFirestore.featuresUsuarios.clear();
             FirebaseConexionFirestore.cargarLugaresUsuarios();
@@ -150,7 +150,7 @@ public class LugarUsuario extends Fragment
             Log.e("err", "soy 1");
             FirebaseConexionFirestore.featuresUsuarios.clear();
             FirebaseConexionFirestore.cargarLugaresUsuarios();
-            //StaticResources.actionSnackbar(view.getRootView(),"Se canceló un viaje");
+            StaticResources.actionSnackbar(view.getRootView(),"Se canceló un viaje");
         }
 
     }

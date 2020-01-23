@@ -114,20 +114,17 @@ public class FirebaseConexionFirestore {
     }
     public void buscarUsuario(String UIDD, final View view) {
         DocumentReference docRef = FirebaseFirestore.getInstance().collection("Usuarios").document(UIDD);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    assert document != null;
-                    if (document.exists())
-                    {
-                        PERSONA="Usuarios";
-                        DOCUMENT=document.getId();
-                        FirebaseConexionFirestore.setMap(document.getData());
-                        featuresUsuarios=cargarLugaresUsuarios();
-                        findNavController(view).navigate(R.id.action_inicioSesion_to_principalUsuario);
-                    }
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                assert document != null;
+                if (document.exists())
+                {
+                    PERSONA="Usuarios";
+                    DOCUMENT=document.getId();
+                    FirebaseConexionFirestore.setMap(document.getData());
+                    featuresUsuarios=cargarLugaresUsuarios();
+                    findNavController(view).navigate(R.id.action_inicioSesion_to_principalUsuario);
                 }
             }
         });
@@ -152,7 +149,6 @@ public class FirebaseConexionFirestore {
                             PERSONA="Choferes";
                             DOCUMENT=document.getId();
                             featuresChoferes=cargarLugaresChofer();
-                            // Toast.makeText(view.getContext(), "Iniciando... ", Toast.LENGTH_SHORT).show();
                             findNavController(view).navigate(R.id.action_inicioSesion_to_principalChofer);
                         }
                         else
@@ -184,13 +180,13 @@ public class FirebaseConexionFirestore {
                 datos.put("URI_Coche",snapshot.getData().get("URI_Coche").toString());
                 String foto_persona = snapshot.getData().get("URI").toString();
                 String foto_auto = snapshot.getData().get("URI_Coche").toString();
-                Glide.with(view.getContext())
+                Glide.with(Objects.requireNonNull(view).getContext())
                         .load(foto_persona)
                         .fitCenter()
                         .centerCrop()
                         .apply(RequestOptions.circleCropTransform())
                         .into(imageView_persona);
-                Glide.with(view.getContext())
+                Glide.with(Objects.requireNonNull(view).getContext())
                         .load(foto_auto)
                         .fitCenter()
                         .centerCrop()
@@ -320,19 +316,12 @@ public class FirebaseConexionFirestore {
 
         db.collection("Chofer_lugar").document(UUID_chofer)
                 .set(datos)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid)
-                    {
-                        actualizarHay(datos.get("IdLugar").toString());
-                        actualizarViaje(UUID_chofer);
-                    }
+                .addOnSuccessListener(aVoid -> {
+                    actualizarHay(datos.get("IdLugar").toString());
+                    actualizarViaje(UUID_chofer);
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Log.w(TAG, "Error writing document", e);
-                    }
+                .addOnFailureListener(e -> {
+                    // Log.w(TAG, "Error writing document", e);
                 });
     }
     public void eliminar_chofer_lugar(String UUID_chofer_lugar)
