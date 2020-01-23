@@ -185,14 +185,16 @@ public class RegistroUsuarioOrganizacion extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        storageFirebase.EliminarFoto(getValueMap("NumeroControl").toString(),"Usuarios",getView());
+
 
         if(requestCode==GALLERY_INTENT)
         {
 
 
-            Uri uri = data.getData();
+
             try {
+                Uri uri = data.getData();
+                storageFirebase.EliminarFoto(getValueMap("NumeroControl").toString(),"Usuarios",getView());
                 assert  null != uri;
                 InputStream  inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri);
                 assert inputStream != null;
@@ -206,7 +208,7 @@ public class RegistroUsuarioOrganizacion extends Fragment {
                 }
 
 
-            } catch (IOException e) {
+            } catch (IOException | NullPointerException e) {
                 e.printStackTrace();
             }
 
