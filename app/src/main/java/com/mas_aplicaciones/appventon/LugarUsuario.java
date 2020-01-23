@@ -145,7 +145,6 @@ public class LugarUsuario extends Fragment
         {
             Log.e("err", "soy 1");
             FirebaseConexionFirestore.featuresUsuarios.clear();
-            //
             // Snackbar.make(Objects.requireNonNull(view),"Se canceló un viaje",Snackbar.LENGTH_LONG).show();
         }
 

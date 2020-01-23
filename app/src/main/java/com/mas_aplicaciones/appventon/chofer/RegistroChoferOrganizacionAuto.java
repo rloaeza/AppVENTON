@@ -142,12 +142,12 @@ public class RegistroChoferOrganizacionAuto extends Fragment
                                                             if (task.isSuccessful()) {
                                                                 FirebaseUser user = mAuth.getCurrentUser();
 
-                                                                try {
+                                                               /* try {
                                                                     assert user != null;
                                                                     user.sendEmailVerification();
                                                                 } catch (NullPointerException e) {
                                                                     e.printStackTrace();
-                                                                }
+                                                                }*/
 
                                                                 Toast.makeText(getActivity(), "Checar correo electrónico para validar su correo", Toast.LENGTH_SHORT).show();
 

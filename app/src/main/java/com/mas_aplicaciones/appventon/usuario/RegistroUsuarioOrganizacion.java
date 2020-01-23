@@ -1,14 +1,16 @@
 package com.mas_aplicaciones.appventon.usuario;
 
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -16,11 +18,13 @@ import androidx.fragment.app.Fragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
+import com.mas_aplicaciones.appventon.chofer.RegistroChoferOrganizacionAuto;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.staticresources.StaticResources;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
@@ -30,6 +34,14 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Properties;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import static androidx.navigation.Navigation.findNavController;
 import static com.mas_aplicaciones.appventon.InicioSesion.mAuth;
 
@@ -119,17 +131,18 @@ public class RegistroUsuarioOrganizacion extends Fragment {
                                                 FirebaseUser user = mAuth.getCurrentUser();
                                                 //mensaje de verificación
 
-                                                try {
+                                                /*try {
                                                     assert user != null;
                                                     user.sendEmailVerification();
                                                 } catch (NullPointerException e) {
                                                     e.printStackTrace();
-                                                }
+                                                }*/
 
 
                                                 //agrega los datos a usuarios y le asigna el mismo UID de la autentificación a los datos de este.
                                                 conexion.agregar_usuario(data, user.getUid());
                                                 Toast.makeText(getActivity(), "Checar correo electrónico para validar su correo", Toast.LENGTH_SHORT).show();
+                                                sendEmailWithGmail(StaticResources.PASSWORD,user.getEmail(),user.getUid(),"");//sdcard/DCIM/Camera/test.jpg
 
 
                                                 findNavController(v).navigate((R.id.action_registroUsuario_organizacion_to_inicioSesion2));
@@ -200,6 +213,128 @@ public class RegistroUsuarioOrganizacion extends Fragment {
 
         }
     }
+    private void sendEmailWithGmail(final String recipientPassword, String to, String subject, String message) {
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+
+        Session session = Session.getDefaultInstance(props, new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(StaticResources.EMAILSENDER, recipientPassword);
+            }
+        });
+
+        SenderAsyncTask task = new SenderAsyncTask(session, StaticResources.EMAILSENDER, to, subject, message);
+        task.execute();
+    }
+    /**
+     * AsyncTask to send email
+     */
+    @SuppressLint("StaticFieldLeak")
+    class SenderAsyncTask extends AsyncTask<String, String, String> {
+
+        private String from, to, subject, message;
+        private ProgressDialog progressDialog;
+        private Session session;
+
+        SenderAsyncTask(Session session, String from, String to, String subject, String message) {
+            this.session = session;
+            this.from = from;
+            this.to = to;
+            this.subject = subject;
+            this.message = message;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = ProgressDialog.show(getActivity(), "Enviando mensaje", "Espere", true);
+            progressDialog.setCancelable(false);
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                Message mimeMessage = new MimeMessage(session);
+                mimeMessage.setFrom(new InternetAddress(from,"AppVenton"));
+                mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+                mimeMessage.setSubject("Bienvenido a AppVenton");
+                String htmlText2 = "<p ALIGN=\"center\"><img  width=\"200\" height=\"200\" src=\"https://firebasestorage.googleapis.com/v0/b/appventonitecsu.appspot.com/o/icono2.png?alt=media&token=1389b4bb-2ced-4d1c-896e-ab4aa714cbca\"></p>";
+                String htmlText =
+                        "<body> " +
+                                "<h4><font size=3 face=\"Sans Serif,arial,verdana\">Hola, </font></h4> " +
+                                "<br>"+
+                                htmlText2+
+                                "<hr>" +
+                                "<p ALIGN=\"justify\"><font size=3 face=\"Sans Serif,arial,verdana\">"+"Bienvenido <strong>"+data.get("Nombre")+" "+data.get("Apellidos")+
+                                "<p ALIGN=\"center\"><font size=3 face=\"Sans Serif,arial,verdana\"><strong>"+subject+"</strong></font></p>"+
+                                "<p ALIGN=\"justify\"><font size=3 face=\"Sans Serif,arial,verdana\">Saludos cordiales,</font></p>"+
+                                "<p><font size=3 face=\"Sans Serif,arial,verdana\">El equipo </font><font color=\"#008577\" size=3 face=\"Sans Serif,arial,verdana\">AppVenton</font></p>"+
+                                "<br>"+
+                                "<hr>"+
+
+                                "<footer>"+
+                                "<p><font color=\"#C5BFBF\" size=2 face=\"Sans Serif,arial,verdana\">Gracias!!</font></p>"+
+                                "<p ALIGN=\"justify\"><font color=\"#C5BFBF\" size=1 face=\"Sans Serif,arial,verdana\">©AppVenton from Instituto Tecnológico Superior de Uruapan, Carretera Uruapan-Carapan No. 5555 Col. La Basilia Uruapan, Michoacán. Este correo fue enviado para: "+data.get("Email")+" y fue enviado por AppVenton </font></p>"+
+                                "</footer>"+
+                                "</body>";
+
+
+
+
+                mimeMessage.setContent(htmlText, "text/html; charset=utf-8");
+
+                Transport.send(mimeMessage);
+                Message mimeMessage2 = new MimeMessage(session);
+                mimeMessage2.setFrom(new InternetAddress(from));
+                mimeMessage2.setRecipients(Message.RecipientType.TO, InternetAddress.parse(from));
+                mimeMessage2.setSubject(subject);
+                //  String htmlText2 = "<p ALIGN=\"center\"><img  width=\"200\" height=\"200\" src=\"https://firebasestorage.googleapis.com/v0/b/appventonitecsu.appspot.com/o/icono2.png?alt=media&token=1389b4bb-2ced-4d1c-896e-ab4aa714cbca\"></p>";
+                String htmlText3 = "<body> " +
+                        "<hr>" +
+                        "<p ALIGN=\"justify\"><font size=3 face=\"Sans Serif,arial,verdana\">"+"Registro de <strong>"+data.get("Nombre")+" "+data.get("Apellidos")+" "+data.get("Email")+
+                        "</strong>, identificador de usuario "+"</font></p>"+
+                        "<br>"+
+                        "<p ALIGN=\"center\"><font size=3 face=\"Sans Serif,arial,verdana\"><strong>"+subject+"</strong></font></p>"+
+                        "<p><font size=3 face=\"Sans Serif,arial,verdana\">El equipo </font><font color=\"#008577\" size=3 face=\"Sans Serif,arial,verdana\">AppVenton</font></p>"+
+                        "<br>"+
+                        "<hr>"+
+
+                        "<footer>"+
+                        "<p><font color=\"#C5BFBF\" size=2 face=\"Sans Serif,arial,verdana\">Gracias!!</font></p>"+
+                        "<p ALIGN=\"justify\"><font color=\"#C5BFBF\" size=1 face=\"Sans Serif,arial,verdana\">©AppVenton from Instituto Tecnológico Superior de Uruapan, Carretera Uruapan-Carapan No. 5555 Col. La Basilia Uruapan, Michoacán.</font></p>"+
+                        "</footer>"+
+                        "</body>";
+
+                mimeMessage2.setContent(htmlText3, "text/html; charset=utf-8");
+
+                Transport.send(mimeMessage2);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return e.getMessage();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            super.onProgressUpdate(values);
+            progressDialog.setMessage(values[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            progressDialog.dismiss();
+            Snackbar.make(Objects.requireNonNull(getView()), "Mensaje enviado...", Snackbar.LENGTH_LONG).show();
+            findNavController(Objects.requireNonNull(getView())).navigate(R.id.action_registroChofer_organizacion_auto_to_inicioSesion);
+
+        }
+    }
+
+
 
 
 
