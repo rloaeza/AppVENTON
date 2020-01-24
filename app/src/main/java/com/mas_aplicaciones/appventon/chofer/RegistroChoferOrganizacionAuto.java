@@ -355,7 +355,7 @@ public class RegistroChoferOrganizacionAuto extends Fragment
         @Override
         protected void onPostExecute(String result) {
             progressDialog.dismiss();
-            Snackbar.make(Objects.requireNonNull(getView()), "Mensaje enviado...", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(Objects.requireNonNull(getView()), "Mensaje enviado revisa tu bandeja o spam...", Snackbar.LENGTH_LONG).show();
             findNavController(Objects.requireNonNull(getView())).navigate(R.id.action_registroChofer_organizacion_auto_to_inicioSesion);
 
         }

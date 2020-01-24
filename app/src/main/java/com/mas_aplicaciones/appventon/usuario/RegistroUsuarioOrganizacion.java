@@ -4,17 +4,23 @@ package com.mas_aplicaciones.appventon.usuario;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
@@ -24,12 +30,13 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
-import com.mas_aplicaciones.appventon.chofer.RegistroChoferOrganizacionAuto;
+import com.mas_aplicaciones.appventon.compresion.FilesUtils;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.staticresources.StaticResources;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
+
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +49,9 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import id.zelory.compressor.Compressor;
+
 import static androidx.navigation.Navigation.findNavController;
 import static com.mas_aplicaciones.appventon.InicioSesion.mAuth;
 
@@ -54,9 +64,11 @@ public class RegistroUsuarioOrganizacion extends Fragment {
     private static Map<String, Object> data = new HashMap<>();
 
     private Spinner spinner_genero,spinner_carreras;
+    private ImageView imageView_persona;
     private FirebaseConexionFirestore conexion=new FirebaseConexionFirestore();
     private StorageFirebase storageFirebase = new StorageFirebase();
     private final static int GALLERY_INTENT = 1;
+    private File imagen=null;
 
 
     public static void setValueMap(String key, Object value)
@@ -87,95 +99,82 @@ public class RegistroUsuarioOrganizacion extends Fragment {
         ArrayAdapter<String> adapter_carreras = new ArrayAdapter<>(getActivity(), R.layout.spinner_item_values, StaticResources.OPCIONES_CARRERAS);
         spinner_genero.setAdapter(adapter_genero);
         spinner_carreras.setAdapter(adapter_carreras);
-
+        imageView_persona = view.findViewById(R.id.image_view_persona);
         MaterialCardView btnRegistrar = view.findViewById(R.id.button_registrar);
         MaterialCardView btnSubirFotoUsuario = view.findViewById(R.id.button_subir_foto_usuario);
 
 
         //button action subir foto
-        btnSubirFotoUsuario.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick( final View v)
-            {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
+        btnSubirFotoUsuario.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
 
-                startActivityForResult(Intent.createChooser(intent,"Selecciona una imagen"),GALLERY_INTENT);
-            }
+            startActivityForResult(Intent.createChooser(intent,"Selecciona una imagen"),GALLERY_INTENT);
         });
 
 
         //button action registrar
-        btnRegistrar.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick( final View v) {
-                if(spinner_carreras.getSelectedItemPosition()>=1)
+        btnRegistrar.setOnClickListener(v -> {
+            if(spinner_carreras.getSelectedItemPosition()>=1)
+            {
+                if(spinner_genero.getSelectedItemPosition()>=1)
                 {
-                    if(spinner_genero.getSelectedItemPosition()>=1)
+                    data.put("Carrera",spinner_carreras.getSelectedItem().toString());
+                    data.put("Género",spinner_genero.getSelectedItem().toString());
+                    data.put("LastDate", Calendar.getInstance().getTime());
+                    data.put("Saldo",0.0);
+                    data.put("Viaje","");
+                    //si la imagen fue agregada
+                    Log.e("err",imagen+"");
+                    if(imagen!=null)
                     {
-                        data.put("Carrera",spinner_carreras.getSelectedItem().toString());
-                        data.put("Género",spinner_genero.getSelectedItem().toString());
-                        data.put("LastDate", Calendar.getInstance().getTime());
-                        data.put("Saldo",0.0);
-                        data.put("Viaje","");
-                        //si la imagen fue agregada
-                        if(StorageFirebase.getImagenSubida())
-                        {
-                            mAuth.createUserWithEmailAndPassword(Objects.requireNonNull(data.get("Email")).toString(), Objects.requireNonNull(data.get("Contraseña")).toString())
-                                    .addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<AuthResult> task) {
-                                            if (task.isSuccessful()) {
-                                                FirebaseUser user = mAuth.getCurrentUser();
-                                                //mensaje de verificación
+                        mAuth.createUserWithEmailAndPassword(Objects.requireNonNull(data.get("Email")).toString(), Objects.requireNonNull(data.get("Contraseña")).toString())
+                                .addOnCompleteListener(Objects.requireNonNull(getActivity()), task -> {
+                                    if (task.isSuccessful()) {
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        //mensaje de verificación
 
-                                                /*try {
-                                                    assert user != null;
-                                                    user.sendEmailVerification();
-                                                } catch (NullPointerException e) {
-                                                    e.printStackTrace();
-                                                }*/
+                                        /*try {
+                                            assert user != null;
+                                            user.sendEmailVerification();
+                                        } catch (NullPointerException e) {
+                                            e.printStackTrace();
+                                        }*/
 
 
-                                                //agrega los datos a usuarios y le asigna el mismo UID de la autentificación a los datos de este.
-                                                conexion.agregar_usuario(data, user.getUid());
-                                                Toast.makeText(getActivity(), "Checar correo electrónico para validar su correo", Toast.LENGTH_SHORT).show();
-                                                sendEmailWithGmail(StaticResources.PASSWORD,user.getEmail(),user.getUid(),"");//sdcard/DCIM/Camera/test.jpg
+                                        //agrega los datos a usuarios y le asigna el mismo UID de la autentificación a los datos de este.
+                                        conexion.agregar_usuario(data, user.getUid());
+                                        Toast.makeText(getActivity(), "Checar correo electrónico para validar su correo", Toast.LENGTH_SHORT).show();
+                                        storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(), Uri.fromFile(imagen) ,"Usuarios", Objects.requireNonNull(getView()),0);
+                                        sendEmailWithGmail(StaticResources.PASSWORD,user.getEmail(),user.getUid(),"");//sdcard/DCIM/Camera/test.jpg
 
 
-                                                findNavController(v).navigate((R.id.action_registroUsuario_organizacion_to_inicioSesion2));
-
-
-                                            } else {
-                                                // If sign in fails, display a message to the user.
-                                                //si el registro de usuario genera una colision, esto es que ya existe un email registrado con esa dir
-                                                if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                                    Toast.makeText(getActivity(), "Ese Email ya fue registrado", Toast.LENGTH_SHORT).show();
-                                                } else {
-                                                    Toast.makeText(getActivity(), "Error de registro, sin acceso a Internet", Toast.LENGTH_SHORT).show();
-                                                    data.clear();
-                                                    findNavController(v).navigate((R.id.action_registroUsuario_organizacion_to_inicioSesion2));
-                                                }
-                                            }
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+                                        //si el registro de usuario genera una colision, esto es que ya existe un email registrado con esa dir
+                                        if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                            Toast.makeText(getActivity(), "Ese Email ya fue registrado", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(getActivity(), "Error de registro, sin acceso a Internet", Toast.LENGTH_SHORT).show();
+                                            data.clear();
+                                            findNavController(v).navigate((R.id.action_registroUsuario_organizacion_to_inicioSesion2));
                                         }
-                                    });
-                        }
-                        else
-                        {
-                            Toast.makeText(getActivity(),"Debe de subir imagen",Toast.LENGTH_SHORT).show();
-                        }
+                                    }
+                                });
                     }
                     else
                     {
-                        Toast.makeText(getActivity(),"Género no seleccionado",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"Debe de subir imagen",Toast.LENGTH_SHORT).show();
                     }
                 }
                 else
                 {
-                    Toast.makeText(getActivity(),"Carrera no seleccionada",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"Género no seleccionado",Toast.LENGTH_SHORT).show();
                 }
+            }
+            else
+            {
+                Toast.makeText(getActivity(),"Carrera no seleccionada",Toast.LENGTH_SHORT).show();
             }
         });
         return view;
@@ -193,19 +192,35 @@ public class RegistroUsuarioOrganizacion extends Fragment {
 
 
             try {
+               // imageView_persona = new Compressor(getActivity()).compressToFile(imageView_persona);
+                //setCompressedImage();
                 Uri uri = data.getData();
-                storageFirebase.EliminarFoto(getValueMap("NumeroControl").toString(),"Usuarios",getView());
-                assert  null != uri;
-                InputStream  inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri);
-                assert inputStream != null;
-                if((Double.parseDouble(String.valueOf(inputStream.available()))/1024)<200.1)
-                {
-                    storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Usuarios", Objects.requireNonNull(getView()),0);
-                }
+                imagen = FilesUtils.from(getContext(),uri);
+
+                imagen = new Compressor(getContext()).compressToFile(imagen);
+                //InputStream  inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(Uri.fromFile(imagen));
+                //imageView_persona.setImageBitmap();
+                Glide.with(getContext())
+                        .load(BitmapFactory.decodeFile(imagen.getAbsolutePath()))
+                        .fitCenter()
+                        .centerCrop()
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(imageView_persona);
+
+
+                // storageFirebase.EliminarFoto(getValueMap("NumeroControl").toString(),"Usuarios",getView());
+
+                //
+                //assert inputStream != null;
+                //if((Double.parseDouble(String.valueOf(inputStream.available()))/1024)<200.1)
+                //{
+
+               // storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(), Uri.fromFile(imagen) ,"Usuarios", Objects.requireNonNull(getView()),0);
+               /* }
                 else
                 {
                     Toast.makeText(getActivity(), "La imagen debe que ser menor de 200.1 kb",Toast.LENGTH_LONG).show();
-                }
+                }*/
 
 
             } catch (IOException | NullPointerException e) {
@@ -235,7 +250,7 @@ public class RegistroUsuarioOrganizacion extends Fragment {
     /**
      * AsyncTask to send email
      */
-    @SuppressLint("StaticFieldLeak")
+
     class SenderAsyncTask extends AsyncTask<String, String, String> {
 
         private String from, to, subject, message;
@@ -272,6 +287,8 @@ public class RegistroUsuarioOrganizacion extends Fragment {
                                 htmlText2+
                                 "<hr>" +
                                 "<p ALIGN=\"justify\"><font size=3 face=\"Sans Serif,arial,verdana\">"+"Bienvenido <strong>"+data.get("Nombre")+" "+data.get("Apellidos")+
+                                "</strong>, identificador de usuario es: "+"</font></p>"+
+                                "<br>"+
                                 "<p ALIGN=\"center\"><font size=3 face=\"Sans Serif,arial,verdana\"><strong>"+subject+"</strong></font></p>"+
                                 "<p ALIGN=\"justify\"><font size=3 face=\"Sans Serif,arial,verdana\">Saludos cordiales,</font></p>"+
                                 "<p><font size=3 face=\"Sans Serif,arial,verdana\">El equipo </font><font color=\"#008577\" size=3 face=\"Sans Serif,arial,verdana\">AppVenton</font></p>"+
@@ -330,8 +347,8 @@ public class RegistroUsuarioOrganizacion extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             progressDialog.dismiss();
-            Snackbar.make(Objects.requireNonNull(getView()), "Mensaje enviado...", Snackbar.LENGTH_LONG).show();
-            findNavController(Objects.requireNonNull(getView())).navigate(R.id.action_registroChofer_organizacion_auto_to_inicioSesion);
+            Snackbar.make(getActivity().findViewById(android.R.id.content), "Mensaje enviado revisa tu bandeja o spam...", Snackbar.LENGTH_LONG).show();
+            findNavController(Objects.requireNonNull(getView())).navigate(R.id.action_registroUsuario_organizacion_to_inicioSesion2);
 
         }
     }

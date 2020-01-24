@@ -111,6 +111,21 @@
                 </com.google.android.material.card.MaterialCardView>
 
             </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="30dp"
+                android:weightSum="1">>
+                <ImageView
+                    android:id="@+id/image_view_persona"
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:layout_gravity="center"
+                    android:background="@color/transparente"
+                    android:contentDescription="@string/txtDescripcion"
+                    android:padding="5dp" />
+            </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
