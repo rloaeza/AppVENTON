@@ -43,17 +43,11 @@ public class StorageFirebase
             RegistroUsuarioOrganizacion.setValueMap("URI_Coche","");
         }
         // Delete the file
-        desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
+        desertRef.delete().addOnSuccessListener(aVoid -> {
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Uh-oh, an error occurred!
-                //
-            }
+        }).addOnFailureListener(exception -> {
+            // Uh-oh, an error occurred!
+            //
         });
     }
 
@@ -64,65 +58,55 @@ public class StorageFirebase
 
         final StorageReference storageReference = mStorage.child(child).child(id);
 
-        storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
-            {
-                //agrega el uri a el database
+        storageReference.putFile(uri).addOnSuccessListener(taskSnapshot -> {
+            //agrega el uri a el database
 
 
-                storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
+            storageReference.getDownloadUrl().addOnSuccessListener(uri1 -> {
 
-                        if(child.equals("Choferes"))
-                        {
+                if(child.equals("Choferes"))
+                {
 
-                            if(num==0)//significa que se esta registrando
-                            {
-                                RegistroChoferOrganizacionAuto.setValueMap("URI",uri.toString());
-                            }
-                            else//actualizando
-                            {
-                                FirebaseConexionFirestore.actualizarImagen(uri.toString(), 0);
-                                Snackbar.make(view,"La imagen puede durar algunos segundos en salir, depende de tu conexion a internet",Snackbar.LENGTH_LONG).show();
-
-
-                            }
+                    if(num==0)//significa que se esta registrando
+                    {
+                        RegistroChoferOrganizacionAuto.setValueMap("URI", uri1.toString());
+                    }
+                    else//actualizando
+                    {
+                        FirebaseConexionFirestore.actualizarImagen(uri1.toString(), 0);
+                        Snackbar.make(view,"La imagen puede durar algunos segundos en salir, depende de tu conexion a internet",Snackbar.LENGTH_LONG).show();
+                    }
 
 
-                        }
-                        else
-                        {
-                            if(num==0)//significa que se esta registrando
-                            {
-                                RegistroUsuarioOrganizacion.setValueMap("URI", uri.toString());
-                            }
-                            else//actualizando
-                            {
-                                FirebaseConexionFirestore.actualizarImagen(uri.toString(), 0);
-                                Snackbar.make(view,"La imagen puede durar algunos segundos en salir, depende de tu conexion a internet",Snackbar.LENGTH_LONG).show();
+                }
+                else
+                {
+                    if(num==0)//significa que se esta registrando
+                    {
+                        RegistroUsuarioOrganizacion.setValueMap("URI", uri1.toString());
 
-
-                            }
-
-                        }
 
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle any errors
-                        Toast.makeText(view.getContext(), "Error de subida" , Toast.LENGTH_SHORT).show();
-
+                    else//actualizando
+                    {
+                        FirebaseConexionFirestore.actualizarImagen(uri1.toString(), 0);
+                        Snackbar.make(view,"La imagen puede durar algunos segundos en salir, depende de tu conexion a internet",Snackbar.LENGTH_LONG).show();
                     }
-            });
 
-                //Toast.makeText(view.getContext(), "Imagen agregada al sistema con el identificador " + id, Toast.LENGTH_SHORT).show();
-                sucessful[0] = true;
-                alertDialog.cancel();
-            }
+                }
 
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                    Toast.makeText(view.getContext(), "Error de subida" , Toast.LENGTH_SHORT).show();
+
+                }
+        });
+
+            //Toast.makeText(view.getContext(), "Imagen agregada al sistema con el identificador " + id, Toast.LENGTH_SHORT).show();
+            sucessful[0] = true;
+            alertDialog.cancel();
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {

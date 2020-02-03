@@ -124,8 +124,9 @@ public class RegistroUsuarioOrganizacion extends Fragment {
                     data.put("LastDate", Calendar.getInstance().getTime());
                     data.put("Saldo",0.0);
                     data.put("Viaje","");
+
                     //si la imagen fue agregada
-                    Log.e("err",imagen+"");
+                    Log.e("err",RegistroUsuarioOrganizacion.getValueMap("URI")+"");
                     if(imagen!=null)
                     {
                         mAuth.createUserWithEmailAndPassword(Objects.requireNonNull(data.get("Email")).toString(), Objects.requireNonNull(data.get("Contraseña")).toString())
@@ -145,7 +146,6 @@ public class RegistroUsuarioOrganizacion extends Fragment {
                                         //agrega los datos a usuarios y le asigna el mismo UID de la autentificación a los datos de este.
                                         conexion.agregar_usuario(data, user.getUid());
                                         Toast.makeText(getActivity(), "Checar correo electrónico para validar su correo", Toast.LENGTH_SHORT).show();
-                                        storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(), Uri.fromFile(imagen) ,"Usuarios", Objects.requireNonNull(getView()),0);
                                         sendEmailWithGmail(StaticResources.PASSWORD,user.getEmail(),user.getUid(),"");//sdcard/DCIM/Camera/test.jpg
 
 
@@ -208,7 +208,8 @@ public class RegistroUsuarioOrganizacion extends Fragment {
                         .into(imageView_persona);
 
 
-                // storageFirebase.EliminarFoto(getValueMap("NumeroControl").toString(),"Usuarios",getView());
+                 storageFirebase.EliminarFoto(getValueMap("NumeroControl").toString(),"Usuarios",getView());
+                 storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(), Uri.fromFile(imagen) ,"Usuarios", Objects.requireNonNull(getView()),0);
 
                 //
                 //assert inputStream != null;

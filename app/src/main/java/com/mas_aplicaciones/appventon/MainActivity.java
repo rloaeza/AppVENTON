@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -25,13 +26,10 @@ import java.util.Objects;
 import static com.mas_aplicaciones.appventon.usuario.RegistroUsuarioOrganizacion.getValueMap;
 
 public class MainActivity extends AppCompatActivity {
-
-    public static StorageReference mStorage = FirebaseStorage.getInstance().getReference();//instancia de clase para le storage
-    @SuppressLint("StaticFieldLeak")
-    public static FirebaseFirestore db  = FirebaseFirestore.getInstance();
-
-
-
+   
+    public static FirebaseFirestore db ;
+    //instancia de clase para le storage
+    public static StorageReference mStorage;
 
 
     private int activar = 3;
@@ -44,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Objects.requireNonNull(getSupportActionBar()).hide();
         // metodos para consultar los numeros de control
-
-
-
+        FirebaseApp.initializeApp(this);
+        db  = FirebaseFirestore.getInstance();
+        mStorage = FirebaseStorage.getInstance().getReference();
 
     }
     public  void activado(int activar)

@@ -1,7 +1,10 @@
 package com.mas_aplicaciones.appventon.firebase;
 
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,21 +27,26 @@ import com.mas_aplicaciones.appventon.MainActivity;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import dmax.dialog.SpotsDialog;
 
 
 public class FirestoreConection
 {
     Choferes choferes;
     FirebaseFirestore db = MainActivity.db;
-    public  void obtenerChoferes(final String UUID)
+    private AlertDialog alertDialog;
+    public  void obtenerChoferes(final String UUID, final Context context)
     {
-
+        alertDialog = new SpotsDialog.Builder().setContext(context).setMessage("Buscando Viajes").build();
+        alertDialog.show();
         db.collection("Chofer_lugar")
                 .whereEqualTo("IdLugar", UUID)
                 .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        ArrayList<EntidadChofer> entidadChoferList = new ArrayList<>();
+                .addOnCompleteListener((Task<QuerySnapshot> task) -> {
+                    ArrayList<EntidadChofer> entidadChoferList = new ArrayList<>();
+                    if (task.isComplete())
+                    {
+
                         for (QueryDocumentSnapshot document : task.getResult())
                         {
                             String id = document.getId();
@@ -95,10 +103,18 @@ public class FirestoreConection
                                 entidadChoferList.add(entidadChofer);
                             }
                         }
-                        choferes.getDatos(entidadChoferList);
-                    } else {
+
 
                     }
+                    else {
+
+                    }
+                    if(!entidadChoferList.isEmpty())
+                    {
+                        choferes.getDatos(entidadChoferList);
+                    }
+                    alertDialog.cancel();
+
                 });
     }
     public void cambiosChoferes(final String UUID)

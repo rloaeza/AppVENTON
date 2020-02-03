@@ -149,7 +149,7 @@ public class Configurar_usuarios extends Fragment {
                 }
 
 
-            } catch (IOException e) {
+            } catch (IOException | NullPointerException e) {
                 e.printStackTrace();
             }
         }

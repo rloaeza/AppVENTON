@@ -139,8 +139,8 @@ public class PrincipalUsuario extends Fragment {
                                             location1.setLatitude(lat);
                                             location1.setLongitude(lon);
                                             float distancia = location.distanceTo(location1);
-                                            if(distancia<6000)
-                                            {
+                                           /* if(distancia<20000)
+                                            {*/
                                                 String title = selectedFeature.getStringProperty("title");
                                                 String codigo = selectedFeature.getStringProperty("id");
                                                 String imagen = selectedFeature.getStringProperty("imagen");
@@ -151,10 +151,10 @@ public class PrincipalUsuario extends Fragment {
                                                 lugar.put("hay",hay);
                                                 Toast.makeText(getContext(), "You selected " + distancia, Toast.LENGTH_SHORT).show();
                                                 findNavController(Objects.requireNonNull(getView())).navigate(R.id.action_principalUsuario_to_lugarUsuario);
-                                            }
+                                           /* }
                                             else{
                                                 Toast.makeText(getContext(),"No puede ver información está lejos del punto de acceso",Toast.LENGTH_SHORT).show();
-                                            }
+                                            }*/
                                         }
                                         return true;
                                     });

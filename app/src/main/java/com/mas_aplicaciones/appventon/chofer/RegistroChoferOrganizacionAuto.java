@@ -4,6 +4,7 @@ package com.mas_aplicaciones.appventon.chofer;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,10 +14,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
@@ -26,9 +31,12 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
+import com.mas_aplicaciones.appventon.compresion.FilesUtils;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.staticresources.StaticResources;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
+
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
@@ -43,6 +51,9 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import id.zelory.compressor.Compressor;
+
 import static androidx.navigation.Navigation.findNavController;
 import static com.mas_aplicaciones.appventon.InicioSesion.mAuth;
 
@@ -69,6 +80,8 @@ public class RegistroChoferOrganizacionAuto extends Fragment
     {
         return data.get(key);
     }
+    private File imagen=null;
+    private ImageView imageView_persona;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -216,18 +229,29 @@ public class RegistroChoferOrganizacionAuto extends Fragment
 
             try {
                 Uri uri = data.getData();
-                storageFirebase.EliminarFoto(getValueMap("NumeroControl").toString(),"Choferes",getView());
-                assert null != uri;
+                imagen = FilesUtils.from(getContext(),uri);
+
+
+                imagen = new Compressor(getContext()).compressToFile(imagen);
+
+                Glide.with(getContext())
+                        .load(BitmapFactory.decodeFile(imagen.getAbsolutePath()))
+                        .fitCenter()
+                        .centerCrop()
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(imageView_persona);
+               /* assert null != uri;
                 InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri);
                 assert inputStream != null;
                 if((Double.parseDouble(String.valueOf(inputStream.available()))/1024)<200.1)
-                {
-                    storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Choferes", Objects.requireNonNull(getView()), 0);
-                }
+                {*/
+                storageFirebase.EliminarFoto(getValueMap("NumeroControl").toString(),"Choferes",getView());
+                storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Choferes", Objects.requireNonNull(getView()), 0);
+                /*}
                 else
                 {
                     Toast.makeText(getActivity(), "La imagen debe que ser menor de 200.1 kb",Toast.LENGTH_LONG).show();
-                }
+                }*/
 
 
             } catch (IOException | NullPointerException e) {

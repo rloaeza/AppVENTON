@@ -1,5 +1,6 @@
 package com.mas_aplicaciones.appventon;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -62,8 +63,15 @@ public class LugarUsuario extends Fragment
 
 
                 Log.e("err", "entre");
-                arrayAdapter = new AdaptadorChofer(view.getContext(),elementos);
-                listView_choferesLugar.setAdapter(arrayAdapter);
+
+
+
+
+                    arrayAdapter = new AdaptadorChofer(view.getContext(),elementos);
+                    listView_choferesLugar.setAdapter(arrayAdapter);
+
+
+
             }
 
             @Override
@@ -117,7 +125,7 @@ public class LugarUsuario extends Fragment
         imageView_lugar = view.findViewById(R.id.image_view_lugar);
         textView_titulo.setText(PrincipalUsuario.lugar.get("title").toString());
         listView_choferesLugar = view.findViewById(R.id.list_view_choferesLugar);
-        firestoreConection.obtenerChoferes(PrincipalUsuario.lugar.get("id").toString());
+        firestoreConection.obtenerChoferes(PrincipalUsuario.lugar.get("id").toString(),getActivity());
         firestoreConection.cambiosChoferes(PrincipalUsuario.lugar.get("id").toString());
         return view;
     }

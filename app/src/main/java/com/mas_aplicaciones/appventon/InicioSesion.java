@@ -114,36 +114,33 @@ public class InicioSesion extends Fragment {
                                     btnRegistrar.setEnabled(false);
                                     btnOlvidaContrasena.setEnabled(false);
                                     mAuth.signInWithEmailAndPassword(email, contrasena)
-                                            .addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                                    if (task.isSuccessful()) {
-                                                        alertDialog = new SpotsDialog.Builder().setContext(view.getContext()).setMessage("Iniciando").build();
-                                                        alertDialog.show();
-                                                        // Sign in success, update UI with the signed-in user's information
-                                                        currentUser = mAuth.getCurrentUser();
-                                                        guardarPreferencias();
-                                                        if (currentUser != null && currentUser.isEmailVerified()) {
+                                            .addOnCompleteListener(Objects.requireNonNull(getActivity()), task -> {
+                                                if (task.isSuccessful()) {
+                                                    alertDialog = new SpotsDialog.Builder().setContext(view.getContext()).setMessage("Iniciando").build();
+                                                    alertDialog.show();
+                                                    // Sign in success, update UI with the signed-in user's information
+                                                    currentUser = mAuth.getCurrentUser();
+                                                    guardarPreferencias();
+                                                    if (currentUser != null /*&& currentUser.isEmailVerified()*/) {
 
-                                                            objeto_firebase_conexion_firestore.buscarUsuario(currentUser.getUid(), view);
-                                                            objeto_firebase_conexion_firestore.buscarChofer(currentUser.getUid(), view);
+                                                        objeto_firebase_conexion_firestore.buscarUsuario(currentUser.getUid(), view);
+                                                        objeto_firebase_conexion_firestore.buscarChofer(currentUser.getUid(), view);
 
-                                                            editText_contrasena.setText("");
-                                                            editText_email.setText("");
-                                                        } else {
-                                                            Toast.makeText(getActivity(), "Email no validado, revisa el email registrado", Toast.LENGTH_LONG).show();
-                                                        }
-
+                                                        editText_contrasena.setText("");
+                                                        editText_email.setText("");
                                                     } else {
-                                                        // If sign in fails, display a message to the user.
-                                                        if (task.getException() instanceof FirebaseAuthEmailException) {
-                                                            Toast.makeText(getActivity(), "Usuario no registrado", Toast.LENGTH_SHORT).show();
-                                                        } else {
-                                                            Toast.makeText(getActivity(), "Email o contraseña incorrectos", Toast.LENGTH_SHORT).show();
-                                                        }
-
-
+                                                        Toast.makeText(getActivity(), "Email no validado, revisa el email registrado", Toast.LENGTH_LONG).show();
                                                     }
+
+                                                } else {
+                                                    // If sign in fails, display a message to the user.
+                                                    if (task.getException() instanceof FirebaseAuthEmailException) {
+                                                        Toast.makeText(getActivity(), "Usuario no registrado", Toast.LENGTH_SHORT).show();
+                                                    } else {
+                                                        Toast.makeText(getActivity(), "Email o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                                                    }
+
+
                                                 }
                                             });
                                     click = true;
@@ -240,7 +237,7 @@ public class InicioSesion extends Fragment {
                                 alertDialog = new SpotsDialog.Builder().setContext(view.getContext()).setMessage("Iniciando").build();
                                 alertDialog.show();
                                 currentUser = mAuth.getCurrentUser();
-                                if (currentUser != null && currentUser.isEmailVerified()) {
+                                if (currentUser != null /*&& currentUser.isEmailVerified()*/) {
                                     objeto_firebase_conexion_firestore.buscarUsuario(currentUser.getUid(), view);
                                     objeto_firebase_conexion_firestore.buscarChofer(currentUser.getUid(), view);
                                     editText_contrasena.setText("");
@@ -250,12 +247,12 @@ public class InicioSesion extends Fragment {
                                 else
                                 {
                                     alertDialog.cancel();
-                                    Toast.makeText(getActivity(), "Revice su correo electrónico para validar el email",Toast.LENGTH_LONG).show();
+                                   // Toast.makeText(getActivity(), "Revice su correo electrónico para validar el email",Toast.LENGTH_LONG).show();
                                 }
                             }
                             else
                             {
-                                Toast.makeText(getActivity(), "Email no validado, revisa el email registrado",Toast.LENGTH_LONG).show();
+                               // Toast.makeText(getActivity(), "Email no validado, revisa el email registrado",Toast.LENGTH_LONG).show();
                             }
 
                         }
