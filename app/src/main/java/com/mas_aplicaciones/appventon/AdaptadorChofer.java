@@ -14,6 +14,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class AdaptadorChofer extends BaseAdapter
 {
@@ -37,8 +39,30 @@ public class AdaptadorChofer extends BaseAdapter
     }
     public void add(ArrayList<EntidadChofer> entidadChoferAdd)
     {
+
+        ArrayList<Integer> pos = new ArrayList<>();
+        for(int i=0;i<entidadChoferAdd.size();i++)
+        {
+            for(int j=0;j<entidadChoferes.size();j++)
+            {
+                if (entidadChoferes.get(j).getId().equals(entidadChoferAdd.get(i).getId()))
+                {
+                    pos.add(j);
+                    break;
+                }
+            }
+        }
+        if(pos.size()!=0)
+        {
+            for (int x: pos)
+            {
+                entidadChoferAdd.remove(x);
+            }
+        }
+
         this.entidadChoferes.addAll(entidadChoferAdd);
     }
+
     public void delete(ArrayList<EntidadChofer> entidadChoferDel)
     {
         for(int i=0;i<entidadChoferDel.size();i++)
@@ -50,12 +74,10 @@ public class AdaptadorChofer extends BaseAdapter
                     break;
                 }
             }
-
-
-
         }
 
     }
+
     public void update(ArrayList<EntidadChofer> entidadChoferMod)
     {
         for(int i=0;i<entidadChoferMod.size();i++)
@@ -125,7 +147,7 @@ public class AdaptadorChofer extends BaseAdapter
         button_seleccionar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,position+"",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,entidadChofer.getId()+"",Toast.LENGTH_SHORT).show();
             }
         });
 

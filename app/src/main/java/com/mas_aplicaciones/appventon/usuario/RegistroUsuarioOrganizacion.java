@@ -145,7 +145,7 @@ public class RegistroUsuarioOrganizacion extends Fragment {
 
                                         //agrega los datos a usuarios y le asigna el mismo UID de la autentificación a los datos de este.
                                         conexion.agregar_usuario(data, user.getUid());
-                                        Toast.makeText(getActivity(), "Checar correo electrónico para validar su correo", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), "Checar correo electrónico para validar su correo en bandeja de entrada o spam", Toast.LENGTH_SHORT).show();
                                         sendEmailWithGmail(StaticResources.PASSWORD,user.getEmail(),user.getUid(),"");//sdcard/DCIM/Camera/test.jpg
 
 
@@ -164,7 +164,7 @@ public class RegistroUsuarioOrganizacion extends Fragment {
                     }
                     else
                     {
-                        Toast.makeText(getActivity(),"Debe de subir imagen",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"Debe de subir imagen de perfil para identificarlo",Toast.LENGTH_SHORT).show();
                     }
                 }
                 else

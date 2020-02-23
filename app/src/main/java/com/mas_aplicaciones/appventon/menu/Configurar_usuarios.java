@@ -1,6 +1,7 @@
 package com.mas_aplicaciones.appventon.menu;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -19,12 +20,16 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
+import com.mas_aplicaciones.appventon.compresion.FilesUtils;
 import com.mas_aplicaciones.appventon.firebase.EvaluacionDeViews;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+
+import id.zelory.compressor.Compressor;
 
 
 public class Configurar_usuarios extends Fragment {
@@ -38,6 +43,7 @@ public class Configurar_usuarios extends Fragment {
     private EvaluacionDeViews objeto_evaluacion_de_views = new EvaluacionDeViews();
     private final static int GALLERY_INTENT = 1;
     private StorageFirebase storageFirebase = new StorageFirebase();
+    private File imagen=null;
 
 
     @Override
@@ -60,54 +66,44 @@ public class Configurar_usuarios extends Fragment {
 
         foto_persona = FirebaseConexionFirestore.getValue("URI").toString();
         //listeners
-        imageView_persona.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
+        imageView_persona.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
 
-                startActivityForResult(intent.createChooser(intent,"Selecciona una imagen"),GALLERY_INTENT);
+            startActivityForResult(intent.createChooser(intent,"Selecciona una imagen"),GALLERY_INTENT);
 
 
-            }
         });
 
-        button_actualizar.setOnClickListener(new View.OnClickListener()
-        {
+        button_actualizar.setOnClickListener(v -> {
+            nombre = editText_nombre.getText().toString();
+            apellido=editText_apellidos.getText().toString();
+            celular=editText_celular.getText().toString();
 
-
-            @Override
-            public void onClick(View v)
+            if(!nombre.equals(""))
             {
-                nombre = editText_nombre.getText().toString();
-                apellido=editText_apellidos.getText().toString();
-                celular=editText_celular.getText().toString();
-
-                if(!nombre.equals(""))
+                if(!apellido.equals("") )
                 {
-                    if(!apellido.equals("") )
+                    if(!celular.equals("") && objeto_evaluacion_de_views.telefonoValido(celular))
                     {
-                        if(!celular.equals("") && objeto_evaluacion_de_views.telefonoValido(celular))
-                        {
 
-                            FirebaseConexionFirestore.actualizarData(nombre.trim(),apellido.trim(),celular,getView());
-                        }
-                        else
-                        {
-                            editText_celular.setError("required");
-                            Toast.makeText(getActivity(), "Teléfono nulo o incorrecto", Toast.LENGTH_SHORT).show();
-                        }
+                        FirebaseConexionFirestore.actualizarData(nombre.trim(),apellido.trim(),celular,getView());
                     }
                     else
                     {
-                        editText_apellidos.setError("requered");
+                        editText_celular.setError("required");
+                        Toast.makeText(getActivity(), "Teléfono nulo o incorrecto", Toast.LENGTH_SHORT).show();
                     }
-
                 }
                 else
                 {
-                    editText_nombre.setError("required");
+                    editText_apellidos.setError("requered");
                 }
+
+            }
+            else
+            {
+                editText_nombre.setError("required");
             }
         });
 
@@ -137,16 +133,24 @@ public class Configurar_usuarios extends Fragment {
             try
             {
                 Uri uri = data.getData();
-                storageFirebase.EliminarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(), FirebaseConexionFirestore.PERSONA,getView());
-                InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
+                imagen = FilesUtils.from(getContext(),uri);
+                imagen= new Compressor(getContext()).compressToFile(imagen);
+                Glide.with(getContext())
+                        .load(BitmapFactory.decodeFile(imagen.getAbsolutePath()))
+                        .fitCenter()
+                        .centerCrop()
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(imageView_persona);
+                /*InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
                 if((Double.parseDouble(String.valueOf(inputStream.available()))/1024)<200.1)
-                {
-                    storageFirebase.agregarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(),uri, FirebaseConexionFirestore.PERSONA,getView(), 1);
-                }
+                {*/
+                storageFirebase.EliminarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(), FirebaseConexionFirestore.PERSONA,getView());
+                storageFirebase.agregarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(),Uri.fromFile(imagen) , FirebaseConexionFirestore.PERSONA,getView(), 1);
+                /*}
                 else
                 {
                     Toast.makeText(getActivity(), "La imagen debe que ser menor de 200.1 kb",Toast.LENGTH_LONG).show();
-                }
+                }*/
 
 
             } catch (IOException | NullPointerException e) {

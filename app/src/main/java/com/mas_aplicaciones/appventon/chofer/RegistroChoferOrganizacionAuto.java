@@ -97,7 +97,7 @@ public class RegistroChoferOrganizacionAuto extends Fragment
         spinner_genero = view.findViewById(R.id.spinner_selecGen);
         ArrayAdapter<String> adapter_organizacion = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), R.layout.spinner_item_values, StaticResources.OPCIONES_ORGANIZACION);
         ArrayAdapter<String> adapter_genero = new ArrayAdapter<>(Objects.requireNonNull(getActivity()),R.layout.spinner_item_values,StaticResources.OPCIONES_GENERO);
-
+        imageView_persona = view.findViewById(R.id.image_view_persona);
         spinner_organizacion.setAdapter(adapter_organizacion);
         spinner_genero.setAdapter(adapter_genero);
         editText_vigencia = view.findViewById(R.id.edit_text_vigencia);
@@ -140,7 +140,8 @@ public class RegistroChoferOrganizacionAuto extends Fragment
                             if (spinner_organizacion.getSelectedItemPosition() >= 1) {
 
                                     if (spinner_genero.getSelectedItemPosition() >= 1) {
-                                        if (StorageFirebase.getImagenSubida()) {
+                                        if (imagen!=null)
+                                        {
                                             data.put("Organización", spinner_organizacion.getSelectedItem().toString());
                                             data.put("Género", spinner_genero.getSelectedItem().toString());
                                             data.put("Placas", placas.trim());
@@ -162,7 +163,7 @@ public class RegistroChoferOrganizacionAuto extends Fragment
                                                                     e.printStackTrace();
                                                                 }*/
 
-                                                                Toast.makeText(getActivity(), "Checar correo electrónico para validar su correo", Toast.LENGTH_SHORT).show();
+                                                                Toast.makeText(getActivity(), "Checar correo electrónico para validar su correo en bandeja de entrada o spam", Toast.LENGTH_SHORT).show();
 
                                                                 //agrega los datos a usuarios y le asigna el mismo UID de la autentificación a los datos de este.
                                                                 data.put("Validacion", false);
@@ -186,8 +187,9 @@ public class RegistroChoferOrganizacionAuto extends Fragment
                                                             }
                                                         }
                                                     });
-                                        } else {
-                                            Toast.makeText(getActivity(), "Debe de subir imagen de su rostro", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else {
+                                            Toast.makeText(getActivity(), "Debe de subir imagen de su rostro para identificarlo", Toast.LENGTH_SHORT).show();
                                         }
                                     } else {
                                         Toast.makeText(getActivity(), "Género no seleccionado", Toast.LENGTH_SHORT).show();
@@ -246,7 +248,7 @@ public class RegistroChoferOrganizacionAuto extends Fragment
                 if((Double.parseDouble(String.valueOf(inputStream.available()))/1024)<200.1)
                 {*/
                 storageFirebase.EliminarFoto(getValueMap("NumeroControl").toString(),"Choferes",getView());
-                storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),uri,"Choferes", Objects.requireNonNull(getView()), 0);
+                storageFirebase.agregarFoto(getValueMap("NumeroControl").toString(),Uri.fromFile(imagen),"Choferes", Objects.requireNonNull(getView()), 0);
                 /*}
                 else
                 {

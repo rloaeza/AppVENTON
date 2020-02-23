@@ -3,6 +3,7 @@ package com.mas_aplicaciones.appventon.firebase;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
@@ -34,86 +35,31 @@ public class FirestoreConection
 {
     Choferes choferes;
     FirebaseFirestore db = MainActivity.db;
-    private AlertDialog alertDialog;
     public  void obtenerChoferes(final String UUID, final Context context)
     {
-        alertDialog = new SpotsDialog.Builder().setContext(context).setMessage("Buscando Viajes").build();
-        alertDialog.show();
+
         db.collection("Chofer_lugar")
                 .whereEqualTo("IdLugar", UUID)
                 .get()
                 .addOnCompleteListener((Task<QuerySnapshot> task) -> {
-                    ArrayList<EntidadChofer> entidadChoferList = new ArrayList<>();
                     if (task.isComplete())
                     {
 
-                        for (QueryDocumentSnapshot document : task.getResult())
-                        {
-                            String id = document.getId();
-                            String idChofer = document.getData().get("IdChofer").toString();
-                            String nombreChofer=document.getData().get("Nombre").toString();
-                            String imagenChofer=document.getData().get("URI").toString();
-                            String imagenCoche = document.getData().get("URI_Coche").toString();
-                            String comentario = document.getData().get("Comentario").toString();
-                            String espacios = document.getData().get("Espacios").toString();
-                            String tiempoEspera=document.getData().get("TiempoEspera").toString();
-                            String hora = document.getData().get("Hora").toString();
-                            Timestamp timestamp = (Timestamp) document.getData().get("Fecha");
-                            String horaarray[] = hora.split(":");
-                            if(horaarray[1].length()==1)
+
+                        new Handler().post(() -> {
+                            try
                             {
-                                horaarray[1]="0"+horaarray[1];
-
+                                choferes.getDatos(task.getResult());
                             }
-                            if(Integer.parseInt(horaarray[0])>12)
-                            {
-                                hora=(Integer.parseInt(horaarray[0])-12)+":"+horaarray[1]+"pm";
+                            catch (Exception ex){
+                                ///
                             }
-                            else
-                            {
-                                hora=horaarray[0]+":"+horaarray[1]+"am";
-                            }
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.setTime(timestamp.toDate());
-                            calendar.set(Calendar.HOUR,Integer.parseInt(horaarray[0]));
-                            calendar.set(Calendar.MINUTE,Integer.parseInt(horaarray[1]));
-                            Calendar calendar1 = Calendar.getInstance();
-                            String fecha= calendar.get(Calendar.DAY_OF_MONTH)+"/"+calendar.get(Calendar.MONTH)+1+"/"+calendar.get(Calendar.YEAR);
 
 
-                            if(calendar1.getTime().after(calendar.getTime()))
-                            {
-                                EntidadChofer entidadChofer = new EntidadChofer();
-                                entidadChofer.setId(id);
-                                entidadChofer.setIdChofer(idChofer);
-                                entidadChofer.setNombre(nombreChofer);
-                                entidadChofer.setImagen(imagenChofer);
-                                entidadChofer.setImagen_Coche(imagenCoche);
-                                entidadChofer.setFecha("Fecha: " + fecha);
+                        });
 
-                                entidadChofer.setHora("Hora: " + hora);
-                                if (!comentario.equals("")) {
-                                    entidadChofer.setComentario("Comentario:\n" + comentario);
-                                } else {
-                                    entidadChofer.setComentario("Ningún comentario disponible");
-                                }
-                                entidadChofer.setEspacio("Hay " + espacios + " espacios disponibles");
-                                entidadChofer.setTiempoEspera("Tiempo de espera en el lugar es de: " + tiempoEspera + " min");
-
-                                entidadChoferList.add(entidadChofer);
-                            }
-                        }
-
-
+                        Log.d("err", task+"120");
                     }
-                    else {
-
-                    }
-                    if(!entidadChoferList.isEmpty())
-                    {
-                        choferes.getDatos(entidadChoferList);
-                    }
-                    alertDialog.cancel();
 
                 });
     }
@@ -206,8 +152,17 @@ public class FirestoreConection
 
                 }
             }
+            new Handler().postDelayed(() ->
+            {
+                try
+                {
+                    choferes.getUpdateData(entidadChoferListAdd,entidadChoferListMod,entidadChoferListDel, opcion[0]);
+                }
+                catch (Exception ex){
+                    ///
+                }
+            },1000);
 
-            choferes.getUpdateData(entidadChoferListAdd,entidadChoferListMod,entidadChoferListDel, opcion[0]);
             });
 
 

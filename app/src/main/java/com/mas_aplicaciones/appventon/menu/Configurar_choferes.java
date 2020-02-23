@@ -20,12 +20,18 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
+import com.mas_aplicaciones.appventon.compresion.FilesUtils;
 import com.mas_aplicaciones.appventon.firebase.EvaluacionDeViews;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
 import com.mas_aplicaciones.appventon.storagefirebase.StorageFirebase;
+
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Objects;
+
+import id.zelory.compressor.Compressor;
 
 
 /**
@@ -42,6 +48,7 @@ public class Configurar_choferes extends Fragment
     private final static int GALLERY_INTENT2 = 3;
     private ImageView imageView_carro,imageView_persona;
     private StorageFirebase storageFirebase = new StorageFirebase();
+    private File imagen=null;
 
 
     @Override
@@ -182,19 +189,26 @@ public class Configurar_choferes extends Fragment
                 try
                 {
                     Uri uri = data.getData();
-                    storageFirebase.EliminarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(), FirebaseConexionFirestore.PERSONA,getView());
-                    assert null!=uri;
+                    imagen = FilesUtils.from(getContext(),uri);
+                    imagen = new Compressor(getContext()).compressToFile(imagen);
+                    Glide.with(Objects.requireNonNull(getView()).getContext())
+                            .load(imagen.getAbsolutePath())
+                            .fitCenter()
+                            .centerCrop()
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(imageView_persona);
+                    /*assert null!=uri;
                     InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri);
                     assert inputStream != null;
                     if((Double.parseDouble(String.valueOf(inputStream.available()))/1024)<200.1)
-                    {
-                        storageFirebase.agregarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(),uri, FirebaseConexionFirestore.PERSONA, Objects.requireNonNull(getView()),1);
-
-                    }
+                    {*/
+                    storageFirebase.agregarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(),Uri.fromFile(imagen), FirebaseConexionFirestore.PERSONA, Objects.requireNonNull(getView()),1);
+                    storageFirebase.EliminarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(), FirebaseConexionFirestore.PERSONA,getView());
+                   /* }
                     else
                     {
                         Toast.makeText(getActivity(), "La imagen debe que ser menor de 200.1 kb",Toast.LENGTH_LONG).show();
-                    }
+                    }*/
                 }
                 catch (IOException | NullPointerException e)
                 {
@@ -206,18 +220,26 @@ public class Configurar_choferes extends Fragment
                 try
                 {
                     Uri uri = data.getData();
-                    storageFirebase.EliminarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(), "Coches",getView());
-                    assert null!=uri;
+                    imagen = FilesUtils.from(getContext(),uri);
+                    imagen= new Compressor(getContext()).compressToFile(imagen);
+                    Glide.with(Objects.requireNonNull(getView()).getContext())
+                            .load(imagen.getAbsolutePath())
+                            .fitCenter()
+                            .centerCrop()
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(imageView_carro);
+                    /*assert null!=uri;
                     InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri);
                     assert inputStream != null;
                     if((Double.parseDouble(String.valueOf(inputStream.available()))/1024)<200.1)
-                    {
-                        storageFirebase.agregarFotoCoche(FirebaseConexionFirestore.getValue("NumeroControl").toString(),uri, Objects.requireNonNull(getView()),1);
-                    }
+                    {*/
+                    storageFirebase.EliminarFoto(FirebaseConexionFirestore.getValue("NumeroControl").toString(), "Coches",getView());
+                    storageFirebase.agregarFotoCoche(FirebaseConexionFirestore.getValue("NumeroControl").toString(),Uri.fromFile(imagen), Objects.requireNonNull(getView()),1);
+                    /*}
                     else
                     {
                         Toast.makeText(getActivity(), "La imagen debe que ser menor de 200.1 kb",Toast.LENGTH_LONG).show();
-                    }
+                    }*/
                 }
                 catch (IOException | NullPointerException e)
                 {

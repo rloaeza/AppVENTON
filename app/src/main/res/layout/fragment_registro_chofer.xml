@@ -257,6 +257,8 @@
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
                     app:cardCornerRadius="5dp"
                     app:cardElevation="5dp"
                     app:cardBackgroundColor="@color/colorBackBotones2"

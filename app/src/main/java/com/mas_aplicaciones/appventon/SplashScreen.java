@@ -33,22 +33,18 @@ public class SplashScreen extends Fragment {
 
 
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run()
-            {
-                try {
+        new Handler().postDelayed(() -> {
+            try {
 
-                    textView_title.setVisibility(View.VISIBLE);
-                    sound.start();
-                    Navigation.findNavController(Objects.requireNonNull(getView())).navigate(R.id.action_splashScreen_to_inicioSesion);// metodo para pasar al siguiente fragment  sin validar
-                }
-                catch (Exception ex){
-                    ///Toast.makeText(getContext(), "Error al cargar vista principal.", Toast.LENGTH_SHORT).show();
-                }
-
-
+                textView_title.setVisibility(View.VISIBLE);
+                sound.start();
+                Navigation.findNavController(Objects.requireNonNull(getView())).navigate(R.id.action_splashScreen_to_inicioSesion);// metodo para pasar al siguiente fragment  sin validar
             }
+            catch (Exception ex){
+                ///Toast.makeText(getContext(), "Error al cargar vista principal.", Toast.LENGTH_SHORT).show();
+            }
+
+
         },2000);
     }
 

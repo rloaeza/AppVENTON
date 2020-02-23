@@ -40,6 +40,7 @@ import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 import com.mas_aplicaciones.appventon.MainActivity;
 import com.mas_aplicaciones.appventon.R;
 import com.mas_aplicaciones.appventon.firebase.FirebaseConexionFirestore;
+import com.mas_aplicaciones.appventon.firebase.FirestoreConection;
 import com.mas_aplicaciones.appventon.staticresources.StaticResources;
 
 import java.util.HashMap;
@@ -67,6 +68,7 @@ public class PrincipalUsuario extends Fragment {
     private static final String SOURCE_ID = "SOURCE_ID";
     private static final String ICON_ID = "ICON_ID";
     private static final String LAYER_ID = "LAYER_ID";
+    private FirestoreConection firestoreConection = new FirestoreConection();
 
 
 
